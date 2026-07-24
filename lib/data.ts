@@ -1,3 +1,5 @@
+import { kahliArticle } from '@/lib/articles/kahli';
+
 export type Category = {
   id: string;
   name: string;
@@ -190,6 +192,7 @@ export const featuredCourse: Course = {
 };
 
 export const articles: Article[] = [
+  kahliArticle,
   {
     id: '1',
     title: 'پاکستان میں نوجوانوں کے لیے بہترین کیریئر آپشنز 2025',
