@@ -34,10 +34,27 @@ export type Instructor = {
   avatar: string;
 };
 
+export type CourseLessonKind = 'video' | 'text';
+
+export type LessonArticle = {
+  excerpt: string;
+  coverImage: string;
+  content: ArticleSection[];
+};
+
+export type CourseLesson = {
+  id: string;
+  kind: CourseLessonKind;
+  title: string;
+  duration: string;
+  videoUid?: string;
+  article?: LessonArticle;
+};
+
 export type CourseModule = {
   id: string;
   title: string;
-  lessons: { title: string; duration: string }[];
+  lessons: CourseLesson[];
 };
 
 export type Article = {
@@ -53,11 +70,112 @@ export type Article = {
 };
 
 export type ArticleSection = {
-  type: 'heading' | 'paragraph' | 'quote' | 'image';
+  type: 'heading' | 'paragraph' | 'quote' | 'image' | 'callout' | 'checklist';
   text?: string;
   src?: string;
   alt?: string;
+  title?: string;
+  items?: string[];
+  tone?: 'research' | 'highlight' | 'tip';
 };
+
+const courseLessonImages = [
+  'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  'https://images.pexels.com/photos/1181326/pexels-photo-1181326.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+];
+
+function createLessonArticle(moduleTitle: string, lessonTitle: string, focus: string, imageIndex: number): LessonArticle {
+  const imageUrl = courseLessonImages[imageIndex % courseLessonImages.length];
+  return {
+    excerpt: `${moduleTitle} کے اس سبق میں ${focus} کے لیے ایک سادہ اور عملی فریم ورک دیا گیا ہے۔`,
+    coverImage: imageUrl,
+    content: [
+      { type: 'heading', text: 'اس سبق کا خلاصہ' },
+      {
+        type: 'paragraph',
+        text: `${lessonTitle} میں ہم ${focus} کو عملی مثالوں کے ساتھ دیکھتے ہیں تاکہ طلبہ اسے فوراً اپنے کورس یا کیریئر پلان میں استعمال کر سکیں۔`,
+      },
+      {
+        type: 'quote',
+        text: 'پہلے سمجھیں، پھر دیکھیں، پھر خود آزما کر دیکھیں۔',
+      },
+      {
+        type: 'image',
+        src: imageUrl,
+        alt: `${moduleTitle} — ${lessonTitle}`,
+      },
+      { type: 'heading', text: 'اہم نکات' },
+      {
+        type: 'callout',
+        title: 'فوری عملی استعمال',
+        tone: 'highlight',
+        text: `${focus} کو چھوٹے اقدامات میں تقسیم کریں: سمجھیں، نوٹ کریں، پھر ایک چھوٹا سا عمل آج ہی مکمل کریں۔`,
+      },
+      {
+        type: 'checklist',
+        title: 'اس سبق کے بعد چیک لسٹ',
+        items: [
+          `${lessonTitle} کے تین اہم نکات لکھیں`,
+          `${focus} کے لیے ایک مثال اپنے الفاظ میں بنائیں`,
+          'اگلے سبق سے پہلے 1 چھوٹا عملی قدم مکمل کریں',
+        ],
+      },
+      { type: 'heading', text: 'اگلا قدم' },
+      {
+        type: 'paragraph',
+        text: 'یہ ایک placeholder text lesson ہے۔ بعد میں آپ یہاں اصل آڈیو، اسکرین شاٹس، نوٹس، یا مکمل مضمون replace کر سکتے ہیں۔',
+      },
+    ],
+  };
+}
+
+function createVideoLesson(
+  moduleId: string,
+  index: number,
+  title: string,
+  duration: string,
+  videoUid: string,
+): CourseLesson {
+  return {
+    id: `${moduleId}-v${index}`,
+    kind: 'video',
+    title,
+    duration,
+    videoUid,
+  };
+}
+
+function createTextLesson(
+  moduleId: string,
+  index: number,
+  moduleTitle: string,
+  lessonTitle: string,
+  focus: string,
+  imageIndex: number,
+): CourseLesson {
+  return {
+    id: `${moduleId}-t${index}`,
+    kind: 'text',
+    title: `${lessonTitle} — نوٹس`,
+    duration: '8 منٹ پڑھائی',
+    article: createLessonArticle(moduleTitle, lessonTitle, focus, imageIndex),
+  };
+}
+
+function createModuleLessons(
+  moduleId: string,
+  moduleTitle: string,
+  videos: Array<{ title: string; duration: string; focus: string; videoUid: string }>,
+): CourseLesson[] {
+  return videos.flatMap((video, index) => [
+    createVideoLesson(moduleId, index + 1, video.title, video.duration, video.videoUid),
+    createTextLesson(moduleId, index + 1, moduleTitle, video.title, video.focus, index),
+  ]);
+}
 
 export type Testimonial = {
   id: string;
@@ -99,15 +217,15 @@ export const categories: Category[] = [
 ];
 
 export const featuredCourse: Course = {
-  id: 'youth-career-guidance',
+  id: 'career-guidance-for-pakistani-youth',
   title: 'نوجوانوں کے لیے کیریئر رہنمائی کورس: مستقبل کی کامیابی',
   subtitle: 'اپنے کیریئر کی سمت میں واضح رہنمائی حاصل کریں',
   description:
     'یہ کورس پاکستان کے نوجوانوں کے لیے بنایا گیا ہے جو اپنے مستقبل کے بارے میں سنجیدہ ہیں۔ آپ سیکھیں گے کہ کیسے اپنی صلاحیتوں کو پہچانیں، صحیح کیریئر کا انتخاب کریں، نوکوری تلاش کریں، اور کاروبار شروع کریں۔ مکمل رہنمائی اردو میں۔',
   coverImage:
     'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-  duration: '8 ہفتے',
-  lessons: 24,
+  duration: '12 ہفتے',
+  lessons: 42,
   level: 'ابتدائی سے متوسط',
   language: 'اردو',
   rating: 4.8,
@@ -135,58 +253,59 @@ export const featuredCourse: Course = {
     {
       id: 'm1',
       title: 'بنیادیں: خود کو پہچانیں',
-      lessons: [
-        { title: 'تعارف: کیریئر رہنمائی کی اہمیت', duration: '12 منٹ' },
-        { title: 'اپنی صلاحیتوں کی شناخت', duration: '18 منٹ' },
-        { title: 'دلچسپی اور مہارت کا توازن', duration: '15 منٹ' },
-      ],
+      lessons: createModuleLessons('m1', 'بنیادیں: خود کو پہچانیں', [
+        { title: 'تعارف: کیریئر رہنمائی کی اہمیت', duration: '12 منٹ', focus: 'کیریئر رہنمائی کا بنیادی مقصد', videoUid: '05364cb45c1b5ac9bc091c709da5e527' },
+        { title: 'اپنی صلاحیتوں کی شناخت', duration: '18 منٹ', focus: 'strengths اور interests map کرنے کا طریقہ', videoUid: 'placeholder-m1-v2' },
+        { title: 'دلچسپی اور مہارت کا توازن', duration: '15 منٹ', focus: 'interest-skill fit', videoUid: 'placeholder-m1-v3' },
+        { title: 'روٹین اور وقت کی منصوبہ بندی', duration: '14 منٹ', focus: 'daily planning system', videoUid: 'placeholder-m1-v4' },
+      ]),
     },
     {
       id: 'm2',
       title: 'کیریئر کا انتخاب',
-      lessons: [
-        { title: 'مختلف کیریئر کے راستے', duration: '20 منٹ' },
-        { title: 'پاکستان میں ابھرتے ہوئے شعبے', duration: '25 منٹ' },
-        { title: 'صحیح فیصلہ کیسے کریں', duration: '18 منٹ' },
-      ],
+      lessons: createModuleLessons('m2', 'کیریئر کا انتخاب', [
+        { title: 'مختلف کیریئر کے راستے', duration: '20 منٹ', focus: 'career tracks overview', videoUid: 'fb6e5f113a4ad665c7130baaf685a3e9' },
+        { title: 'پاکستان میں ابھرتے ہوئے شعبے', duration: '25 منٹ', focus: 'emerging sectors in Pakistan', videoUid: 'placeholder-m2-v2' },
+        { title: 'صحیح فیصلہ کیسے کریں', duration: '18 منٹ', focus: 'decision-making framework', videoUid: 'placeholder-m2-v3' },
+      ]),
     },
     {
       id: 'm3',
       title: 'نوکوری تلاش اور درخواست',
-      lessons: [
-        { title: 'سی وی بنانے کا فن', duration: '22 منٹ' },
-        { title: 'کور لیٹر لکھنا', duration: '16 منٹ' },
-        { title: 'آن لائن جاب پورٹلز کا استعمال', duration: '14 منٹ' },
-        { title: 'نوکوری کی تلاش کی حکمت عملی', duration: '20 منٹ' },
-      ],
+      lessons: createModuleLessons('m3', 'نوکوری تلاش اور درخواست', [
+        { title: 'سی وی بنانے کا فن', duration: '22 منٹ', focus: 'CV structure and clarity', videoUid: 'placeholder-m3-v1' },
+        { title: 'کور لیٹر لکھنا', duration: '16 منٹ', focus: 'cover letter personalization', videoUid: 'placeholder-m3-v2' },
+        { title: 'آن لائن جاب پورٹلز کا استعمال', duration: '14 منٹ', focus: 'job portals and applications', videoUid: 'placeholder-m3-v3' },
+        { title: 'نوکوری کی تلاش کی حکمت عملی', duration: '20 منٹ', focus: 'job search system', videoUid: 'placeholder-m3-v4' },
+      ]),
     },
     {
       id: 'm4',
-    title: 'انٹرویو کی تیاری',
-      lessons: [
-        { title: 'انٹرویو سے پہلے کی تیاری', duration: '18 منٹ' },
-        { title: 'عام سوالات اور جوابات', duration: '25 منٹ' },
-        { title: 'پریزنٹیشن اور باڈی لینگویج', duration: '16 منٹ' },
-      ],
+      title: 'انٹرویو کی تیاری',
+      lessons: createModuleLessons('m4', 'انٹرویو کی تیاری', [
+        { title: 'انٹرویو سے پہلے کی تیاری', duration: '18 منٹ', focus: 'pre-interview checklist', videoUid: 'placeholder-m4-v1' },
+        { title: 'عام سوالات اور جوابات', duration: '25 منٹ', focus: 'question and answer practice', videoUid: 'placeholder-m4-v2' },
+        { title: 'پریزنٹیشن اور باڈی لینگویج', duration: '16 منٹ', focus: 'presentation and body language', videoUid: 'placeholder-m4-v3' },
+      ]),
     },
     {
       id: 'm5',
       title: 'کاروبار شروع کرنا',
-      lessons: [
-        { title: 'کاروباری ذہن کی تعمیر', duration: '20 منٹ' },
-        { title: 'بزنس آئیڈیا کی پہچان', duration: '18 منٹ' },
-        { title: 'بجٹ اور منصوبہ بندی', duration: '22 منٹ' },
-        { title: 'مارکیٹنگ کی بنیادیں', duration: '16 منٹ' },
-      ],
+      lessons: createModuleLessons('m5', 'کاروبار شروع کرنا', [
+        { title: 'کاروباری ذہن کی تعمیر', duration: '20 منٹ', focus: 'business mindset', videoUid: 'placeholder-m5-v1' },
+        { title: 'بزنس آئیڈیا کی پہچان', duration: '18 منٹ', focus: 'finding a business idea', videoUid: 'placeholder-m5-v2' },
+        { title: 'بجٹ اور منصوبہ بندی', duration: '22 منٹ', focus: 'budgeting and planning', videoUid: 'placeholder-m5-v3' },
+        { title: 'مارکیٹنگ کی بنیادیں', duration: '16 منٹ', focus: 'basic marketing system', videoUid: 'placeholder-m5-v4' },
+      ]),
     },
     {
       id: 'm6',
       title: 'ذاتی ترقی اور نیٹ ورکنگ',
-      lessons: [
-        { title: 'ذاتی برانڈ کی تعمیر', duration: '18 منٹ' },
-        { title: 'نیٹ ورکنگ کی اہمیت', duration: '15 منٹ' },
-        { title: 'مسلسل سیکھنے کی عادت', duration: '20 منٹ' },
-      ],
+      lessons: createModuleLessons('m6', 'ذاتی ترقی اور نیٹ ورکنگ', [
+        { title: 'ذاتی برانڈ کی تعمیر', duration: '18 منٹ', focus: 'personal branding', videoUid: 'placeholder-m6-v1' },
+        { title: 'نیٹ ورکنگ کی اہمیت', duration: '15 منٹ', focus: 'professional networking', videoUid: 'placeholder-m6-v2' },
+        { title: 'مسلسل سیکھنے کی عادت', duration: '20 منٹ', focus: 'lifelong learning habits', videoUid: 'placeholder-m6-v3' },
+      ]),
     },
   ],
 };

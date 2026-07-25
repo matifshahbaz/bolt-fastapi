@@ -4,12 +4,28 @@ import { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { submitContactForm } from '@/lib/api';
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [feedback, setFeedback] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    setStatus('submitting');
+    setFeedback('');
+
+    try {
+      const response = await submitContactForm(form);
+      setStatus('success');
+      setFeedback(response.message);
+      setForm({ name: '', email: '', message: '' });
+    } catch {
+      setStatus('error');
+      setFeedback('پیغام بھیجنے میں مسئلہ پیش آیا۔ براہ کرم دوبارہ کوشش کریں۔');
+    }
   };
 
   return (
@@ -106,6 +122,7 @@ export default function ContactPage() {
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="اپنا نام درج کریں"
+                    required
                     className="w-full rounded-xl border-2 border-border bg-white px-4 py-3 text-lg text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors"
                   />
                 </div>
@@ -118,6 +135,7 @@ export default function ContactPage() {
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="اپنا ای میل درج کریں"
+                    required
                     className="w-full rounded-xl border-2 border-border bg-white px-4 py-3 text-lg text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors"
                   />
                 </div>
@@ -130,13 +148,23 @@ export default function ContactPage() {
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     placeholder="اپنا پیغام لکھیں"
                     rows={5}
+                    required
                     className="w-full rounded-xl border-2 border-border bg-white px-4 py-3 text-lg text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors resize-none"
                   />
                 </div>
-                <Button type="submit" size="lg" className="w-full text-lg">
+                <Button type="submit" size="lg" className="w-full text-lg" disabled={status === 'submitting'}>
                   <Send className="ml-2 h-5 w-5" />
-                  پیغام بھیجیں
+                  {status === 'submitting' ? 'پیغام بھیجا جا رہا ہے...' : 'پیغام بھیجیں'}
                 </Button>
+                {feedback ? (
+                  <p
+                    className={`text-center text-base ${
+                      status === 'success' ? 'text-green-700' : 'text-red-600'
+                    }`}
+                  >
+                    {feedback}
+                  </p>
+                ) : null}
               </form>
             </div>
           </div>

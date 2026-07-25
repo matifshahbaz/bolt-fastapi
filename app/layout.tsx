@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { AuthProvider } from '@/components/site/auth-provider';
 import { Navbar } from '@/components/site/navbar';
 import { Footer } from '@/components/site/footer';
 
@@ -28,9 +29,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
       </head>
       <body className="font-nastaliq antialiased min-h-screen flex flex-col bg-background">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

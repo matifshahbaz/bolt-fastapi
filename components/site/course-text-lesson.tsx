@@ -1,0 +1,140 @@
+'use client';
+
+import Image from 'next/image';
+import { CheckCircle2, FlaskConical, Lightbulb } from 'lucide-react';
+import type { CourseLesson, ArticleSection } from '@/lib/data';
+import { Button } from '@/components/ui/button';
+
+type CourseTextLessonProps = {
+  lesson: CourseLesson;
+  completed: boolean;
+  isLoading: boolean;
+  onMarkComplete: () => void;
+};
+
+export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete }: CourseTextLessonProps) {
+  const article = lesson.article;
+
+  if (!article) {
+    return null;
+  }
+
+  return (
+    <div className="bg-slate-100 py-8">
+      <div className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white px-5 py-8 shadow-[0_24px_70px_-45px_rgba(15,23,42,0.55)] sm:px-8 lg:px-12">
+        <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-foreground/70">
+          <span className="rounded-full bg-primary/10 px-3 py-1 text-primary">متن سبق</span>
+          <span>{lesson.duration}</span>
+          <span>{completed ? 'مکمل' : 'ان پڑھا'}</span>
+        </div>
+
+        <h3 className="mb-4 text-3xl font-nastaliq leading-[1.6] text-[#2F5496] md:text-4xl">
+          {lesson.title}
+        </h3>
+        <p className="mb-8 text-lg leading-relaxed text-black">{article.excerpt}</p>
+
+        <div className="mb-8 overflow-hidden rounded-3xl border bg-card shadow-lg">
+          <div className="relative aspect-video">
+            <Image src={article.coverImage} alt={lesson.title} fill className="object-cover" />
+          </div>
+        </div>
+
+        <LessonArticleBody sections={article.content} />
+
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t pt-6">
+          <p className="text-sm text-muted-foreground">
+            یہ مواد صرف enrolled students کے لیے ہے اور بعد میں اصل article میں replace کیا جا سکتا ہے۔
+          </p>
+          <Button onClick={onMarkComplete} disabled={isLoading || completed}>
+            <CheckCircle2 className="mr-2 h-4 w-4" />
+            {completed ? 'سبق مکمل ہو چکا ہے' : 'سبق مکمل کریں'}
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LessonArticleBody({ sections }: { sections: ArticleSection[] }) {
+  return (
+    <div className="space-y-10">
+      {sections.map((section, index) => {
+        if (section.type === 'heading') {
+          return (
+            <h4 key={index} className="mt-10 text-2xl font-nastaliq leading-[1.7] text-[#2F5496] md:text-3xl">
+              {section.text}
+            </h4>
+          );
+        }
+        if (section.type === 'paragraph') {
+          return (
+            <p key={index} className="text-right text-2xl leading-[2.15] text-black">
+              {section.text}
+            </p>
+          );
+        }
+        if (section.type === 'quote') {
+          return (
+            <blockquote key={index} className="border-r-4 border-primary pr-8 py-6 my-8 bg-primary/5 rounded-l-2xl shadow-sm">
+              <p className="text-2xl text-black font-nastaliq leading-[2]">{section.text}</p>
+            </blockquote>
+          );
+        }
+        if (section.type === 'callout') {
+          const tone = section.tone ?? 'highlight';
+          const Icon = tone === 'research' ? FlaskConical : Lightbulb;
+          const toneClasses = tone === 'research'
+            ? 'border-emerald-200 bg-emerald-50/80 text-emerald-900'
+            : tone === 'tip'
+              ? 'border-orange-200 bg-orange-50/80 text-orange-900'
+              : 'border-primary/20 bg-primary/5 text-foreground';
+          return (
+            <div key={index} className={`rounded-3xl border px-8 py-7 shadow-sm ${toneClasses}`}>
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/80">
+                  <Icon className="h-6 w-6" />
+                </div>
+                {section.title ? (
+                  <h5 className="text-2xl font-nastaliq leading-relaxed text-black">{section.title}</h5>
+                ) : null}
+              </div>
+              {section.text ? <p className="text-2xl leading-[2.05] text-black">{section.text}</p> : null}
+            </div>
+          );
+        }
+        if (section.type === 'checklist') {
+          return (
+            <div key={index} className="rounded-3xl border border-primary/15 bg-white p-8 shadow-sm">
+              {section.title ? (
+                <h5 className="mb-5 text-3xl font-nastaliq leading-relaxed text-black">{section.title}</h5>
+              ) : null}
+              <div className="space-y-4">
+                {(section.items ?? []).map((item, itemIndex) => (
+                  <div key={itemIndex} className="flex items-start gap-4 rounded-2xl bg-secondary/40 px-5 py-4">
+                    <CheckCircle2 className="mt-1 h-7 w-7 shrink-0 text-primary" />
+                    <p className="text-2xl leading-[1.95] text-black">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        }
+        if (section.type === 'image') {
+          return (
+            <div key={index} className="my-10 overflow-hidden rounded-3xl border bg-card shadow-lg">
+              <div className="relative aspect-[16/9]">
+                <Image src={section.src ?? ''} alt={section.alt ?? ''} fill className="object-cover" />
+              </div>
+              {section.alt ? (
+                <div className="border-t bg-white px-6 py-4">
+                  <p className="text-xl leading-relaxed text-black/85">{section.alt}</p>
+                </div>
+              ) : null}
+            </div>
+          );
+        }
+        return null;
+      })}
+    </div>
+  );
+}

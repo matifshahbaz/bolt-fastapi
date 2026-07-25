@@ -2,19 +2,29 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Menu, X, Search, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+import { useAuth } from '@/components/site/auth-provider';
 import { navLinks } from '@/lib/data';
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const router = useRouter();
+  const { user, isLoading, isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+    router.refresh();
+  };
 
   return (
     <header
@@ -54,12 +64,23 @@ export function Navbar() {
             <Button variant="ghost" size="icon" aria-label="تلاش کریں">
               <Search className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" className="text-lg">
-              لاگ اِن
-            </Button>
-            <Button className="text-lg bg-accent hover:bg-accent/90 text-accent-foreground">
-              سائن اپ
-            </Button>
+            {isLoading ? null : isAuthenticated && user ? (
+              <>
+                <Link href="/dashboard">
+                  <Button variant="ghost" className="text-lg">میرا ڈیش بورڈ</Button>
+                </Link>
+                <Button variant="outline" className="text-lg" onClick={handleLogout}>لاگ آؤٹ</Button>
+              </>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="ghost" className="text-lg">لاگ اِن</Button>
+                </Link>
+                <Link href="/signup">
+                  <Button className="text-lg bg-accent hover:bg-accent/90 text-accent-foreground">سائن اپ</Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Nav */}
@@ -100,12 +121,29 @@ export function Navbar() {
                     ))}
                   </nav>
                   <div className="mt-auto flex flex-col gap-3 pt-6 border-t">
-                    <Button variant="outline" className="text-lg w-full">
-                      لاگ اِن
-                    </Button>
-                    <Button className="text-lg w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-                      سائن اپ
-                    </Button>
+                    {isLoading ? null : isAuthenticated ? (
+                      <>
+                        <SheetClose asChild>
+                          <Link href="/dashboard">
+                            <Button variant="outline" className="text-lg w-full">میرا ڈیش بورڈ</Button>
+                          </Link>
+                        </SheetClose>
+                        <Button className="text-lg w-full" variant="ghost" onClick={handleLogout}>لاگ آؤٹ</Button>
+                      </>
+                    ) : (
+                      <>
+                        <SheetClose asChild>
+                          <Link href="/login">
+                            <Button variant="outline" className="text-lg w-full">لاگ اِن</Button>
+                          </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Link href="/signup">
+                            <Button className="text-lg w-full bg-accent hover:bg-accent/90 text-accent-foreground">سائن اپ</Button>
+                          </Link>
+                        </SheetClose>
+                      </>
+                    )}
                   </div>
                 </div>
               </SheetContent>

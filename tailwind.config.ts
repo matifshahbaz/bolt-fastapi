@@ -8,6 +8,18 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    fontSize: {
+      xs: ['0.975rem', { lineHeight: '1.43rem' }],
+      sm: ['1.138rem', { lineHeight: '1.56rem' }],
+      base: ['1.3rem', { lineHeight: '1.82rem' }],
+      lg: ['1.463rem', { lineHeight: '2.015rem' }],
+      xl: ['1.625rem', { lineHeight: '2.178rem' }],
+      '2xl': ['1.95rem', { lineHeight: '2.535rem' }],
+      '3xl': ['2.275rem', { lineHeight: '2.86rem' }],
+      '4xl': ['2.6rem', { lineHeight: '3.185rem' }],
+      '5xl': ['3.088rem', { lineHeight: '3.705rem' }],
+      '6xl': ['3.575rem', { lineHeight: '4.16rem' }],
+    },
     extend: {
       fontFamily: {
         nastaliq: ['Jameel Noori Nastaliq', 'serif'],
