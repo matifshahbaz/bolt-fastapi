@@ -31,10 +31,10 @@ class Settings(BaseSettings):
     cloudflare_stream_lesson_video_map_raw: str = (
         '{"career-guidance-for-pakistani-youth": {'
         '"m1:0": "05364cb45c1b5ac9bc091c709da5e527",'
-        '"m1:2": "fb6e5f113a4ad665c7130baaf685a3e9",'
+        '"m1:2": "placeholder-m1-v2",'
         '"m1:4": "placeholder-m1-v3",'
         '"m1:6": "placeholder-m1-v4",'
-        '"m2:0": "placeholder-m2-v1",'
+        '"m2:0": "fb6e5f113a4ad665c7130baaf685a3e9",'
         '"m2:2": "placeholder-m2-v2",'
         '"m2:4": "placeholder-m2-v3",'
         '"m3:0": "placeholder-m3-v1",'

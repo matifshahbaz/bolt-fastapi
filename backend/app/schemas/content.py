@@ -62,8 +62,10 @@ class ArticleSection(BaseModel):
     src: str | None = None
     alt: str | None = None
     title: str | None = None
+    subtitle: str | None = None
     items: list[str] | None = None
     tone: str | None = None
+    footer: str | None = None
 
 
 class ArticleSummary(BaseModel):

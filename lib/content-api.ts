@@ -72,8 +72,10 @@ type ApiArticleSection = {
   src?: string;
   alt?: string;
   title?: string;
+  subtitle?: string;
   items?: string[];
   tone?: 'research' | 'highlight' | 'tip';
+  footer?: string;
 };
 
 type ApiArticle = {
