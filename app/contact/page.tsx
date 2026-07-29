@@ -61,7 +61,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-lg text-foreground">ای میل</p>
-                    <p className="text-base text-muted-foreground">info@sham.pk</p>
+                    <p className="text-base text-muted-foreground" dir="ltr">contact@shama.pk</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -70,7 +70,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-lg text-foreground">فون</p>
-                    <p className="text-base text-muted-foreground">+92 300 1234567</p>
+                    <p className="text-base text-muted-foreground" dir="ltr">03216630988</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -79,7 +79,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-lg text-foreground">پتہ</p>
-                    <p className="text-base text-muted-foreground">لاہور، پاکستان</p>
+                    <p className="text-base text-muted-foreground" dir="ltr">House 784, R-block, Model town, Lahore</p>
                   </div>
                 </div>
               </div>

@@ -151,6 +151,12 @@ export function purchaseCourse(token: string, courseId: string) {
   }, token);
 }
 
+export function refundCourse(token: string, courseId: string) {
+  return lmsRequest<Enrollment>(`/api/v1/lms/courses/${courseId}/refund`, {
+    method: 'POST',
+  }, token);
+}
+
 export function getCourseProgress(token: string, courseId: string) {
   return lmsRequest<CourseProgress>(`/api/v1/lms/courses/${courseId}/progress`, undefined, token);
 }

@@ -65,6 +65,42 @@ class LmsRepository:
             if enrollment is not None:
                 enrollment.last_accessed_at = datetime.now(timezone.utc)
 
+    def mark_enrollment_refunded(self, user_id: int, course_id: str) -> Enrollment | None:
+        now = datetime.now(timezone.utc)
+        with get_db_session() as session:
+            enrollment = session.scalar(
+                select(EnrollmentModel).where(
+                    EnrollmentModel.user_id == user_id,
+                    EnrollmentModel.course_id == course_id,
+                )
+            )
+            if enrollment is None:
+                return None
+
+            enrollment.status = "refunded"
+            enrollment.last_accessed_at = now
+            session.flush()
+            session.refresh(enrollment)
+            return self._to_enrollment(enrollment)
+
+    def mark_enrollment_expired(self, user_id: int, course_id: str) -> Enrollment | None:
+        now = datetime.now(timezone.utc)
+        with get_db_session() as session:
+            enrollment = session.scalar(
+                select(EnrollmentModel).where(
+                    EnrollmentModel.user_id == user_id,
+                    EnrollmentModel.course_id == course_id,
+                )
+            )
+            if enrollment is None:
+                return None
+
+            enrollment.status = "expired"
+            enrollment.last_accessed_at = now
+            session.flush()
+            session.refresh(enrollment)
+            return self._to_enrollment(enrollment)
+
     def list_progress(self, user_id: int, course_id: str) -> list[LessonProgressItem]:
         with get_db_session() as session:
             rows = session.scalars(

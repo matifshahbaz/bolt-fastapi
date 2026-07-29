@@ -25,6 +25,14 @@ def purchase_course(
     return lms_service.purchase_course(current_user, course_id)
 
 
+@router.post("/courses/{course_id}/refund", response_model=Enrollment)
+def refund_course(
+    course_id: str,
+    current_user: UserProfile = CurrentUser,
+) -> Enrollment:
+    return lms_service.refund_course(current_user, course_id)
+
+
 @router.get("/courses/{course_id}/progress", response_model=CourseProgress)
 def get_course_progress(course_id: str, current_user: UserProfile = CurrentUser) -> CourseProgress:
     return lms_service.get_course_progress(current_user, course_id)

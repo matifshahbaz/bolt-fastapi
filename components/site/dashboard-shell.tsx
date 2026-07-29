@@ -9,14 +9,23 @@ import { useAuth } from '@/components/site/auth-provider';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { getDashboard, type DashboardResponse } from '@/lib/lms-api';
+import { getDashboard, refundCourse, type DashboardResponse } from '@/lib/lms-api';
+
+const REFUND_WINDOW_DAYS = 7;
 
 export function DashboardShell() {
   const router = useRouter();
   const { token, isLoading, isAuthenticated, user } = useAuth();
   const [dashboard, setDashboard] = useState<DashboardResponse | null>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
+  const [refundingCourseId, setRefundingCourseId] = useState<string | null>(null);
   const [error, setError] = useState('');
+
+  const loadDashboard = async (authToken: string) => {
+    const payload = await getDashboard(authToken);
+    setDashboard(payload);
+    setStatus('idle');
+  };
 
   useEffect(() => {
     if (isLoading) {
@@ -28,16 +37,39 @@ export function DashboardShell() {
     }
 
     setStatus('loading');
-    getDashboard(token)
-      .then((payload) => {
-        setDashboard(payload);
-        setStatus('idle');
-      })
+    loadDashboard(token)
+      .then(() => {})
       .catch((loadError) => {
         setError(loadError instanceof Error ? loadError.message : 'ڈیش بورڈ لوڈ نہیں ہو سکا۔');
         setStatus('error');
       });
   }, [isAuthenticated, isLoading, router, token]);
+
+  const handleRefund = async (courseId: string) => {
+    if (!token) {
+      return;
+    }
+    setError('');
+    setRefundingCourseId(courseId);
+    try {
+      await refundCourse(token, courseId);
+      await loadDashboard(token);
+    } catch (refundError) {
+      setError(refundError instanceof Error ? refundError.message : 'ریفنڈ پراسیس نہیں ہو سکا۔');
+    } finally {
+      setRefundingCourseId(null);
+    }
+  };
+
+  const getRefundMeta = (enrolledAt: string, enrollmentStatus: string) => {
+    const enrolled = new Date(enrolledAt);
+    const now = new Date();
+    const elapsedMs = now.getTime() - enrolled.getTime();
+    const elapsedDays = Math.floor(elapsedMs / (1000 * 60 * 60 * 24));
+    const daysLeft = Math.max(0, REFUND_WINDOW_DAYS - elapsedDays);
+    const refundable = enrollmentStatus === 'active' && elapsedDays <= REFUND_WINDOW_DAYS;
+    return { refundable, daysLeft };
+  };
 
   if (isLoading || status === 'loading') {
     return <p className="text-center text-lg text-muted-foreground">ڈیش بورڈ لوڈ ہو رہا ہے...</p>;
@@ -83,7 +115,13 @@ export function DashboardShell() {
                       <GraduationCap className="h-4 w-4" />
                       حیثیت
                     </div>
-                    <p className="text-lg text-foreground">فعال داخلہ</p>
+                    <p className="text-lg text-foreground">
+                      {course.enrollment.status === 'active'
+                        ? 'فعال داخلہ'
+                        : course.enrollment.status === 'expired'
+                          ? 'مدت ختم'
+                          : 'ریفنڈ شدہ'}
+                    </p>
                   </div>
                   <div className="rounded-2xl bg-secondary/50 p-4">
                     <div className="mb-2 flex items-center gap-2 text-muted-foreground">
@@ -115,9 +153,46 @@ export function DashboardShell() {
                   <Progress value={course.progress.percent_complete} />
                 </div>
 
-                <Link href="/course">
-                  <Button className="text-lg">کورس جاری رکھیں</Button>
-                </Link>
+                {(() => {
+                  const { refundable, daysLeft } = getRefundMeta(course.enrollment.enrolled_at, course.enrollment.status);
+                  return (
+                    <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4">
+                      <p className="text-base text-foreground">
+                        ریفنڈ پالیسی: خریداری کے 7 دن کے اندر بغیر کسی سوال کے مکمل ریفنڈ دستیاب ہے۔
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {course.enrollment.status === 'refunded'
+                          ? 'اس کورس کا ریفنڈ مکمل ہو چکا ہے۔'
+                          : course.enrollment.status === 'expired'
+                            ? 'اس کورس کی ایک ماہ کی رسائی مدت مکمل ہو چکی ہے۔'
+                          : refundable
+                            ? `ریفنڈ کے لیے باقی دن: ${daysLeft}`
+                            : 'اس کورس کے لیے 7 دن کی ریفنڈ مدت مکمل ہو چکی ہے۔'}
+                      </p>
+                      <div className="mt-3">
+                        <Button
+                          variant="outline"
+                          disabled={!refundable || refundingCourseId === course.enrollment.course_id}
+                          onClick={() => handleRefund(course.enrollment.course_id)}
+                        >
+                          {refundingCourseId === course.enrollment.course_id ? 'ریفنڈ جاری ہے...' : 'ابھی ریفنڈ لیں'}
+                        </Button>
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                {course.enrollment.status === 'active' ? (
+                  <Link href="/course">
+                    <Button className="text-lg">کورس جاری رکھیں</Button>
+                  </Link>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    {course.enrollment.status === 'expired'
+                      ? 'ایک ماہ مکمل ہونے کے بعد اس کورس تک رسائی بند کر دی جاتی ہے۔'
+                      : 'ریفنڈ کے بعد اس کورس تک رسائی بند کر دی جاتی ہے۔'}
+                  </p>
+                )}
               </CardContent>
             </Card>
           ))}

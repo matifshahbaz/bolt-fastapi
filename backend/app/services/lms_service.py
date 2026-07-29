@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta, timezone
+
 from fastapi import HTTPException, status
 
 from app.core.config import settings
@@ -16,6 +18,9 @@ from app.services.cloudflare_service import cloudflare_service
 
 
 class LmsService:
+    REFUND_WINDOW_DAYS = 7
+    ACCESS_WINDOW_DAYS = 30
+
     def __init__(self, lms_repository: LmsRepository, content_repository: ContentRepository) -> None:
         self._lms_repository = lms_repository
         self._content_repository = content_repository
@@ -30,6 +35,9 @@ class LmsService:
         enrollment = self._lms_repository.get_enrollment(user.id, course_id)
         if enrollment is None:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course not purchased")
+        enrollment = self._enforce_access_window(user.id, enrollment)
+        if enrollment.status != "active":
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course access is inactive")
         course = self._content_repository.get_course_by_id(course_id)
         if course is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
@@ -59,6 +67,9 @@ class LmsService:
         enrollment = self._lms_repository.get_enrollment(user.id, course_id)
         if enrollment is None:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course not purchased")
+        enrollment = self._enforce_access_window(user.id, enrollment)
+        if enrollment.status != "active":
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course access is inactive")
         course = self._content_repository.get_course_by_id(course_id)
         if course is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
@@ -85,10 +96,11 @@ class LmsService:
         enrollments = self._lms_repository.list_enrollments(user.id)
         dashboard_courses: list[DashboardCourse] = []
         for enrollment in enrollments:
+            enrollment = self._enforce_access_window(user.id, enrollment)
             course = self._content_repository.get_course_by_id(enrollment.course_id)
             if course is None:
                 continue
-            progress = self.get_course_progress(user, enrollment.course_id)
+            progress = self._build_course_progress(user.id, enrollment.course_id, course.modules)
             dashboard_courses.append(
                 DashboardCourse(
                     enrollment=enrollment,
@@ -102,6 +114,27 @@ class LmsService:
             student_email=user.email,
             enrolled_courses=dashboard_courses,
         )
+
+    def refund_course(self, user: UserProfile, course_id: str) -> Enrollment:
+        enrollment = self._lms_repository.get_enrollment(user.id, course_id)
+        if enrollment is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Enrollment not found")
+        enrollment = self._enforce_access_window(user.id, enrollment)
+
+        if enrollment.status != "active":
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Course is already refunded")
+
+        now = datetime.now(timezone.utc)
+        if now - enrollment.enrolled_at > timedelta(days=self.REFUND_WINDOW_DAYS):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Refund window expired. Refunds are allowed within 7 days of purchase.",
+            )
+
+        refunded = self._lms_repository.mark_enrollment_refunded(user.id, course_id)
+        if refunded is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Enrollment not found")
+        return refunded
 
     def get_lesson_playback(
         self,
@@ -164,6 +197,9 @@ class LmsService:
         enrollment = self._lms_repository.get_enrollment(user.id, course_id)
         if enrollment is None:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course not purchased")
+        enrollment = self._enforce_access_window(user.id, enrollment)
+        if enrollment.status != "active":
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course access is inactive")
         course = self._content_repository.get_course_by_id(course_id)
         if course is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
@@ -175,6 +211,31 @@ class LmsService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
         lesson_title = module.lessons[lesson_index].title
         return enrollment, lesson_title
+
+    def _enforce_access_window(self, user_id: int, enrollment: Enrollment) -> Enrollment:
+        if enrollment.status != "active":
+            return enrollment
+
+        now = datetime.now(timezone.utc)
+        if now - enrollment.enrolled_at > timedelta(days=self.ACCESS_WINDOW_DAYS):
+            expired = self._lms_repository.mark_enrollment_expired(user_id, enrollment.course_id)
+            if expired is not None:
+                return expired
+        return enrollment
+
+    def _build_course_progress(self, user_id: int, course_id: str, modules: list) -> CourseProgress:
+        items = self._lms_repository.list_progress(user_id, course_id)
+        total_lessons = sum(len(module.lessons) for module in modules)
+        completed_lessons = sum(1 for item in items if item.completed)
+        percent_complete = round((completed_lessons / total_lessons) * 100, 1) if total_lessons else 0.0
+
+        return CourseProgress(
+            course_id=course_id,
+            total_lessons=total_lessons,
+            completed_lessons=completed_lessons,
+            percent_complete=percent_complete,
+            items=items,
+        )
 
 
 lms_service = LmsService(LmsRepository(), ContentRepository())

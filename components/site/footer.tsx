@@ -36,6 +36,22 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/compliance"
+                  className="text-base text-background/70 hover:text-white transition-colors"
+                >
+                  ادائیگی گیٹ وے اور کاروباری معلومات
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/refund-policy"
+                  className="text-base text-background/70 hover:text-white transition-colors"
+                >
+                  ریفنڈ پالیسی
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -87,7 +103,36 @@ export function Footer() {
               ))}
             </div>
             <p className="text-base text-background/70 mt-4">
-              sham.pk
+              shama.pk
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 gap-6 rounded-2xl border border-white/15 bg-white/5 p-6 md:grid-cols-2">
+          <div>
+            <h3 className="text-lg font-nastaliq text-white mb-3">کاروباری رابطہ معلومات</h3>
+            <ul className="space-y-2 text-sm text-background/80 leading-relaxed">
+              <li><span className="font-nastaliq">ای میل:</span> <span dir="ltr">contact@shama.pk</span></li>
+              <li><span className="font-nastaliq">رابطہ نمبر:</span> <span dir="ltr">03216630988</span></li>
+              <li><span className="font-nastaliq">کاروباری پتہ:</span> <span dir="ltr">House 784, R-block, Model town, Lahore</span></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-lg font-nastaliq text-white mb-3">ادائیگی گیٹ وے کا استعمال</h3>
+            <p className="text-sm text-background/80 leading-relaxed">
+              shama.pk پر Rapidgateway چیک آؤٹ کو کورس فیس وصول کرنے کے لیے استعمال کیا جائے گا۔ صارف بامعاوضہ کورس منتخب کرے گا،
+              ادائیگی کے بٹن پر کلک کرے گا، محفوظ گیٹ وے پر ادائیگی مکمل کرے گا، اور کامیاب ادائیگی کے بعد دوبارہ shama.pk پر واپس آئے گا
+              جہاں کورس تک رسائی فوری طور پر فعال کر دی جائے گی۔
+            </p>
+            <p className="text-sm text-background/80 mt-2">
+              تفصیلی کاروباری ماڈل، ادائیگی فلو اور ریفنڈ پالیسی:
+              <Link href="/compliance" className="ml-1 text-white underline underline-offset-4 hover:text-primary">
+                /compliance
+              </Link>
+              <span className="mx-1">|</span>
+              <Link href="/refund-policy" className="text-white underline underline-offset-4 hover:text-primary">
+                /refund-policy
+              </Link>
             </p>
           </div>
         </div>

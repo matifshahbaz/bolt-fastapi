@@ -239,6 +239,17 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
                     <Badge className="bg-accent text-accent-foreground">75% رعایت</Badge>
                   </div>
 
+                  <div className="mb-4 rounded-xl border border-amber-300/70 bg-amber-50 p-4 text-right">
+                    <p className="text-base font-semibold text-amber-900">خریداری سے پہلے اہم معلومات</p>
+                    <ul className="mt-2 list-disc space-y-1 pr-5 text-sm leading-relaxed text-amber-900">
+                      <li>یہ کورس صرف آن لائن اسٹریمنگ/پڑھائی کے لیے ہے۔</li>
+                      <li>لیکچر ویڈیوز ڈاؤن لوڈ کے لیے دستیاب نہیں ہوں گی۔</li>
+                      <li>خریداری کے بعد کورس تک رسائی صرف 30 دن (ایک ماہ) کے لیے ہوگی۔</li>
+                      <li>30 دن مکمل ہونے کے بعد رسائی خودکار طور پر بند کر دی جائے گی۔</li>
+                      <li>ریفنڈ پالیسی: خریداری کے 7 دن کے اندر بغیر سوال کے ریفنڈ دستیاب ہے۔</li>
+                    </ul>
+                  </div>
+
                   {hasPurchased && progress ? (
                     <div className="mb-4 space-y-3 rounded-2xl bg-primary/5 p-4">
                       <div className="flex items-center justify-between text-base">
