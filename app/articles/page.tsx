@@ -1,5 +1,21 @@
+import type { Metadata } from 'next';
 import { ArticlesBrowser } from '@/components/site/articles-browser';
 import { getArticles, getCategories } from '@/lib/content-api';
+
+export const metadata: Metadata = {
+  title: 'اردو کیریئر مضامین',
+  description: 'کیریئر رہنمائی، کاروبار، نوکری تلاش اور عملی مہارتوں پر تفصیلی اردو مضامین۔',
+  alternates: {
+    canonical: 'https://shama.pk/articles',
+  },
+  openGraph: {
+    title: 'اردو کیریئر مضامین | شمع.pk',
+    description: 'کیریئر رہنمائی، کاروبار، نوکری تلاش اور عملی مہارتوں پر تفصیلی اردو مضامین۔',
+    url: 'https://shama.pk/articles',
+    locale: 'ur_PK',
+    type: 'website',
+  },
+};
 
 export default async function ArticlesPage() {
   const [articles, categories] = await Promise.all([

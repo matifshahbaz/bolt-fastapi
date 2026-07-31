@@ -4,17 +4,72 @@ import { AuthProvider } from '@/components/site/auth-provider';
 import { Navbar } from '@/components/site/navbar';
 import { Footer } from '@/components/site/footer';
 
+const siteStructuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://shama.pk/#organization',
+      name: 'شمع.pk',
+      url: 'https://shama.pk',
+      email: 'contact@shama.pk',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://shama.pk/#website',
+      name: 'شمع.pk',
+      url: 'https://shama.pk',
+      inLanguage: 'ur-PK',
+      publisher: {
+        '@id': 'https://shama.pk/#organization',
+      },
+    },
+  ],
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://sham.pk'),
-  title: 'شمع.pk - نوجوانوں کے لیے کیریئر رہنمائی',
+  metadataBase: new URL('https://shama.pk'),
+  title: {
+    default: 'شمع.pk - نوجوانوں کے لیے کیریئر رہنمائی',
+    template: '%s | شمع.pk',
+  },
   description:
     'شمع.pk پاکستان کا پہلا اردو کیریئر رہنمائی پلیٹ فارم۔ نوجوانوں کے لیے کورسز، مضامین اور رہنمائی۔',
+  applicationName: 'شمع.pk',
+  authors: [{ name: 'شمع.pk', url: 'https://shama.pk' }],
+  creator: 'شمع.pk',
+  publisher: 'شمع.pk',
+  category: 'education',
+  other: {
+    'google-adsense-account': 'ca-pub-9480459896184387',
+  },
+  alternates: {
+    canonical: 'https://shama.pk',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   openGraph: {
     title: 'شمع.pk - نوجوانوں کے لیے کیریئر رہنمائی',
     description:
       'پاکستان کا پہلا اردو کیریئر رہنمائی پلیٹ فارم۔ کورسز، مضامین اور رہنمائی۔',
+    url: 'https://shama.pk',
+    siteName: 'شمع.pk',
     locale: 'ur_PK',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'شمع.pk - نوجوانوں کے لیے کیریئر رہنمائی',
+    description: 'پاکستان کا پہلا اردو کیریئر رہنمائی پلیٹ فارم۔ کورسز، مضامین اور رہنمائی۔',
   },
 };
 
@@ -27,6 +82,10 @@ export default function RootLayout({
     <html lang="ur" dir="rtl">
       <head>
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteStructuredData).replace(/</g, '\\u003c') }}
+        />
       </head>
       <body className="font-nastaliq antialiased min-h-screen flex flex-col bg-background">
         <AuthProvider>

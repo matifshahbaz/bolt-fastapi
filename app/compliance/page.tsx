@@ -1,4 +1,13 @@
+import type { Metadata } from 'next';
 import { Badge } from '@/components/ui/badge';
+
+export const metadata: Metadata = {
+  title: 'کاروباری اور ادائیگی معلومات',
+  description: 'shama.pk کے کاروباری ماڈل، ادائیگی گیٹ وے، کورس ایکٹیویشن اور ریفنڈ کے بارے میں معلومات۔',
+  alternates: {
+    canonical: 'https://shama.pk/compliance',
+  },
+};
 
 export default function CompliancePage() {
   return (

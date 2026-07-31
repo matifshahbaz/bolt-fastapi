@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, User, Calendar, ArrowLeft, CheckCircle2, FlaskConical, Lightbulb, BellOff, Target, BarChart3, CircleHelp } from 'lucide-react';
@@ -33,6 +34,83 @@ import {
   Timeline,
 } from '@/components/career-personality';
 import { getArticleById, getArticles } from '@/lib/content-api';
+
+const siteUrl = 'https://shama.pk';
+
+const urduMonths: Record<string, string> = {
+  جنوری: '01',
+  فروری: '02',
+  مارچ: '03',
+  اپریل: '04',
+  مئی: '05',
+  جون: '06',
+  جولائی: '07',
+  اگست: '08',
+  ستمبر: '09',
+  اکتوبر: '10',
+  نومبر: '11',
+  دسمبر: '12',
+};
+
+function getAbsoluteUrl(url: string) {
+  return url.startsWith('http') ? url : `${siteUrl}${url.startsWith('/') ? url : `/${url}`}`;
+}
+
+function getIsoPublishedDate(date: string) {
+  const match = date.trim().match(/^(\d{1,2})\s+([^\s]+)\s+(\d{4})$/);
+  if (!match) {
+    return undefined;
+  }
+
+  const [, day, monthName, year] = match;
+  const month = urduMonths[monthName];
+  return month ? `${year}-${month}-${day.padStart(2, '0')}T00:00:00+05:00` : undefined;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const article = await getArticleById(params.id);
+
+  if (!article) {
+    return {
+      title: 'مضمون نہیں ملا',
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const canonicalUrl = `${siteUrl}/articles/${article.id}`;
+  const imageUrl = getAbsoluteUrl(article.coverImage);
+  const publishedTime = getIsoPublishedDate(article.publishedAt);
+
+  return {
+    title: article.title,
+    description: article.excerpt,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      type: 'article',
+      locale: 'ur_PK',
+      url: canonicalUrl,
+      siteName: 'شمع.pk',
+      title: article.title,
+      description: article.excerpt,
+      publishedTime,
+      authors: [article.author],
+      section: article.category,
+      images: [{ url: imageUrl, alt: article.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.excerpt,
+      images: [imageUrl],
+    },
+  };
+}
 
 const articleComponents = {
   CompetitionInfographic,
@@ -78,6 +156,33 @@ export default async function ArticleDetailPage({
     .filter((a) => a.id !== article.id && a.category === article.category)
     .slice(0, 3);
 
+  const canonicalUrl = `${siteUrl}/articles/${article.id}`;
+  const publishedDate = getIsoPublishedDate(article.publishedAt);
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: article.title,
+    description: article.excerpt,
+    image: [getAbsoluteUrl(article.coverImage)],
+    ...(publishedDate ? { datePublished: publishedDate } : {}),
+    author: {
+      '@type': article.author === 'شمع.pk' ? 'Organization' : 'Person',
+      name: article.author,
+      url: article.author === 'شمع.pk' ? siteUrl : `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'شمع.pk',
+      url: siteUrl,
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl,
+    },
+    articleSection: article.category,
+    inLanguage: 'ur-PK',
+  };
+
   const headingIdByIndex = new Map<number, string>();
   const headingItems = article.content.reduce<{ id: string; label: string }[]>(
     (items, section, index) => {
@@ -100,6 +205,10 @@ export default async function ArticleDetailPage({
 
   return (
     <div className="flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }}
+      />
       {/* Hero */}
       <section className="bg-gradient-to-b from-primary/5 to-background py-12">
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">

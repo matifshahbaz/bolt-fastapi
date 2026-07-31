@@ -1,5 +1,14 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
+
+export const metadata: Metadata = {
+  title: 'پرائیویسی پالیسی',
+  description: 'shama.pk کی پرائیویسی، کوکیز، Google اشتہارات، ڈیٹا استعمال اور صارف حقوق کی پالیسی۔',
+  alternates: {
+    canonical: 'https://shama.pk/privacy-policy',
+  },
+};
 
 export default function PrivacyPolicyPage() {
   return (
@@ -44,6 +53,34 @@ export default function PrivacyPolicyPage() {
               ہم آپ کا ذاتی ڈیٹا فروخت نہیں کرتے۔ محدود حالات میں ڈیٹا ایسے سروس پرووائیڈرز کے ساتھ شیئر ہو سکتا ہے
               جو پلیٹ فارم چلانے، ادائیگی پراسیسنگ، یا سیکیورٹی کے لیے ضروری ہوں اور رازداری کی ذمہ داری رکھتے ہوں۔
             </p>
+          </div>
+
+          <div className="rounded-2xl border bg-card p-6">
+            <h2 className="mb-4 text-2xl font-nastaliq text-foreground">کوکیز اور Google اشتہارات</h2>
+            <div className="space-y-3 text-base text-muted-foreground leading-relaxed font-nastaliq">
+              <p>
+                shama.pk سائٹ کی بنیادی فعالیت، استعمال کے تجزیے، اور اشتہارات کے لیے کوکیز یا اسی نوعیت کی
+                ٹیکنالوجیز استعمال کر سکتا ہے۔ Google سمیت تیسرے فریق کے اشتہاری فراہم کنندگان سابقہ ویب وزٹس
+                کی بنیاد پر متعلقہ اشتہارات دکھانے کے لیے کوکیز استعمال کر سکتے ہیں۔
+              </p>
+              <p>
+                Google کی اشتہاری کوکیز کے استعمال سے Google اور اس کے شراکت دار صارفین کو shama.pk یا دوسری
+                ویب سائٹس کے وزٹس کی بنیاد پر ذاتی نوعیت کے اشتہارات دکھا سکتے ہیں۔ صارفین Google کی
+                <a
+                  href="https://adssettings.google.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mx-1 text-primary underline underline-offset-4"
+                >
+                  اشتہاری ترتیبات
+                </a>
+                میں ذاتی نوعیت کے اشتہارات کو کنٹرول یا بند کر سکتے ہیں۔
+              </p>
+              <p>
+                جہاں قانون ضروری قرار دے، وہاں غیر ضروری کوکیز یا ذاتی نوعیت کے اشتہارات کے استعمال سے پہلے
+                رضامندی حاصل کی جائے گی۔ براؤزر کی ترتیبات کے ذریعے بھی کوکیز کو محدود یا حذف کیا جا سکتا ہے۔
+              </p>
+            </div>
           </div>
 
           <div className="rounded-2xl border bg-card p-6">

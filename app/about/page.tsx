@@ -1,7 +1,16 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Target, Eye, Heart, Users, BookOpen, Star, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+
+export const metadata: Metadata = {
+  title: 'ہمارے بارے میں',
+  description: 'شمع.pk کے مقصد، وژن اور پاکستانی نوجوانوں کے لیے اردو کیریئر رہنمائی کے عزم کے بارے میں جانیں۔',
+  alternates: {
+    canonical: 'https://shama.pk/about',
+  },
+};
 
 export default function AboutPage() {
   return (

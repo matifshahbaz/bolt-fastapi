@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { GraduationCap, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+import { GraduationCap, Mail } from 'lucide-react';
 import { navLinks } from '@/lib/data';
 
 export function Footer() {
@@ -98,26 +98,17 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Social */}
+          {/* Contact */}
           <div className="md:col-span-1">
-            <h3 className="text-xl text-white mb-4">ہم سے جڑیں</h3>
-            <div className="flex gap-3">
-              {[
-                { icon: Facebook, label: 'Facebook' },
-                { icon: Twitter, label: 'Twitter' },
-                { icon: Instagram, label: 'Instagram' },
-                { icon: Youtube, label: 'Youtube' },
-              ].map(({ icon: Icon, label }) => (
-                <a
-                  key={label}
-                  href="#"
-                  aria-label={label}
-                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 hover:bg-primary transition-colors"
-                >
-                  <Icon className="h-5 w-5" />
-                </a>
-              ))}
-            </div>
+            <h3 className="text-xl text-white mb-4">ہم سے رابطہ</h3>
+            <a
+              href="mailto:contact@shama.pk"
+              className="inline-flex items-center gap-2 text-base text-background/70 transition-colors hover:text-white"
+              dir="ltr"
+            >
+              <Mail className="h-5 w-5" />
+              contact@shama.pk
+            </a>
             <p className="text-base text-background/70 mt-4">
               shama.pk
             </p>

@@ -1,4 +1,13 @@
+import type { Metadata } from 'next';
 import { Badge } from '@/components/ui/badge';
+
+export const metadata: Metadata = {
+  title: 'ریفنڈ پالیسی',
+  description: 'shama.pk کورس خریداری کے لیے 7 دن کی ریفنڈ پالیسی، اہلیت اور درخواست کا طریقہ۔',
+  alternates: {
+    canonical: 'https://shama.pk/refund-policy',
+  },
+};
 
 export default function RefundPolicyPage() {
   return (

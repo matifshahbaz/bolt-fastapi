@@ -1,5 +1,14 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
+
+export const metadata: Metadata = {
+  title: 'شرائط و ضوابط',
+  description: 'shama.pk کے استعمال، اکاؤنٹ، کورس رسائی، ادائیگی اور صارف ذمہ داریوں کی شرائط و ضوابط۔',
+  alternates: {
+    canonical: 'https://shama.pk/terms-and-conditions',
+  },
+};
 
 export default function TermsAndConditionsPage() {
   return (
