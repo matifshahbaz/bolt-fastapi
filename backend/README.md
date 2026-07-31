@@ -87,3 +87,11 @@ Required backend env vars:
   - Admin-only direct upload URL for Stream videos.
 - `POST /api/v1/media/images/direct-upload`
   - Admin-only direct upload URL for Cloudflare Images.
+
+- `POST /api/v1/auth/password-reset/request`
+  - Payload: `{ "email": "user@example.com" }`
+  - Returns a generic success message. In debug mode (or when `SHAMA_EXPOSE_PASSWORD_RESET_TOKEN=true`), also returns `reset_token` for integration testing.
+
+- `POST /api/v1/auth/password-reset/confirm`
+  - Payload: `{ "token": "...", "new_password": "new-strong-password" }`
+  - Validates one-time reset token and updates the user's password.

@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     secret_key: str = "change-this-before-production"
     database_url: str | None = None
     admin_emails_raw: str = ""
+    password_reset_token_ttl_minutes: int = 30
+    expose_password_reset_token: bool = False
 
     cloudflare_account_id: str = ""
     cloudflare_api_token: str = ""

@@ -52,6 +52,22 @@ export function Footer() {
                   ریفنڈ پالیسی
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/privacy-policy"
+                  className="text-base text-background/70 hover:text-white transition-colors"
+                >
+                  پرائیویسی پالیسی
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms-and-conditions"
+                  className="text-base text-background/70 hover:text-white transition-colors"
+                >
+                  شرائط و ضوابط
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -71,7 +87,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/articles" className="text-base text-background/70 hover:text-white transition-colors">
-                  نوکوری تلاش
+                  نوکری تلاش
                 </Link>
               </li>
               <li>
@@ -132,6 +148,14 @@ export function Footer() {
               <span className="mx-1">|</span>
               <Link href="/refund-policy" className="text-white underline underline-offset-4 hover:text-primary">
                 /refund-policy
+              </Link>
+              <span className="mx-1">|</span>
+              <Link href="/privacy-policy" className="text-white underline underline-offset-4 hover:text-primary">
+                /privacy-policy
+              </Link>
+              <span className="mx-1">|</span>
+              <Link href="/terms-and-conditions" className="text-white underline underline-offset-4 hover:text-primary">
+                /terms-and-conditions
               </Link>
             </p>
           </div>

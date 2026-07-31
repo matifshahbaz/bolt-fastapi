@@ -17,6 +17,7 @@ type AuthFormProps = {
 export function AuthForm({ mode }: AuthFormProps) {
   const router = useRouter();
   const { login, register } = useAuth();
+  const supportEmail = 'contact@shama.pk';
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -56,6 +57,13 @@ export function AuthForm({ mode }: AuthFormProps) {
             ? 'اپنی خریدی ہوئی کلاسز اور پیش رفت دیکھنے کے لیے لاگ اِن کریں۔'
             : 'شمع.pk پر سائن اپ کریں تاکہ آپ کورس خرید سکیں اور اپنی پیش رفت محفوظ رکھ سکیں۔'}
         </CardDescription>
+        <p className="text-sm text-muted-foreground">
+          اکاؤنٹ سپورٹ، پاس ورڈ ری سیٹ اور نئی رجسٹریشن کی مدد کے لیے{' '}
+          <a href={`mailto:${supportEmail}`} className="text-primary hover:underline" dir="ltr">
+            {supportEmail}
+          </a>{' '}
+          استعمال کریں۔
+        </p>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -95,6 +103,19 @@ export function AuthForm({ mode }: AuthFormProps) {
               minLength={8}
               className="h-12 text-base"
             />
+            {isLogin ? (
+              <p className="text-sm text-muted-foreground">
+                پاس ورڈ بھول گئے؟{' '}
+                <a
+                  href={`mailto:${supportEmail}?subject=${encodeURIComponent('Password Reset Request')}`}
+                  className="text-primary hover:underline"
+                  dir="ltr"
+                >
+                  {supportEmail}
+                </a>{' '}
+                پر ای میل کریں۔
+              </p>
+            ) : null}
           </div>
 
           {error ? <p className="text-center text-sm text-red-600">{error}</p> : null}
