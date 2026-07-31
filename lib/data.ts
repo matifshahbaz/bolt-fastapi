@@ -1,4 +1,5 @@
 import { kahliArticle } from '@/lib/articles/kahli';
+import { module2Lecture2NotesArticle } from '@/lib/articles/module2-lecture2-notes';
 
 export type Category = {
   id: string;
@@ -70,7 +71,7 @@ export type Article = {
 };
 
 export type ArticleSection = {
-  type: 'heading' | 'paragraph' | 'quote' | 'image' | 'callout' | 'checklist';
+  type: 'heading' | 'paragraph' | 'quote' | 'image' | 'callout' | 'checklist' | 'component';
   text?: string;
   src?: string;
   alt?: string;
@@ -79,6 +80,12 @@ export type ArticleSection = {
   items?: string[];
   tone?: 'research' | 'highlight' | 'tip';
   footer?: string;
+  componentKey?:
+    | 'CompetitionInfographic'
+    | 'FourStagesTimeline'
+    | 'BenefitsChallenges'
+    | 'FinancialROI'
+    | 'AlternativeFields';
 };
 
 const courseLessonImages = [
@@ -458,6 +465,7 @@ export const featuredCourse: Course = {
 
 export const articles: Article[] = [
   kahliArticle,
+  module2Lecture2NotesArticle,
   {
     id: '1',
     title: 'توجہ کی معیشت: اسکرین، عادت، اور اپنی توجہ واپس لینے کا طریقہ',

@@ -6,7 +6,23 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArticleCard } from '@/components/site/article-card';
 import { ArticleToc } from '@/components/site/article-toc';
+import HeroBanner from '@/components/medical/herobanner';
+import {
+  AlternativeFields,
+  BenefitsChallenges,
+  CompetitionInfographic,
+  FinancialROI,
+  FourStagesTimeline,
+} from '@/components/medical';
 import { getArticleById, getArticles } from '@/lib/content-api';
+
+const articleComponents = {
+  CompetitionInfographic,
+  FourStagesTimeline,
+  BenefitsChallenges,
+  FinancialROI,
+  AlternativeFields,
+};
 
 function isSubHeading(text: string) {
   return /^\s*[0-9۰-۹]+[.۔][0-9۰-۹]+/.test(text);
@@ -86,14 +102,18 @@ export default async function ArticleDetailPage({
 
       {/* Cover Image */}
       <section className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 -mt-4">
-        <div className="overflow-hidden rounded-2xl border bg-slate-50 shadow-lg">
-          <img
-            src={article.coverImage}
-            alt={article.title}
-            className="h-auto w-full"
-            loading="eager"
-          />
-        </div>
+        {article.id === 'm2-l2-notes' ? (
+          <HeroBanner />
+        ) : (
+          <div className="overflow-hidden rounded-2xl border bg-slate-50 shadow-lg">
+            <img
+              src={article.coverImage}
+              alt={article.title}
+              className="h-auto w-full"
+              loading="eager"
+            />
+          </div>
+        )}
       </section>
 
       {/* Article Body */}
@@ -330,6 +350,19 @@ export default async function ArticleDetailPage({
                         <p className="text-xl leading-relaxed text-black/85">{section.alt}</p>
                       </div>
                     ) : null}
+                  </div>
+                );
+              }
+              if (section.type === 'component' && section.componentKey) {
+                const Component = articleComponents[section.componentKey];
+
+                if (!Component) {
+                  return null;
+                }
+
+                return (
+                  <div key={idx} className="my-10 flex justify-center">
+                    <Component />
                   </div>
                 );
               }
