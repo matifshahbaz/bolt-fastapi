@@ -1,5 +1,7 @@
 import { kahliArticle } from '@/lib/articles/kahli';
 import { module2Lecture2NotesArticle } from '@/lib/articles/module2-lecture2-notes';
+import { module3Lecture2NotesArticle } from '@/lib/articles/module3-lecture2-notes';
+import { module3Lecture3NotesArticle } from '@/lib/articles/module3-lecture3-notes';
 
 export type Category = {
   id: string;
@@ -425,12 +427,28 @@ export const featuredCourse: Course = {
     {
       id: 'm3',
       title: 'نوکوری تلاش اور درخواست',
-      lessons: createModuleLessons('m3', 'نوکوری تلاش اور درخواست', [
-        { title: 'سی وی بنانے کا فن', duration: '22 منٹ', focus: 'CV structure and clarity', videoUid: 'placeholder-m3-v1' },
-        { title: 'کور لیٹر لکھنا', duration: '16 منٹ', focus: 'cover letter personalization', videoUid: 'placeholder-m3-v2' },
-        { title: 'آن لائن جاب پورٹلز کا استعمال', duration: '14 منٹ', focus: 'job portals and applications', videoUid: 'placeholder-m3-v3' },
-        { title: 'نوکوری کی تلاش کی حکمت عملی', duration: '20 منٹ', focus: 'job search system', videoUid: 'placeholder-m3-v4' },
-      ]),
+      lessons: (() => {
+        const lessons = createModuleLessons('m3', 'نوکوری تلاش اور درخواست', [
+          { title: 'سی وی بنانے کا فن', duration: '22 منٹ', focus: 'CV structure and clarity', videoUid: 'placeholder-m3-v1' },
+          { title: 'کور لیٹر لکھنا', duration: '16 منٹ', focus: 'cover letter personalization', videoUid: 'placeholder-m3-v2' },
+          { title: 'آن لائن جاب پورٹلز کا استعمال', duration: '14 منٹ', focus: 'job portals and applications', videoUid: 'placeholder-m3-v3' },
+          { title: 'نوکوری کی تلاش کی حکمت عملی', duration: '20 منٹ', focus: 'job search system', videoUid: 'placeholder-m3-v4' },
+        ]);
+
+        const lecture2TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm3-t2');
+        if (lecture2TextLesson) {
+          lecture2TextLesson.duration = '25 منٹ پڑھائی';
+          lecture2TextLesson.article = module3Lecture2NotesArticle;
+        }
+
+        const lecture3TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm3-t3');
+        if (lecture3TextLesson) {
+          lecture3TextLesson.duration = '20 منٹ پڑھائی';
+          lecture3TextLesson.article = module3Lecture3NotesArticle;
+        }
+
+        return lessons;
+      })(),
     },
     {
       id: 'm4',
@@ -466,6 +484,28 @@ export const featuredCourse: Course = {
 export const articles: Article[] = [
   kahliArticle,
   module2Lecture2NotesArticle,
+  {
+    id: 'm3-l2-notes',
+    title: 'چھٹا لیکچر ڈیجیٹل مارکیٹنگ — ماڈیول 3 لیکچر 2 نوٹس',
+    excerpt: module3Lecture2NotesArticle.excerpt,
+    coverImage: module3Lecture2NotesArticle.coverImage,
+    category: 'نوکوری تلاش',
+    author: 'شمع.pk',
+    publishedAt: '31 جولائی 2026',
+    readingTime: '25 منٹ',
+    content: module3Lecture2NotesArticle.content,
+  },
+  {
+    id: 'm3-l3-notes',
+    title: 'فری لانسنگ جیمنی — ماڈیول 3 لیکچر 3 نوٹس',
+    excerpt: module3Lecture3NotesArticle.excerpt,
+    coverImage: module3Lecture3NotesArticle.coverImage,
+    category: 'نوکوری تلاش',
+    author: 'شمع.pk',
+    publishedAt: '31 جولائی 2026',
+    readingTime: '20 منٹ',
+    content: module3Lecture3NotesArticle.content,
+  },
   {
     id: '1',
     title: 'توجہ کی معیشت: اسکرین، عادت، اور اپنی توجہ واپس لینے کا طریقہ',
