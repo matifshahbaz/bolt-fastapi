@@ -14,6 +14,24 @@ import {
   FinancialROI,
   FourStagesTimeline,
 } from '@/components/medical';
+import {
+  BusinessImpactBlue,
+  EngineeringFieldsBlue,
+  HeroBannerBlue,
+  RoadmapCareerBlue,
+  RoadmapSkillsBlue,
+  SalaryGrowthBlue,
+} from '@/components/engineering';
+import {
+  CareerTabs,
+  Hero,
+  IkigaiDiagram,
+  PersonalityFooter,
+  PersonalitySection,
+  SwotGrid,
+  Tameed,
+  Timeline,
+} from '@/components/career-personality';
 import { getArticleById, getArticles } from '@/lib/content-api';
 
 const articleComponents = {
@@ -22,6 +40,20 @@ const articleComponents = {
   BenefitsChallenges,
   FinancialROI,
   AlternativeFields,
+  HeroBannerBlue,
+  EngineeringFieldsBlue,
+  SalaryGrowthBlue,
+  RoadmapCareerBlue,
+  RoadmapSkillsBlue,
+  BusinessImpactBlue,
+  Hero,
+  Tameed,
+  CareerTabs,
+  PersonalitySection,
+  IkigaiDiagram,
+  SwotGrid,
+  timeline: Timeline,
+  Footer: PersonalityFooter,
 };
 
 function isSubHeading(text: string) {

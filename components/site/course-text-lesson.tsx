@@ -4,12 +4,59 @@ import Image from 'next/image';
 import { CheckCircle2, FlaskConical, Lightbulb } from 'lucide-react';
 import type { CourseLesson, ArticleSection } from '@/lib/data';
 import { Button } from '@/components/ui/button';
+import {
+  AlternativeFields,
+  BenefitsChallenges,
+  CompetitionInfographic,
+  FinancialROI,
+  FourStagesTimeline,
+} from '@/components/medical';
+import {
+  BusinessImpactBlue,
+  EngineeringFieldsBlue,
+  HeroBannerBlue,
+  RoadmapCareerBlue,
+  RoadmapSkillsBlue,
+  SalaryGrowthBlue,
+} from '@/components/engineering';
+import {
+  CareerTabs,
+  Hero,
+  IkigaiDiagram,
+  PersonalityFooter,
+  PersonalitySection,
+  SwotGrid,
+  Tameed,
+  Timeline,
+} from '@/components/career-personality';
 
 type CourseTextLessonProps = {
   lesson: CourseLesson;
   completed: boolean;
   isLoading: boolean;
   onMarkComplete: () => void;
+};
+
+const lessonComponents = {
+  CompetitionInfographic,
+  FourStagesTimeline,
+  BenefitsChallenges,
+  FinancialROI,
+  AlternativeFields,
+  HeroBannerBlue,
+  EngineeringFieldsBlue,
+  SalaryGrowthBlue,
+  RoadmapCareerBlue,
+  RoadmapSkillsBlue,
+  BusinessImpactBlue,
+  Hero,
+  Tameed,
+  CareerTabs,
+  PersonalitySection,
+  IkigaiDiagram,
+  SwotGrid,
+  timeline: Timeline,
+  Footer: PersonalityFooter,
 };
 
 export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete }: CourseTextLessonProps) {
@@ -130,6 +177,17 @@ function LessonArticleBody({ sections }: { sections: ArticleSection[] }) {
                   <p className="text-xl leading-relaxed text-black/85">{section.alt}</p>
                 </div>
               ) : null}
+            </div>
+          );
+        }
+        if (section.type === 'component' && section.componentKey) {
+          const Component = lessonComponents[section.componentKey];
+          if (!Component) {
+            return null;
+          }
+          return (
+            <div key={index} className="my-10 flex justify-center">
+              <Component />
             </div>
           );
         }

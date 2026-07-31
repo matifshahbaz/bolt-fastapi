@@ -1,5 +1,9 @@
 import { kahliArticle } from '@/lib/articles/kahli';
+import { module1Lecture2NotesArticle } from '@/lib/articles/module1-lecture2-notes';
+import { module1Lecture3NotesArticle } from '@/lib/articles/module1-lecture3-notes';
 import { module2Lecture2NotesArticle } from '@/lib/articles/module2-lecture2-notes';
+import { module2Lecture3NotesArticle } from '@/lib/articles/module2-lecture3-notes';
+import { module5Lecture2NotesArticle } from '@/lib/articles/module5-lecture2-notes';
 import { module3Lecture2NotesArticle } from '@/lib/articles/module3-lecture2-notes';
 import { module3Lecture3NotesArticle } from '@/lib/articles/module3-lecture3-notes';
 
@@ -87,7 +91,21 @@ export type ArticleSection = {
     | 'FourStagesTimeline'
     | 'BenefitsChallenges'
     | 'FinancialROI'
-    | 'AlternativeFields';
+    | 'AlternativeFields'
+    | 'HeroBannerBlue'
+    | 'EngineeringFieldsBlue'
+    | 'SalaryGrowthBlue'
+    | 'RoadmapCareerBlue'
+    | 'RoadmapSkillsBlue'
+    | 'BusinessImpactBlue'
+    | 'Hero'
+    | 'Tameed'
+    | 'CareerTabs'
+    | 'PersonalitySection'
+    | 'IkigaiDiagram'
+    | 'SwotGrid'
+    | 'timeline'
+    | 'Footer';
 };
 
 const courseLessonImages = [
@@ -378,9 +396,9 @@ export const featuredCourse: Course = {
   learnerCount: '5,000+',
   price: 'Rs. 500',
   instructor: {
-    name: 'ڈاکٹر عامر خان',
+    name: 'عاطف شہباز',
     title: 'کیریئر ماہر اور مصنف',
-    bio: 'ڈاکٹر عامر خان پچھلے 15 سال سے نوجوانوں کی کیریئر رہنمائی کر رہے ہیں۔ انہوں نے 10,000 سے زائد نوجوانوں کو اپنے کیریئر میں کامیاب ہونے میں مدد کی ہے۔',
+    bio: 'عاطف شہباز پچھلے 15 سال سے نوجوانوں کی کیریئر رہنمائی کر رہے ہیں۔ انہوں نے 10,000 سے زائد نوجوانوں کو اپنے کیریئر میں کامیاب ہونے میں مدد کی ہے۔',
     avatar:
       'https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=2',
   },
@@ -412,17 +430,45 @@ export const featuredCourse: Course = {
           introTextLesson.article = module1IntroNotesArticle;
         }
 
+        const lecture2TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm1-t2');
+        if (lecture2TextLesson) {
+          lecture2TextLesson.duration = '20 منٹ پڑھائی';
+          lecture2TextLesson.article = module1Lecture2NotesArticle;
+        }
+
+        const lecture3TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm1-t3');
+        if (lecture3TextLesson) {
+          lecture3TextLesson.duration = '22 منٹ پڑھائی';
+          lecture3TextLesson.article = module1Lecture3NotesArticle;
+        }
+
         return lessons;
       })(),
     },
     {
       id: 'm2',
       title: 'کیریئر کا انتخاب',
-      lessons: createModuleLessons('m2', 'کیریئر کا انتخاب', [
-        { title: 'مختلف کیریئر کے راستے', duration: '20 منٹ', focus: 'career tracks overview', videoUid: 'fb6e5f113a4ad665c7130baaf685a3e9' },
-        { title: 'پاکستان میں ابھرتے ہوئے شعبے', duration: '25 منٹ', focus: 'emerging sectors in Pakistan', videoUid: 'placeholder-m2-v2' },
-        { title: 'صحیح فیصلہ کیسے کریں', duration: '18 منٹ', focus: 'decision-making framework', videoUid: 'placeholder-m2-v3' },
-      ]),
+      lessons: (() => {
+        const lessons = createModuleLessons('m2', 'کیریئر کا انتخاب', [
+          { title: 'مختلف کیریئر کے راستے', duration: '20 منٹ', focus: 'career tracks overview', videoUid: 'fb6e5f113a4ad665c7130baaf685a3e9' },
+          { title: 'پاکستان میں ابھرتے ہوئے شعبے', duration: '25 منٹ', focus: 'emerging sectors in Pakistan', videoUid: 'placeholder-m2-v2' },
+          { title: 'صحیح فیصلہ کیسے کریں', duration: '18 منٹ', focus: 'decision-making framework', videoUid: 'placeholder-m2-v3' },
+        ]);
+
+        const lecture2TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm2-t2');
+        if (lecture2TextLesson) {
+          lecture2TextLesson.duration = '18 منٹ پڑھائی';
+          lecture2TextLesson.article = module2Lecture2NotesArticle;
+        }
+
+        const lecture3TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm2-t3');
+        if (lecture3TextLesson) {
+          lecture3TextLesson.duration = '22 منٹ پڑھائی';
+          lecture3TextLesson.article = module2Lecture3NotesArticle;
+        }
+
+        return lessons;
+      })(),
     },
     {
       id: 'm3',
@@ -462,12 +508,22 @@ export const featuredCourse: Course = {
     {
       id: 'm5',
       title: 'کاروبار شروع کرنا',
-      lessons: createModuleLessons('m5', 'کاروبار شروع کرنا', [
-        { title: 'کاروباری ذہن کی تعمیر', duration: '20 منٹ', focus: 'business mindset', videoUid: 'placeholder-m5-v1' },
-        { title: 'بزنس آئیڈیا کی پہچان', duration: '18 منٹ', focus: 'finding a business idea', videoUid: 'placeholder-m5-v2' },
-        { title: 'بجٹ اور منصوبہ بندی', duration: '22 منٹ', focus: 'budgeting and planning', videoUid: 'placeholder-m5-v3' },
-        { title: 'مارکیٹنگ کی بنیادیں', duration: '16 منٹ', focus: 'basic marketing system', videoUid: 'placeholder-m5-v4' },
-      ]),
+      lessons: (() => {
+        const lessons = createModuleLessons('m5', 'کاروبار شروع کرنا', [
+          { title: 'کاروباری ذہن کی تعمیر', duration: '20 منٹ', focus: 'business mindset', videoUid: 'placeholder-m5-v1' },
+          { title: 'بزنس آئیڈیا کی پہچان', duration: '18 منٹ', focus: 'finding a business idea', videoUid: 'placeholder-m5-v2' },
+          { title: 'بجٹ اور منصوبہ بندی', duration: '22 منٹ', focus: 'budgeting and planning', videoUid: 'placeholder-m5-v3' },
+          { title: 'مارکیٹنگ کی بنیادیں', duration: '16 منٹ', focus: 'basic marketing system', videoUid: 'placeholder-m5-v4' },
+        ]);
+
+        const lecture2TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm5-t2');
+        if (lecture2TextLesson) {
+          lecture2TextLesson.duration = '24 منٹ پڑھائی';
+          lecture2TextLesson.article = module5Lecture2NotesArticle;
+        }
+
+        return lessons;
+      })(),
     },
     {
       id: 'm6',
@@ -484,6 +540,7 @@ export const featuredCourse: Course = {
 export const articles: Article[] = [
   kahliArticle,
   module2Lecture2NotesArticle,
+  module2Lecture3NotesArticle,
   {
     id: 'm3-l2-notes',
     title: 'چھٹا لیکچر ڈیجیٹل مارکیٹنگ — ماڈیول 3 لیکچر 2 نوٹس',
@@ -595,7 +652,7 @@ export const articles: Article[] = [
     coverImage:
       'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     category: 'کاروباری',
-    author: 'ڈاکٹر عامر خان',
+    author: 'عاطف شہباز',
     publishedAt: '10 جنوری 2025',
     readingTime: '10 منٹ',
     content: [
@@ -641,7 +698,7 @@ export const articles: Article[] = [
     coverImage:
       'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     category: 'نوکوری تلاش',
-    author: 'ڈاکٹر عامر خان',
+    author: 'عاطف شہباز',
     publishedAt: '5 جنوری 2025',
     readingTime: '7 منٹ',
     content: [
@@ -687,7 +744,7 @@ export const articles: Article[] = [
     coverImage:
       'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     category: 'مہارتیں',
-    author: 'ڈاکٹر عامر خان',
+    author: 'عاطف شہباز',
     publishedAt: '2 جنوری 2025',
     readingTime: '6 منٹ',
     content: [
@@ -719,7 +776,7 @@ export const articles: Article[] = [
     coverImage:
       'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     category: 'کاروباری',
-    author: 'ڈاکٹر عامر خان',
+    author: 'عاطف شہباز',
     publishedAt: '28 دسمبر 2024',
     readingTime: '9 منٹ',
     content: [
@@ -751,7 +808,7 @@ export const articles: Article[] = [
     coverImage:
       'https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     category: 'کیریئر رہنمائی',
-    author: 'ڈاکٹر عامر خان',
+    author: 'عاطف شہباز',
     publishedAt: '20 دسمبر 2024',
     readingTime: '5 منٹ',
     content: [
