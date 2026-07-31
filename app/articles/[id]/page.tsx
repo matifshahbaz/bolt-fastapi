@@ -415,7 +415,7 @@ export default async function ArticleDetailPage({
                 <div>
                   <p className="text-2xl text-black">{article.author}</p>
                   <p className="text-xl text-black/70">
-                    کیریئر ماہر اور مصنف
+                    کیرئیر کوچ
                   </p>
                 </div>
               </div>

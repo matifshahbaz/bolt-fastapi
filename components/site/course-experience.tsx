@@ -200,7 +200,7 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
                 </div>
                 <div>
                   <p className="text-lg text-foreground">
-                    <span className="text-muted-foreground">اساتذہ: </span>
+                    <span className="text-muted-foreground">استاد: </span>
                     {course.instructor.name}
                   </p>
                   <p className="text-base text-muted-foreground">{course.instructor.title}</p>
@@ -245,7 +245,6 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
                       <li>یہ کورس صرف آن لائن اسٹریمنگ/پڑھائی کے لیے ہے۔</li>
                       <li>لیکچر ویڈیوز ڈاؤن لوڈ کے لیے دستیاب نہیں ہوں گی۔</li>
                       <li>خریداری کے بعد کورس تک رسائی صرف 30 دن (ایک ماہ) کے لیے ہوگی۔</li>
-                      <li>30 دن مکمل ہونے کے بعد رسائی خودکار طور پر بند کر دی جائے گی۔</li>
                       <li>ریفنڈ پالیسی: خریداری کے 7 دن کے اندر بغیر سوال کے ریفنڈ دستیاب ہے۔</li>
                     </ul>
                   </div>

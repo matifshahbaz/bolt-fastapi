@@ -397,7 +397,7 @@ export const featuredCourse: Course = {
   price: 'Rs. 500',
   instructor: {
     name: 'عاطف شہباز',
-    title: 'کیریئر ماہر اور مصنف',
+    title: 'کیرئیر کوچ',
     bio: 'عاطف شہباز پچھلے 15 سال سے نوجوانوں کی کیریئر رہنمائی کر رہے ہیں۔ انہوں نے 10,000 سے زائد نوجوانوں کو اپنے کیریئر میں کامیاب ہونے میں مدد کی ہے۔',
     avatar:
       'https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=2',
