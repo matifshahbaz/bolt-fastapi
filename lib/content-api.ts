@@ -192,17 +192,20 @@ export async function getCategories(): Promise<Category[]> {
 }
 
 export async function getArticles(): Promise<Article[]> {
+  const publicBundledArticles = fallbackArticles.filter((article) => !article.id.endsWith('-notes'));
+
   try {
     const remoteArticles = (await fetchContent<ApiArticle[]>('/api/v1/articles')).map(mapArticle);
     const bundledArticleIds = new Set(fallbackArticles.map((article) => article.id));
-    const publicBundledArticles = fallbackArticles.filter((article) => !article.id.endsWith('-notes'));
 
     return [
       ...publicBundledArticles,
-      ...remoteArticles.filter((article) => !bundledArticleIds.has(article.id)),
+      ...remoteArticles.filter(
+        (article) => !bundledArticleIds.has(article.id) && !article.id.endsWith('-notes'),
+      ),
     ];
   } catch {
-    return fallbackArticles;
+    return publicBundledArticles;
   }
 }
 
