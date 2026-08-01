@@ -179,12 +179,7 @@ function mapArticle(article: ApiArticle): Article {
 }
 
 export async function getFeaturedCourse(): Promise<Course> {
-  try {
-    const course = await fetchContent<ApiCourse>('/api/v1/courses/featured');
-    return mapCourse(course);
-  } catch {
-    return fallbackFeaturedCourse;
-  }
+  return fallbackFeaturedCourse;
 }
 
 export async function getCategories(): Promise<Category[]> {
@@ -198,18 +193,29 @@ export async function getCategories(): Promise<Category[]> {
 
 export async function getArticles(): Promise<Article[]> {
   try {
-    const articles = await fetchContent<ApiArticle[]>('/api/v1/articles');
-    return articles.map(mapArticle);
+    const remoteArticles = (await fetchContent<ApiArticle[]>('/api/v1/articles')).map(mapArticle);
+    const bundledArticleIds = new Set(fallbackArticles.map((article) => article.id));
+    const publicBundledArticles = fallbackArticles.filter((article) => !article.id.endsWith('-notes'));
+
+    return [
+      ...publicBundledArticles,
+      ...remoteArticles.filter((article) => !bundledArticleIds.has(article.id)),
+    ];
   } catch {
     return fallbackArticles;
   }
 }
 
 export async function getArticleById(articleId: string): Promise<Article | null> {
+  const bundledArticle = fallbackArticles.find((article) => article.id === articleId);
+  if (bundledArticle) {
+    return bundledArticle;
+  }
+
   try {
     const article = await fetchContent<ApiArticle>(`/api/v1/articles/${articleId}`);
     return mapArticle(article);
   } catch {
-    return fallbackArticles.find((article) => article.id === articleId) ?? null;
+    return null;
   }
 }
