@@ -55,6 +55,33 @@ import {
   ComputerScienceCareerInfographic,
   ComputerScienceITBanner,
 } from '@/components/computer-science';
+import {
+  BusinessMyths,
+  LearningPath,
+  LowCapitalStart,
+  PracticalStartSteps,
+  RealisticBalance,
+  SmallRisk,
+  TrustCompass,
+} from '@/components/entrepreneurship';
+import {
+  BusinessCaseHeroBanner,
+  BusinessCaseVsPlan,
+  CommonMistakes,
+  CustomerMarketEdge,
+  FinancialSnapshot,
+  NineStepsTimeline,
+  OnePageTemplate,
+  RisksMitigation,
+  ThirtyDayPlan,
+  UniversalExample,
+} from '@/components/business-case';
+import {
+  FraudAlert,
+  FundingSourcesComparison,
+  PitchingChecklist,
+  TheFundingLadder,
+} from '@/components/startup-finance';
 import { getArticleById, getArticles } from '@/lib/content-api';
 
 const siteUrl = 'https://shama.pk';
@@ -170,6 +197,27 @@ const articleComponents = {
   FinalMessage,
   ComputerScienceITBanner,
   ComputerScienceCareerInfographic,
+  BusinessMyths,
+  LearningPath,
+  LowCapitalStart,
+  PracticalStartSteps,
+  RealisticBalance,
+  SmallRisk,
+  TrustCompass,
+  BusinessCaseHeroBanner,
+  BusinessCaseVsPlan,
+  NineStepsTimeline,
+  CustomerMarketEdge,
+  FinancialSnapshot,
+  RisksMitigation,
+  ThirtyDayPlan,
+  CommonMistakes,
+  OnePageTemplate,
+  UniversalExample,
+  TheFundingLadder,
+  FraudAlert,
+  FundingSourcesComparison,
+  PitchingChecklist,
 };
 
 function isSubHeading(text: string) {
@@ -529,6 +577,36 @@ export default async function ArticleDetailPage({
                         <p className="text-xl leading-relaxed text-black/85">{section.alt}</p>
                       </div>
                     ) : null}
+                  </div>
+                );
+              }
+              if (section.type === 'table') {
+                return (
+                  <div key={idx} className="my-10 overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+                    <table className="min-w-[640px] w-full border-collapse bg-white text-right">
+                      {section.headers?.length ? (
+                        <thead className="bg-[#2F5496] text-white">
+                          <tr>
+                            {section.headers.map((header, headerIndex) => (
+                              <th key={headerIndex} className="border-b border-white/20 px-5 py-4 text-xl font-nastaliq leading-relaxed">
+                                {header}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                      ) : null}
+                      <tbody>
+                        {(section.rows ?? []).map((row, rowIndex) => (
+                          <tr key={rowIndex} className="even:bg-slate-50">
+                            {row.map((cell, cellIndex) => (
+                              <td key={cellIndex} className="border-b border-slate-200 px-5 py-4 text-xl leading-[1.8] text-black">
+                                {cell}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 );
               }

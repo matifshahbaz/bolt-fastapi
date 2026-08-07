@@ -5,7 +5,10 @@ import { module1Lecture3NotesArticle } from '@/lib/articles/module1-lecture3-not
 import { module2Lecture1NotesArticle } from '@/lib/articles/module2-lecture1-notes';
 import { module2Lecture2NotesArticle } from '@/lib/articles/module2-lecture2-notes';
 import { module2Lecture3NotesArticle } from '@/lib/articles/module2-lecture3-notes';
+import { module3Lecture1NotesArticle } from '@/lib/articles/module3-lecture1-notes';
+import { module5Lecture1NotesArticle } from '@/lib/articles/module5-lecture1-notes';
 import { module5Lecture2NotesArticle } from '@/lib/articles/module5-lecture2-notes';
+import { module5Lecture3NotesArticle } from '@/lib/articles/module5-lecture3-notes';
 import { module3Lecture2NotesArticle } from '@/lib/articles/module3-lecture2-notes';
 import { module3Lecture3NotesArticle } from '@/lib/articles/module3-lecture3-notes';
 
@@ -79,13 +82,15 @@ export type Article = {
 };
 
 export type ArticleSection = {
-  type: 'heading' | 'paragraph' | 'quote' | 'image' | 'callout' | 'checklist' | 'component';
+  type: 'heading' | 'paragraph' | 'quote' | 'image' | 'callout' | 'checklist' | 'table' | 'component';
   text?: string;
   src?: string;
   alt?: string;
   title?: string;
   subtitle?: string;
   items?: string[];
+  headers?: string[];
+  rows?: string[][];
   tone?: 'research' | 'highlight' | 'tip';
   footer?: string;
   componentKey?:
@@ -122,7 +127,28 @@ export type ArticleSection = {
     | 'SafetyTips'
     | 'FinalMessage'
     | 'ComputerScienceITBanner'
-    | 'ComputerScienceCareerInfographic';
+    | 'ComputerScienceCareerInfographic'
+    | 'BusinessMyths'
+    | 'LearningPath'
+    | 'LowCapitalStart'
+    | 'PracticalStartSteps'
+    | 'RealisticBalance'
+    | 'SmallRisk'
+    | 'TrustCompass'
+    | 'BusinessCaseHeroBanner'
+    | 'BusinessCaseVsPlan'
+    | 'NineStepsTimeline'
+    | 'CustomerMarketEdge'
+    | 'FinancialSnapshot'
+    | 'RisksMitigation'
+    | 'ThirtyDayPlan'
+    | 'CommonMistakes'
+    | 'OnePageTemplate'
+    | 'UniversalExample'
+    | 'TheFundingLadder'
+    | 'FraudAlert'
+    | 'FundingSourcesComparison'
+    | 'PitchingChecklist';
 };
 
 const courseLessonImages = [
@@ -402,6 +428,12 @@ export const featuredCourse: Course = {
       lessons: (() => {
         const lessons = createModule3Lessons();
 
+        const lecture1TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm3-t1');
+        if (lecture1TextLesson) {
+          lecture1TextLesson.duration = '60 منٹ پڑھائی';
+          lecture1TextLesson.article = module3Lecture1NotesArticle;
+        }
+
         const lecture2TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm3-t2');
         if (lecture2TextLesson) {
           lecture2TextLesson.duration = '25 منٹ پڑھائی';
@@ -432,10 +464,22 @@ export const featuredCourse: Course = {
       lessons: (() => {
         const lessons = createModule5Lessons();
 
+        const lecture1TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm5-t1');
+        if (lecture1TextLesson) {
+          lecture1TextLesson.duration = '30 منٹ پڑھائی';
+          lecture1TextLesson.article = module5Lecture1NotesArticle;
+        }
+
         const lecture2TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm5-t2');
         if (lecture2TextLesson) {
-          lecture2TextLesson.duration = '24 منٹ پڑھائی';
+          lecture2TextLesson.duration = '35 منٹ پڑھائی';
           lecture2TextLesson.article = module5Lecture2NotesArticle;
+        }
+
+        const lecture3TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm5-t3');
+        if (lecture3TextLesson) {
+          lecture3TextLesson.duration = '40 منٹ پڑھائی';
+          lecture3TextLesson.article = module5Lecture3NotesArticle;
         }
 
         return lessons;
