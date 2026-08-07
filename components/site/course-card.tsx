@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Star, Clock, BookOpen, BarChart3 } from 'lucide-react';
+import { Clock, BookOpen, BarChart3, UserRound } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { Course } from '@/lib/data';
 
@@ -9,12 +9,12 @@ export function CourseCard({ course }: { course: Course }) {
     <Link href="/course" className="block group">
       <div className="card-hover overflow-hidden rounded-2xl border bg-card shadow-sm">
         {/* Cover */}
-        <div className="relative aspect-video overflow-hidden">
+        <div className="relative aspect-[3/2] overflow-hidden bg-white">
           <Image
             src={course.coverImage}
             alt={course.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
           />
           <div className="absolute top-3 right-3">
             <Badge className="bg-accent text-accent-foreground">
@@ -34,27 +34,11 @@ export function CourseCard({ course }: { course: Course }) {
 
           {/* Instructor */}
           <div className="flex items-center gap-2 mb-4">
-            <div className="relative h-8 w-8 rounded-full overflow-hidden">
-              <Image
-                src={course.instructor.avatar}
-                alt={course.instructor.name}
-                fill
-                className="object-cover"
-              />
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <UserRound className="h-4 w-4" />
             </div>
             <span className="text-base text-muted-foreground">
               {course.instructor.name}
-            </span>
-          </div>
-
-          {/* Rating */}
-          <div className="flex items-center gap-1 mb-4">
-            <Star className="h-4 w-4 fill-accent text-accent" />
-            <span className="text-base font-semibold text-foreground">
-              {course.rating}
-            </span>
-            <span className="text-base text-muted-foreground">
-              ({course.reviewCount.toLocaleString()} جائزے)
             </span>
           </div>
 

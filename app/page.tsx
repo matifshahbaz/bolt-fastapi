@@ -5,8 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
   Search,
-  Star,
-  Users,
   Clock,
   BookOpen,
   Compass,
@@ -16,17 +14,14 @@ import {
   CheckCircle2,
   ArrowLeft,
   Mail,
-  Quote,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { CourseCard } from '@/components/site/course-card';
 import { ArticleCard } from '@/components/site/article-card';
 import {
   featuredCourse,
   articles,
   categories,
-  testimonials,
 } from '@/lib/data';
 
 const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -38,6 +33,10 @@ const categoryIcons: Record<string, React.ComponentType<{ className?: string }>>
 
 export default function Home() {
   const [email, setEmail] = useState('');
+  const visibleLessonCount = featuredCourse.modules.reduce(
+    (total, module) => total + module.lessons.filter((lesson) => !lesson.hidden).length,
+    0,
+  );
 
   return (
     <div className="flex flex-col">
@@ -45,16 +44,16 @@ export default function Home() {
       <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 to-background">
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] xl:gap-12">
             <div className="animate-fade-in">
               <Badge className="mb-6 bg-primary/10 text-primary hover:bg-primary/10 border-primary/20">
-                پاکستان کا پہلا اردو کیریئر پلیٹ فارم
+                ایک نیا آغاز — اردو میں عملی کیریئر رہنمائی
               </Badge>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-nastaliq text-foreground leading-[1.6] mb-6 text-balance">
+              <h1 className="mb-6 text-4xl font-nastaliq !leading-[1.85] text-foreground md:text-5xl lg:text-5xl xl:text-6xl">
                 اپنے کیریئر کی سمت میں واضح رہنمائی حاصل کریں
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed mb-8 max-w-xl">
-                شمع.pk نوجوانوں کے لیے کورسز، مضامین اور رہنمائی فراہم کرتا ہے۔ کیریئر کا انتخاب، نوکوری کی تلاش، اور کاروبار شروع کرنا — سب کچھ اردو میں۔
+                شمع.pk نوجوانوں کے لیے کورسز، مضامین اور رہنمائی فراہم کرتا ہے۔ کیریئر کا انتخاب، نوکری کی تلاش، اور کاروبار شروع کرنا — سب کچھ اردو میں۔
               </p>
 
               {/* Search bar */}
@@ -72,46 +71,34 @@ export default function Home() {
                 </Button>
               </div>
 
-              {/* Trust stats */}
+              {/* Launch facts */}
               <div className="flex flex-wrap items-center gap-6">
                 <div className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-primary" />
-                  <span className="text-lg text-muted-foreground">5,000+ طلبہ</span>
+                  <Sparkles className="h-5 w-5 text-primary" />
+                  <span className="text-lg text-muted-foreground">ایک نیا آغاز</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <BookOpen className="h-5 w-5 text-primary" />
-                  <span className="text-lg text-muted-foreground">24 اسباق</span>
+                  <span className="text-lg text-muted-foreground">{visibleLessonCount} اسباق</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Star className="h-5 w-5 text-accent" />
-                  <span className="text-lg text-muted-foreground">4.8 ریٹنگ</span>
+                  <Compass className="h-5 w-5 text-accent" />
+                  <span className="text-lg text-muted-foreground">اردو میں عملی رہنمائی</span>
                 </div>
               </div>
             </div>
 
             {/* Hero image */}
-            <div className="relative animate-fade-in-delay-2 hidden lg:block">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <div className="relative animate-fade-in-delay-2">
+              <div className="relative overflow-hidden rounded-2xl shadow-xl">
                 <Image
-                  src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  alt="کیریئر رہنمائی"
-                  width={600}
-                  height={450}
-                  className="w-full h-auto object-cover"
+                  src="/top-banner-shama-pk.png"
+                  alt="تعلیم، ڈیجیٹل مہارت اور کاروباری راستوں کی کیریئر رہنمائی"
+                  width={1536}
+                  height={1024}
+                  priority
+                  className="h-auto w-full"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
-              </div>
-              {/* Floating card */}
-              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-5 max-w-xs">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10">
-                    <Star className="h-6 w-6 text-accent" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-foreground">4.8/5</p>
-                    <p className="text-sm text-muted-foreground">طلبہ کی ریٹنگ</p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -163,9 +150,9 @@ export default function Home() {
                 <Image
                   src={featuredCourse.coverImage}
                   alt={featuredCourse.title}
-                  width={720}
-                  height={405}
-                  className="w-full h-auto object-cover"
+                  width={1536}
+                  height={1024}
+                  className="h-auto w-full"
                 />
               </div>
             </div>
@@ -184,15 +171,6 @@ export default function Home() {
               <p className="text-lg text-muted-foreground leading-relaxed">
                 {featuredCourse.description}
               </p>
-              <div className="flex items-center gap-1">
-                <Star className="h-5 w-5 fill-accent text-accent" />
-                <span className="text-lg font-bold text-foreground">
-                  {featuredCourse.rating}
-                </span>
-                <span className="text-lg text-muted-foreground">
-                  ({featuredCourse.reviewCount.toLocaleString()} جائزے)
-                </span>
-              </div>
               <div className="flex flex-wrap gap-4 text-base text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <Clock className="h-4 w-4" />
@@ -200,11 +178,7 @@ export default function Home() {
                 </span>
                 <span className="flex items-center gap-1">
                   <BookOpen className="h-4 w-4" />
-                  {featuredCourse.lessons} اسباق
-                </span>
-                <span className="flex items-center gap-1">
-                  <Users className="h-4 w-4" />
-                  {featuredCourse.learnerCount} طلبہ
+                  {visibleLessonCount} اسباق
                 </span>
               </div>
               <div className="flex gap-3">
@@ -234,7 +208,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: Compass, title: 'کیریئر کا انتخاب', desc: 'اپنی صلاحیتوں اور دلچسپیاں پہچانیں' },
-              { icon: Briefcase, title: 'نوکوری تلاش', desc: 'سی وی، انٹرویو، اور جاب پورٹلز' },
+              { icon: Briefcase, title: 'نوکری تلاش', desc: 'سی وی، انٹرویو، اور جاب پورٹلز' },
               { icon: Rocket, title: 'کاروبار شروع کریں', desc: 'بزنس پلان اور مالی منصوبہ بندی' },
               { icon: Sparkles, title: 'ذاتی برانڈ', desc: 'ڈیجیٹل دور میں اپنی پہچان بنائیں' },
             ].map((item, idx) => (
@@ -294,62 +268,13 @@ export default function Home() {
             پاکستان کے نوجوانوں کو اردو میں معیاری رہنمائی فراہم کرنا
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-            ہمارا ماننا ہے کہ ہر نوجوان کے پاس اپنے مستقبل کے بارے میں واضم رہنمائی کا حق ہے۔ شمع.pk پاکستان کے نوجوانوں کے لیے، اردو میں، معیاری کیریئر رہنمائی فراہم کرتا ہے۔ ہمارا مقصد ہر نوجوان کو اپنی صلاحیتوں کو پہچان کر، صحیح کیریئر کا انتخاب کرنے میں مدد کرنا ہے۔
+            ہمارا ماننا ہے کہ ہر نوجوان کے پاس اپنے مستقبل کے بارے میں واضح رہنمائی کا حق ہے۔ شمع.pk پاکستان کے نوجوانوں کے لیے، اردو میں، معیاری کیریئر رہنمائی فراہم کرتا ہے۔ ہمارا مقصد ہر نوجوان کو اپنی صلاحیتوں کو پہچان کر، صحیح کیریئر کا انتخاب کرنے میں مدد کرنا ہے۔
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            {[
-              { number: '5,000+', label: 'فعال طلبہ' },
-              { number: '24', label: 'اسباق' },
-              { number: '4.8', label: 'اوسط ریٹنگ' },
-            ].map((stat, idx) => (
-              <div key={idx} className="text-center">
-                <p className="text-4xl font-bold text-primary mb-2">
-                  {stat.number}
-                </p>
-                <p className="text-lg text-muted-foreground">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-20 bg-foreground text-background">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-nastaliq text-white mb-4">
-              ہمارے طلبہ کیا کہتے ہیں
-            </h2>
-            <p className="text-lg text-background/70">
-              آپ بھی ان میں شامل ہو سکتے ہیں
+          <div className="mt-12 rounded-2xl border border-primary/15 bg-primary/5 px-6 py-8">
+            <h3 className="mb-3 text-2xl font-nastaliq text-foreground">یہ صرف آغاز ہے</h3>
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              شمع.pk ابھی اپنے ابتدائی مرحلے میں ہے۔ ہم حقیقی طلبہ کے تجربات، درست اعداد و شمار اور آپ کی رائے کے ساتھ اسے دیانت داری سے بہتر بنائیں گے۔
             </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t) => (
-              <div
-                key={t.id}
-                className="rounded-2xl bg-white/5 backdrop-blur border border-white/10 p-6"
-              >
-                <Quote className="h-8 w-8 text-accent mb-4" />
-                <p className="text-lg text-background/90 leading-relaxed mb-6">
-                  {t.quote}
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="relative h-12 w-12 rounded-full overflow-hidden">
-                    <Image
-                      src={t.avatar}
-                      alt={t.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-lg text-white">{t.name}</p>
-                    <p className="text-sm text-background/60">{t.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -363,7 +288,7 @@ export default function Home() {
               اردو میں کیریئر ٹپس حاصل کریں
             </h2>
             <p className="text-lg text-white/80 mb-8 max-w-xl mx-auto">
-              ہفتہ وار نیوز لیٹر میں کیریئر رہنمائی، نوکوری کے مواقع اور کاروباری تجاویز — سب کچھ اردو میں۔
+              نئی کیریئر رہنمائی، مضامین اور کورس مواد کی اطلاع اردو میں حاصل کریں۔
             </p>
             <form
               onSubmit={(e) => e.preventDefault()}

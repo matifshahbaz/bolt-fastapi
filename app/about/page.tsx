@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Target, Eye, Heart, Users, BookOpen, Star, ArrowLeft } from 'lucide-react';
+import { Target, Eye, Heart, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
@@ -38,41 +38,14 @@ export default function AboutPage() {
           </h2>
           <div className="space-y-4">
             <p className="text-lg text-muted-foreground leading-[2.2] text-justify">
-              شمع.pk کا آغاز اس احساس سے ہوا کہ پاکستان کے لاکھوں نوجوانوں کو کیریئر کے حوالے سے درست رہنمائی میسر نہیں۔ انگریزی میں معلومات تو موجود ہیں، لیکن اردو میں معیاری مواد کی کمی واضح تھی۔
+              شمع.pk کا آغاز اس احساس سے ہوا کہ بہت سے پاکستانی نوجوانوں کو کیریئر کے حوالے سے درست رہنمائی میسر نہیں۔ انگریزی میں معلومات تو موجود ہیں، لیکن اردو میں معیاری مواد کی کمی واضح تھی۔
             </p>
             <p className="text-lg text-muted-foreground leading-[2.2] text-justify">
-              ہمارا ماننا ہے کہ زبان کو رکاوٹ نہیں بننا چاہیے۔ ہر نوجوان، چاہے وہ کسی بھی پس منظر سے ہو، اپنے مستقبل کے بارے میں واضم رہنمائی کا مستحق ہے۔ شمع.pk اسی خواب کو حقیقت میں بدلنے کی کوشش ہے۔
+              ہمارا ماننا ہے کہ زبان کو رکاوٹ نہیں بننا چاہیے۔ ہر نوجوان، چاہے وہ کسی بھی پس منظر سے ہو، اپنے مستقبل کے بارے میں واضح رہنمائی کا مستحق ہے۔ شمع.pk اسی خواب کو حقیقت میں بدلنے کی کوشش ہے۔
             </p>
             <p className="text-lg text-muted-foreground leading-[2.2] text-justify">
-              آج شمع.pk ایک کورس کے ساتھ شروعات کر رہا ہے، لیکن ہمارا ہدفہ ہے کہ مستقبل قریب میں سینکڑوں کورسز اور ہزاروں مضامین فراہم کریں — سب اردو میں، سب پاکستانی نوجوانوں کے لیے۔
+              آج شمع.pk ایک کورس کے ساتھ شروعات کر رہا ہے۔ ہم حقیقی طلبہ کی ضروریات اور رائے کے مطابق مزید کورسز اور مضامین شامل کریں گے — سب اردو میں، سب پاکستانی نوجوانوں کے لیے۔
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="py-16 bg-secondary/30">
-        <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { icon: Users, number: '5,000+', label: 'فعال طلبہ' },
-              { icon: BookOpen, number: '24', label: 'اسباق' },
-              { icon: Star, number: '4.8', label: 'اوسط ریٹنگ' },
-              { icon: Target, number: '1', label: 'لانچ کورس' },
-            ].map((stat, idx) => (
-              <div
-                key={idx}
-                className="card-hover rounded-2xl border bg-card p-6 text-center"
-              >
-                <div className="flex h-14 w-14 mx-auto items-center justify-center rounded-2xl bg-primary/10 mb-4">
-                  <stat.icon className="h-7 w-7 text-primary" />
-                </div>
-                <p className="text-3xl font-bold text-primary mb-1">
-                  {stat.number}
-                </p>
-                <p className="text-base text-muted-foreground">{stat.label}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>

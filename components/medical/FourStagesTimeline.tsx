@@ -55,7 +55,7 @@ export default function FourStagesTimeline() {
           ))}
         </div>
       </div>
-      <div className="mt-10 text-center text-[20px] text-slate-400">ماخذ: shama.pk - کیرئیر گائیڈ بائے عاطف شہباز</div>
+      <div className="mt-10 text-center text-[20px] text-slate-400">ماخذ: shama.pk - کیریئر گائیڈ بائے عاطف شہباز</div>
     </div>
   );
 }

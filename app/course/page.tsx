@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { CourseExperience } from '@/components/site/course-experience';
 import { getFeaturedCourse } from '@/lib/content-api';
-import { testimonials } from '@/lib/data';
 
 export const metadata: Metadata = {
   title: 'نوجوانوں کے لیے کیریئر رہنمائی کورس',
@@ -21,5 +20,5 @@ export const metadata: Metadata = {
 export default async function CoursePage() {
   const c = await getFeaturedCourse();
 
-  return <CourseExperience course={c} testimonials={testimonials} />;
+  return <CourseExperience course={c} />;
 }

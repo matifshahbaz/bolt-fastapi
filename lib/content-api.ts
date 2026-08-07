@@ -44,7 +44,6 @@ type ApiInstructor = {
   name: string;
   title: string;
   bio: string;
-  avatar: string;
 };
 
 type ApiCourse = {
@@ -57,9 +56,6 @@ type ApiCourse = {
   lessons: number;
   level: string;
   language: string;
-  rating: number;
-  review_count: number;
-  learner_count: string;
   price: string;
   instructor: ApiInstructor;
   outcomes: string[];
@@ -154,9 +150,6 @@ function mapCourse(course: ApiCourse): Course {
     lessons: course.lessons,
     level: course.level,
     language: course.language,
-    rating: course.rating,
-    reviewCount: course.review_count,
-    learnerCount: course.learner_count,
     price: course.price,
     instructor: mapInstructor(course.instructor),
     outcomes: course.outcomes,

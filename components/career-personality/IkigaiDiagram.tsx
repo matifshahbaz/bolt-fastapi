@@ -7,7 +7,7 @@ export default function IkigaiDiagram() {
         <div className="text-center max-w-[600px] mx-auto">
           <h2 className="text-3xl font-bold">اکیگائی - جاپانی فلسفہ برائے زندگی کا مقصد</h2>
           <p className="text-sm leading-7 mt-3 opacity-60">
-            جاپان کے اوکیناوا جزیرے کے لوگ سب سے لمبی عمر پاتے ہیں، راز ان کا اکیگائی ہے۔ چار دائروں کا سنگم ہی آپ کا مثالی کیرئیر ہے۔
+            جاپان کے اوکیناوا جزیرے کے لوگ سب سے لمبی عمر پاتے ہیں، راز ان کا اکیگائی ہے۔ چار دائروں کا سنگم ہی آپ کا مثالی کیریئر ہے۔
           </p>
         </div>
 
@@ -30,7 +30,7 @@ export default function IkigaiDiagram() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130px] h-[130px] rounded-full bg-[#2E7D32] text-white grid place-items-center text-center text-sm font-bold shadow-xl shadow-green-200 border-4 border-white z-10">
             مثالی
             <br />
-            کیرئیر
+            کیریئر
             <span className="text-[10px] font-normal opacity-80 mt-1">IKIGAI</span>
           </div>
         </div>

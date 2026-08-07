@@ -5,8 +5,8 @@ export default function Footer() {
       <div className="max-w-[1100px] mx-auto px-6 py-12">
         <div className="grid md:grid-cols-3 gap-8">
           <div>
-            <h4 className="font-bold text-lg">کیرئیر رہنما</h4>
-            <p className="text-sm opacity-70 mt-2 leading-6">اپنی شخصیت، شوق، دلچسپی اور مہارت کی روشنی میں بہترین کیرئیر کا انتخاب کریں۔</p>
+            <h4 className="font-bold text-lg">کیریئر رہنما</h4>
+            <p className="text-sm opacity-70 mt-2 leading-6">اپنی شخصیت، شوق، دلچسپی اور مہارت کی روشنی میں بہترین کیریئر کا انتخاب کریں۔</p>
           </div>
           <div>
             <h4 className="font-bold">اہم لنکس</h4>
@@ -18,7 +18,7 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="font-bold">رابطہ</h4>
-            <p className="text-xs opacity-50 mt-4">© 2026 کیرئیر رہنما - Light Green Theme #F1F8E9</p>
+            <p className="text-xs opacity-50 mt-4">© 2026 کیریئر رہنما - Light Green Theme #F1F8E9</p>
           </div>
         </div>
       </div>

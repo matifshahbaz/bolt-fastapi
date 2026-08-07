@@ -1,18 +1,30 @@
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from datetime import datetime
 
 from app.core.db import get_db_session
+from app.core.config import settings
 from app.models import PasswordResetTokenModel, UserModel
 from app.schemas.auth import UserProfile
 
 
 class UserRepository:
-    def create_user(self, full_name: str, email: str, password_hash: str) -> UserProfile:
+    def create_user(
+        self,
+        full_name: str,
+        email: str,
+        password_hash: str,
+        mobile_number: str | None = None,
+        age: int | None = None,
+        location: str | None = None,
+    ) -> UserProfile:
         with get_db_session() as session:
             user = UserModel(
                 full_name=full_name,
                 email=email.lower(),
                 password_hash=password_hash,
+                mobile_number=mobile_number,
+                age=age,
+                location=location,
             )
             session.add(user)
             session.flush()
@@ -29,6 +41,9 @@ class UserRepository:
             "full_name": user.full_name,
             "email": user.email,
             "password_hash": user.password_hash,
+            "mobile_number": user.mobile_number,
+            "age": user.age,
+            "location": user.location,
             "created_at": user.created_at,
         }
 
@@ -38,6 +53,22 @@ class UserRepository:
         if user is None:
             return None
         return self._to_profile(user)
+
+    def list_users(self, search: str | None = None) -> list[UserProfile]:
+        query = select(UserModel).order_by(UserModel.created_at.desc(), UserModel.id.desc())
+        if search:
+            term = f"%{search.strip()}%"
+            query = query.where(
+                or_(
+                    UserModel.full_name.ilike(term),
+                    UserModel.email.ilike(term),
+                    UserModel.mobile_number.ilike(term),
+                    UserModel.location.ilike(term),
+                )
+            )
+        with get_db_session() as session:
+            users = session.scalars(query).all()
+        return [self._to_profile(user) for user in users]
 
     def get_auth_record_by_id(self, user_id: int) -> dict[str, str | int] | None:
         with get_db_session() as session:
@@ -49,6 +80,9 @@ class UserRepository:
             "full_name": user.full_name,
             "email": user.email,
             "password_hash": user.password_hash,
+            "mobile_number": user.mobile_number,
+            "age": user.age,
+            "location": user.location,
             "created_at": user.created_at,
         }
 
@@ -88,5 +122,9 @@ class UserRepository:
             id=user.id,
             full_name=user.full_name,
             email=user.email,
+            mobile_number=user.mobile_number,
+            age=user.age,
+            location=user.location,
             created_at=user.created_at,
+            is_admin=user.email.lower() in settings.admin_emails,
         )

@@ -125,7 +125,7 @@ class LmsService:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Course is already refunded")
 
         now = datetime.now(timezone.utc)
-        if now - enrollment.enrolled_at > timedelta(days=self.REFUND_WINDOW_DAYS):
+        if now - self._as_utc(enrollment.enrolled_at) > timedelta(days=self.REFUND_WINDOW_DAYS):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Refund window expired. Refunds are allowed within 7 days of purchase.",
@@ -217,7 +217,7 @@ class LmsService:
             return enrollment
 
         now = datetime.now(timezone.utc)
-        if now - enrollment.enrolled_at > timedelta(days=self.ACCESS_WINDOW_DAYS):
+        if now - self._as_utc(enrollment.enrolled_at) > timedelta(days=self.ACCESS_WINDOW_DAYS):
             expired = self._lms_repository.mark_enrollment_expired(user_id, enrollment.course_id)
             if expired is not None:
                 return expired
@@ -236,6 +236,12 @@ class LmsService:
             percent_complete=percent_complete,
             items=items,
         )
+
+    @staticmethod
+    def _as_utc(value: datetime) -> datetime:
+        if value.tzinfo is None:
+            return value.replace(tzinfo=timezone.utc)
+        return value.astimezone(timezone.utc)
 
 
 lms_service = LmsService(LmsRepository(), ContentRepository())

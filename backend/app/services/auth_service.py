@@ -23,6 +23,7 @@ from app.schemas.auth import (
     UserProfile,
     UserRegister,
 )
+from app.services.email_service import email_service
 
 
 class AuthService:
@@ -35,10 +36,14 @@ class AuthService:
             raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
 
         user = self._repository.create_user(
-            full_name=payload.full_name,
+            full_name=payload.full_name.strip(),
             email=payload.email,
             password_hash=hash_password(payload.password),
+            mobile_number=self._clean_optional(payload.mobile_number),
+            age=payload.age,
+            location=self._clean_optional(payload.location),
         )
+        email_service.send_registration_confirmation(user.email, user.full_name)
         return AuthResponse(access_token=create_access_token(user.id), user=user)
 
     def login(self, payload: UserLogin) -> AuthResponse:
@@ -71,6 +76,11 @@ class AuthService:
             user_id=int(record["id"]),
             token_hash=hash_reset_token(reset_token),
             expires_at=datetime.now(timezone.utc) + timedelta(minutes=settings.password_reset_token_ttl_minutes),
+        )
+        email_service.send_password_reset(
+            recipient=str(record["email"]),
+            full_name=str(record["full_name"]),
+            reset_token=reset_token,
         )
 
         # Production should send this token via email; keep hidden unless explicitly enabled.
@@ -113,6 +123,11 @@ class AuthService:
         if value.tzinfo is None:
             return value.replace(tzinfo=timezone.utc)
         return value.astimezone(timezone.utc)
+
+    @staticmethod
+    def _clean_optional(value: str | None) -> str | None:
+        cleaned = value.strip() if value else ""
+        return cleaned or None
 
 
 auth_service = AuthService(UserRepository())

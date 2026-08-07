@@ -8,6 +8,9 @@ This backend provides a modular FastAPI service for shama.pk.
 - Articles API for Urdu content pages
 - Contact form submission endpoint
 - LMS auth, enrollments, and lesson progress
+- Manual JazzCash/bank payment proof submission and admin approval
+- Admin student search, manual enrollment, access suspension/reactivation, and removal
+- SMTP account, payment, approval, rejection, and password-reset emails
 - CORS defaults for local development and shama.pk
 - PostgreSQL-ready database layer using SQLAlchemy
 - File-based contact message persistence for simple shared hosting deployments
@@ -54,6 +57,41 @@ NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
 - Keep the `SHAMA_ALLOWED_ORIGINS` value aligned with the final frontend domains.
 - Set `SHAMA_DATABASE_URL` to the PostgreSQL connection string from your Hostinger VPS.
 
+## Manual payments
+
+The temporary checkout does not grant course access when a student uploads a screenshot. It creates a pending payment submission. An email allowlisted through `SHAMA_ADMIN_EMAILS` can review proofs at:
+
+```text
+https://shama.pk/admin/payments
+```
+
+Approving a payment activates the existing enrollment record. RapidGateway can later replace the submission/review step while keeping that enrollment activation boundary and the rest of the LMS unchanged.
+
+Payment proof images are limited to JPEG, PNG, or WebP files up to 4 MB and are stored in the configured SQL database. The proof endpoint requires admin authentication.
+
+Configure these groups in the backend hosting environment:
+
+- `SHAMA_JAZZCASH_NUMBER` and `SHAMA_BANK_*` public payment instructions
+- `SHAMA_ADMIN_EMAILS` and `SHAMA_ADMIN_NOTIFICATION_EMAIL`
+- `SHAMA_FRONTEND_BASE_URL`
+- `SHAMA_SMTP_HOST`, `SHAMA_SMTP_PORT`, `SHAMA_SMTP_USERNAME`, and `SHAMA_SMTP_PASSWORD`
+- `SHAMA_SMTP_USE_TLS` or `SHAMA_SMTP_USE_SSL`, as required by the mail provider
+- `SHAMA_EMAIL_FROM` and `SHAMA_EMAIL_FROM_NAME`
+
+Keep the SMTP password only in the hosting environment. When SMTP is unavailable, account and payment operations still succeed and the backend logs the email delivery failure.
+
+## Student enrollment administration
+
+Allowlisted administrators see an **Admin** link after login and can manage registered accounts at:
+
+```text
+https://shama.pk/admin/students
+```
+
+The screen supports searching by name, email, mobile number, or location; manually granting course access by registered email; viewing enrollment state and completed lesson count; suspending or reactivating access; and permanently removing an enrollment. Permanent removal also deletes that student's saved progress for the course. Reactivation starts a new 30-day access window.
+
+All student and enrollment administration endpoints require a bearer token belonging to an email configured in `SHAMA_ADMIN_EMAILS`.
+
 ## Cloudflare setup (Stream + Images)
 
 Recommended order:
@@ -95,3 +133,22 @@ Required backend env vars:
 - `POST /api/v1/auth/password-reset/confirm`
   - Payload: `{ "token": "...", "new_password": "new-strong-password" }`
   - Validates one-time reset token and updates the user's password.
+
+- `POST /api/v1/lms/courses/{course_id}/payment-submissions`
+  - Authenticated student submission. Access remains inactive while status is pending.
+- `GET /api/v1/lms/courses/{course_id}/payment-submission`
+  - Returns the student's latest review status.
+- `GET /api/v1/lms/admin/payment-submissions`
+  - Admin-only payment review list.
+- `POST /api/v1/lms/admin/payment-submissions/{submission_id}/approve`
+  - Admin-only approval that activates course enrollment.
+- `POST /api/v1/lms/admin/payment-submissions/{submission_id}/reject`
+  - Admin-only rejection with an optional review note.
+- `GET /api/v1/lms/admin/students`
+  - Admin-only registered-account and enrollment list with optional search.
+- `POST /api/v1/lms/admin/enrollments`
+  - Grants or reactivates course access for an existing registered email.
+- `PATCH /api/v1/lms/admin/students/{user_id}/courses/{course_id}/enrollment`
+  - Changes access status to active, inactive, expired, or refunded.
+- `DELETE /api/v1/lms/admin/students/{user_id}/courses/{course_id}/enrollment`
+  - Permanently removes enrollment and saved lesson progress.

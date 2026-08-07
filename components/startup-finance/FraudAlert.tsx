@@ -36,7 +36,7 @@ const FraudAlertCard = () => {
           <ul className="text-slate-700 text-lg space-y-2 list-inside list-disc">
             <li>قرض دینے کے نام پر پہلے فارم فیس مانگنا۔</li>
             <li>واٹس ایپ یا فیس بک پر شناختی کارڈ مانگنا۔</li>
-            <li>"یقینی اور فوری منافع" کا لالچ دینا۔</li>
+            <li>&quot;یقینی اور فوری منافع&quot; کا لالچ دینا۔</li>
           </ul>
         </div>
       </div>

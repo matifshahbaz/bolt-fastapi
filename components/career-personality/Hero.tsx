@@ -9,7 +9,7 @@ export default function Hero() {
             خود شناسی سے خود کفالت تک
           </span>
           <h1 className="text-[40px] md:text-[56px] leading-[1.15] font-extrabold text-[#1B5E20]">
-            اپنے کیرئیر کا انتخاب
+            اپنے کیریئر کا انتخاب
             <span className="block text-[#388E3C] font-normal mt-3 text-[32px] md:text-[42px]">
               شخصیت، شوق اور مہارت کی روشنی میں
             </span>
@@ -43,11 +43,11 @@ export default function Hero() {
               </div>
               <div className="col-span-2 bg-[#2E7D32] text-white rounded-2xl p-5 shadow-md">
                 <p className="font-bold">اکیگائی فارمولا</p>
-                <p className="text-sm opacity-80 mt-1 leading-6">پسند + مہارت + ضرورت + معاوضہ = مثالی کیرئیر</p>
+                <p className="text-sm opacity-80 mt-1 leading-6">پسند + مہارت + ضرورت + معاوضہ = مثالی کیریئر</p>
               </div>
               <div className="col-span-2 bg-[#FAFAFA] rounded-2xl p-4 border border-[#EEEEEE] flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-[#F1F8E9] grid place-items-center">💡</div>
-                <p className="text-xs leading-5 opacity-70">آپ کا بہترین کیرئیر آپ کے اندر چھپا ہوا ہے، بس دریافت کرنے کی دیر ہے۔</p>
+                <p className="text-xs leading-5 opacity-70">آپ کا بہترین کیریئر آپ کے اندر چھپا ہوا ہے، بس دریافت کرنے کی دیر ہے۔</p>
               </div>
             </div>
           </div>

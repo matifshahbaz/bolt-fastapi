@@ -4,8 +4,6 @@ import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
-  Star,
-  Users,
   Clock,
   BookOpen,
   Globe,
@@ -15,11 +13,13 @@ import {
   BarChart3,
   ArrowLeft,
   Lock,
+  UserRound,
 } from 'lucide-react';
 
 import { useAuth } from '@/components/site/auth-provider';
 import { CloudflareLessonPlayer } from '@/components/site/cloudflare-lesson-player';
 import { CourseTextLesson } from '@/components/site/course-text-lesson';
+import { ManualPaymentForm } from '@/components/site/manual-payment-form';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -27,20 +27,18 @@ import { Progress } from '@/components/ui/progress';
 import {
   getCourseProgress,
   getLessonPlayback,
-  purchaseCourse,
   submitLessonWatchEvent,
   updateLessonProgress,
   type CourseProgress,
   type LessonPlayback,
 } from '@/lib/lms-api';
-import type { Course, CourseLesson, Testimonial } from '@/lib/data';
+import type { Course, CourseLesson } from '@/lib/data';
 
 type CourseExperienceProps = {
   course: Course;
-  testimonials: Testimonial[];
 };
 
-export function CourseExperience({ course, testimonials }: CourseExperienceProps) {
+export function CourseExperience({ course }: CourseExperienceProps) {
   const { isAuthenticated, token, user } = useAuth();
   const [progress, setProgress] = useState<CourseProgress | null>(null);
   const [activeLesson, setActiveLesson] = useState<{ moduleId: string; lessonIndex: number; lesson: CourseLesson } | null>(null);
@@ -74,22 +72,12 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
     return lookup;
   }, [progress]);
 
-  const handlePurchase = async () => {
+  const refreshApprovedCourse = async () => {
     if (!token) {
       return;
     }
-    setActionStatus('loading');
-    setFeedback('');
-    try {
-      await purchaseCourse(token, course.id);
-      const latestProgress = await getCourseProgress(token, course.id);
-      setProgress(latestProgress);
-      setFeedback('کورس کامیابی سے آپ کے اکاؤنٹ میں شامل ہو گیا ہے۔');
-    } catch (error) {
-      setFeedback(error instanceof Error ? error.message : 'کورس خریدنے میں مسئلہ پیش آیا۔');
-    } finally {
-      setActionStatus('idle');
-    }
+    const latestProgress = await getCourseProgress(token, course.id);
+    setProgress(latestProgress);
   };
 
   const toggleLesson = async (moduleId: string, lessonIndex: number, completed: boolean) => {
@@ -109,6 +97,13 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
   };
 
   const hasPurchased = Boolean(progress);
+  const visibleModules = course.modules.map((module) => ({
+    ...module,
+    lessons: module.lessons
+      .map((lesson, lessonIndex) => ({ lesson, lessonIndex }))
+      .filter(({ lesson }) => !lesson.hidden),
+  }));
+  const visibleLessonCount = visibleModules.reduce((total, module) => total + module.lessons.length, 0);
 
   const openLesson = async (moduleId: string, lessonIndex: number, lesson: CourseLesson) => {
     if (!isAuthenticated) {
@@ -182,21 +177,9 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
               </h1>
               <p className="mb-6 text-xl text-muted-foreground leading-relaxed">{course.subtitle}</p>
 
-              <div className="mb-6 flex flex-wrap items-center gap-6">
-                <div className="flex items-center gap-1">
-                  <Star className="h-5 w-5 fill-accent text-accent" />
-                  <span className="text-lg font-bold text-foreground">{course.rating}</span>
-                  <span className="text-lg text-muted-foreground">({course.reviewCount.toLocaleString()} جائزے)</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Users className="h-5 w-5 text-muted-foreground" />
-                  <span className="text-lg text-muted-foreground">{course.learnerCount} طلبہ</span>
-                </div>
-              </div>
-
               <div className="mb-6 flex items-center gap-3">
-                <div className="relative h-12 w-12 overflow-hidden rounded-full">
-                  <Image src={course.instructor.avatar} alt={course.instructor.name} fill className="object-cover" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <UserRound className="h-6 w-6" />
                 </div>
                 <div>
                   <p className="text-lg text-foreground">
@@ -209,7 +192,7 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
 
               <div className="flex flex-wrap items-center gap-6 text-base text-muted-foreground">
                 <span className="flex items-center gap-1"><Clock className="h-5 w-5" />{course.duration}</span>
-                <span className="flex items-center gap-1"><BookOpen className="h-5 w-5" />{course.lessons} اسباق</span>
+                <span className="flex items-center gap-1"><BookOpen className="h-5 w-5" />{visibleLessonCount} اسباق</span>
                 <span className="flex items-center gap-1"><Globe className="h-5 w-5" />زبان: {course.language}</span>
                 <span className="flex items-center gap-1"><BarChart3 className="h-5 w-5" />{course.level}</span>
               </div>
@@ -217,26 +200,20 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
 
             <div className="lg:col-span-1">
               <div className="sticky top-20 overflow-hidden rounded-2xl border bg-card shadow-xl">
-                <div className="relative aspect-video">
-                  <Image src={course.coverImage} alt={course.title} fill className="object-cover" />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90">
-                      <Play className="mr-1 h-7 w-7 text-primary" fill="currentColor" />
-                    </div>
-                  </div>
+                <div className="relative aspect-[3/2] bg-white">
+                  <Image src={course.coverImage} alt={course.title} fill className="object-contain" priority />
                 </div>
                 <div className="p-6">
                   <div className="mb-6 space-y-3">
                     <div className="flex items-center gap-2 text-base text-muted-foreground"><Clock className="h-4 w-4" /><span>مدت: {course.duration}</span></div>
-                    <div className="flex items-center gap-2 text-base text-muted-foreground"><BookOpen className="h-4 w-4" /><span>اسباق: {course.lessons}</span></div>
+                    <div className="flex items-center gap-2 text-base text-muted-foreground"><BookOpen className="h-4 w-4" /><span>اسباق: {visibleLessonCount}</span></div>
                     <div className="flex items-center gap-2 text-base text-muted-foreground"><Globe className="h-4 w-4" /><span>زبان: {course.language}</span></div>
                     <div className="flex items-center gap-2 text-base text-muted-foreground"><BarChart3 className="h-4 w-4" /><span>سطح: {course.level}</span></div>
                     <div className="flex items-center gap-2 text-base text-muted-foreground"><Award className="h-4 w-4" /><span>سرٹیفکیٹ: ہاں</span></div>
                   </div>
                   <div className="mb-4 flex items-baseline gap-2 border-b pb-4">
                     <span className="text-3xl font-bold text-foreground">{course.price}</span>
-                    <span className="text-base text-muted-foreground line-through">Rs. 2,000</span>
-                    <Badge className="bg-accent text-accent-foreground">75% رعایت</Badge>
+                    <span className="text-base text-muted-foreground">کورس فیس</span>
                   </div>
 
                   <div className="mb-4 rounded-xl border border-amber-300/70 bg-amber-50 p-4 text-right">
@@ -268,19 +245,13 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
                         <Button className="mb-3 w-full text-lg" size="lg">اپنا ڈیش بورڈ دیکھیں</Button>
                       </Link>
                     ) : (
-                      <Button className="mb-3 w-full text-lg" size="lg" onClick={handlePurchase} disabled={actionStatus === 'loading'}>
-                        {actionStatus === 'loading' ? 'براہ کرم انتظار کریں...' : 'کورس خریدیں'}
-                      </Button>
+                      token ? <ManualPaymentForm token={token} courseId={course.id} onApproved={refreshApprovedCourse} /> : null
                     )
                   ) : (
                     <Link href="/login">
                       <Button className="mb-3 w-full text-lg" size="lg">لاگ اِن کر کے خریدیں</Button>
                     </Link>
                   )}
-
-                  <Button asChild variant="outline" className="w-full text-lg" size="lg">
-                    <Link href="/invoices/sample">نمونہ انوائس دیکھیں</Link>
-                  </Button>
 
                   {feedback ? <p className="mt-4 text-center text-sm text-muted-foreground">{feedback}</p> : null}
 
@@ -320,7 +291,7 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
       <section className="py-16 bg-secondary/30">
         <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-2 text-2xl md:text-3xl font-nastaliq text-foreground">نصاب</h2>
-          <p className="mb-8 text-lg text-muted-foreground">{course.modules.length} ماڈیول، {course.lessons} اسباق</p>
+          <p className="mb-8 text-lg text-muted-foreground">{course.modules.length} ماڈیول، {visibleLessonCount} اسباق</p>
 
           {hasPurchased && activeLesson ? (
             <div className="mb-8 space-y-3 rounded-2xl border bg-card p-5 shadow-sm">
@@ -363,7 +334,7 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
           ) : null}
 
           <Accordion type="single" collapsible defaultValue="m1">
-            {course.modules.map((module, moduleIndex) => (
+            {visibleModules.map((module, moduleIndex) => (
               <AccordionItem key={module.id} value={module.id} className="mb-3 overflow-hidden rounded-xl border bg-card px-6">
                 <AccordionTrigger className="text-xl font-nastaliq text-foreground hover:no-underline">
                   <div className="flex items-center gap-3 text-right">
@@ -374,7 +345,7 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
                 </AccordionTrigger>
                 <AccordionContent className="pt-2">
                   <div className="space-y-2 pb-2">
-                    {module.lessons.map((lesson, lessonIndex) => {
+                    {module.lessons.map(({ lesson, lessonIndex }) => {
                       const lessonKey = `${module.id}:${lessonIndex}`;
                       const completed = completedLookup.has(lessonKey);
                       return (
@@ -438,51 +409,14 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
         <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-8 text-2xl md:text-3xl font-nastaliq text-foreground">استاد</h2>
           <div className="flex flex-col items-start gap-8 md:flex-row">
-            <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-2xl">
-              <Image src={course.instructor.avatar} alt={course.instructor.name} fill className="object-cover" />
+            <div className="flex h-32 w-32 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <UserRound className="h-14 w-14" />
             </div>
             <div>
               <h3 className="mb-1 text-2xl font-nastaliq text-foreground">{course.instructor.name}</h3>
               <p className="mb-4 text-lg text-primary">{course.instructor.title}</p>
-              <div className="mb-4 flex flex-wrap items-center gap-4 text-base text-muted-foreground">
-                <span className="flex items-center gap-1"><Star className="h-4 w-4 fill-accent text-accent" />{course.rating} ریٹنگ</span>
-                <span className="flex items-center gap-1"><Users className="h-4 w-4" />{course.learnerCount} طلبہ</span>
-                <span className="flex items-center gap-1"><BookOpen className="h-4 w-4" />1 کورس</span>
-              </div>
               <p className="text-lg text-muted-foreground leading-relaxed">{course.instructor.bio}</p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 bg-secondary/30">
-        <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-2 text-2xl md:text-3xl font-nastaliq text-foreground">طلبہ کے جائزے</h2>
-          <div className="mb-8 flex items-center gap-3">
-            <Star className="h-6 w-6 fill-accent text-accent" />
-            <span className="text-2xl font-bold text-foreground">{course.rating}</span>
-            <span className="text-lg text-muted-foreground">({course.reviewCount.toLocaleString()} جائزے)</span>
-          </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {testimonials.map((testimonial) => (
-              <div key={testimonial.id} className="rounded-2xl border bg-card p-6">
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="relative h-12 w-12 overflow-hidden rounded-full">
-                    <Image src={testimonial.avatar} alt={testimonial.name} fill className="object-cover" />
-                  </div>
-                  <div>
-                    <p className="text-lg text-foreground">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                  </div>
-                </div>
-                <div className="mb-3 flex gap-1">
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <Star key={index} className="h-4 w-4 fill-accent text-accent" />
-                  ))}
-                </div>
-                <p className="text-base text-muted-foreground leading-relaxed">{testimonial.quote}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -491,7 +425,7 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
         <div className="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
           <div className="rounded-3xl bg-gradient-to-l from-primary to-primary/80 p-10 text-white">
             <h2 className="mb-4 text-3xl font-nastaliq">آج ہی اپنا مستقبل بنائیں</h2>
-            <p className="mb-8 text-lg text-white/80">ہزاروں نوجوانوں کے ساتھ شامل ہوں جنہوں نے اپنا کیریئر شمع.pk سے شروع کیا۔</p>
+            <p className="mb-8 text-lg text-white/80">شمع.pk ایک نیا آغاز ہے۔ پہلے کورس کے ساتھ اپنا سیکھنے کا سفر شروع کریں اور اپنی حقیقی رائے سے اسے بہتر بنانے میں مدد دیں۔</p>
             <Link href={hasPurchased ? '/dashboard' : isAuthenticated ? '/course' : '/signup'}>
               <Button size="lg" className="bg-accent text-lg text-accent-foreground hover:bg-accent/90">
                 {hasPurchased ? 'اپنا ڈیش بورڈ کھولیں' : 'ابھی شامل ہوں'}

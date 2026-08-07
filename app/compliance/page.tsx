@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
   title: 'کاروباری اور ادائیگی معلومات',
@@ -39,31 +37,21 @@ export default function CompliancePage() {
           </div>
 
           <div className="rounded-2xl border bg-card p-6">
-            <h2 className="mb-4 text-2xl font-nastaliq text-foreground">ادائیگی گیٹ وے کے استعمال کی تفصیل</h2>
+            <h2 className="mb-4 text-2xl font-nastaliq text-foreground">موجودہ ادائیگی کے طریقے کی تفصیل</h2>
             <p className="mb-4 text-base leading-relaxed text-muted-foreground font-nastaliq">
-              shama.pk ایک آن لائن تعلیمی اور کیریئر رہنمائی پلیٹ فارم ہے۔ Rapidgateway.pk کو بامعاوضہ ڈیجیٹل کورسز کی ایک مرتبہ فیس وصول کرنے کے لیے استعمال کیا جائے گا۔
+              shama.pk ایک آن لائن تعلیمی اور کیریئر رہنمائی پلیٹ فارم ہے۔ RapidGateway کی منظوری تک بامعاوضہ ڈیجیٹل کورسز کی ایک مرتبہ فیس JazzCash یا بینک ٹرانسفر کے ذریعے وصول کی جاتی ہے۔
             </p>
             <ol className="list-decimal space-y-2 pr-6 text-base text-muted-foreground leading-relaxed font-nastaliq">
               <li>صارف shama.pk پر بامعاوضہ کورس منتخب کرتا ہے۔</li>
-              <li>صارف ادائیگی کے بٹن پر کلک کرتا ہے اور محفوظ Rapidgateway checkout پر منتقل ہوتا ہے۔</li>
-              <li>صارف دستیاب ادائیگی طریقے سے ادائیگی مکمل کرتا ہے۔</li>
-              <li>کامیاب ادائیگی کے بعد صارف دوبارہ shama.pk پر واپس آتا ہے۔</li>
-              <li>کورس صارف کے ڈیش بورڈ میں فعال ہو جاتا ہے اور ڈیجیٹل اسباق تک رسائی مل جاتی ہے۔</li>
-              <li>ادائیگی کی تصدیق کے بعد صارف کو ای میل کے ذریعے ادائیگی کی انوائس بھیجی جاتی ہے۔</li>
+              <li>صارف دکھائے گئے JazzCash نمبر یا بینک اکاؤنٹ پر کورس فیس ادا کرتا ہے۔</li>
+              <li>صارف ٹرانزیکشن کی تصویر اور اختیاری حوالہ کورس صفحے پر جمع کرتا ہے۔</li>
+              <li>ادائیگی کا ثبوت صرف مجاز منتظم دیکھ اور چیک کر سکتا ہے۔</li>
+              <li>منظوری کے بعد کورس صارف کے ڈیش بورڈ میں فعال ہو جاتا ہے اور ڈیجیٹل اسباق تک رسائی مل جاتی ہے۔</li>
+              <li>صارف کو ثبوت موصول ہونے اور منظوری کے بعد ای میل کے ذریعے اطلاع دی جاتی ہے۔</li>
             </ol>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground font-nastaliq">
-              اس گیٹ وے کے ذریعے کوئی فزیکل پراڈکٹ فروخت نہیں کی جاتی۔ ادائیگیاں صرف ڈیجیٹل کورس رسائی اور متعلقہ تعلیمی خدمات کے لیے استعمال ہوتی ہیں۔
+              RapidGateway دستیاب ہونے کے بعد یہی مرحلہ خودکار چیک آؤٹ سے تبدیل کیا جائے گا۔ کوئی فزیکل پراڈکٹ فروخت نہیں کی جاتی؛ ادائیگیاں صرف ڈیجیٹل کورس رسائی اور متعلقہ تعلیمی خدمات کے لیے ہیں۔
             </p>
-          </div>
-
-          <div className="rounded-2xl border bg-card p-6">
-            <h2 className="mb-4 text-2xl font-nastaliq text-foreground">ادائیگی کی انوائس</h2>
-            <p className="mb-5 text-base leading-relaxed text-muted-foreground font-nastaliq">
-              کامیاب ادائیگی کی سرور سائیڈ تصدیق کے بعد خریدار کو انوائس نمبر، ٹرانزیکشن حوالہ، کورس، تاریخ اور ادا شدہ رقم کے ساتھ ای میل انوائس بھیجی جائے گی۔ درج ذیل نمونہ صرف فارمیٹ دکھانے کے لیے ہے اور کسی حقیقی لین دین کی نمائندگی نہیں کرتا۔
-            </p>
-            <Button asChild variant="outline">
-              <Link href="/invoices/sample">نمونہ انوائس دیکھیں</Link>
-            </Button>
           </div>
 
           <div className="rounded-2xl border bg-card p-6">
@@ -76,11 +64,11 @@ export default function CompliancePage() {
               <li>ڈلیوری ماڈل: اندراج کے بعد صارف اپنے ڈیش بورڈ سے ویڈیوز اور ٹیکسٹ اسباق تک رسائی حاصل کرتا ہے۔</li>
               <li>آمدنی ماڈل: ہر بامعاوضہ کورس پر ایک مرتبہ کورس فیس۔</li>
               <li>صارفین کی نوعیت: براہ راست طلبہ اور ابتدائی کیریئر صارفین۔</li>
-              <li>فلفلمنٹ: کامیاب ادائیگی کی تصدیق کے فوراً بعد ڈیجیٹل رسائی آن لائن فراہم کی جاتی ہے۔</li>
+              <li>فلفلمنٹ: ادائیگی کا ثبوت دستی طور پر منظور ہونے کے بعد ڈیجیٹل رسائی آن لائن فراہم کی جاتی ہے۔</li>
               <li>سپورٹ: صارف درج شدہ ای میل اور فون کے ذریعے رابطہ کر سکتا ہے۔</li>
             </ul>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground font-nastaliq">
-              یہ ماڈل واضح قیمت، شفاف ادائیگی، اور ادائیگی کے بعد فوری کورس رسائی کو یقینی بناتا ہے۔
+              یہ ماڈل واضح قیمت، شفاف ادائیگی، اور منظوری کے بعد کورس رسائی کو یقینی بناتا ہے۔
             </p>
           </div>
 

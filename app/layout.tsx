@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     template: '%s | شمع.pk',
   },
   description:
-    'شمع.pk پاکستان کا پہلا اردو کیریئر رہنمائی پلیٹ فارم۔ نوجوانوں کے لیے کورسز، مضامین اور رہنمائی۔',
+    'شمع.pk پاکستانی نوجوانوں کے لیے اردو میں کیریئر کورسز، مضامین اور عملی رہنمائی کا ایک نیا آغاز ہے۔',
   applicationName: 'شمع.pk',
   authors: [{ name: 'شمع.pk', url: 'https://shama.pk' }],
   creator: 'شمع.pk',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'شمع.pk - نوجوانوں کے لیے کیریئر رہنمائی',
     description:
-      'پاکستان کا پہلا اردو کیریئر رہنمائی پلیٹ فارم۔ کورسز، مضامین اور رہنمائی۔',
+      'پاکستانی نوجوانوں کے لیے اردو میں کیریئر کورسز، مضامین اور عملی رہنمائی۔',
     url: 'https://shama.pk',
     siteName: 'شمع.pk',
     locale: 'ur_PK',
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'شمع.pk - نوجوانوں کے لیے کیریئر رہنمائی',
-    description: 'پاکستان کا پہلا اردو کیریئر رہنمائی پلیٹ فارم۔ کورسز، مضامین اور رہنمائی۔',
+    description: 'پاکستانی نوجوانوں کے لیے اردو میں کیریئر کورسز، مضامین اور عملی رہنمائی۔',
   },
 };
 

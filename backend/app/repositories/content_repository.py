@@ -196,15 +196,15 @@ def _module_lessons(module_id: str, module_title: str, videos: list[dict[str, st
 
 def _module3_lessons() -> list[Lesson]:
     module_id = "m3"
-    module_title = "نوکوری تلاش اور درخواست"
+    module_title = "نوکری تلاش اور درخواست"
     lessons = _module_lessons(
         module_id,
         module_title,
         [
             {"title": "سی وی بنانے کا فن", "duration": "22 منٹ", "focus": "CV structure and clarity", "video_uid": "072336982e4f8759249c1d02edf14aba"},
-            {"title": "کور لیٹر لکھنا", "duration": "16 منٹ", "focus": "cover letter personalization", "video_uid": "d589d0b83800d7bafe30ead9c07a8980"},
+            {"title": "ویب سائٹ ڈیولپمنٹ", "duration": "16 منٹ", "focus": "website development foundations", "video_uid": "d589d0b83800d7bafe30ead9c07a8980"},
             {"title": "آن لائن جاب پورٹلز کا استعمال", "duration": "14 منٹ", "focus": "job portals and applications", "video_uid": "3d66a6a2dcbfd91ce07affe6ed64654b"},
-            {"title": "نوکوری کی تلاش کی حکمت عملی", "duration": "20 منٹ", "focus": "job search system", "video_uid": "placeholder-m3-v4"},
+            {"title": "ڈیجیٹل مارکیٹنگ", "duration": "20 منٹ", "focus": "digital marketing careers", "video_uid": "placeholder-m3-v4"},
         ],
     )
     return [
@@ -212,7 +212,7 @@ def _module3_lessons() -> list[Lesson]:
         _video_lesson(module_id, "1-2", "سی وی بنانے کا فن — حصہ 2", "حصہ 2", "d24d8a9a8b651147fd80bada011a38b2"),
         _video_lesson(module_id, "1-3", "سی وی بنانے کا فن — حصہ 3", "حصہ 3", "0c6ef060e7232246ef0a823111883fed"),
         lessons[1],
-        *lessons[2:],
+        *lessons[2:6],
     ]
 
 
@@ -262,13 +262,13 @@ def _featured_course_modules() -> list[CourseModule]:
                 [
                     {"title": "کمپیوٹر سائنس کا شعبہ", "duration": "20 منٹ", "focus": "کمپیوٹر سائنس میں تعلیم اور کیریئر کے راستے", "video_uid": "ddbb12252d982b5ef19eb42ca07e5eec"},
                     {"title": "میڈیکل کا شعبہ", "duration": "25 منٹ", "focus": "میڈیکل کے شعبے میں تعلیم اور کیریئر کے راستے", "video_uid": "701a6ffd173193628347d31f422f9018"},
-                    {"title": "صحیح فیصلہ کیسے کریں", "duration": "18 منٹ", "focus": "decision-making framework", "video_uid": "placeholder-m2-v3"},
+                    {"title": "انجینئرنگ کا شعبہ", "duration": "18 منٹ", "focus": "انجینئرنگ میں تعلیم، مہارت اور کیریئر کے راستے", "video_uid": "placeholder-m2-v3"},
                 ],
             ),
         ),
         CourseModule(
             id="m3",
-            title="نوکوری تلاش اور درخواست",
+            title="نوکری تلاش اور درخواست",
             lessons=_module3_lessons(),
         ),
         CourseModule(
@@ -324,7 +324,7 @@ class ContentRepository:
             ),
             Category(
                 id="3",
-                name="نوکوری تلاش",
+                name="نوکری تلاش",
                 slug="job-search",
                 icon="Briefcase",
                 color="text-green-600",
@@ -344,33 +344,30 @@ class ContentRepository:
             subtitle="اپنے کیریئر کی سمت میں واضح رہنمائی حاصل کریں",
             description=(
                 "یہ شمع.pk کا نمایاں اردو کورس ہے جو پاکستانی نوجوانوں کو "
-                "کیریئر کا انتخاب، نوکوری کی تلاش، ذاتی برانڈ، اور کاروبار شروع "
+                "کیریئر کا انتخاب، نوکری کی تلاش، ذاتی برانڈ، اور کاروبار شروع "
                 "کرنے کی عملی رہنمائی دیتا ہے۔"
             ),
-            cover_image="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+            cover_image="/career-guidance-course-banner.png",
             duration="12 ہفتے",
             lessons=45,
             level="ابتدائی سے متوسط",
             language="اردو",
-            rating=4.8,
-            review_count=1240,
-            learner_count="5,000+",
             price="Rs. 500",
             instructor=Instructor(
-                name="ڈاکٹر عامر خان",
-                title="کیریئر ماہر اور مصنف",
+                name="عاطف شہباز",
+                title="بانی، شمع.pk",
                 bio=(
-                    "ڈاکٹر عامر خان پچھلے 15 سال سے نوجوانوں کی کیریئر رہنمائی "
-                    "کر رہے ہیں اور ہزاروں طلبہ کے ساتھ کام کر چکے ہیں۔"
+                    "عاطف شہباز نے شمع.pk کا آغاز اردو میں عملی کیریئر مواد "
+                    "فراہم کرنے کے لیے کیا۔ یہ پلیٹ فارم اپنے ابتدائی مرحلے میں ہے "
+                    "اور حقیقی طلبہ کی رائے کے ساتھ اسے مسلسل بہتر بنایا جائے گا۔"
                 ),
-                avatar="https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=2",
             ),
             outcomes=[
                 "اپنی صلاحیتوں اور دلچسپیاں پہچانیں",
                 "صحیح کیریئر کا انتخاب کرنا سیکھیں",
                 "پروفیشنل سی وی اور کور لیٹر بنائیں",
                 "انٹرویو کی تیاری اور اعتماد پیدا کریں",
-                "نوکوری تلاش کرنے کے جدید طریقے سیکھیں",
+                "نوکری تلاش کرنے کے جدید طریقے سیکھیں",
                 "کاروبار شروع کرنے کی بنیادی رہنمائی حاصل کریں",
             ],
             modules=_featured_course_modules(),

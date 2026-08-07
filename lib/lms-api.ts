@@ -4,7 +4,11 @@ export type UserProfile = {
   id: number;
   full_name: string;
   email: string;
+  mobile_number?: string | null;
+  age?: number | null;
+  location?: string | null;
   created_at: string;
+  is_admin?: boolean;
 };
 
 export type AuthResponse = {
@@ -20,6 +24,18 @@ export type Enrollment = {
   price_paid: string;
   enrolled_at: string;
   last_accessed_at?: string | null;
+};
+
+export type AdminStudentRecord = {
+  user_id: number;
+  full_name: string;
+  email: string;
+  mobile_number?: string | null;
+  age?: number | null;
+  location?: string | null;
+  registered_at: string;
+  enrollment?: Enrollment | null;
+  completed_lessons: number;
 };
 
 export type LessonProgressItem = {
@@ -70,6 +86,9 @@ export type RegisterPayload = {
   full_name: string;
   email: string;
   password: string;
+  mobile_number?: string;
+  age?: number;
+  location?: string;
 };
 
 export type LoginPayload = {
@@ -140,15 +159,135 @@ export function getCurrentUser(token: string) {
   return lmsRequest<UserProfile>('/api/v1/auth/me', undefined, token);
 }
 
+export function requestPasswordReset(email: string) {
+  return lmsRequest<{ message: string; reset_token?: string | null }>('/api/v1/auth/password-reset/request', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+}
+
+export function confirmPasswordReset(token: string, newPassword: string) {
+  return lmsRequest<{ message: string }>('/api/v1/auth/password-reset/confirm', {
+    method: 'POST',
+    body: JSON.stringify({ token, new_password: newPassword }),
+  });
+}
+
+export type PaymentInstructions = {
+  jazzcash_number: string;
+  bank_name: string;
+  bank_account_title: string;
+  bank_account_number: string;
+  bank_iban: string;
+  bank_branch: string;
+};
+
+export type PaymentSubmission = {
+  id: number;
+  user_id: number;
+  user_name: string;
+  user_email: string;
+  course_id: string;
+  payment_method: 'jazzcash' | 'bank_transfer';
+  amount: string;
+  sender_account?: string | null;
+  transaction_reference?: string | null;
+  proof_filename: string;
+  proof_content_type: string;
+  status: 'pending' | 'approved' | 'rejected';
+  review_note?: string | null;
+  submitted_at: string;
+  reviewed_at?: string | null;
+};
+
+export type PaymentSubmissionPayload = {
+  payment_method: 'jazzcash' | 'bank_transfer';
+  sender_account?: string;
+  transaction_reference?: string;
+  proof_filename: string;
+  proof_data_url: string;
+};
+
 export function getDashboard(token: string) {
   return lmsRequest<DashboardResponse>('/api/v1/lms/me/dashboard', undefined, token);
 }
 
-export function purchaseCourse(token: string, courseId: string) {
-  return lmsRequest<Enrollment>(`/api/v1/lms/courses/${courseId}/purchase`, {
+export function getPaymentInstructions() {
+  return lmsRequest<PaymentInstructions>('/api/v1/lms/payment-instructions');
+}
+
+export function submitPaymentProof(token: string, courseId: string, payload: PaymentSubmissionPayload) {
+  return lmsRequest<PaymentSubmission>(`/api/v1/lms/courses/${courseId}/payment-submissions`, {
     method: 'POST',
-    body: JSON.stringify({ payment_method: 'manual' }),
+    body: JSON.stringify(payload),
   }, token);
+}
+
+export function getPaymentSubmission(token: string, courseId: string) {
+  return lmsRequest<PaymentSubmission | null>(`/api/v1/lms/courses/${courseId}/payment-submission`, undefined, token);
+}
+
+export function listPaymentSubmissions(token: string, status = 'pending') {
+  return lmsRequest<PaymentSubmission[]>(`/api/v1/lms/admin/payment-submissions?status=${encodeURIComponent(status)}`, undefined, token);
+}
+
+export async function getPaymentProof(token: string, submissionId: number) {
+  const response = await fetch(`${apiBaseUrl}/api/v1/lms/admin/payment-submissions/${submissionId}/proof`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) {
+    throw new Error('Payment proof could not be loaded');
+  }
+  return response.blob();
+}
+
+export function reviewPayment(
+  token: string,
+  submissionId: number,
+  decision: 'approve' | 'reject',
+  reviewNote?: string,
+) {
+  return lmsRequest<PaymentSubmission>(
+    `/api/v1/lms/admin/payment-submissions/${submissionId}/${decision}`,
+    { method: 'POST', body: JSON.stringify({ review_note: reviewNote || null }) },
+    token,
+  );
+}
+
+export function listAdminStudents(token: string, courseId: string, search?: string) {
+  const params = new URLSearchParams({ course_id: courseId });
+  if (search?.trim()) {
+    params.set('search', search.trim());
+  }
+  return lmsRequest<AdminStudentRecord[]>(`/api/v1/lms/admin/students?${params.toString()}`, undefined, token);
+}
+
+export function createAdminEnrollment(token: string, email: string, courseId: string, pricePaid?: string) {
+  return lmsRequest<Enrollment>('/api/v1/lms/admin/enrollments', {
+    method: 'POST',
+    body: JSON.stringify({ email, course_id: courseId, price_paid: pricePaid || null }),
+  }, token);
+}
+
+export function updateAdminEnrollmentStatus(
+  token: string,
+  userId: number,
+  courseId: string,
+  enrollmentStatus: 'active' | 'inactive' | 'expired' | 'refunded',
+) {
+  return lmsRequest<Enrollment>(
+    `/api/v1/lms/admin/students/${userId}/courses/${courseId}/enrollment`,
+    { method: 'PATCH', body: JSON.stringify({ status: enrollmentStatus }) },
+    token,
+  );
+}
+
+export function deleteAdminEnrollment(token: string, userId: number, courseId: string) {
+  return lmsRequest<{ message: string }>(
+    `/api/v1/lms/admin/students/${userId}/courses/${courseId}/enrollment`,
+    { method: 'DELETE' },
+    token,
+  );
 }
 
 export function refundCourse(token: string, courseId: string) {

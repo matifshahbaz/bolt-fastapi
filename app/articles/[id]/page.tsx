@@ -640,7 +640,7 @@ export default async function ArticleDetailPage({
                 <div>
                   <p className="text-2xl text-black">{article.author}</p>
                   <p className="text-xl text-black/70">
-                    کیرئیر کوچ
+                    کیریئر کوچ
                   </p>
                 </div>
               </div>

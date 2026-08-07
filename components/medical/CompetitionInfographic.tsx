@@ -32,7 +32,7 @@ export default function CompetitionInfographic() {
         </div>
       </div>
 
-      <div className="mt-10 text-center text-[20px] text-slate-400 tracking-widest font-medium">shama.pk - آپ کے کیرئیر کی رہنما ویب سائٹ</div>
+      <div className="mt-10 text-center text-[20px] text-slate-400 tracking-widest font-medium">shama.pk - آپ کے کیریئر کی رہنما ویب سائٹ</div>
     </div>
   );
 }

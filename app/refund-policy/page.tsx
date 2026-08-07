@@ -42,7 +42,7 @@ export default function RefundPolicyPage() {
             <ol className="list-decimal space-y-2 pr-6 text-base text-muted-foreground font-nastaliq leading-[1.9]">
               <li>اپنے اکاؤنٹ میں لاگ اِن کریں۔</li>
               <li>ڈیش بورڈ پر جائیں۔</li>
-              <li>اپنے کورس کارڈ میں موجود "ابھی ریفنڈ لیں" بٹن دبائیں۔</li>
+              <li>اپنے کورس کارڈ میں موجود &quot;ابھی ریفنڈ لیں&quot; بٹن دبائیں۔</li>
               <li>اگر خریداری 7 دن کے اندر ہو تو ریفنڈ فوراً پراسیس ہو جائے گا۔</li>
             </ol>
           </div>

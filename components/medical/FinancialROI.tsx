@@ -45,7 +45,7 @@ export default function FinancialROI() {
         <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-[28px]">💡</div>
         <p className="text-xl leading-[1.8] sm:text-[26px]">میں نے 20 سال میں سیکھا: میڈیکل واحد فیلڈ ہے جہاں گراف کبھی نیچے نہیں آتا، صرف اوپر جاتا ہے۔</p>
       </div>
-      <div className="mt-6 text-center text-[18px] text-slate-500">shama.pk | فنانس اور کیرئیر تجزیہ</div>
+      <div className="mt-6 text-center text-[18px] text-slate-500">shama.pk | فنانس اور کیریئر تجزیہ</div>
     </div>
   );
 }

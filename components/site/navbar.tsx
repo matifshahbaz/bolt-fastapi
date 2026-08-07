@@ -66,6 +66,11 @@ export function Navbar() {
             </Button>
             {isLoading ? null : isAuthenticated && user ? (
               <>
+                {user.is_admin ? (
+                  <Link href="/admin/students">
+                    <Button variant="ghost" className="text-lg">ایڈمن</Button>
+                  </Link>
+                ) : null}
                 <Link href="/dashboard">
                   <Button variant="ghost" className="text-lg">میرا ڈیش بورڈ</Button>
                 </Link>
@@ -123,6 +128,13 @@ export function Navbar() {
                   <div className="mt-auto flex flex-col gap-3 pt-6 border-t">
                     {isLoading ? null : isAuthenticated ? (
                       <>
+                        {user?.is_admin ? (
+                          <SheetClose asChild>
+                            <Link href="/admin/students">
+                              <Button variant="outline" className="text-lg w-full">ایڈمن</Button>
+                            </Link>
+                          </SheetClose>
+                        ) : null}
                         <SheetClose asChild>
                           <Link href="/dashboard">
                             <Button variant="outline" className="text-lg w-full">میرا ڈیش بورڈ</Button>

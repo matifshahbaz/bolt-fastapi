@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import select
+from sqlalchemy import delete, func, select
 
 from app.core.db import get_db_session
 from app.models import EnrollmentModel, LessonProgressModel
@@ -40,6 +40,7 @@ class LmsRepository:
             else:
                 enrollment.status = "active"
                 enrollment.price_paid = price_paid
+                enrollment.enrolled_at = now
                 enrollment.last_accessed_at = now
             session.flush()
             session.refresh(enrollment)
@@ -53,6 +54,54 @@ class LmsRepository:
                 .order_by(EnrollmentModel.enrolled_at.desc())
             ).all()
         return [self._to_enrollment(row) for row in rows]
+
+    def count_completed_lessons(self, user_id: int, course_id: str) -> int:
+        with get_db_session() as session:
+            return int(
+                session.scalar(
+                    select(func.count(LessonProgressModel.id)).where(
+                        LessonProgressModel.user_id == user_id,
+                        LessonProgressModel.course_id == course_id,
+                        LessonProgressModel.completed.is_(True),
+                    )
+                )
+                or 0
+            )
+
+    def update_enrollment_status(self, user_id: int, course_id: str, enrollment_status: str) -> Enrollment | None:
+        with get_db_session() as session:
+            enrollment = session.scalar(
+                select(EnrollmentModel).where(
+                    EnrollmentModel.user_id == user_id,
+                    EnrollmentModel.course_id == course_id,
+                )
+            )
+            if enrollment is None:
+                return None
+            enrollment.status = enrollment_status
+            enrollment.last_accessed_at = datetime.now(timezone.utc)
+            session.flush()
+            session.refresh(enrollment)
+            return self._to_enrollment(enrollment)
+
+    def delete_enrollment(self, user_id: int, course_id: str) -> bool:
+        with get_db_session() as session:
+            enrollment = session.scalar(
+                select(EnrollmentModel).where(
+                    EnrollmentModel.user_id == user_id,
+                    EnrollmentModel.course_id == course_id,
+                )
+            )
+            if enrollment is None:
+                return False
+            session.execute(
+                delete(LessonProgressModel).where(
+                    LessonProgressModel.user_id == user_id,
+                    LessonProgressModel.course_id == course_id,
+                )
+            )
+            session.delete(enrollment)
+            return True
 
     def touch_enrollment(self, user_id: int, course_id: str) -> None:
         with get_db_session() as session:

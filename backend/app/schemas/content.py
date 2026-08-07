@@ -34,7 +34,6 @@ class Instructor(BaseModel):
     name: str
     title: str
     bio: str
-    avatar: str
 
 
 class Course(BaseModel):
@@ -47,9 +46,6 @@ class Course(BaseModel):
     lessons: int
     level: str
     language: str
-    rating: float
-    review_count: int
-    learner_count: str
     price: str
     instructor: Instructor
     outcomes: list[str]

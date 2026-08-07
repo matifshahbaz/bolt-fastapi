@@ -6,10 +6,11 @@ import { module2Lecture1NotesArticle } from '@/lib/articles/module2-lecture1-not
 import { module2Lecture2NotesArticle } from '@/lib/articles/module2-lecture2-notes';
 import { module2Lecture3NotesArticle } from '@/lib/articles/module2-lecture3-notes';
 import { module3Lecture1NotesArticle } from '@/lib/articles/module3-lecture1-notes';
+import { module3Lecture2NotesArticle } from '@/lib/articles/module3-lecture2-notes';
 import { module5Lecture1NotesArticle } from '@/lib/articles/module5-lecture1-notes';
 import { module5Lecture2NotesArticle } from '@/lib/articles/module5-lecture2-notes';
 import { module5Lecture3NotesArticle } from '@/lib/articles/module5-lecture3-notes';
-import { module3Lecture2NotesArticle } from '@/lib/articles/module3-lecture2-notes';
+import { module3Lecture4NotesArticle } from '@/lib/articles/module3-lecture4-notes';
 import { module3Lecture3NotesArticle } from '@/lib/articles/module3-lecture3-notes';
 
 export type Category = {
@@ -30,9 +31,6 @@ export type Course = {
   lessons: number;
   level: string;
   language: string;
-  rating: number;
-  reviewCount: number;
-  learnerCount: string;
   price: string;
   instructor: Instructor;
   outcomes: string[];
@@ -43,7 +41,6 @@ export type Instructor = {
   name: string;
   title: string;
   bio: string;
-  avatar: string;
 };
 
 export type CourseLessonKind = 'video' | 'text';
@@ -59,6 +56,7 @@ export type CourseLesson = {
   kind: CourseLessonKind;
   title: string;
   duration: string;
+  hidden?: boolean;
   videoUid?: string;
   article?: LessonArticle;
 };
@@ -251,13 +249,19 @@ function createModuleLessons(
 
 function createModule3Lessons(): CourseLesson[] {
   const moduleId = 'm3';
-  const moduleTitle = 'نوکوری تلاش اور درخواست';
+  const moduleTitle = 'نوکری تلاش اور درخواست';
   const lessons = createModuleLessons(moduleId, moduleTitle, [
     { title: 'سی وی بنانے کا فن', duration: '22 منٹ', focus: 'CV structure and clarity', videoUid: '072336982e4f8759249c1d02edf14aba' },
-    { title: 'کور لیٹر لکھنا', duration: '16 منٹ', focus: 'cover letter personalization', videoUid: 'd589d0b83800d7bafe30ead9c07a8980' },
+    { title: 'ویب سائٹ ڈیولپمنٹ', duration: '16 منٹ', focus: 'website development foundations', videoUid: 'd589d0b83800d7bafe30ead9c07a8980' },
     { title: 'آن لائن جاب پورٹلز کا استعمال', duration: '14 منٹ', focus: 'job portals and applications', videoUid: '3d66a6a2dcbfd91ce07affe6ed64654b' },
-    { title: 'نوکوری کی تلاش کی حکمت عملی', duration: '20 منٹ', focus: 'job search system', videoUid: 'placeholder-m3-v4' },
+    { title: 'ڈیجیٹل مارکیٹنگ', duration: '20 منٹ', focus: 'digital marketing careers', videoUid: 'placeholder-m3-v4' },
   ]);
+
+  lessons.forEach((lesson) => {
+    if (lesson.id === 'm3-v4' || lesson.id === 'm3-t4') {
+      lesson.hidden = true;
+    }
+  });
 
   return [
     createVideoLesson(moduleId, '1-1', 'سی وی بنانے کا فن — حصہ 1', 'حصہ 1', '072336982e4f8759249c1d02edf14aba'),
@@ -286,14 +290,6 @@ function createModule5Lessons(): CourseLesson[] {
   ];
 }
 
-export type Testimonial = {
-  id: string;
-  name: string;
-  role: string;
-  avatar: string;
-  quote: string;
-};
-
 export const categories: Category[] = [
   {
     id: '1',
@@ -311,7 +307,7 @@ export const categories: Category[] = [
   },
   {
     id: '3',
-    name: 'نوکوری تلاش',
+    name: 'نوکری تلاش',
     slug: 'job-search',
     icon: 'Briefcase',
     color: 'text-green-600',
@@ -330,30 +326,24 @@ export const featuredCourse: Course = {
   title: 'نوجوانوں کے لیے کیریئر رہنمائی کورس: مستقبل کی کامیابی',
   subtitle: 'اپنے کیریئر کی سمت میں واضح رہنمائی حاصل کریں',
   description:
-    'یہ کورس پاکستان کے نوجوانوں کے لیے بنایا گیا ہے جو اپنے مستقبل کے بارے میں سنجیدہ ہیں۔ آپ سیکھیں گے کہ کیسے اپنی صلاحیتوں کو پہچانیں، صحیح کیریئر کا انتخاب کریں، نوکوری تلاش کریں، اور کاروبار شروع کریں۔ مکمل رہنمائی اردو میں۔',
-  coverImage:
-    'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    'یہ کورس پاکستان کے نوجوانوں کے لیے بنایا گیا ہے جو اپنے مستقبل کے بارے میں سنجیدہ ہیں۔ آپ سیکھیں گے کہ کیسے اپنی صلاحیتوں کو پہچانیں، صحیح کیریئر کا انتخاب کریں، نوکری تلاش کریں، اور کاروبار شروع کریں۔ مکمل رہنمائی اردو میں۔',
+  coverImage: '/career-guidance-course-banner.png',
   duration: '12 ہفتے',
   lessons: 45,
   level: 'ابتدائی سے متوسط',
   language: 'اردو',
-  rating: 4.8,
-  reviewCount: 1240,
-  learnerCount: '5,000+',
   price: 'Rs. 500',
   instructor: {
     name: 'عاطف شہباز',
-    title: 'کیرئیر کوچ',
-    bio: 'عاطف شہباز پچھلے 15 سال سے نوجوانوں کی کیریئر رہنمائی کر رہے ہیں۔ انہوں نے 10,000 سے زائد نوجوانوں کو اپنے کیریئر میں کامیاب ہونے میں مدد کی ہے۔',
-    avatar:
-      'https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=2',
+    title: 'بانی، شمع.pk',
+    bio: 'عاطف شہباز نے شمع.pk کا آغاز اردو میں عملی کیریئر مواد فراہم کرنے کے لیے کیا۔ یہ پلیٹ فارم اپنے ابتدائی مرحلے میں ہے اور حقیقی طلبہ کی رائے کے ساتھ اسے مسلسل بہتر بنایا جائے گا۔',
   },
   outcomes: [
     'اپنی صلاحیتوں اور دلچسپیاں پہچانیں',
     'صحیح کیریئر کا انتخاب کرنا سیکھیں',
     'پروفیشنل سی وی اور کور لیٹر بنائیں',
     'انٹرویو کی تیاری اور مہارت حاصل کریں',
-    'نوکوری تلاش کرنے کے جدید طریقے سیکھیں',
+    'نوکری تلاش کرنے کے جدید طریقے سیکھیں',
     'کاروبار شروع کرنے کی بنیادی رہنمائی',
     'نیٹ ورکنگ اور تعلقات بنانا',
     'ذاتی برانڈ بنانا سیکھیں',
@@ -424,7 +414,7 @@ export const featuredCourse: Course = {
     },
     {
       id: 'm3',
-      title: 'نوکوری تلاش اور درخواست',
+      title: 'نوکری تلاش اور درخواست',
       lessons: (() => {
         const lessons = createModule3Lessons();
 
@@ -436,8 +426,14 @@ export const featuredCourse: Course = {
 
         const lecture2TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm3-t2');
         if (lecture2TextLesson) {
-          lecture2TextLesson.duration = '25 منٹ پڑھائی';
+          lecture2TextLesson.duration = '45 منٹ پڑھائی';
           lecture2TextLesson.article = module3Lecture2NotesArticle;
+        }
+
+        const lecture4TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm3-t4');
+        if (lecture4TextLesson) {
+          lecture4TextLesson.duration = '25 منٹ پڑھائی';
+          lecture4TextLesson.article = module3Lecture4NotesArticle;
         }
 
         const lecture3TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm3-t3');
@@ -502,22 +498,11 @@ export const articles: Article[] = [
   module2Lecture2NotesArticle,
   module2Lecture3NotesArticle,
   {
-    id: 'm3-l2-notes',
-    title: 'چھٹا لیکچر ڈیجیٹل مارکیٹنگ — ماڈیول 3 لیکچر 2 نوٹس',
-    excerpt: module3Lecture2NotesArticle.excerpt,
-    coverImage: module3Lecture2NotesArticle.coverImage!,
-    category: 'نوکوری تلاش',
-    author: 'شمع.pk',
-    publishedAt: '31 جولائی 2026',
-    readingTime: '25 منٹ',
-    content: module3Lecture2NotesArticle.content,
-  },
-  {
     id: 'm3-l3-notes',
     title: 'فری لانسنگ جیمنی — ماڈیول 3 لیکچر 3 نوٹس',
     excerpt: module3Lecture3NotesArticle.excerpt,
     coverImage: module3Lecture3NotesArticle.coverImage!,
-    category: 'نوکوری تلاش',
+    category: 'نوکری تلاش',
     author: 'شمع.pk',
     publishedAt: '31 جولائی 2026',
     readingTime: '20 منٹ',
@@ -657,7 +642,7 @@ export const articles: Article[] = [
       'جن خاندانوں میں اولاد کی پرورش کے ساتھ ساتھ تعلیم پر بھی توجہ دی جاتی ہے، وہاں بچے زیادہ قابل بن کر ابھرتے ہیں۔ انٹرویو کی تیاری میں...',
     coverImage:
       'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'نوکوری تلاش',
+    category: 'نوکری تلاش',
     author: 'عاطف شہباز',
     publishedAt: '5 جنوری 2025',
     readingTime: '7 منٹ',
@@ -791,36 +776,6 @@ export const articles: Article[] = [
         text: 'جن خاندانوں میں اولاد کی پرورش کے ساتھ ساتھ تعلیم پر بھی توجہ دی جاتی ہے، وہاں بچے زیادہ قابل بن کر ابھرتے ہیں۔ ذاتی برانڈ کی اہمیت آج کے دور میں بہت زیادہ ہے۔',
       },
     ],
-  },
-];
-
-export const testimonials: Testimonial[] = [
-  {
-    id: '1',
-    name: 'علی احمد',
-    role: 'سافٹ ویئر انجینئر، لاہور',
-    avatar:
-      'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=2',
-    quote:
-      'شمع.pk کا کورس میرے کیریئر کا موڑ ثابت ہوا۔ میں نے صاف رہنمائی پائی اور آج میں ایک اچھی نوکوری پر ہوں۔',
-  },
-  {
-    id: '2',
-    name: 'فاطمہ خان',
-    role: 'فری لانسر، کراچی',
-    avatar:
-      'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=2',
-    quote:
-      'اردو میں کیریئر رہنمائی ملنا ایک نیا تجربہ تھا۔ شمع.pk کے مواد نے مجھے اپنا کاروبار شروع کرنے کا اعتماد دیا۔',
-  },
-  {
-    id: '3',
-    name: 'حسن رضا',
-    role: 'گریجویٹ طالب علم، اسلام آباد',
-    avatar:
-      'https://images.pexels.com/photos/697509/pexels-photo-697509.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=2',
-    quote:
-      'کورس کے بعد میرا انٹرویو کا خوف ختم ہو گیا۔ میں نے پہلی کوشش میں نوکوری حاصل کر لی۔',
   },
 ];
 

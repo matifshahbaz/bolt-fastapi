@@ -18,7 +18,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-base text-background/70 leading-relaxed">
-              پاکستان کا پہلا اردو کیریئر رہنمائی پلیٹ فارم۔ نوجوانوں کے لیے، نوجوانوں کے لیے۔
+              پاکستانی نوجوانوں کے لیے اردو میں عملی کیریئر رہنمائی کا ایک نیا آغاز۔
             </p>
           </div>
 
@@ -125,11 +125,11 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-nastaliq text-white mb-3">ادائیگی گیٹ وے کا استعمال</h3>
+            <h3 className="text-lg font-nastaliq text-white mb-3">موجودہ ادائیگی کا طریقہ</h3>
             <p className="text-sm text-background/80 leading-relaxed">
-              shama.pk پر Rapidgateway چیک آؤٹ کو کورس فیس وصول کرنے کے لیے استعمال کیا جائے گا۔ صارف بامعاوضہ کورس منتخب کرے گا،
-              ادائیگی کے بٹن پر کلک کرے گا، محفوظ گیٹ وے پر ادائیگی مکمل کرے گا، اور کامیاب ادائیگی کے بعد دوبارہ shama.pk پر واپس آئے گا
-              جہاں کورس تک رسائی فوری طور پر فعال کر دی جائے گی۔
+              فی الحال کورس فیس JazzCash یا بینک ٹرانسفر کے ذریعے وصول کی جاتی ہے۔ صارف ادائیگی کا ثبوت جمع کرتا ہے،
+              جس کی دستی تصدیق کے بعد کورس تک رسائی فعال کی جاتی ہے اور ای میل کے ذریعے اطلاع دی جاتی ہے۔ RapidGateway کی منظوری کے بعد
+              خودکار چیک آؤٹ اسی کورس ایکٹیویشن نظام سے منسلک کیا جائے گا۔
             </p>
             <p className="text-sm text-background/80 mt-2">
               تفصیلی کاروباری ماڈل، ادائیگی فلو اور ریفنڈ پالیسی:
@@ -154,7 +154,7 @@ export function Footer() {
 
         <div className="border-t border-white/10 mt-12 pt-8 text-center">
           <p className="text-base text-background/60">
-            © 2025 شمع.pk۔ جملہ حقوق محفوظ ہیں۔
+            © {new Date().getFullYear()} شمع.pk۔ جملہ حقوق محفوظ ہیں۔
           </p>
         </div>
       </div>

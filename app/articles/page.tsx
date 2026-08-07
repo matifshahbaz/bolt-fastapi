@@ -32,7 +32,7 @@ export default async function ArticlesPage() {
             مضامین
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            کیریئر رہنمائی، کاروبار، نوکوری تلاش اور مہارتوں پر اردو مضامین
+            کیریئر رہنمائی، کاروبار، نوکری تلاش اور مہارتوں پر اردو مضامین
           </p>
         </div>
       </section>

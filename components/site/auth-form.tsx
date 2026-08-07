@@ -21,6 +21,9 @@ export function AuthForm({ mode }: AuthFormProps) {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [age, setAge] = useState('');
+  const [location, setLocation] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -35,7 +38,14 @@ export function AuthForm({ mode }: AuthFormProps) {
       if (isLogin) {
         await login({ email, password });
       } else {
-        await register({ full_name: fullName, email, password });
+        await register({
+          full_name: fullName,
+          email,
+          password,
+          mobile_number: mobileNumber || undefined,
+          age: age ? Number(age) : undefined,
+          location: location || undefined,
+        });
       }
       router.push('/dashboard');
       router.refresh();
@@ -68,16 +78,32 @@ export function AuthForm({ mode }: AuthFormProps) {
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-5">
           {!isLogin ? (
-            <div className="space-y-2">
-              <Label htmlFor="fullName" className="text-base">پورا نام</Label>
-              <Input
-                id="fullName"
-                value={fullName}
-                onChange={(event) => setFullName(event.target.value)}
-                required
-                className="h-12 text-base"
-              />
-            </div>
+            <>
+              <div className="space-y-2">
+                <Label htmlFor="fullName" className="text-base">پورا نام</Label>
+                <Input
+                  id="fullName"
+                  value={fullName}
+                  onChange={(event) => setFullName(event.target.value)}
+                  required
+                  className="h-12 text-base"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="mobileNumber" className="text-base">موبائل نمبر <span className="text-muted-foreground">(اختیاری)</span></Label>
+                <Input id="mobileNumber" type="tel" value={mobileNumber} onChange={(event) => setMobileNumber(event.target.value)} minLength={7} maxLength={30} dir="ltr" className="h-12 text-base" />
+              </div>
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="age" className="text-base">عمر <span className="text-muted-foreground">(اختیاری)</span></Label>
+                  <Input id="age" type="number" value={age} onChange={(event) => setAge(event.target.value)} min={10} max={100} className="h-12 text-base" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="location" className="text-base">شہر / مقام <span className="text-muted-foreground">(اختیاری)</span></Label>
+                  <Input id="location" value={location} onChange={(event) => setLocation(event.target.value)} minLength={2} maxLength={120} className="h-12 text-base" />
+                </div>
+              </div>
+            </>
           ) : null}
 
           <div className="space-y-2">
@@ -106,14 +132,7 @@ export function AuthForm({ mode }: AuthFormProps) {
             {isLogin ? (
               <p className="text-sm text-muted-foreground">
                 پاس ورڈ بھول گئے؟{' '}
-                <a
-                  href={`mailto:${supportEmail}?subject=${encodeURIComponent('Password Reset Request')}`}
-                  className="text-primary hover:underline"
-                  dir="ltr"
-                >
-                  {supportEmail}
-                </a>{' '}
-                پر ای میل کریں۔
+                <Link href="/forgot-password" className="text-primary hover:underline">ری سیٹ لنک حاصل کریں</Link>
               </p>
             ) : null}
           </div>

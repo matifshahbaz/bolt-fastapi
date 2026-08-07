@@ -15,6 +15,24 @@ class Settings(BaseSettings):
     admin_emails_raw: str = ""
     password_reset_token_ttl_minutes: int = 30
     expose_password_reset_token: bool = False
+    frontend_base_url: str = "https://shama.pk"
+
+    smtp_host: str = ""
+    smtp_port: int = 587
+    smtp_username: str = ""
+    smtp_password: str = ""
+    smtp_use_tls: bool = True
+    smtp_use_ssl: bool = False
+    email_from: str = "contact@shama.pk"
+    email_from_name: str = "Shama.pk"
+    admin_notification_email: str = "contact@shama.pk"
+
+    jazzcash_number: str = "03216630988"
+    bank_name: str = "Askari Bank"
+    bank_account_title: str = "Muhammad Atif Shahbaz"
+    bank_account_number: str = "02120320011584"
+    bank_iban: str = "PK70ASCM0002120320011584"
+    bank_branch: str = "Tarnol Branch Islamabad"
 
     cloudflare_account_id: str = ""
     cloudflare_api_token: str = ""
