@@ -31,25 +31,25 @@ export default function FourStagesTimeline() {
   ];
 
   return (
-    <div dir="rtl" style={{ fontFamily: "'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif" }} className="w-full max-w-[800px] bg-white rounded-[36px] border border-slate-100 shadow-[0_25px_80px_-20px_rgba(0,0,0,0.18)] p-10 md:p-12">
-      <div className="flex justify-between items-center mb-10">
-        <div className="bg-slate-900 text-white px-5 py-2 rounded-full text-[22px] font-bold">shama.pk</div>
-        <div className="text-[24px] text-slate-400 font-medium">4 مراحل کی مکمل جھلک</div>
+    <div dir="rtl" className="w-full max-w-[800px] rounded-lg border border-slate-100 bg-white p-5 shadow-[0_25px_80px_-20px_rgba(0,0,0,0.18)] sm:p-10 md:p-12">
+      <div className="mb-8 flex flex-col items-start gap-3 sm:mb-10 sm:flex-row sm:items-center sm:justify-between">
+        <div className="rounded-full bg-slate-900 px-5 py-2 text-xl font-bold text-white sm:text-[22px]">shama.pk</div>
+        <div className="text-xl font-medium text-slate-400 sm:text-[24px]">4 مراحل کی مکمل جھلک</div>
       </div>
-      <h2 className="text-[44px] md:text-[54px] font-bold leading-[1.2] text-slate-900 mb-10">ڈاکٹر بننے کے 4 اہم مراحل<br /><span className="text-teal-600">آپ کا اگلا 15 سال</span></h2>
+      <h2 className="mb-8 text-4xl font-bold leading-[1.4] text-slate-900 sm:mb-10 sm:text-[44px] md:text-[54px]">ڈاکٹر بننے کے 4 اہم مراحل<br /><span className="text-teal-600">آپ کا اگلا 15 سال</span></h2>
 
       <div className="relative">
-        <div className="absolute right-[36px] top-6 bottom-6 w-[5px] bg-slate-100 rounded-full" />
-        <div className="space-y-8">
+        <div className="absolute bottom-6 right-6 top-6 w-1 rounded-full bg-slate-100 sm:right-9 sm:w-[5px]" />
+        <div className="space-y-5 sm:space-y-8">
           {stages.map((s, i) => (
-            <div key={i} className="relative flex gap-6">
-              <div className={`w-[72px] h-[72px] rounded-full bg-gradient-to-br ${s.color} flex items-center justify-center text-[36px] shadow-xl z-10 shrink-0`}>{s.icon}</div>
-              <div className="flex-1 bg-slate-50 rounded-[24px] p-7 border-2 border-slate-100">
-                <div className="flex justify-between items-center mb-3">
-                  <h3 className="text-[32px] font-bold text-slate-900 leading-[1.2]">{s.title}</h3>
-                  <span className="bg-white border-2 px-4 py-1 rounded-full text-[20px] font-bold text-slate-700">{s.age}</span>
+            <div key={i} className="relative flex min-w-0 gap-3 sm:gap-6">
+              <div className={`z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br text-2xl shadow-xl sm:h-[72px] sm:w-[72px] sm:text-[36px] ${s.color}`}>{s.icon}</div>
+              <div className="min-w-0 flex-1 rounded-lg border-2 border-slate-100 bg-slate-50 p-4 sm:p-7">
+                <div className="mb-3 flex min-w-0 flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <h3 className="min-w-0 text-2xl font-bold leading-[1.5] text-slate-900 sm:text-[32px]">{s.title}</h3>
+                  <span className="shrink-0 rounded-full border-2 bg-white px-3 py-1 text-base font-bold text-slate-700 sm:px-4 sm:text-[20px]">{s.age}</span>
                 </div>
-                <p className="text-[26px] leading-[1.7] text-slate-700">{s.desc}</p>
+                <p className="break-words text-xl leading-[1.8] text-slate-700 sm:text-[26px]">{s.desc}</p>
               </div>
             </div>
           ))}

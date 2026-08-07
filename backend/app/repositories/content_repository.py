@@ -150,7 +150,7 @@ def _module1_lecture3_article() -> LessonArticle:
     )
 
 
-def _video_lesson(module_id: str, index: int, title: str, duration: str, video_uid: str) -> Lesson:
+def _video_lesson(module_id: str, index: int | str, title: str, duration: str, video_uid: str) -> Lesson:
     return Lesson(
         id=f"{module_id}-v{index}",
         kind="video",
@@ -194,6 +194,49 @@ def _module_lessons(module_id: str, module_title: str, videos: list[dict[str, st
     return lessons
 
 
+def _module3_lessons() -> list[Lesson]:
+    module_id = "m3"
+    module_title = "نوکوری تلاش اور درخواست"
+    lessons = _module_lessons(
+        module_id,
+        module_title,
+        [
+            {"title": "سی وی بنانے کا فن", "duration": "22 منٹ", "focus": "CV structure and clarity", "video_uid": "072336982e4f8759249c1d02edf14aba"},
+            {"title": "کور لیٹر لکھنا", "duration": "16 منٹ", "focus": "cover letter personalization", "video_uid": "d589d0b83800d7bafe30ead9c07a8980"},
+            {"title": "آن لائن جاب پورٹلز کا استعمال", "duration": "14 منٹ", "focus": "job portals and applications", "video_uid": "3d66a6a2dcbfd91ce07affe6ed64654b"},
+            {"title": "نوکوری کی تلاش کی حکمت عملی", "duration": "20 منٹ", "focus": "job search system", "video_uid": "placeholder-m3-v4"},
+        ],
+    )
+    return [
+        _video_lesson(module_id, "1-1", "سی وی بنانے کا فن — حصہ 1", "حصہ 1", "072336982e4f8759249c1d02edf14aba"),
+        _video_lesson(module_id, "1-2", "سی وی بنانے کا فن — حصہ 2", "حصہ 2", "d24d8a9a8b651147fd80bada011a38b2"),
+        _video_lesson(module_id, "1-3", "سی وی بنانے کا فن — حصہ 3", "حصہ 3", "0c6ef060e7232246ef0a823111883fed"),
+        lessons[1],
+        *lessons[2:],
+    ]
+
+
+def _module5_lessons() -> list[Lesson]:
+    module_id = "m5"
+    module_title = "کاروبار شروع کرنا"
+    lessons = _module_lessons(
+        module_id,
+        module_title,
+        [
+            {"title": "کاروباری ذہن کی تعمیر", "duration": "20 منٹ", "focus": "business mindset", "video_uid": "178a4245e678061087e7d28f2b4a7783"},
+            {"title": "بزنس آئیڈیا کی پہچان", "duration": "18 منٹ", "focus": "finding a business idea", "video_uid": "460b8d57c1ac1b8db9fc0173b6c099fb"},
+            {"title": "بجٹ اور منصوبہ بندی", "duration": "22 منٹ", "focus": "budgeting and planning", "video_uid": "f69acb71aeefb5bc48170bd9ae5cd289"},
+            {"title": "مارکیٹنگ کی بنیادیں", "duration": "16 منٹ", "focus": "basic marketing system", "video_uid": "placeholder-m5-v4"},
+        ],
+    )
+    return [
+        *lessons[:4],
+        _video_lesson(module_id, "3-1", "بجٹ اور منصوبہ بندی — حصہ 1", "حصہ 1", "f69acb71aeefb5bc48170bd9ae5cd289"),
+        _video_lesson(module_id, "3-2", "بجٹ اور منصوبہ بندی — حصہ 2", "حصہ 2", "5cf10ad82447c00e5a56ad5e89e95a4d"),
+        *lessons[5:],
+    ]
+
+
 def _featured_course_modules() -> list[CourseModule]:
     return [
         CourseModule(
@@ -203,8 +246,8 @@ def _featured_course_modules() -> list[CourseModule]:
                 "m1",
                 "بنیادیں: خود کو پہچانیں",
                 [
-                    {"title": "تعارف: کیریئر رہنمائی کی اہمیت", "duration": "12 منٹ", "focus": "کیریئر رہنمائی کا بنیادی مقصد", "video_uid": "05364cb45c1b5ac9bc091c709da5e527"},
-                    {"title": "اپنی صلاحیتوں کی شناخت", "duration": "18 منٹ", "focus": "strengths اور interests map کرنے کا طریقہ", "video_uid": "placeholder-m1-v2"},
+                    {"title": "کیریئر کے فیصلے میں درپیش چیلنجز", "duration": "12 منٹ", "focus": "کیریئر کے فیصلے میں درپیش چیلنجز", "video_uid": "a30413716856e9e07b95bf258096fd9c"},
+                    {"title": "آن لائن کمائی میں دھوکے اور فراڈ", "duration": "18 منٹ", "focus": "آن لائن کمائی کے فراڈ کی پہچان اور ان سے بچاؤ", "video_uid": "9969875f3e936e738e6ef28f8762c98c"},
                     {"title": "دلچسپی اور مہارت کا توازن", "duration": "15 منٹ", "focus": "interest-skill fit", "video_uid": "placeholder-m1-v3"},
                     {"title": "روٹین اور وقت کی منصوبہ بندی", "duration": "14 منٹ", "focus": "daily planning system", "video_uid": "placeholder-m1-v4"},
                 ],
@@ -217,8 +260,8 @@ def _featured_course_modules() -> list[CourseModule]:
                 "m2",
                 "کیریئر کا انتخاب",
                 [
-                    {"title": "مختلف کیریئر کے راستے", "duration": "20 منٹ", "focus": "career tracks overview", "video_uid": "fb6e5f113a4ad665c7130baaf685a3e9"},
-                    {"title": "پاکستان میں ابھرتے ہوئے شعبے", "duration": "25 منٹ", "focus": "emerging sectors in Pakistan", "video_uid": "placeholder-m2-v2"},
+                    {"title": "کمپیوٹر سائنس کا شعبہ", "duration": "20 منٹ", "focus": "کمپیوٹر سائنس میں تعلیم اور کیریئر کے راستے", "video_uid": "ddbb12252d982b5ef19eb42ca07e5eec"},
+                    {"title": "میڈیکل کا شعبہ", "duration": "25 منٹ", "focus": "میڈیکل کے شعبے میں تعلیم اور کیریئر کے راستے", "video_uid": "701a6ffd173193628347d31f422f9018"},
                     {"title": "صحیح فیصلہ کیسے کریں", "duration": "18 منٹ", "focus": "decision-making framework", "video_uid": "placeholder-m2-v3"},
                 ],
             ),
@@ -226,16 +269,7 @@ def _featured_course_modules() -> list[CourseModule]:
         CourseModule(
             id="m3",
             title="نوکوری تلاش اور درخواست",
-            lessons=_module_lessons(
-                "m3",
-                "نوکوری تلاش اور درخواست",
-                [
-                    {"title": "سی وی بنانے کا فن", "duration": "22 منٹ", "focus": "CV structure and clarity", "video_uid": "placeholder-m3-v1"},
-                    {"title": "کور لیٹر لکھنا", "duration": "16 منٹ", "focus": "cover letter personalization", "video_uid": "placeholder-m3-v2"},
-                    {"title": "آن لائن جاب پورٹلز کا استعمال", "duration": "14 منٹ", "focus": "job portals and applications", "video_uid": "placeholder-m3-v3"},
-                    {"title": "نوکوری کی تلاش کی حکمت عملی", "duration": "20 منٹ", "focus": "job search system", "video_uid": "placeholder-m3-v4"},
-                ],
-            ),
+            lessons=_module3_lessons(),
         ),
         CourseModule(
             id="m4",
@@ -244,7 +278,7 @@ def _featured_course_modules() -> list[CourseModule]:
                 "m4",
                 "انٹرویو کی تیاری",
                 [
-                    {"title": "انٹرویو سے پہلے کی تیاری", "duration": "18 منٹ", "focus": "pre-interview checklist", "video_uid": "placeholder-m4-v1"},
+                    {"title": "انٹرویو سے پہلے کی تیاری", "duration": "18 منٹ", "focus": "pre-interview checklist", "video_uid": "5afcbd3069127022f70f0bd768c60276"},
                     {"title": "عام سوالات اور جوابات", "duration": "25 منٹ", "focus": "question and answer practice", "video_uid": "placeholder-m4-v2"},
                     {"title": "پریزنٹیشن اور باڈی لینگویج", "duration": "16 منٹ", "focus": "presentation and body language", "video_uid": "placeholder-m4-v3"},
                 ],
@@ -253,16 +287,7 @@ def _featured_course_modules() -> list[CourseModule]:
         CourseModule(
             id="m5",
             title="کاروبار شروع کرنا",
-            lessons=_module_lessons(
-                "m5",
-                "کاروبار شروع کرنا",
-                [
-                    {"title": "کاروباری ذہن کی تعمیر", "duration": "20 منٹ", "focus": "business mindset", "video_uid": "placeholder-m5-v1"},
-                    {"title": "بزنس آئیڈیا کی پہچان", "duration": "18 منٹ", "focus": "finding a business idea", "video_uid": "placeholder-m5-v2"},
-                    {"title": "بجٹ اور منصوبہ بندی", "duration": "22 منٹ", "focus": "budgeting and planning", "video_uid": "placeholder-m5-v3"},
-                    {"title": "مارکیٹنگ کی بنیادیں", "duration": "16 منٹ", "focus": "basic marketing system", "video_uid": "placeholder-m5-v4"},
-                ],
-            ),
+            lessons=_module5_lessons(),
         ),
         CourseModule(
             id="m6",
@@ -324,7 +349,7 @@ class ContentRepository:
             ),
             cover_image="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
             duration="12 ہفتے",
-            lessons=42,
+            lessons=45,
             level="ابتدائی سے متوسط",
             language="اردو",
             rating=4.8,

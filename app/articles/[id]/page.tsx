@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArticleCard } from '@/components/site/article-card';
 import { ArticleToc } from '@/components/site/article-toc';
+import { AuthenticatedContent } from '@/components/site/authenticated-content';
 import HeroBanner from '@/components/medical/herobanner';
 import {
   AlternativeFields,
@@ -33,9 +34,31 @@ import {
   Tameed,
   Timeline,
 } from '@/components/career-personality';
+import {
+  GeminiConfusion,
+  GeminiDetailed,
+  GeminiPressure,
+} from '@/components/career-decisions';
+import {
+  FakeJobsOverseas,
+  FakeSuccessHeroes,
+  FinalMessage,
+  FraudWarningSigns,
+  FreelancingReality,
+  GamblingTradingTrap,
+  LectureTitleHero,
+  NetworkMarketingTrap,
+  OnlineEarningDreams,
+  SafetyTips,
+} from '@/components/lecture-2-scams';
+import {
+  ComputerScienceCareerInfographic,
+  ComputerScienceITBanner,
+} from '@/components/computer-science';
 import { getArticleById, getArticles } from '@/lib/content-api';
 
 const siteUrl = 'https://shama.pk';
+const protectedArticleIds = new Set(['m3-l2-notes']);
 
 const urduMonths: Record<string, string> = {
   جنوری: '01',
@@ -132,6 +155,21 @@ const articleComponents = {
   SwotGrid,
   timeline: Timeline,
   Footer: PersonalityFooter,
+  GeminiConfusion,
+  GeminiPressure,
+  GeminiDetailed,
+  LectureTitleHero,
+  OnlineEarningDreams,
+  FraudWarningSigns,
+  FakeJobsOverseas,
+  NetworkMarketingTrap,
+  GamblingTradingTrap,
+  FakeSuccessHeroes,
+  FreelancingReality,
+  SafetyTips,
+  FinalMessage,
+  ComputerScienceITBanner,
+  ComputerScienceCareerInfographic,
 };
 
 function isSubHeading(text: string) {
@@ -203,7 +241,7 @@ export default async function ArticleDetailPage({
     [],
   );
 
-  return (
+  const content = (
     <div className="flex flex-col">
       <script
         type="application/ld+json"
@@ -554,4 +592,10 @@ export default async function ArticleDetailPage({
       )}
     </div>
   );
+
+  if (protectedArticleIds.has(article.id)) {
+    return <AuthenticatedContent>{content}</AuthenticatedContent>;
+  }
+
+  return content;
 }

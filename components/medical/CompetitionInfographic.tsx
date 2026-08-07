@@ -1,34 +1,34 @@
 export default function CompetitionInfographic() {
   return (
-    <div dir="rtl" style={{ fontFamily: "'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif" }} className="w-full max-w-[800px] bg-white rounded-[36px] border border-slate-100 shadow-[0_25px_80px_-20px_rgba(0,0,0,0.18)] p-10 md:p-12">
-      <div className="flex justify-between items-center mb-10">
-        <div className="bg-teal-50 text-teal-800 px-5 py-2 rounded-full text-[26px] font-bold tracking-wide">shama.pk | میڈیکل گائیڈ</div>
-        <div className="bg-slate-900 text-white px-4 py-1.5 rounded-full text-[18px]">Infographic 01</div>
+    <div dir="rtl" className="w-full max-w-[800px] rounded-lg border border-slate-100 bg-white p-5 shadow-[0_25px_80px_-20px_rgba(0,0,0,0.18)] sm:p-10 md:p-12">
+      <div className="mb-8 flex flex-col items-start gap-3 sm:mb-10 sm:flex-row sm:items-center sm:justify-between">
+        <div className="rounded-full bg-teal-50 px-4 py-2 text-xl font-bold text-teal-800 sm:px-5 sm:text-[26px]">shama.pk | میڈیکل گائیڈ</div>
+        <div className="rounded-full bg-slate-900 px-4 py-1.5 text-base text-white sm:text-[18px]">Infographic 01</div>
       </div>
 
-      <h2 className="text-[46px] md:text-[56px] leading-[1.25] font-bold text-slate-900 mb-3">ایم بی بی ایس میں داخلے کا اصل مقابلہ</h2>
-      <p className="text-[28px] leading-[1.7] text-slate-500 mb-10">سیٹیں کم ہیں، خواب دیکھنے والے لاکھوں میں ہیں</p>
+      <h2 className="mb-3 text-4xl font-bold leading-[1.4] text-slate-900 sm:text-[46px] md:text-[56px]">ایم بی بی ایس میں داخلے کا اصل مقابلہ</h2>
+      <p className="mb-8 text-xl leading-[1.8] text-slate-500 sm:mb-10 sm:text-[28px]">سیٹیں کم ہیں، خواب دیکھنے والے لاکھوں میں ہیں</p>
 
-      <div className="grid grid-cols-2 gap-6 mb-10">
-        <div className="bg-gradient-to-br from-teal-500 to-emerald-600 rounded-[28px] p-8 text-white shadow-lg">
-          <div className="text-[26px] opacity-90 mb-2">کل درخواستیں</div>
-          <div className="text-[58px] font-bold leading-none tracking-tight">+180,000</div>
+      <div className="mb-8 grid grid-cols-1 gap-4 sm:mb-10 sm:grid-cols-2 sm:gap-6">
+        <div className="rounded-lg bg-gradient-to-br from-teal-500 to-emerald-600 p-5 text-white shadow-lg sm:p-8">
+          <div className="mb-2 text-xl opacity-90 sm:text-[26px]">کل درخواستیں</div>
+          <div className="text-4xl font-bold leading-none sm:text-[58px]">+180,000</div>
           <div className="mt-5 bg-white/30 rounded-full h-3 w-full"><div className="bg-white h-3 rounded-full w-[90%]" /></div>
-          <div className="text-[24px] mt-3 font-medium">MDCAT امیدوار 2024</div>
+          <div className="mt-3 text-xl font-medium sm:text-[24px]">MDCAT امیدوار 2024</div>
         </div>
-        <div className="bg-slate-50 rounded-[28px] p-8 border-2 border-slate-100">
-          <div className="text-[26px] text-slate-500 mb-2">کل MBBS سیٹیں</div>
-          <div className="text-[58px] font-bold text-slate-900 leading-none">~22,000</div>
+        <div className="rounded-lg border-2 border-slate-100 bg-slate-50 p-5 sm:p-8">
+          <div className="mb-2 text-xl text-slate-500 sm:text-[26px]">کل MBBS سیٹیں</div>
+          <div className="text-4xl font-bold leading-none text-slate-900 sm:text-[58px]">~22,000</div>
           <div className="mt-5 bg-slate-200 rounded-full h-3 w-full"><div className="bg-slate-900 h-3 rounded-full w-[28%]" /></div>
-          <div className="text-[24px] mt-3 text-slate-600">سرکاری + پرائیویٹ ملا کر</div>
+          <div className="mt-3 text-xl text-slate-600 sm:text-[24px]">سرکاری + پرائیویٹ ملا کر</div>
         </div>
       </div>
 
-      <div className="bg-amber-50 border-2 border-amber-200 rounded-[24px] p-7 flex gap-5 items-center">
-        <div className="w-20 h-20 bg-amber-400 rounded-full flex items-center justify-center text-[40px] shadow">⚠️</div>
-        <div>
-          <div className="text-[32px] font-bold text-amber-900 leading-[1.2]">ایک سیٹ پر 9 طلبہ کی دوڑ</div>
-          <div className="text-[26px] text-amber-800 leading-[1.5] mt-1">سرکاری کالج میں یہ مقابلہ 1 سیٹ پر 15 طلبہ تک پہنچ جاتا ہے</div>
+      <div className="flex flex-col items-start gap-4 rounded-lg border-2 border-amber-200 bg-amber-50 p-5 sm:flex-row sm:items-center sm:gap-5 sm:p-7">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-amber-400 text-3xl shadow sm:h-20 sm:w-20 sm:text-[40px]">⚠️</div>
+        <div className="min-w-0">
+          <div className="text-2xl font-bold leading-[1.5] text-amber-900 sm:text-[32px]">ایک سیٹ پر 9 طلبہ کی دوڑ</div>
+          <div className="mt-1 text-xl leading-[1.7] text-amber-800 sm:text-[26px]">سرکاری کالج میں یہ مقابلہ 1 سیٹ پر 15 طلبہ تک پہنچ جاتا ہے</div>
         </div>
       </div>
 

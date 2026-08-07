@@ -1,6 +1,6 @@
 export default function BenefitsChallenges() {
   return (
-    <div dir="rtl" style={{ fontFamily: "'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif" }} className="w-full max-w-[900px] bg-white rounded-[36px] border border-slate-100 shadow-[0_25px_80px_-20px_rgba(0,0,0,0.18)] p-10 md:p-12">
+    <div dir="rtl" className="w-full max-w-[900px] rounded-lg border border-slate-100 bg-white p-10 shadow-[0_25px_80px_-20px_rgba(0,0,0,0.18)] md:p-12">
       <div className="flex justify-between mb-10">
         <h2 className="text-[44px] font-bold text-slate-900 leading-[1.2]">فائدے اور مشکلات<br /><span className="text-[28px] font-normal text-slate-500">ایک نظر میں موازنہ</span></h2>
         <div className="bg-slate-900 text-white px-5 py-2 rounded-full text-[22px] h-fit font-bold">shama.pk</div>

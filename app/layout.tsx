@@ -1,8 +1,15 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { Noto_Nastaliq_Urdu } from 'next/font/google';
 import { AuthProvider } from '@/components/site/auth-provider';
 import { Navbar } from '@/components/site/navbar';
 import { Footer } from '@/components/site/footer';
+
+const notoNastaliqUrdu = Noto_Nastaliq_Urdu({
+  subsets: ['arabic'],
+  display: 'swap',
+  variable: '--font-noto-nastaliq-urdu',
+});
 
 const siteStructuredData = {
   '@context': 'https://schema.org',
@@ -81,13 +88,14 @@ export default function RootLayout({
   return (
     <html lang="ur" dir="rtl">
       <head>
-        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteStructuredData).replace(/</g, '\\u003c') }}
         />
       </head>
-      <body className="font-nastaliq antialiased min-h-screen flex flex-col bg-background">
+      <body
+        className={`${notoNastaliqUrdu.variable} font-nastaliq antialiased min-h-screen flex flex-col bg-background`}
+      >
         <AuthProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

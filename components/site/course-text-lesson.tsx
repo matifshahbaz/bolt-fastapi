@@ -29,6 +29,27 @@ import {
   Tameed,
   Timeline,
 } from '@/components/career-personality';
+import {
+  GeminiConfusion,
+  GeminiDetailed,
+  GeminiPressure,
+} from '@/components/career-decisions';
+import {
+  FakeJobsOverseas,
+  FakeSuccessHeroes,
+  FinalMessage,
+  FraudWarningSigns,
+  FreelancingReality,
+  GamblingTradingTrap,
+  LectureTitleHero,
+  NetworkMarketingTrap,
+  OnlineEarningDreams,
+  SafetyTips,
+} from '@/components/lecture-2-scams';
+import {
+  ComputerScienceCareerInfographic,
+  ComputerScienceITBanner,
+} from '@/components/computer-science';
 
 type CourseTextLessonProps = {
   lesson: CourseLesson;
@@ -57,6 +78,21 @@ const lessonComponents = {
   SwotGrid,
   timeline: Timeline,
   Footer: PersonalityFooter,
+  GeminiConfusion,
+  GeminiPressure,
+  GeminiDetailed,
+  LectureTitleHero,
+  OnlineEarningDreams,
+  FraudWarningSigns,
+  FakeJobsOverseas,
+  NetworkMarketingTrap,
+  GamblingTradingTrap,
+  FakeSuccessHeroes,
+  FreelancingReality,
+  SafetyTips,
+  FinalMessage,
+  ComputerScienceITBanner,
+  ComputerScienceCareerInfographic,
 };
 
 export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete }: CourseTextLessonProps) {
@@ -80,11 +116,13 @@ export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete 
         </h3>
         <p className="mb-8 text-lg leading-relaxed text-black">{article.excerpt}</p>
 
-        <div className="mb-8 overflow-hidden rounded-3xl border bg-card shadow-lg">
-          <div className="relative aspect-video">
-            <Image src={article.coverImage} alt={lesson.title} fill className="object-cover" />
+        {article.coverImage ? (
+          <div className="mb-8 overflow-hidden rounded-3xl border bg-card shadow-lg">
+            <div className="relative aspect-video">
+              <Image src={article.coverImage} alt={lesson.title} fill className="object-cover" />
+            </div>
           </div>
-        </div>
+        ) : null}
 
         <LessonArticleBody sections={article.content} />
 

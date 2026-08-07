@@ -22,7 +22,13 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        nastaliq: ['Jameel Noori Nastaliq', 'serif'],
+        nastaliq: [
+          'Urdu Typesetting',
+          'Nafees Nastaleeq',
+          'Nafees Nastaliq',
+          'var(--font-noto-nastaliq-urdu)',
+          'serif',
+        ],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

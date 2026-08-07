@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
   title: 'کاروباری اور ادائیگی معلومات',
@@ -47,10 +49,21 @@ export default function CompliancePage() {
               <li>صارف دستیاب ادائیگی طریقے سے ادائیگی مکمل کرتا ہے۔</li>
               <li>کامیاب ادائیگی کے بعد صارف دوبارہ shama.pk پر واپس آتا ہے۔</li>
               <li>کورس صارف کے ڈیش بورڈ میں فعال ہو جاتا ہے اور ڈیجیٹل اسباق تک رسائی مل جاتی ہے۔</li>
+              <li>ادائیگی کی تصدیق کے بعد صارف کو ای میل کے ذریعے ادائیگی کی انوائس بھیجی جاتی ہے۔</li>
             </ol>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground font-nastaliq">
               اس گیٹ وے کے ذریعے کوئی فزیکل پراڈکٹ فروخت نہیں کی جاتی۔ ادائیگیاں صرف ڈیجیٹل کورس رسائی اور متعلقہ تعلیمی خدمات کے لیے استعمال ہوتی ہیں۔
             </p>
+          </div>
+
+          <div className="rounded-2xl border bg-card p-6">
+            <h2 className="mb-4 text-2xl font-nastaliq text-foreground">ادائیگی کی انوائس</h2>
+            <p className="mb-5 text-base leading-relaxed text-muted-foreground font-nastaliq">
+              کامیاب ادائیگی کی سرور سائیڈ تصدیق کے بعد خریدار کو انوائس نمبر، ٹرانزیکشن حوالہ، کورس، تاریخ اور ادا شدہ رقم کے ساتھ ای میل انوائس بھیجی جائے گی۔ درج ذیل نمونہ صرف فارمیٹ دکھانے کے لیے ہے اور کسی حقیقی لین دین کی نمائندگی نہیں کرتا۔
+            </p>
+            <Button asChild variant="outline">
+              <Link href="/invoices/sample">نمونہ انوائس دیکھیں</Link>
+            </Button>
           </div>
 
           <div className="rounded-2xl border bg-card p-6">

@@ -1,6 +1,8 @@
 import { kahliArticle } from '@/lib/articles/kahli';
+import { module1Lecture1NotesArticle } from '@/lib/articles/module1-lecture1-notes';
 import { module1Lecture2NotesArticle } from '@/lib/articles/module1-lecture2-notes';
 import { module1Lecture3NotesArticle } from '@/lib/articles/module1-lecture3-notes';
+import { module2Lecture1NotesArticle } from '@/lib/articles/module2-lecture1-notes';
 import { module2Lecture2NotesArticle } from '@/lib/articles/module2-lecture2-notes';
 import { module2Lecture3NotesArticle } from '@/lib/articles/module2-lecture3-notes';
 import { module5Lecture2NotesArticle } from '@/lib/articles/module5-lecture2-notes';
@@ -45,7 +47,7 @@ export type CourseLessonKind = 'video' | 'text';
 
 export type LessonArticle = {
   excerpt: string;
-  coverImage: string;
+  coverImage?: string;
   content: ArticleSection[];
 };
 
@@ -105,7 +107,22 @@ export type ArticleSection = {
     | 'IkigaiDiagram'
     | 'SwotGrid'
     | 'timeline'
-    | 'Footer';
+    | 'Footer'
+    | 'GeminiConfusion'
+    | 'GeminiPressure'
+    | 'GeminiDetailed'
+    | 'LectureTitleHero'
+    | 'OnlineEarningDreams'
+    | 'FraudWarningSigns'
+    | 'FakeJobsOverseas'
+    | 'NetworkMarketingTrap'
+    | 'GamblingTradingTrap'
+    | 'FakeSuccessHeroes'
+    | 'FreelancingReality'
+    | 'SafetyTips'
+    | 'FinalMessage'
+    | 'ComputerScienceITBanner'
+    | 'ComputerScienceCareerInfographic';
 };
 
 const courseLessonImages = [
@@ -162,143 +179,9 @@ function createLessonArticle(moduleTitle: string, lessonTitle: string, focus: st
   };
 }
 
-const module1IntroNotesArticle: LessonArticle = {
-  excerpt:
-    'یہ نوٹس پاکستانی نوجوانوں کو فوری دولت کے فریب سے بچتے ہوئے حقیقی مہارت، عملی منصوبہ بندی اور پائیدار کیریئر کامیابی کی طرف رہنمائی دیتے ہیں۔',
-  coverImage:
-    'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-  content: [
-    { type: 'heading', text: 'Module 1 تعارف: کیریئر رہنمائی کی اہمیت — نوٹس' },
-    {
-      type: 'paragraph',
-      text: 'پاکستانی نوجوان کے لیے اصل کامیابی جلد امیر بننے کے خواب نہیں، بلکہ مہارت، محنت، دیانت داری، صبر اور حقیقت پسندانہ منصوبہ بندی ہے۔ آن لائن دنیا میں مواقع بھی موجود ہیں اور دھوکے بھی؛ فرق صرف اس نوجوان کو سمجھ آتا ہے جو پہلے تحقیق، پھر فیصلہ اور آخر میں عمل کرتا ہے۔',
-    },
-    {
-      type: 'paragraph',
-      text: 'سوشل میڈیا پر "گھر بیٹھے روزانہ ہزاروں روپے" اور "صرف موبائل سے لاکھوں" جیسے دعوے نوجوان کی بے روزگاری، مالی دباؤ اور بہتر مستقبل کی خواہش کو نشانہ بناتے ہیں۔ اسی لیے جذباتی فیصلے کے بجائے یہ سمجھنا ضروری ہے کہ آمدن کہاں سے آ رہی ہے اور ذمہ داری کس کی ہوگی۔',
-    },
-    {
-      type: 'quote',
-      text: 'پائیدار کامیابی جوئے، شارٹ کٹ اور فریب سے نہیں بلکہ علم، ہنر اور محنت سے حاصل ہوتی ہے۔',
-    },
-    { type: 'heading', text: 'آن لائن کمائی کے نام پر دھوکا کیسے پہچانیں؟' },
-    {
-      type: 'paragraph',
-      text: 'بہت سی اسکیمیں نوجوانوں کی مجبوری، لالچ، بے صبری اور کم معلومات سے فائدہ اٹھاتی ہیں۔ دھوکے باز عموماً فوری منافع کا وعدہ، کم یا صفر محنت کا دعویٰ، اور پہلے رقم جمع کروانے کا مطالبہ کرتے ہیں۔',
-    },
-    {
-      type: 'checklist',
-      title: 'عام فراڈ اسکیموں کی نشانیاں',
-      items: [
-        '"پہلے 5 ہزار جمع کرو، پھر روزانہ 2 ہزار کماؤ"',
-        '"دو لوگوں کو شامل کرو اور بونس حاصل کرو"',
-        '"خودکار ٹریڈنگ سے منافع کی گارنٹی"',
-        '"سرمایہ لگاؤ، روزانہ منافع لو"',
-        '"VIP ممبرشپ خرید کر کمائی شروع کرو"',
-      ],
-    },
-    {
-      type: 'callout',
-      title: 'ایک طاقتور اصول',
-      tone: 'tip',
-      text: 'اگر کوئی شخص بغیر مہارت، بغیر محنت، بغیر خطرے اور بغیر واضح کاروباری ماڈل کے غیر معمولی منافع کا وعدہ کرے تو اسے موقع نہیں بلکہ خطرے کی گھنٹی سمجھیں۔',
-    },
-    { type: 'heading', text: 'آن لائن جوئے اور بیٹنگ ایپس کا جال' },
-    {
-      type: 'paragraph',
-      text: 'بیٹنگ ایپس اور نام نہاد فینٹسی یا فوری منافع پلیٹ فارمز اکثر گیم یا تفریح کے نام پر نوجوان کو پیسہ لگانے کی عادت میں مبتلا کرتے ہیں۔ ابتدائی جیت ایک نفسیاتی جال بنتی ہے جس کے بعد نقصان بڑھتا جاتا ہے۔',
-    },
-    {
-      type: 'checklist',
-      title: 'آن لائن جوئے کے نمایاں نقصانات',
-      items: [
-        'مالی نقصان اور قرضوں میں اضافہ',
-        'ذہنی دباؤ اور شرمندگی',
-        'تعلیم اور کام سے غفلت',
-        'خاندانی مسائل',
-        'مزید پیسے جیتنے کی خطرناک نفسیاتی خواہش',
-      ],
-    },
-    {
-      type: 'paragraph',
-      text: 'جوئے کی بنیادی حقیقت یہ ہے کہ نظام ہمیشہ آپریٹر کے فائدے کے لیے ڈیزائن کیا جاتا ہے۔ یہ نوجوان کو محنت کے بجائے قسمت پر انحصار کرنا سکھاتا ہے، جو طویل مدت میں تباہ کن ثابت ہو سکتا ہے۔',
-    },
-    { type: 'heading', text: 'فری لانسنگ: موقع حقیقی ہے، مگر جادو نہیں' },
-    {
-      type: 'paragraph',
-      text: 'فائیور اور دیگر پلیٹ فارمز پر کامیابی کے لیے مہارت، پورٹ فولیو، مسلسل رابطہ، مناسب قیمت، وقت کی پابندی اور کلائنٹ کا اعتماد ضروری ہے۔ صرف اکاؤنٹ بنا لینے سے آرڈرز خود بخود نہیں آتے۔',
-    },
-    {
-      type: 'checklist',
-      title: 'فری لانسنگ کے ابتدائی چیلنجز',
-      items: [
-        'شدید عالمی مقابلہ',
-        'ابتدائی آرڈر حاصل کرنے میں وقت',
-        'مسلسل سیکھنے اور کمیونیکیشن کی ضرورت',
-        'کلائنٹس کی سخت توقعات اور ڈیڈ لائنز',
-      ],
-    },
-    {
-      type: 'paragraph',
-      text: 'بہتر حکمتِ عملی یہ ہے کہ ایک سروس منتخب کریں (مثلاً لوگو ڈیزائن، ویڈیو ایڈیٹنگ یا ترجمہ)، پانچ سے دس مضبوط نمونے تیار کریں، پھر چھوٹے کلائنٹس کے ساتھ اعتماد بناتے ہوئے آگے بڑھیں۔',
-    },
-    { type: 'heading', text: 'یوٹیوب کے بڑے دعوے اور حقیقت' },
-    {
-      type: 'paragraph',
-      text: '"ایک مہینے میں لاکھوں"، "24 گھنٹوں میں آمدن" یا "خفیہ طریقہ" جیسے عنوانات اکثر سنسنی پیدا کرنے کے لیے ہوتے ہیں۔ حقیقی کامیابی میں وقت، ناکامیوں سے سیکھنا، اور مستقل مزاجی لازمی ہوتی ہے۔',
-    },
-    {
-      type: 'callout',
-      title: 'توجہ بیچنے کا کاروبار',
-      tone: 'research',
-      text: 'بہت سے کریئیٹرز کا اصل مقصد تعلیم نہیں بلکہ آپ کی توجہ، کلک اور واچ ٹائم حاصل کرنا ہوتا ہے۔ ہر دکھائی جانے والی کامیابی حقیقت نہیں ہوتی۔',
-    },
-    { type: 'heading', text: 'اصل راستہ: پہلے مہارت، پھر آمدن' },
-    {
-      type: 'paragraph',
-      text: 'مستقل اور جائز کمائی ایسی مہارتوں سے آتی ہے جن کی مارکیٹ میں حقیقی ضرورت ہو، جیسے گرافک ڈیزائن، ویب ڈویلپمنٹ، پروگرامنگ، ڈیجیٹل مارکیٹنگ، ویڈیو ایڈیٹنگ، کنٹینٹ رائٹنگ، ڈیٹا اینالسز اور ای کامرس۔',
-    },
-    {
-      type: 'checklist',
-      title: '3 سے 6 ماہ کا حقیقت پسندانہ پلان',
-      items: [
-        'ایک وقت میں صرف ایک مہارت منتخب کریں',
-        'روزانہ 1 سے 2 گھنٹے سیکھنے اور مشق کے لیے مقرر کریں',
-        'ہر ہفتے ایک چھوٹا پراجیکٹ مکمل کریں',
-        'تیسرے مہینے تک سادہ پورٹ فولیو اور واضح سروس آفر تیار کریں',
-        'ابتدا چھوٹے یا مقامی کلائنٹس سے کریں',
-      ],
-    },
-    { type: 'heading', text: 'خود کو محفوظ رکھنے کی عملی چیک لسٹ' },
-    {
-      type: 'checklist',
-      title: 'کسی بھی آن لائن موقع سے پہلے یہ سوال ضرور کریں',
-      items: [
-        'کیا کمپنی یا شخص کی شناخت واضح ہے؟',
-        'کیا آمدن کا ذریعہ واضح ہے یا صرف دعویٰ کیا جا رہا ہے؟',
-        'کیا پہلے پیسے جمع کروانے کا مطالبہ ہے؟',
-        'کیا منافع کی گارنٹی دی جا رہی ہے؟',
-        'کیا معتبر ذرائع پر اس موقع کے خلاف شکایات یا وارننگز موجود ہیں؟',
-        'کیا آپ پر جلد فیصلہ کرنے کا دباؤ ڈالا جا رہا ہے؟',
-      ],
-    },
-    {
-      type: 'callout',
-      title: 'محفوظ عادتیں',
-      tone: 'highlight',
-      text: 'آن لائن جوئے، بیٹنگ ایپس اور گارنٹیڈ منافع اسکیموں سے دور رہیں۔ ذاتی معلومات اور بینک تفصیلات غیر معتبر افراد کو نہ دیں۔ فری لانسنگ کو پیشے کی طرح لیں اور روزانہ مہارت بہتر بنائیں۔',
-    },
-    { type: 'heading', text: 'اختتامیہ' },
-    {
-      type: 'paragraph',
-      text: 'پاکستانی نوجوان کے پاس آج عالمی مواقع موجود ہیں، مگر ان مواقع کے درمیان فریب بھی ہے۔ جو نوجوان سوشل میڈیا کے شور سے اوپر اٹھ کر مہارت، دیانت، کردار اور مسلسل محنت کو اختیار کرتا ہے، وہ آہستہ آہستہ مضبوط اور خودمختار مستقبل بناتا ہے۔',
-    },
-  ],
-};
-
 function createVideoLesson(
   moduleId: string,
-  index: number,
+  index: number | string,
   title: string,
   duration: string,
   videoUid: string,
@@ -338,6 +221,43 @@ function createModuleLessons(
     createVideoLesson(moduleId, index + 1, video.title, video.duration, video.videoUid),
     createTextLesson(moduleId, index + 1, moduleTitle, video.title, video.focus, index),
   ]);
+}
+
+function createModule3Lessons(): CourseLesson[] {
+  const moduleId = 'm3';
+  const moduleTitle = 'نوکوری تلاش اور درخواست';
+  const lessons = createModuleLessons(moduleId, moduleTitle, [
+    { title: 'سی وی بنانے کا فن', duration: '22 منٹ', focus: 'CV structure and clarity', videoUid: '072336982e4f8759249c1d02edf14aba' },
+    { title: 'کور لیٹر لکھنا', duration: '16 منٹ', focus: 'cover letter personalization', videoUid: 'd589d0b83800d7bafe30ead9c07a8980' },
+    { title: 'آن لائن جاب پورٹلز کا استعمال', duration: '14 منٹ', focus: 'job portals and applications', videoUid: '3d66a6a2dcbfd91ce07affe6ed64654b' },
+    { title: 'نوکوری کی تلاش کی حکمت عملی', duration: '20 منٹ', focus: 'job search system', videoUid: 'placeholder-m3-v4' },
+  ]);
+
+  return [
+    createVideoLesson(moduleId, '1-1', 'سی وی بنانے کا فن — حصہ 1', 'حصہ 1', '072336982e4f8759249c1d02edf14aba'),
+    createVideoLesson(moduleId, '1-2', 'سی وی بنانے کا فن — حصہ 2', 'حصہ 2', 'd24d8a9a8b651147fd80bada011a38b2'),
+    createVideoLesson(moduleId, '1-3', 'سی وی بنانے کا فن — حصہ 3', 'حصہ 3', '0c6ef060e7232246ef0a823111883fed'),
+    lessons[1],
+    ...lessons.slice(2),
+  ];
+}
+
+function createModule5Lessons(): CourseLesson[] {
+  const moduleId = 'm5';
+  const moduleTitle = 'کاروبار شروع کرنا';
+  const lessons = createModuleLessons(moduleId, moduleTitle, [
+    { title: 'کاروباری ذہن کی تعمیر', duration: '20 منٹ', focus: 'business mindset', videoUid: '178a4245e678061087e7d28f2b4a7783' },
+    { title: 'بزنس آئیڈیا کی پہچان', duration: '18 منٹ', focus: 'finding a business idea', videoUid: '460b8d57c1ac1b8db9fc0173b6c099fb' },
+    { title: 'بجٹ اور منصوبہ بندی', duration: '22 منٹ', focus: 'budgeting and planning', videoUid: 'f69acb71aeefb5bc48170bd9ae5cd289' },
+    { title: 'مارکیٹنگ کی بنیادیں', duration: '16 منٹ', focus: 'basic marketing system', videoUid: 'placeholder-m5-v4' },
+  ]);
+
+  return [
+    ...lessons.slice(0, 4),
+    createVideoLesson(moduleId, '3-1', 'بجٹ اور منصوبہ بندی — حصہ 1', 'حصہ 1', 'f69acb71aeefb5bc48170bd9ae5cd289'),
+    createVideoLesson(moduleId, '3-2', 'بجٹ اور منصوبہ بندی — حصہ 2', 'حصہ 2', '5cf10ad82447c00e5a56ad5e89e95a4d'),
+    ...lessons.slice(5),
+  ];
 }
 
 export type Testimonial = {
@@ -388,7 +308,7 @@ export const featuredCourse: Course = {
   coverImage:
     'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
   duration: '12 ہفتے',
-  lessons: 42,
+  lessons: 45,
   level: 'ابتدائی سے متوسط',
   language: 'اردو',
   rating: 4.8,
@@ -418,8 +338,8 @@ export const featuredCourse: Course = {
       title: 'بنیادیں: خود کو پہچانیں',
       lessons: (() => {
         const lessons = createModuleLessons('m1', 'بنیادیں: خود کو پہچانیں', [
-          { title: 'تعارف: کیریئر رہنمائی کی اہمیت', duration: '12 منٹ', focus: 'کیریئر رہنمائی کا بنیادی مقصد', videoUid: '05364cb45c1b5ac9bc091c709da5e527' },
-          { title: 'اپنی صلاحیتوں کی شناخت', duration: '18 منٹ', focus: 'strengths اور interests map کرنے کا طریقہ', videoUid: 'placeholder-m1-v2' },
+          { title: 'کیریئر کے فیصلے میں درپیش چیلنجز', duration: '12 منٹ', focus: 'کیریئر کے فیصلے میں درپیش چیلنجز', videoUid: 'a30413716856e9e07b95bf258096fd9c' },
+          { title: 'آن لائن کمائی میں دھوکے اور فراڈ', duration: '18 منٹ', focus: 'آن لائن کمائی کے فراڈ کی پہچان اور ان سے بچاؤ', videoUid: '9969875f3e936e738e6ef28f8762c98c' },
           { title: 'دلچسپی اور مہارت کا توازن', duration: '15 منٹ', focus: 'interest-skill fit', videoUid: 'placeholder-m1-v3' },
           { title: 'روٹین اور وقت کی منصوبہ بندی', duration: '14 منٹ', focus: 'daily planning system', videoUid: 'placeholder-m1-v4' },
         ]);
@@ -427,7 +347,7 @@ export const featuredCourse: Course = {
         const introTextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm1-t1');
         if (introTextLesson) {
           introTextLesson.duration = '15 منٹ پڑھائی';
-          introTextLesson.article = module1IntroNotesArticle;
+          introTextLesson.article = module1Lecture1NotesArticle;
         }
 
         const lecture2TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm1-t2');
@@ -450,10 +370,16 @@ export const featuredCourse: Course = {
       title: 'کیریئر کا انتخاب',
       lessons: (() => {
         const lessons = createModuleLessons('m2', 'کیریئر کا انتخاب', [
-          { title: 'مختلف کیریئر کے راستے', duration: '20 منٹ', focus: 'career tracks overview', videoUid: 'fb6e5f113a4ad665c7130baaf685a3e9' },
-          { title: 'پاکستان میں ابھرتے ہوئے شعبے', duration: '25 منٹ', focus: 'emerging sectors in Pakistan', videoUid: 'placeholder-m2-v2' },
-          { title: 'صحیح فیصلہ کیسے کریں', duration: '18 منٹ', focus: 'decision-making framework', videoUid: 'placeholder-m2-v3' },
+          { title: 'کمپیوٹر سائنس کا شعبہ', duration: '20 منٹ', focus: 'کمپیوٹر سائنس میں تعلیم اور کیریئر کے راستے', videoUid: 'ddbb12252d982b5ef19eb42ca07e5eec' },
+          { title: 'میڈیکل کا شعبہ', duration: '25 منٹ', focus: 'میڈیکل کے شعبے میں تعلیم اور کیریئر کے راستے', videoUid: '701a6ffd173193628347d31f422f9018' },
+          { title: 'انجینئرنگ کا شعبہ', duration: '18 منٹ', focus: 'انجینئرنگ میں تعلیم، مہارت اور کیریئر کے راستے', videoUid: 'placeholder-m2-v3' },
         ]);
+
+        const lecture1TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm2-t1');
+        if (lecture1TextLesson) {
+          lecture1TextLesson.duration = '30 منٹ پڑھائی';
+          lecture1TextLesson.article = module2Lecture1NotesArticle;
+        }
 
         const lecture2TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm2-t2');
         if (lecture2TextLesson) {
@@ -474,12 +400,7 @@ export const featuredCourse: Course = {
       id: 'm3',
       title: 'نوکوری تلاش اور درخواست',
       lessons: (() => {
-        const lessons = createModuleLessons('m3', 'نوکوری تلاش اور درخواست', [
-          { title: 'سی وی بنانے کا فن', duration: '22 منٹ', focus: 'CV structure and clarity', videoUid: 'placeholder-m3-v1' },
-          { title: 'کور لیٹر لکھنا', duration: '16 منٹ', focus: 'cover letter personalization', videoUid: 'placeholder-m3-v2' },
-          { title: 'آن لائن جاب پورٹلز کا استعمال', duration: '14 منٹ', focus: 'job portals and applications', videoUid: 'placeholder-m3-v3' },
-          { title: 'نوکوری کی تلاش کی حکمت عملی', duration: '20 منٹ', focus: 'job search system', videoUid: 'placeholder-m3-v4' },
-        ]);
+        const lessons = createModule3Lessons();
 
         const lecture2TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm3-t2');
         if (lecture2TextLesson) {
@@ -500,7 +421,7 @@ export const featuredCourse: Course = {
       id: 'm4',
       title: 'انٹرویو کی تیاری',
       lessons: createModuleLessons('m4', 'انٹرویو کی تیاری', [
-        { title: 'انٹرویو سے پہلے کی تیاری', duration: '18 منٹ', focus: 'pre-interview checklist', videoUid: 'placeholder-m4-v1' },
+        { title: 'انٹرویو سے پہلے کی تیاری', duration: '18 منٹ', focus: 'pre-interview checklist', videoUid: '5afcbd3069127022f70f0bd768c60276' },
         { title: 'عام سوالات اور جوابات', duration: '25 منٹ', focus: 'question and answer practice', videoUid: 'placeholder-m4-v2' },
         { title: 'پریزنٹیشن اور باڈی لینگویج', duration: '16 منٹ', focus: 'presentation and body language', videoUid: 'placeholder-m4-v3' },
       ]),
@@ -509,12 +430,7 @@ export const featuredCourse: Course = {
       id: 'm5',
       title: 'کاروبار شروع کرنا',
       lessons: (() => {
-        const lessons = createModuleLessons('m5', 'کاروبار شروع کرنا', [
-          { title: 'کاروباری ذہن کی تعمیر', duration: '20 منٹ', focus: 'business mindset', videoUid: 'placeholder-m5-v1' },
-          { title: 'بزنس آئیڈیا کی پہچان', duration: '18 منٹ', focus: 'finding a business idea', videoUid: 'placeholder-m5-v2' },
-          { title: 'بجٹ اور منصوبہ بندی', duration: '22 منٹ', focus: 'budgeting and planning', videoUid: 'placeholder-m5-v3' },
-          { title: 'مارکیٹنگ کی بنیادیں', duration: '16 منٹ', focus: 'basic marketing system', videoUid: 'placeholder-m5-v4' },
-        ]);
+        const lessons = createModule5Lessons();
 
         const lecture2TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm5-t2');
         if (lecture2TextLesson) {
@@ -545,7 +461,7 @@ export const articles: Article[] = [
     id: 'm3-l2-notes',
     title: 'چھٹا لیکچر ڈیجیٹل مارکیٹنگ — ماڈیول 3 لیکچر 2 نوٹس',
     excerpt: module3Lecture2NotesArticle.excerpt,
-    coverImage: module3Lecture2NotesArticle.coverImage,
+    coverImage: module3Lecture2NotesArticle.coverImage!,
     category: 'نوکوری تلاش',
     author: 'شمع.pk',
     publishedAt: '31 جولائی 2026',
@@ -556,7 +472,7 @@ export const articles: Article[] = [
     id: 'm3-l3-notes',
     title: 'فری لانسنگ جیمنی — ماڈیول 3 لیکچر 3 نوٹس',
     excerpt: module3Lecture3NotesArticle.excerpt,
-    coverImage: module3Lecture3NotesArticle.coverImage,
+    coverImage: module3Lecture3NotesArticle.coverImage!,
     category: 'نوکوری تلاش',
     author: 'شمع.pk',
     publishedAt: '31 جولائی 2026',

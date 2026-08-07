@@ -278,7 +278,9 @@ export function CourseExperience({ course, testimonials }: CourseExperienceProps
                     </Link>
                   )}
 
-                  <Button variant="outline" className="w-full text-lg" size="lg">نمونہ دیکھیں</Button>
+                  <Button asChild variant="outline" className="w-full text-lg" size="lg">
+                    <Link href="/invoices/sample">نمونہ انوائس دیکھیں</Link>
+                  </Button>
 
                   {feedback ? <p className="mt-4 text-center text-sm text-muted-foreground">{feedback}</p> : null}
 
