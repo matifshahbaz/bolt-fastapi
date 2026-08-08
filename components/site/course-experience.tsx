@@ -194,7 +194,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
 
               <div className="flex flex-wrap items-center gap-6 text-base text-muted-foreground">
                 <span className="flex items-center gap-1"><Clock className="h-5 w-5" />{course.duration}</span>
-                <span className="flex items-center gap-1"><BookOpen className="h-5 w-5" />{visibleLessonCount} اسباق</span>
+                <span className="flex items-center gap-1"><BookOpen className="h-5 w-5" />{visibleModules.length} ماڈیولز</span>
                 <span className="flex items-center gap-1"><Globe className="h-5 w-5" />زبان: {course.language}</span>
                 <span className="flex items-center gap-1"><BarChart3 className="h-5 w-5" />{course.level}</span>
               </div>
@@ -208,7 +208,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                 <div className="p-6">
                   <div className="mb-6 space-y-3">
                     <div className="flex items-center gap-2 text-base text-muted-foreground"><Clock className="h-4 w-4" /><span>مدت: {course.duration}</span></div>
-                    <div className="flex items-center gap-2 text-base text-muted-foreground"><BookOpen className="h-4 w-4" /><span>اسباق: {visibleLessonCount}</span></div>
+                    <div className="flex items-center gap-2 text-base text-muted-foreground"><BookOpen className="h-4 w-4" /><span>ماڈیولز: {visibleModules.length}</span></div>
                     <div className="flex items-center gap-2 text-base text-muted-foreground"><Globe className="h-4 w-4" /><span>زبان: {course.language}</span></div>
                     <div className="flex items-center gap-2 text-base text-muted-foreground"><BarChart3 className="h-4 w-4" /><span>سطح: {course.level}</span></div>
                     <div className="flex items-center gap-2 text-base text-muted-foreground"><Award className="h-4 w-4" /><span>سرٹیفکیٹ: ہاں</span></div>

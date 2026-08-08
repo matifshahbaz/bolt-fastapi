@@ -388,7 +388,7 @@ class ContentRepository:
                 "کرنے کی عملی رہنمائی دیتا ہے۔"
             ),
             cover_image="/career-guidance-course-banner.png",
-            duration="12 ہفتے",
+            duration="2 گھنٹے",
             lessons=31,
             level="ابتدائی سے متوسط",
             language="اردو",

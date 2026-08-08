@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { ArticleCard } from '@/components/site/article-card';
 import { ArticleToc } from '@/components/site/article-toc';
 import { AuthenticatedContent } from '@/components/site/authenticated-content';
+import { getArticleHeadings } from '@/lib/article-toc';
 import HeroBanner from '@/components/medical/herobanner';
 import {
   AlternativeFields,
@@ -227,10 +228,6 @@ const articleComponents = {
   AdviceCost,
 };
 
-function isSubHeading(text: string) {
-  return /^\s*[0-9۰-۹]+[.۔][0-9۰-۹]+/.test(text);
-}
-
 export default async function ArticleDetailPage({
   params,
 }: {
@@ -276,25 +273,7 @@ export default async function ArticleDetailPage({
     inLanguage: 'ur-PK',
   };
 
-  const headingIdByIndex = new Map<number, string>();
-  const headingItems = article.content.reduce<{ id: string; label: string }[]>(
-    (items, section, index) => {
-      if (section.type !== 'heading') {
-        return items;
-      }
-
-      const label = section.text?.trim() ?? '';
-      if (!label || isSubHeading(label)) {
-        return items;
-      }
-
-      const id = `section-${items.length + 1}`;
-      headingIdByIndex.set(index, id);
-      items.push({ id, label });
-      return items;
-    },
-    [],
-  );
+  const { headingIdByIndex, items: headingItems } = getArticleHeadings(article.content);
 
   const content = (
     <div className="flex flex-col">

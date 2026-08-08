@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { CheckCircle2, FlaskConical, Lightbulb } from 'lucide-react';
 import type { CourseLesson, ArticleSection } from '@/lib/data';
 import { Button } from '@/components/ui/button';
+import { ArticleToc } from '@/components/site/article-toc';
+import { getArticleHeadings } from '@/lib/article-toc';
 import {
   AlternativeFields,
   BenefitsChallenges,
@@ -158,9 +160,15 @@ export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete 
     return null;
   }
 
+  const { headingIdByIndex, items: headingItems } = getArticleHeadings(article.content);
+
   return (
     <div className="bg-slate-100 py-8">
       <div className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white px-5 py-8 shadow-[0_24px_70px_-45px_rgba(15,23,42,0.55)] sm:px-8 lg:px-12">
+        <ArticleToc
+          items={headingItems}
+          className="hidden lg:fixed lg:bottom-8 lg:left-6 lg:z-40 lg:block lg:w-[286px]"
+        />
         <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-foreground/70">
           <span className="rounded-full bg-primary/10 px-3 py-1 text-primary">متن سبق</span>
           <span>{lesson.duration}</span>
@@ -172,6 +180,10 @@ export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete 
         </h3>
         <p className="mb-8 text-lg leading-relaxed text-black">{article.excerpt}</p>
 
+        <div className="mb-8 lg:hidden">
+          <ArticleToc items={headingItems} />
+        </div>
+
         {article.coverImage ? (
           <div className="mb-8 overflow-hidden rounded-3xl border bg-card shadow-lg">
             <div className="relative aspect-video">
@@ -180,7 +192,7 @@ export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete 
           </div>
         ) : null}
 
-        <LessonArticleBody sections={article.content} />
+        <LessonArticleBody sections={article.content} headingIdByIndex={headingIdByIndex} />
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t pt-6">
           <p className="text-sm text-muted-foreground">
@@ -196,13 +208,24 @@ export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete 
   );
 }
 
-function LessonArticleBody({ sections }: { sections: ArticleSection[] }) {
+function LessonArticleBody({
+  sections,
+  headingIdByIndex,
+}: {
+  sections: ArticleSection[];
+  headingIdByIndex: Map<number, string>;
+}) {
   return (
     <div className="space-y-10">
       {sections.map((section, index) => {
         if (section.type === 'heading') {
+          const headingId = headingIdByIndex.get(index);
           return (
-            <h4 key={index} className="mt-10 text-2xl font-nastaliq leading-[1.7] text-[#2F5496] md:text-3xl">
+            <h4
+              key={index}
+              id={headingId}
+              className={`mt-10 scroll-mt-28 text-2xl font-nastaliq leading-[1.7] md:text-3xl ${headingId ? 'text-[#2F5496]' : 'text-black'}`}
+            >
               {section.text}
             </h4>
           );

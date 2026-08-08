@@ -351,7 +351,7 @@ export const featuredCourse: Course = {
   description:
     'یہ کورس پاکستان کے نوجوانوں کے لیے بنایا گیا ہے جو اپنے مستقبل کے بارے میں سنجیدہ ہیں۔ آپ سیکھیں گے کہ کیسے اپنی صلاحیتوں کو پہچانیں، صحیح کیریئر کا انتخاب کریں، نوکری تلاش کریں، اور کاروبار شروع کریں۔ مکمل رہنمائی اردو میں۔',
   coverImage: '/career-guidance-course-banner.png',
-  duration: '12 ہفتے',
+  duration: '2 گھنٹے',
   lessons: 31,
   level: 'ابتدائی سے متوسط',
   language: 'اردو',
