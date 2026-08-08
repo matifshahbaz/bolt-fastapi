@@ -33,12 +33,12 @@ export function CloudflareLessonPlayer({
     reportedRef.current = false;
     let hls: Hls | null = null;
 
-    if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = hlsUrl;
-    } else if (Hls.isSupported()) {
+    if (Hls.isSupported()) {
       hls = new Hls();
       hls.loadSource(hlsUrl);
       hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = hlsUrl;
     } else {
       video.src = hlsUrl;
     }
