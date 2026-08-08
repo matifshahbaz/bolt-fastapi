@@ -13,6 +13,8 @@ import { module5Lecture3NotesArticle } from '@/lib/articles/module5-lecture3-not
 import { module3Lecture4NotesArticle } from '@/lib/articles/module3-lecture4-notes';
 import { module3Lecture3NotesArticle } from '@/lib/articles/module3-lecture3-notes';
 import { module4Lecture1NotesArticle } from '@/lib/articles/module4-lecture1-notes';
+import { module4Lecture2NotesArticle } from '@/lib/articles/module4-lecture2-notes';
+import { module4Lecture3NotesArticle } from '@/lib/articles/module4-lecture3-notes';
 import { careerDecisionAfterMatricArticle } from '@/lib/articles/career-decision-after-matric';
 
 export type Category = {
@@ -153,7 +155,12 @@ export type ArticleSection = {
     | 'PitchingChecklist'
     | 'ShamaArticleHeroBanner'
     | 'ScopeDecision'
-    | 'AdviceCost';
+    | 'AdviceCost'
+    | 'SalesHero'
+    | 'SalesShameReasons'
+    | 'SalesOpenDoor'
+    | 'SalesFastGrowth'
+    | 'SalesClosing';
 };
 
 const courseLessonImages = [
@@ -362,14 +369,12 @@ export const featuredCourse: Course = {
     bio: 'عاطف شہباز نے شمع.pk کا آغاز اردو میں عملی کیریئر مواد فراہم کرنے کے لیے کیا۔ یہ پلیٹ فارم اپنے ابتدائی مرحلے میں ہے اور حقیقی طلبہ کی رائے کے ساتھ اسے مسلسل بہتر بنایا جائے گا۔',
   },
   outcomes: [
-    'اپنی صلاحیتوں اور دلچسپیاں پہچانیں',
-    'صحیح کیریئر کا انتخاب کرنا سیکھیں',
-    'پروفیشنل سی وی اور کور لیٹر بنائیں',
-    'انٹرویو کی تیاری اور مہارت حاصل کریں',
-    'نوکری تلاش کرنے کے جدید طریقے سیکھیں',
-    'کاروبار شروع کرنے کی بنیادی رہنمائی',
-    'نیٹ ورکنگ اور تعلقات بنانا',
-    'ذاتی برانڈ بنانا سیکھیں',
+    'کیریئر کا بہتر انتخاب کیسے کیا جائے',
+    'مختلف شعبوں کی حقیقت، مواقع اور مشکلات',
+    'اپنی صلاحیت اور حالات کے مطابق راستہ',
+    'غلط دعووں اور وقتی رجحانات کی پہچان',
+    'تعلیم، مہارت، ملازمت اور کاروبار کے امکانات',
+    'اگلا عملی قدم کیسے طے کیا جائے',
   ],
   modules: [
     {
@@ -485,8 +490,20 @@ export const featuredCourse: Course = {
           duration: '30 منٹ پڑھائی',
           article: module4Lecture1NotesArticle,
         },
-        createComingSoonLesson('m4', 2, 'لیکچر 4.2: سرکاری شعبے میں کیریئر'),
-        createComingSoonLesson('m4', 3, 'لیکچر 4.3: سیلز میں کیریئر'),
+        {
+          id: 'm4-t2',
+          kind: 'text',
+          title: 'لیکچر 4.2: سرکاری ملازمت کے نشیب و فراز — نوٹس',
+          duration: '35 منٹ پڑھائی',
+          article: module4Lecture2NotesArticle,
+        },
+        {
+          id: 'm4-t3',
+          kind: 'text',
+          title: 'لیکچر 4.3: سیلز ڈیپارٹمنٹ کی طاقت — نوٹس',
+          duration: '35 منٹ پڑھائی',
+          article: module4Lecture3NotesArticle,
+        },
       ],
     },
     {

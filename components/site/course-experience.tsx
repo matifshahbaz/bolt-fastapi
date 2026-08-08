@@ -38,6 +38,19 @@ type CourseExperienceProps = {
   course: Course;
 };
 
+const courseAudience = [
+  'میٹرک یا او لیول کے بعد مضامین کا انتخاب کررہے ہیں',
+  'انٹرمیڈیٹ یا اے لیول کے بعد اگلا راستہ تلاش کررہے ہیں',
+  'یونیورسٹی میں داخلے کے بارے میں فیصلہ کرنا چاہتے ہیں',
+  'داخلہ نہ ملنے کے بعد متبادل راستہ تلاش کررہے ہیں',
+  'کمپیوٹر سائنس، انجینئرنگ یا میڈیکل کے بارے میں حقیقت پسندانہ معلومات چاہتے ہیں',
+  'آن لائن کمائی، ویب سائٹ بنانے یا فری لانسنگ میں دلچسپی رکھتے ہیں',
+  'زراعت، سرکاری شعبے یا سیلز کے مواقع سمجھنا چاہتے ہیں',
+  'ملازمت کے ساتھ کاروبار یا اپنا کام شروع کرنے پر غور کررہے ہیں',
+  'اپنی شخصیت، دلچسپی اور حالات کے مطابق کیریئر منتخب کرنا چاہتے ہیں',
+  'تعلیم کے بعد عملی کیریئر کے آغاز میں الجھن محسوس کررہے ہیں',
+];
+
 export function CourseExperience({ course }: CourseExperienceProps) {
   const { isAuthenticated, token, user } = useAuth();
   const [progress, setProgress] = useState<CourseProgress | null>(null);
@@ -197,6 +210,19 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                 <span className="flex items-center gap-1"><BookOpen className="h-5 w-5" />{visibleModules.length} ماڈیولز</span>
                 <span className="flex items-center gap-1"><Globe className="h-5 w-5" />زبان: {course.language}</span>
                 <span className="flex items-center gap-1"><BarChart3 className="h-5 w-5" />{course.level}</span>
+              </div>
+
+              <div className="mt-8 border-r-4 border-primary bg-white/75 px-5 py-6 text-right shadow-sm sm:px-6" dir="rtl">
+                <h2 className="text-2xl font-nastaliq leading-relaxed text-foreground">یہ کورس کن لوگوں کے لیے ہے؟</h2>
+                <p className="mt-2 text-base text-muted-foreground">یہ کورس بالخصوص ان نوجوانوں کے لیے مفید ہے جو:</p>
+                <ul className="mt-4 grid list-disc grid-cols-1 gap-x-8 gap-y-2 pr-5 text-base leading-relaxed text-foreground md:grid-cols-2">
+                  {courseAudience.map((item) => (
+                    <li key={item}>{item}۔</li>
+                  ))}
+                </ul>
+                <p className="mt-5 border-t pt-4 text-base leading-relaxed text-muted-foreground">
+                  والدین اور اساتذہ بھی اس کورس سے فائدہ اٹھا سکتے ہیں تاکہ وہ نوجوانوں پر اپنی پسند مسلط کرنے کے بجائے انہیں معلومات کی بنیاد پر فیصلہ کرنے میں مدد دے سکیں۔
+                </p>
               </div>
             </div>
 

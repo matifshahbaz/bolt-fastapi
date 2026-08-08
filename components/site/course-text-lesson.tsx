@@ -84,6 +84,13 @@ import {
   ScopeDecision,
   ShamaArticleHeroBanner,
 } from '@/components/career-after-matric';
+import {
+  SalesClosing,
+  SalesFastGrowth,
+  SalesHero,
+  SalesOpenDoor,
+  SalesShameReasons,
+} from '@/components/sales-function';
 
 type CourseTextLessonProps = {
   lesson: CourseLesson;
@@ -151,6 +158,11 @@ const lessonComponents = {
   ShamaArticleHeroBanner,
   ScopeDecision,
   AdviceCost,
+  SalesHero,
+  SalesShameReasons,
+  SalesOpenDoor,
+  SalesFastGrowth,
+  SalesClosing,
 };
 
 export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete }: CourseTextLessonProps) {

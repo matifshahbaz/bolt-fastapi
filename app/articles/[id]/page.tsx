@@ -87,6 +87,13 @@ import {
   ScopeDecision,
   ShamaArticleHeroBanner,
 } from '@/components/career-after-matric';
+import {
+  SalesClosing,
+  SalesFastGrowth,
+  SalesHero,
+  SalesOpenDoor,
+  SalesShameReasons,
+} from '@/components/sales-function';
 import { getArticleById, getArticles } from '@/lib/content-api';
 
 const siteUrl = 'https://shama.pk';
@@ -226,6 +233,11 @@ const articleComponents = {
   ShamaArticleHeroBanner,
   ScopeDecision,
   AdviceCost,
+  SalesHero,
+  SalesShameReasons,
+  SalesOpenDoor,
+  SalesFastGrowth,
+  SalesClosing,
 };
 
 export default async function ArticleDetailPage({
