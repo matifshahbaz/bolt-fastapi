@@ -1,9 +1,12 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Noto_Nastaliq_Urdu } from 'next/font/google';
+import Script from 'next/script';
 import { AuthProvider } from '@/components/site/auth-provider';
 import { Navbar } from '@/components/site/navbar';
 import { Footer } from '@/components/site/footer';
+
+const googleAnalyticsId = 'G-Q7ZBCQ9CF6';
 
 const notoNastaliqUrdu = Noto_Nastaliq_Urdu({
   subsets: ['arabic'],
@@ -96,6 +99,18 @@ export default function RootLayout({
       <body
         className={`${notoNastaliqUrdu.variable} font-nastaliq antialiased min-h-screen flex flex-col bg-background`}
       >
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${googleAnalyticsId}');
+          `}
+        </Script>
         <AuthProvider>
           <Navbar />
           <main className="flex-1">{children}</main>
