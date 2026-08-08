@@ -7,6 +7,8 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+DEFAULT_STREAM_CUSTOMER_SUBDOMAIN = "customer-wmvuwx4yly0kc3ua"
+
 DEFAULT_STREAM_LESSON_VIDEO_MAP = {
     "career-guidance-for-pakistani-youth": {
         "m1:0": "a30413716856e9e07b95bf258096fd9c",
@@ -84,12 +86,12 @@ class Settings(BaseSettings):
     cloudflare_account_id: str = ""
     cloudflare_api_token: str = ""
 
-    cloudflare_stream_customer_subdomain: str = ""
+    cloudflare_stream_customer_subdomain: str = DEFAULT_STREAM_CUSTOMER_SUBDOMAIN
     cloudflare_stream_signing_key_id: str = ""
     cloudflare_stream_signing_key_secret: str = ""
     cloudflare_stream_token_ttl_seconds: int = 900
     cloudflare_stream_watch_completion_threshold: float = 50.0
-    cloudflare_stream_require_signed_urls: bool = True
+    cloudflare_stream_require_signed_urls: bool = False
 
     cloudflare_images_delivery_base_url: str = ""
     cloudflare_images_require_signed_urls: bool = False
@@ -120,35 +122,30 @@ class Settings(BaseSettings):
 
     @cached_property
     def stream_lesson_video_map(self) -> dict[str, dict[str, str]]:
-        normalized = {
-            course_id: mapping.copy()
-            for course_id, mapping in DEFAULT_STREAM_LESSON_VIDEO_MAP.items()
-        }
+        normalized: dict[str, dict[str, str]] = {}
         try:
             parsed = json.loads(self.cloudflare_stream_lesson_video_map_raw)
         except json.JSONDecodeError:
-            return normalized
-        if not isinstance(parsed, dict):
-            return normalized
-
-        for course_id, mapping in parsed.items():
-            if not isinstance(course_id, str) or not isinstance(mapping, dict):
-                continue
-            course_mapping = normalized.setdefault(course_id, {})
-            course_mapping.update(
-                {
+            parsed = {}
+        if isinstance(parsed, dict):
+            for course_id, mapping in parsed.items():
+                if not isinstance(course_id, str) or not isinstance(mapping, dict):
+                    continue
+                normalized[course_id] = {
                     key: value
                     for key, value in mapping.items()
                     if isinstance(key, str) and isinstance(value, str)
                 }
-            )
+
+        for course_id, mapping in DEFAULT_STREAM_LESSON_VIDEO_MAP.items():
+            normalized.setdefault(course_id, {}).update(mapping)
         return normalized
 
     @property
     def stream_delivery_base_url(self) -> str:
         subdomain = self.cloudflare_stream_customer_subdomain.strip()
-        if not subdomain:
-            return ""
+        if not subdomain or "replace" in subdomain.lower():
+            subdomain = DEFAULT_STREAM_CUSTOMER_SUBDOMAIN
         return f"https://{subdomain}.cloudflarestream.com"
 
     @property

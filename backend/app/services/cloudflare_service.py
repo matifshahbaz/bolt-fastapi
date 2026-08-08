@@ -44,18 +44,20 @@ class CloudflareService:
         return video_uid
 
     def get_signed_lesson_playback(self, video_uid: str) -> LessonPlaybackResponse:
-        self._require_stream_signing()
-
         now = datetime.now(timezone.utc)
         expires_at = now + timedelta(seconds=settings.cloudflare_stream_token_ttl_seconds)
-        token = self._create_stream_token(video_uid, expires_at, now)
         base = f"{settings.stream_delivery_base_url}/{video_uid}"
+        token_query = ""
+        if settings.cloudflare_stream_require_signed_urls:
+            self._require_stream_signing()
+            token = self._create_stream_token(video_uid, expires_at, now)
+            token_query = f"?token={token}"
 
         return LessonPlaybackResponse(
             video_uid=video_uid,
-            iframe_url=f"{base}/iframe?token={token}",
-            hls_url=f"{base}/manifest/video.m3u8?token={token}",
-            dash_url=f"{base}/manifest/video.mpd?token={token}",
+            iframe_url=f"{base}/iframe{token_query}",
+            hls_url=f"{base}/manifest/video.m3u8{token_query}",
+            dash_url=f"{base}/manifest/video.mpd{token_query}",
             thumbnail_url=f"{base}/thumbnails/thumbnail.jpg",
             expires_at=expires_at,
             completion_threshold_percent=settings.cloudflare_stream_watch_completion_threshold,
