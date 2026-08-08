@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     debug: bool = False
     secret_key: str = "change-this-before-production"
     database_url: str | None = None
-    admin_emails_raw: str = ""
+    admin_emails_raw: str = "contact@shama.pk"
     password_reset_token_ttl_minutes: int = 30
     expose_password_reset_token: bool = False
     frontend_base_url: str = "https://shama.pk"
@@ -56,7 +56,7 @@ class Settings(BaseSettings):
         '"m1:6": "placeholder-m1-v4",'
         '"m2:0": "ddbb12252d982b5ef19eb42ca07e5eec",'
         '"m2:2": "701a6ffd173193628347d31f422f9018",'
-        '"m2:4": "placeholder-m2-v3",'
+        '"m2:4": "9aa90aefeb75e46b25a274047b559106",'
         '"m3:0": "072336982e4f8759249c1d02edf14aba",'
         '"m3:1": "d24d8a9a8b651147fd80bada011a38b2",'
         '"m3:2": "0c6ef060e7232246ef0a823111883fed",'

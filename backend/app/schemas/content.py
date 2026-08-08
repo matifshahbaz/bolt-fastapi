@@ -14,6 +14,8 @@ class Lesson(BaseModel):
     kind: str
     title: str
     duration: str
+    hidden: bool = False
+    coming_soon: bool = False
     video_uid: str | None = None
     article: "LessonArticle | None" = None
 
@@ -27,6 +29,7 @@ class LessonArticle(BaseModel):
 class CourseModule(BaseModel):
     id: str
     title: str
+    hidden: bool = False
     lessons: list[Lesson]
 
 

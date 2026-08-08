@@ -12,6 +12,7 @@ import { module5Lecture2NotesArticle } from '@/lib/articles/module5-lecture2-not
 import { module5Lecture3NotesArticle } from '@/lib/articles/module5-lecture3-notes';
 import { module3Lecture4NotesArticle } from '@/lib/articles/module3-lecture4-notes';
 import { module3Lecture3NotesArticle } from '@/lib/articles/module3-lecture3-notes';
+import { module4Lecture1NotesArticle } from '@/lib/articles/module4-lecture1-notes';
 import { careerDecisionAfterMatricArticle } from '@/lib/articles/career-decision-after-matric';
 
 export type Category = {
@@ -58,6 +59,7 @@ export type CourseLesson = {
   title: string;
   duration: string;
   hidden?: boolean;
+  comingSoon?: boolean;
   videoUid?: string;
   article?: LessonArticle;
 };
@@ -65,6 +67,7 @@ export type CourseLesson = {
 export type CourseModule = {
   id: string;
   title: string;
+  hidden?: boolean;
   lessons: CourseLesson[];
 };
 
@@ -240,6 +243,20 @@ function createTextLesson(
   };
 }
 
+function createComingSoonLesson(moduleId: string, index: number, title: string): CourseLesson {
+  return {
+    id: `${moduleId}-t${index}`,
+    kind: 'text',
+    title,
+    duration: 'جلد دستیاب',
+    comingSoon: true,
+    article: {
+      excerpt: 'یہ مواد جلد دستیاب ہوگا۔',
+      content: [],
+    },
+  };
+}
+
 function createModuleLessons(
   moduleId: string,
   moduleTitle: string,
@@ -253,11 +270,11 @@ function createModuleLessons(
 
 function createModule3Lessons(): CourseLesson[] {
   const moduleId = 'm3';
-  const moduleTitle = 'نوکری تلاش اور درخواست';
+  const moduleTitle = 'ڈیجیٹل معیشت اور آن لائن کمائی';
   const lessons = createModuleLessons(moduleId, moduleTitle, [
     { title: 'سی وی بنانے کا فن', duration: '22 منٹ', focus: 'CV structure and clarity', videoUid: '072336982e4f8759249c1d02edf14aba' },
-    { title: 'ویب سائٹ ڈیولپمنٹ', duration: '16 منٹ', focus: 'website development foundations', videoUid: 'd589d0b83800d7bafe30ead9c07a8980' },
-    { title: 'آن لائن جاب پورٹلز کا استعمال', duration: '14 منٹ', focus: 'job portals and applications', videoUid: '3d66a6a2dcbfd91ce07affe6ed64654b' },
+    { title: 'لیکچر 3.2: ویب سائٹ بنانے کا شعبہ', duration: '16 منٹ', focus: 'website development foundations', videoUid: 'd589d0b83800d7bafe30ead9c07a8980' },
+    { title: 'لیکچر 3.3: فری لانسنگ: حقیقت، مواقع اور چیلنجز', duration: '14 منٹ', focus: 'job portals and applications', videoUid: '3d66a6a2dcbfd91ce07affe6ed64654b' },
     { title: 'ڈیجیٹل مارکیٹنگ', duration: '20 منٹ', focus: 'digital marketing careers', videoUid: 'placeholder-m3-v4' },
   ]);
 
@@ -267,29 +284,31 @@ function createModule3Lessons(): CourseLesson[] {
     }
   });
 
-  return [
-    createVideoLesson(moduleId, '1-1', 'سی وی بنانے کا فن — حصہ 1', 'حصہ 1', '072336982e4f8759249c1d02edf14aba'),
-    createVideoLesson(moduleId, '1-2', 'سی وی بنانے کا فن — حصہ 2', 'حصہ 2', 'd24d8a9a8b651147fd80bada011a38b2'),
-    createVideoLesson(moduleId, '1-3', 'سی وی بنانے کا فن — حصہ 3', 'حصہ 3', '0c6ef060e7232246ef0a823111883fed'),
+  const courseLessons = [
+    createVideoLesson(moduleId, '1-1', 'لیکچر 3.1: ڈیجیٹل معیشت اور آن لائن کمائی — حصہ 1: ڈیجیٹل معیشت کا مطلب', 'حصہ 1', '072336982e4f8759249c1d02edf14aba'),
+    createVideoLesson(moduleId, '1-2', 'لیکچر 3.1: ڈیجیٹل معیشت اور آن لائن کمائی — حصہ 2: آن لائن کام کے طریقے', 'حصہ 2', 'd24d8a9a8b651147fd80bada011a38b2'),
+    createVideoLesson(moduleId, '1-3', 'لیکچر 3.1: ڈیجیٹل معیشت اور آن لائن کمائی — حصہ 3: مقامی ڈیجیٹل کلائنٹس', 'حصہ 3', '0c6ef060e7232246ef0a823111883fed'),
     lessons[1],
     ...lessons.slice(2),
   ];
+
+  return courseLessons;
 }
 
 function createModule5Lessons(): CourseLesson[] {
   const moduleId = 'm5';
-  const moduleTitle = 'کاروبار شروع کرنا';
+  const moduleTitle = 'کاروبار اور نئے مواقع کی تخلیق';
   const lessons = createModuleLessons(moduleId, moduleTitle, [
-    { title: 'کاروباری ذہن کی تعمیر', duration: '20 منٹ', focus: 'business mindset', videoUid: '178a4245e678061087e7d28f2b4a7783' },
-    { title: 'بزنس آئیڈیا کی پہچان', duration: '18 منٹ', focus: 'finding a business idea', videoUid: '460b8d57c1ac1b8db9fc0173b6c099fb' },
-    { title: 'بجٹ اور منصوبہ بندی', duration: '22 منٹ', focus: 'budgeting and planning', videoUid: 'f69acb71aeefb5bc48170bd9ae5cd289' },
+    { title: 'لیکچر 5.1: نوجوانی میں کاروبار بطور کیریئر', duration: '20 منٹ', focus: 'business mindset', videoUid: '178a4245e678061087e7d28f2b4a7783' },
+    { title: 'لیکچر 5.2: کاروباری منصوبہ اور بزنس کیس', duration: '18 منٹ', focus: 'finding a business idea', videoUid: '460b8d57c1ac1b8db9fc0173b6c099fb' },
+    { title: 'لیکچر 5.3: اپنے اسٹارٹ اپ کے لیے سرمایہ کیسے حاصل کریں؟', duration: '22 منٹ', focus: 'budgeting and planning', videoUid: 'f69acb71aeefb5bc48170bd9ae5cd289' },
     { title: 'مارکیٹنگ کی بنیادیں', duration: '16 منٹ', focus: 'basic marketing system', videoUid: 'placeholder-m5-v4' },
   ]);
 
   return [
     ...lessons.slice(0, 4),
-    createVideoLesson(moduleId, '3-1', 'بجٹ اور منصوبہ بندی — حصہ 1', 'حصہ 1', 'f69acb71aeefb5bc48170bd9ae5cd289'),
-    createVideoLesson(moduleId, '3-2', 'بجٹ اور منصوبہ بندی — حصہ 2', 'حصہ 2', '5cf10ad82447c00e5a56ad5e89e95a4d'),
+    createVideoLesson(moduleId, '3-1', 'لیکچر 5.3: اپنے اسٹارٹ اپ کے لیے سرمایہ کیسے حاصل کریں؟ — حصہ 1', 'حصہ 1', 'f69acb71aeefb5bc48170bd9ae5cd289'),
+    createVideoLesson(moduleId, '3-2', 'لیکچر 5.3: اپنے اسٹارٹ اپ کے لیے سرمایہ کیسے حاصل کریں؟ — حصہ 2', 'حصہ 2', '5cf10ad82447c00e5a56ad5e89e95a4d'),
     ...lessons.slice(5),
   ];
 }
@@ -333,7 +352,7 @@ export const featuredCourse: Course = {
     'یہ کورس پاکستان کے نوجوانوں کے لیے بنایا گیا ہے جو اپنے مستقبل کے بارے میں سنجیدہ ہیں۔ آپ سیکھیں گے کہ کیسے اپنی صلاحیتوں کو پہچانیں، صحیح کیریئر کا انتخاب کریں، نوکری تلاش کریں، اور کاروبار شروع کریں۔ مکمل رہنمائی اردو میں۔',
   coverImage: '/career-guidance-course-banner.png',
   duration: '12 ہفتے',
-  lessons: 45,
+  lessons: 31,
   level: 'ابتدائی سے متوسط',
   language: 'اردو',
   price: 'Rs. 500',
@@ -355,12 +374,12 @@ export const featuredCourse: Course = {
   modules: [
     {
       id: 'm1',
-      title: 'بنیادیں: خود کو پہچانیں',
+      title: 'کیریئر کی الجھنیں، شور اور حقیقتیں',
       lessons: (() => {
-        const lessons = createModuleLessons('m1', 'بنیادیں: خود کو پہچانیں', [
-          { title: 'کیریئر کے فیصلے میں درپیش چیلنجز', duration: '12 منٹ', focus: 'کیریئر کے فیصلے میں درپیش چیلنجز', videoUid: 'a30413716856e9e07b95bf258096fd9c' },
-          { title: 'آن لائن کمائی میں دھوکے اور فراڈ', duration: '18 منٹ', focus: 'آن لائن کمائی کے فراڈ کی پہچان اور ان سے بچاؤ', videoUid: '9969875f3e936e738e6ef28f8762c98c' },
-          { title: 'دلچسپی اور مہارت کا توازن', duration: '15 منٹ', focus: 'interest-skill fit', videoUid: 'placeholder-m1-v3' },
+        const lessons = createModuleLessons('m1', 'کیریئر کی الجھنیں، شور اور حقیقتیں', [
+          { title: 'لیکچر 1.1: کیریئر کا انتخاب اتنا مشکل کیوں ہے؟', duration: '12 منٹ', focus: 'کیریئر کے فیصلے میں درپیش چیلنجز', videoUid: 'a30413716856e9e07b95bf258096fd9c' },
+          { title: 'لیکچر 1.2: کامیابی کے نام پر شور، غلط دعوے اور دھوکے', duration: '18 منٹ', focus: 'آن لائن کمائی کے فراڈ کی پہچان اور ان سے بچاؤ', videoUid: '9969875f3e936e738e6ef28f8762c98c' },
+          { title: 'لیکچر 1.3: درست راستوں کے اپنے مسائل ہوتے ہیں', duration: '15 منٹ', focus: 'interest-skill fit', videoUid: 'placeholder-m1-v3' },
           { title: 'روٹین اور وقت کی منصوبہ بندی', duration: '14 منٹ', focus: 'daily planning system', videoUid: 'placeholder-m1-v4' },
         ]);
 
@@ -382,17 +401,21 @@ export const featuredCourse: Course = {
           lecture3TextLesson.article = module1Lecture3NotesArticle;
         }
 
+        lessons.slice(4).forEach((lesson) => {
+          lesson.hidden = true;
+        });
+
         return lessons;
       })(),
     },
     {
       id: 'm2',
-      title: 'کیریئر کا انتخاب',
+      title: 'مستحکم اور آزمودہ کیریئرز',
       lessons: (() => {
-        const lessons = createModuleLessons('m2', 'کیریئر کا انتخاب', [
-          { title: 'کمپیوٹر سائنس کا شعبہ', duration: '20 منٹ', focus: 'کمپیوٹر سائنس میں تعلیم اور کیریئر کے راستے', videoUid: 'ddbb12252d982b5ef19eb42ca07e5eec' },
-          { title: 'میڈیکل کا شعبہ', duration: '25 منٹ', focus: 'میڈیکل کے شعبے میں تعلیم اور کیریئر کے راستے', videoUid: '701a6ffd173193628347d31f422f9018' },
-          { title: 'انجینئرنگ کا شعبہ', duration: '18 منٹ', focus: 'انجینئرنگ میں تعلیم، مہارت اور کیریئر کے راستے', videoUid: 'placeholder-m2-v3' },
+        const lessons = createModuleLessons('m2', 'مستحکم اور آزمودہ کیریئرز', [
+          { title: 'لیکچر 2.1: کمپیوٹر سائنس میں کیریئر', duration: '20 منٹ', focus: 'کمپیوٹر سائنس میں تعلیم اور کیریئر کے راستے', videoUid: 'ddbb12252d982b5ef19eb42ca07e5eec' },
+          { title: 'لیکچر 2.2: طب اور ایم بی بی ایس میں کیریئر', duration: '25 منٹ', focus: 'میڈیکل کے شعبے میں تعلیم اور کیریئر کے راستے', videoUid: '701a6ffd173193628347d31f422f9018' },
+          { title: 'لیکچر 2.3: انجینئرنگ میں کیریئر', duration: '18 منٹ', focus: 'انجینئرنگ میں تعلیم، مہارت اور کیریئر کے راستے', videoUid: '9aa90aefeb75e46b25a274047b559106' },
         ]);
 
         const lecture1TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm2-t1');
@@ -418,12 +441,13 @@ export const featuredCourse: Course = {
     },
     {
       id: 'm3',
-      title: 'نوکری تلاش اور درخواست',
+      title: 'ڈیجیٹل معیشت اور آن لائن کمائی',
       lessons: (() => {
         const lessons = createModule3Lessons();
 
         const lecture1TextLesson = lessons.find((lesson) => lesson.kind === 'text' && lesson.id === 'm3-t1');
         if (lecture1TextLesson) {
+          lecture1TextLesson.title = 'لیکچر 3.1: ڈیجیٹل معیشت اور آن لائن کمائی — نوٹس';
           lecture1TextLesson.duration = '60 منٹ پڑھائی';
           lecture1TextLesson.article = module3Lecture1NotesArticle;
         }
@@ -451,16 +475,23 @@ export const featuredCourse: Course = {
     },
     {
       id: 'm4',
-      title: 'انٹرویو کی تیاری',
-      lessons: createModuleLessons('m4', 'انٹرویو کی تیاری', [
-        { title: 'انٹرویو سے پہلے کی تیاری', duration: '18 منٹ', focus: 'pre-interview checklist', videoUid: '5afcbd3069127022f70f0bd768c60276' },
-        { title: 'عام سوالات اور جوابات', duration: '25 منٹ', focus: 'question and answer practice', videoUid: 'placeholder-m4-v2' },
-        { title: 'پریزنٹیشن اور باڈی لینگویج', duration: '16 منٹ', focus: 'presentation and body language', videoUid: 'placeholder-m4-v3' },
-      ]),
+      title: 'کیریئر کے لیے دیگر اہم شعبے',
+      lessons: [
+        createVideoLesson('m4', 1, 'لیکچر 4.1: زراعت اور زرعی کاروبار میں کیریئر', '18 منٹ', '5afcbd3069127022f70f0bd768c60276'),
+        {
+          id: 'm4-t1',
+          kind: 'text',
+          title: 'لیکچر 4.1: زراعت اور زرعی کاروبار میں کیریئر — نوٹس',
+          duration: '30 منٹ پڑھائی',
+          article: module4Lecture1NotesArticle,
+        },
+        createComingSoonLesson('m4', 2, 'لیکچر 4.2: سرکاری شعبے میں کیریئر'),
+        createComingSoonLesson('m4', 3, 'لیکچر 4.3: سیلز میں کیریئر'),
+      ],
     },
     {
       id: 'm5',
-      title: 'کاروبار شروع کرنا',
+      title: 'کاروبار اور نئے مواقع کی تخلیق',
       lessons: (() => {
         const lessons = createModule5Lessons();
 
@@ -488,6 +519,7 @@ export const featuredCourse: Course = {
     {
       id: 'm6',
       title: 'ذاتی ترقی اور نیٹ ورکنگ',
+      hidden: true,
       lessons: createModuleLessons('m6', 'ذاتی ترقی اور نیٹ ورکنگ', [
         { title: 'ذاتی برانڈ کی تعمیر', duration: '18 منٹ', focus: 'personal branding', videoUid: 'placeholder-m6-v1' },
         { title: 'نیٹ ورکنگ کی اہمیت', duration: '15 منٹ', focus: 'professional networking', videoUid: 'placeholder-m6-v2' },

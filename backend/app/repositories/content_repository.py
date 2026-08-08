@@ -196,102 +196,137 @@ def _module_lessons(module_id: str, module_title: str, videos: list[dict[str, st
 
 def _module3_lessons() -> list[Lesson]:
     module_id = "m3"
-    module_title = "نوکری تلاش اور درخواست"
+    module_title = "ڈیجیٹل معیشت اور آن لائن کمائی"
     lessons = _module_lessons(
         module_id,
         module_title,
         [
             {"title": "سی وی بنانے کا فن", "duration": "22 منٹ", "focus": "CV structure and clarity", "video_uid": "072336982e4f8759249c1d02edf14aba"},
-            {"title": "ویب سائٹ ڈیولپمنٹ", "duration": "16 منٹ", "focus": "website development foundations", "video_uid": "d589d0b83800d7bafe30ead9c07a8980"},
-            {"title": "آن لائن جاب پورٹلز کا استعمال", "duration": "14 منٹ", "focus": "job portals and applications", "video_uid": "3d66a6a2dcbfd91ce07affe6ed64654b"},
+            {"title": "لیکچر 3.2: ویب سائٹ بنانے کا شعبہ", "duration": "16 منٹ", "focus": "website development foundations", "video_uid": "d589d0b83800d7bafe30ead9c07a8980"},
+            {"title": "لیکچر 3.3: فری لانسنگ: حقیقت، مواقع اور چیلنجز", "duration": "14 منٹ", "focus": "job portals and applications", "video_uid": "3d66a6a2dcbfd91ce07affe6ed64654b"},
             {"title": "ڈیجیٹل مارکیٹنگ", "duration": "20 منٹ", "focus": "digital marketing careers", "video_uid": "placeholder-m3-v4"},
         ],
     )
+    digital_economy_notes = lessons[1]
+    digital_economy_notes.title = "لیکچر 3.1: ڈیجیٹل معیشت اور آن لائن کمائی — نوٹس"
+    digital_economy_notes.duration = "60 منٹ پڑھائی"
+    digital_economy_notes.article = _lesson_article(
+        "ڈیجیٹل انکم",
+        "ڈیجیٹل معیشت کو سمجھیے",
+        "ڈیجیٹل اکانومی، آن لائن کام اور مقامی ڈیجیٹل کلائنٹس",
+        "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    )
     return [
-        _video_lesson(module_id, "1-1", "سی وی بنانے کا فن — حصہ 1", "حصہ 1", "072336982e4f8759249c1d02edf14aba"),
-        _video_lesson(module_id, "1-2", "سی وی بنانے کا فن — حصہ 2", "حصہ 2", "d24d8a9a8b651147fd80bada011a38b2"),
-        _video_lesson(module_id, "1-3", "سی وی بنانے کا فن — حصہ 3", "حصہ 3", "0c6ef060e7232246ef0a823111883fed"),
-        lessons[1],
+        _video_lesson(module_id, "1-1", "لیکچر 3.1: ڈیجیٹل معیشت اور آن لائن کمائی — حصہ 1: ڈیجیٹل معیشت کا مطلب", "حصہ 1", "072336982e4f8759249c1d02edf14aba"),
+        _video_lesson(module_id, "1-2", "لیکچر 3.1: ڈیجیٹل معیشت اور آن لائن کمائی — حصہ 2: آن لائن کام کے طریقے", "حصہ 2", "d24d8a9a8b651147fd80bada011a38b2"),
+        _video_lesson(module_id, "1-3", "لیکچر 3.1: ڈیجیٹل معیشت اور آن لائن کمائی — حصہ 3: مقامی ڈیجیٹل کلائنٹس", "حصہ 3", "0c6ef060e7232246ef0a823111883fed"),
+        digital_economy_notes,
         *lessons[2:6],
+    ]
+
+
+def _coming_soon_lesson(module_id: str, index: int, title: str) -> Lesson:
+    return Lesson(
+        id=f"{module_id}-t{index}",
+        kind="text",
+        title=title,
+        duration="جلد دستیاب",
+        coming_soon=True,
+        article=LessonArticle(
+            excerpt="یہ مواد جلد دستیاب ہوگا۔",
+            cover_image="",
+            content=[],
+        ),
+    )
+
+
+def _module4_lessons() -> list[Lesson]:
+    agriculture_notes = _text_lesson(
+        "m4",
+        1,
+        "کیریئر کے لیے دیگر اہم شعبے",
+        "لیکچر 4.1: زراعت اور زرعی کاروبار میں کیریئر",
+        "زرعی کاروبار، جدید ٹیکنالوجی اور پاکستان میں زراعت کے کیریئر",
+        "https://images.pexels.com/photos/2132250/pexels-photo-2132250.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    )
+    agriculture_notes.duration = "30 منٹ پڑھائی"
+    return [
+        _video_lesson("m4", 1, "لیکچر 4.1: زراعت اور زرعی کاروبار میں کیریئر", "18 منٹ", "5afcbd3069127022f70f0bd768c60276"),
+        agriculture_notes,
+        _coming_soon_lesson("m4", 2, "لیکچر 4.2: سرکاری شعبے میں کیریئر"),
+        _coming_soon_lesson("m4", 3, "لیکچر 4.3: سیلز میں کیریئر"),
     ]
 
 
 def _module5_lessons() -> list[Lesson]:
     module_id = "m5"
-    module_title = "کاروبار شروع کرنا"
+    module_title = "کاروبار اور نئے مواقع کی تخلیق"
     lessons = _module_lessons(
         module_id,
         module_title,
         [
-            {"title": "کاروباری ذہن کی تعمیر", "duration": "20 منٹ", "focus": "business mindset", "video_uid": "178a4245e678061087e7d28f2b4a7783"},
-            {"title": "بزنس آئیڈیا کی پہچان", "duration": "18 منٹ", "focus": "finding a business idea", "video_uid": "460b8d57c1ac1b8db9fc0173b6c099fb"},
-            {"title": "بجٹ اور منصوبہ بندی", "duration": "22 منٹ", "focus": "budgeting and planning", "video_uid": "f69acb71aeefb5bc48170bd9ae5cd289"},
+            {"title": "لیکچر 5.1: نوجوانی میں کاروبار بطور کیریئر", "duration": "20 منٹ", "focus": "business mindset", "video_uid": "178a4245e678061087e7d28f2b4a7783"},
+            {"title": "لیکچر 5.2: کاروباری منصوبہ اور بزنس کیس", "duration": "18 منٹ", "focus": "finding a business idea", "video_uid": "460b8d57c1ac1b8db9fc0173b6c099fb"},
+            {"title": "لیکچر 5.3: اپنے اسٹارٹ اپ کے لیے سرمایہ کیسے حاصل کریں؟", "duration": "22 منٹ", "focus": "budgeting and planning", "video_uid": "f69acb71aeefb5bc48170bd9ae5cd289"},
             {"title": "مارکیٹنگ کی بنیادیں", "duration": "16 منٹ", "focus": "basic marketing system", "video_uid": "placeholder-m5-v4"},
         ],
     )
     return [
         *lessons[:4],
-        _video_lesson(module_id, "3-1", "بجٹ اور منصوبہ بندی — حصہ 1", "حصہ 1", "f69acb71aeefb5bc48170bd9ae5cd289"),
-        _video_lesson(module_id, "3-2", "بجٹ اور منصوبہ بندی — حصہ 2", "حصہ 2", "5cf10ad82447c00e5a56ad5e89e95a4d"),
+        _video_lesson(module_id, "3-1", "لیکچر 5.3: اپنے اسٹارٹ اپ کے لیے سرمایہ کیسے حاصل کریں؟ — حصہ 1", "حصہ 1", "f69acb71aeefb5bc48170bd9ae5cd289"),
+        _video_lesson(module_id, "3-2", "لیکچر 5.3: اپنے اسٹارٹ اپ کے لیے سرمایہ کیسے حاصل کریں؟ — حصہ 2", "حصہ 2", "5cf10ad82447c00e5a56ad5e89e95a4d"),
         *lessons[5:],
     ]
 
 
 def _featured_course_modules() -> list[CourseModule]:
-    return [
+    modules = [
         CourseModule(
             id="m1",
-            title="بنیادیں: خود کو پہچانیں",
+            title="کیریئر کی الجھنیں، شور اور حقیقتیں",
             lessons=_module_lessons(
                 "m1",
-                "بنیادیں: خود کو پہچانیں",
+                "کیریئر کی الجھنیں، شور اور حقیقتیں",
                 [
-                    {"title": "کیریئر کے فیصلے میں درپیش چیلنجز", "duration": "12 منٹ", "focus": "کیریئر کے فیصلے میں درپیش چیلنجز", "video_uid": "a30413716856e9e07b95bf258096fd9c"},
-                    {"title": "آن لائن کمائی میں دھوکے اور فراڈ", "duration": "18 منٹ", "focus": "آن لائن کمائی کے فراڈ کی پہچان اور ان سے بچاؤ", "video_uid": "9969875f3e936e738e6ef28f8762c98c"},
-                    {"title": "دلچسپی اور مہارت کا توازن", "duration": "15 منٹ", "focus": "interest-skill fit", "video_uid": "placeholder-m1-v3"},
+                    {"title": "لیکچر 1.1: کیریئر کا انتخاب اتنا مشکل کیوں ہے؟", "duration": "12 منٹ", "focus": "کیریئر کے فیصلے میں درپیش چیلنجز", "video_uid": "a30413716856e9e07b95bf258096fd9c"},
+                    {"title": "لیکچر 1.2: کامیابی کے نام پر شور، غلط دعوے اور دھوکے", "duration": "18 منٹ", "focus": "آن لائن کمائی کے فراڈ کی پہچان اور ان سے بچاؤ", "video_uid": "9969875f3e936e738e6ef28f8762c98c"},
+                    {"title": "لیکچر 1.3: درست راستوں کے اپنے مسائل ہوتے ہیں", "duration": "15 منٹ", "focus": "interest-skill fit", "video_uid": "placeholder-m1-v3"},
                     {"title": "روٹین اور وقت کی منصوبہ بندی", "duration": "14 منٹ", "focus": "daily planning system", "video_uid": "placeholder-m1-v4"},
                 ],
             ),
         ),
         CourseModule(
             id="m2",
-            title="کیریئر کا انتخاب",
+            title="مستحکم اور آزمودہ کیریئرز",
             lessons=_module_lessons(
                 "m2",
-                "کیریئر کا انتخاب",
+                "مستحکم اور آزمودہ کیریئرز",
                 [
-                    {"title": "کمپیوٹر سائنس کا شعبہ", "duration": "20 منٹ", "focus": "کمپیوٹر سائنس میں تعلیم اور کیریئر کے راستے", "video_uid": "ddbb12252d982b5ef19eb42ca07e5eec"},
-                    {"title": "میڈیکل کا شعبہ", "duration": "25 منٹ", "focus": "میڈیکل کے شعبے میں تعلیم اور کیریئر کے راستے", "video_uid": "701a6ffd173193628347d31f422f9018"},
-                    {"title": "انجینئرنگ کا شعبہ", "duration": "18 منٹ", "focus": "انجینئرنگ میں تعلیم، مہارت اور کیریئر کے راستے", "video_uid": "placeholder-m2-v3"},
+                    {"title": "لیکچر 2.1: کمپیوٹر سائنس میں کیریئر", "duration": "20 منٹ", "focus": "کمپیوٹر سائنس میں تعلیم اور کیریئر کے راستے", "video_uid": "ddbb12252d982b5ef19eb42ca07e5eec"},
+                    {"title": "لیکچر 2.2: طب اور ایم بی بی ایس میں کیریئر", "duration": "25 منٹ", "focus": "میڈیکل کے شعبے میں تعلیم اور کیریئر کے راستے", "video_uid": "701a6ffd173193628347d31f422f9018"},
+                    {"title": "لیکچر 2.3: انجینئرنگ میں کیریئر", "duration": "18 منٹ", "focus": "انجینئرنگ میں تعلیم، مہارت اور کیریئر کے راستے", "video_uid": "9aa90aefeb75e46b25a274047b559106"},
                 ],
             ),
         ),
         CourseModule(
             id="m3",
-            title="نوکری تلاش اور درخواست",
+            title="ڈیجیٹل معیشت اور آن لائن کمائی",
             lessons=_module3_lessons(),
         ),
         CourseModule(
             id="m4",
-            title="انٹرویو کی تیاری",
-            lessons=_module_lessons(
-                "m4",
-                "انٹرویو کی تیاری",
-                [
-                    {"title": "انٹرویو سے پہلے کی تیاری", "duration": "18 منٹ", "focus": "pre-interview checklist", "video_uid": "5afcbd3069127022f70f0bd768c60276"},
-                    {"title": "عام سوالات اور جوابات", "duration": "25 منٹ", "focus": "question and answer practice", "video_uid": "placeholder-m4-v2"},
-                    {"title": "پریزنٹیشن اور باڈی لینگویج", "duration": "16 منٹ", "focus": "presentation and body language", "video_uid": "placeholder-m4-v3"},
-                ],
-            ),
+            title="کیریئر کے لیے دیگر اہم شعبے",
+            lessons=_module4_lessons(),
         ),
         CourseModule(
             id="m5",
-            title="کاروبار شروع کرنا",
+            title="کاروبار اور نئے مواقع کی تخلیق",
             lessons=_module5_lessons(),
         ),
         CourseModule(
             id="m6",
             title="ذاتی ترقی اور نیٹ ورکنگ",
+            hidden=True,
             lessons=_module_lessons(
                 "m6",
                 "ذاتی ترقی اور نیٹ ورکنگ",
@@ -303,6 +338,11 @@ def _featured_course_modules() -> list[CourseModule]:
             ),
         ),
     ]
+
+    for lesson in modules[0].lessons[4:]:
+        lesson.hidden = True
+
+    return modules
 
 
 class ContentRepository:
@@ -349,7 +389,7 @@ class ContentRepository:
             ),
             cover_image="/career-guidance-course-banner.png",
             duration="12 ہفتے",
-            lessons=45,
+            lessons=31,
             level="ابتدائی سے متوسط",
             language="اردو",
             price="Rs. 500",

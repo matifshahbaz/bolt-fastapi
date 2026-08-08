@@ -44,8 +44,12 @@ class LmsService:
 
         self._lms_repository.touch_enrollment(user.id, course_id)
         items = self._lms_repository.list_progress(user.id, course_id)
-        total_lessons = sum(len(module.lessons) for module in course.modules)
-        completed_lessons = sum(1 for item in items if item.completed)
+        visible_lesson_keys = self._visible_lesson_keys(course.modules)
+        visible_items = [
+            item for item in items if (item.module_id, item.lesson_index) in visible_lesson_keys
+        ]
+        total_lessons = len(visible_lesson_keys)
+        completed_lessons = sum(1 for item in visible_items if item.completed)
         percent_complete = round((completed_lessons / total_lessons) * 100, 1) if total_lessons else 0.0
 
         return CourseProgress(
@@ -53,7 +57,7 @@ class LmsService:
             total_lessons=total_lessons,
             completed_lessons=completed_lessons,
             percent_complete=percent_complete,
-            items=items,
+            items=visible_items,
         )
 
     def update_lesson_progress(
@@ -75,9 +79,11 @@ class LmsService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
 
         module = next((module for module in course.modules if module.id == module_id), None)
-        if module is None:
+        if module is None or module.hidden:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Module not found")
         if lesson_index < 0 or lesson_index >= len(module.lessons):
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
+        if module.lessons[lesson_index].hidden or module.lessons[lesson_index].coming_soon:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
 
         lesson_title = module.lessons[lesson_index].title
@@ -205,9 +211,11 @@ class LmsService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
 
         module = next((module for module in course.modules if module.id == module_id), None)
-        if module is None:
+        if module is None or module.hidden:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Module not found")
         if lesson_index < 0 or lesson_index >= len(module.lessons):
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
+        if module.lessons[lesson_index].hidden or module.lessons[lesson_index].coming_soon:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
         lesson_title = module.lessons[lesson_index].title
         return enrollment, lesson_title
@@ -225,8 +233,12 @@ class LmsService:
 
     def _build_course_progress(self, user_id: int, course_id: str, modules: list) -> CourseProgress:
         items = self._lms_repository.list_progress(user_id, course_id)
-        total_lessons = sum(len(module.lessons) for module in modules)
-        completed_lessons = sum(1 for item in items if item.completed)
+        visible_lesson_keys = self._visible_lesson_keys(modules)
+        visible_items = [
+            item for item in items if (item.module_id, item.lesson_index) in visible_lesson_keys
+        ]
+        total_lessons = len(visible_lesson_keys)
+        completed_lessons = sum(1 for item in visible_items if item.completed)
         percent_complete = round((completed_lessons / total_lessons) * 100, 1) if total_lessons else 0.0
 
         return CourseProgress(
@@ -234,8 +246,18 @@ class LmsService:
             total_lessons=total_lessons,
             completed_lessons=completed_lessons,
             percent_complete=percent_complete,
-            items=items,
+            items=visible_items,
         )
+
+    @staticmethod
+    def _visible_lesson_keys(modules: list) -> set[tuple[str, int]]:
+        return {
+            (module.id, lesson_index)
+            for module in modules
+            if not module.hidden
+            for lesson_index, lesson in enumerate(module.lessons)
+            if not lesson.hidden and not lesson.coming_soon
+        }
 
     @staticmethod
     def _as_utc(value: datetime) -> datetime:

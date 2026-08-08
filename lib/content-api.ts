@@ -26,6 +26,8 @@ type ApiLesson = {
   kind: 'video' | 'text';
   title: string;
   duration: string;
+  hidden?: boolean;
+  coming_soon?: boolean;
   video_uid?: string | null;
   article?: {
     excerpt: string;
@@ -37,6 +39,7 @@ type ApiLesson = {
 type ApiCourseModule = {
   id: string;
   title: string;
+  hidden?: boolean;
   lessons: ApiLesson[];
 };
 
@@ -110,6 +113,7 @@ function mapCourseModule(module: ApiCourseModule): CourseModule {
   return {
     id: module.id,
     title: module.title,
+    hidden: module.hidden,
     lessons: module.lessons.map(mapLesson),
   };
 }
@@ -120,6 +124,8 @@ function mapLesson(lesson: ApiLesson): CourseLesson {
     kind: lesson.kind,
     title: lesson.title,
     duration: lesson.duration,
+    hidden: lesson.hidden,
+    comingSoon: lesson.coming_soon,
     videoUid: lesson.video_uid ?? undefined,
     article: lesson.article
       ? mapLessonArticle(lesson.article)

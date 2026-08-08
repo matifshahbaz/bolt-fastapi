@@ -59,7 +59,7 @@ NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
 
 ## Manual payments
 
-The temporary checkout does not grant course access when a student uploads a screenshot. It creates a pending payment submission. An email allowlisted through `SHAMA_ADMIN_EMAILS` can review proofs at:
+The temporary checkout does not grant course access when a student uploads a screenshot. It creates a pending payment submission. An email allowlisted through `SHAMA_ADMIN_EMAILS_RAW` can review proofs at:
 
 ```text
 https://shama.pk/admin/payments
@@ -72,7 +72,7 @@ Payment proof images are limited to JPEG, PNG, or WebP files up to 4 MB and are 
 Configure these groups in the backend hosting environment:
 
 - `SHAMA_JAZZCASH_NUMBER` and `SHAMA_BANK_*` public payment instructions
-- `SHAMA_ADMIN_EMAILS` and `SHAMA_ADMIN_NOTIFICATION_EMAIL`
+- `SHAMA_ADMIN_EMAILS_RAW` and `SHAMA_ADMIN_NOTIFICATION_EMAIL`
 - `SHAMA_FRONTEND_BASE_URL`
 - `SHAMA_SMTP_HOST`, `SHAMA_SMTP_PORT`, `SHAMA_SMTP_USERNAME`, and `SHAMA_SMTP_PASSWORD`
 - `SHAMA_SMTP_USE_TLS` or `SHAMA_SMTP_USE_SSL`, as required by the mail provider
@@ -90,7 +90,7 @@ https://shama.pk/admin/students
 
 The screen supports searching by name, email, mobile number, or location; manually granting course access by registered email; viewing enrollment state and completed lesson count; suspending or reactivating access; and permanently removing an enrollment. Permanent removal also deletes that student's saved progress for the course. Reactivation starts a new 30-day access window.
 
-All student and enrollment administration endpoints require a bearer token belonging to an email configured in `SHAMA_ADMIN_EMAILS`.
+All student and enrollment administration endpoints require a bearer token belonging to an email configured in `SHAMA_ADMIN_EMAILS_RAW`.
 
 ## Cloudflare setup (Stream + Images)
 
@@ -103,7 +103,7 @@ Recommended order:
 
 Required backend env vars:
 
-- `SHAMA_ADMIN_EMAILS` (comma-separated admin emails)
+- `SHAMA_ADMIN_EMAILS_RAW` (comma-separated admin emails)
 - `SHAMA_CLOUDFLARE_ACCOUNT_ID`
 - `SHAMA_CLOUDFLARE_API_TOKEN`
 - `SHAMA_CLOUDFLARE_STREAM_CUSTOMER_SUBDOMAIN`

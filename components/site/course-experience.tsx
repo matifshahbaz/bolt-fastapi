@@ -97,12 +97,14 @@ export function CourseExperience({ course }: CourseExperienceProps) {
   };
 
   const hasPurchased = Boolean(progress);
-  const visibleModules = course.modules.map((module) => ({
-    ...module,
-    lessons: module.lessons
-      .map((lesson, lessonIndex) => ({ lesson, lessonIndex }))
-      .filter(({ lesson }) => !lesson.hidden),
-  }));
+  const visibleModules = course.modules
+    .filter((module) => !module.hidden)
+    .map((module) => ({
+      ...module,
+      lessons: module.lessons
+        .map((lesson, lessonIndex) => ({ lesson, lessonIndex }))
+        .filter(({ lesson }) => !lesson.hidden),
+    }));
   const visibleLessonCount = visibleModules.reduce((total, module) => total + module.lessons.length, 0);
 
   const openLesson = async (moduleId: string, lessonIndex: number, lesson: CourseLesson) => {
@@ -291,7 +293,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
       <section className="py-16 bg-secondary/30">
         <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-2 text-2xl md:text-3xl font-nastaliq text-foreground">نصاب</h2>
-          <p className="mb-8 text-lg text-muted-foreground">{course.modules.length} ماڈیول، {visibleLessonCount} اسباق</p>
+          <p className="mb-8 text-lg text-muted-foreground">{visibleModules.length} ماڈیول، {visibleLessonCount} اسباق</p>
 
           {hasPurchased && activeLesson ? (
             <div className="mb-8 space-y-3 rounded-2xl border bg-card p-5 shadow-sm">
@@ -352,19 +354,25 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                         <div key={lessonKey} className="flex flex-col gap-3 rounded-lg bg-secondary/50 px-4 py-3 md:flex-row md:items-center md:justify-between">
                           <div className="flex items-center gap-3">
                             {hasPurchased ? (
-                              <button
-                                type="button"
-                                onClick={() => toggleLesson(module.id, lessonIndex, !completed)}
-                                className={`flex h-8 w-8 items-center justify-center rounded-full border ${
-                                  completed
-                                    ? 'border-primary bg-primary text-primary-foreground'
-                                    : 'border-border bg-white text-muted-foreground'
-                                }`}
-                                disabled={actionStatus === 'loading'}
-                                aria-label="سبق مکمل کریں"
-                              >
-                                <CheckCircle2 className="h-4 w-4" />
-                              </button>
+                              lesson.comingSoon ? (
+                                <div className="flex h-8 w-8 items-center justify-center rounded-full border border-amber-300 bg-amber-50 text-amber-700">
+                                  <Clock className="h-4 w-4" />
+                                </div>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => toggleLesson(module.id, lessonIndex, !completed)}
+                                  className={`flex h-8 w-8 items-center justify-center rounded-full border ${
+                                    completed
+                                      ? 'border-primary bg-primary text-primary-foreground'
+                                      : 'border-border bg-white text-muted-foreground'
+                                  }`}
+                                  disabled={actionStatus === 'loading'}
+                                  aria-label="سبق مکمل کریں"
+                                >
+                                  <CheckCircle2 className="h-4 w-4" />
+                                </button>
+                              )
                             ) : (
                               <div className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-white text-muted-foreground">
                                 <Lock className="h-4 w-4" />
@@ -373,15 +381,22 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                             <div>
                               <div className="flex flex-wrap items-center gap-2">
                                 <span className="text-base text-foreground">{lesson.title}</span>
-                                <Badge variant="outline" className="border-slate-300 text-slate-700">
-                                  {lesson.kind === 'video' ? 'ویڈیو' : 'متن'}
+                                <Badge
+                                  variant="outline"
+                                  className={lesson.comingSoon ? 'border-amber-300 bg-amber-50 text-amber-800' : 'border-slate-300 text-slate-700'}
+                                >
+                                  {lesson.comingSoon ? 'جلد دستیاب' : lesson.kind === 'video' ? 'ویڈیو' : 'متن'}
                                 </Badge>
                               </div>
-                              {completed ? <p className="text-sm text-primary">یہ سبق مکمل ہو چکا ہے</p> : null}
+                              {lesson.comingSoon ? (
+                                <p className="text-sm text-muted-foreground">یہ مواد جلد دستیاب ہوگا۔</p>
+                              ) : completed ? (
+                                <p className="text-sm text-primary">یہ سبق مکمل ہو چکا ہے</p>
+                              ) : null}
                             </div>
                           </div>
                           <div className="flex items-center gap-3">
-                            {hasPurchased ? (
+                            {hasPurchased && !lesson.comingSoon ? (
                               <Button
                                 type="button"
                                 variant="outline"

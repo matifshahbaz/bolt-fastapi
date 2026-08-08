@@ -33,10 +33,12 @@ const categoryIcons: Record<string, React.ComponentType<{ className?: string }>>
 
 export default function Home() {
   const [email, setEmail] = useState('');
-  const visibleLessonCount = featuredCourse.modules.reduce(
-    (total, module) => total + module.lessons.filter((lesson) => !lesson.hidden).length,
-    0,
-  );
+  const visibleLessonCount = featuredCourse.modules
+    .filter((module) => !module.hidden)
+    .reduce(
+      (total, module) => total + module.lessons.filter((lesson) => !lesson.hidden).length,
+      0,
+    );
 
   return (
     <div className="flex flex-col">
