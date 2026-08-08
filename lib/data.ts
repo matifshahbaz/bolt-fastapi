@@ -12,6 +12,7 @@ import { module5Lecture2NotesArticle } from '@/lib/articles/module5-lecture2-not
 import { module5Lecture3NotesArticle } from '@/lib/articles/module5-lecture3-notes';
 import { module3Lecture4NotesArticle } from '@/lib/articles/module3-lecture4-notes';
 import { module3Lecture3NotesArticle } from '@/lib/articles/module3-lecture3-notes';
+import { careerDecisionAfterMatricArticle } from '@/lib/articles/career-decision-after-matric';
 
 export type Category = {
   id: string;
@@ -146,7 +147,10 @@ export type ArticleSection = {
     | 'TheFundingLadder'
     | 'FraudAlert'
     | 'FundingSourcesComparison'
-    | 'PitchingChecklist';
+    | 'PitchingChecklist'
+    | 'ShamaArticleHeroBanner'
+    | 'ScopeDecision'
+    | 'AdviceCost';
 };
 
 const courseLessonImages = [
@@ -494,6 +498,7 @@ export const featuredCourse: Course = {
 };
 
 export const articles: Article[] = [
+  careerDecisionAfterMatricArticle,
   kahliArticle,
   module2Lecture2NotesArticle,
   module2Lecture3NotesArticle,
@@ -778,6 +783,8 @@ export const articles: Article[] = [
     ],
   },
 ];
+
+export const publishedArticles: Article[] = [careerDecisionAfterMatricArticle];
 
 export const navLinks = [
   { label: 'کورس', href: '/course' },

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { articles } from '@/lib/data';
+import { publishedArticles } from '@/lib/data';
 
 const siteUrl = 'https://shama.pk';
 
@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${siteUrl}${route}`,
   }));
 
-  const articlePages = articles.map((article) => ({
+  const articlePages = publishedArticles.map((article) => ({
     url: `${siteUrl}/articles/${article.id}`,
   }));
 

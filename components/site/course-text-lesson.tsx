@@ -77,6 +77,11 @@ import {
   PitchingChecklist,
   TheFundingLadder,
 } from '@/components/startup-finance';
+import {
+  AdviceCost,
+  ScopeDecision,
+  ShamaArticleHeroBanner,
+} from '@/components/career-after-matric';
 
 type CourseTextLessonProps = {
   lesson: CourseLesson;
@@ -141,6 +146,9 @@ const lessonComponents = {
   FraudAlert,
   FundingSourcesComparison,
   PitchingChecklist,
+  ShamaArticleHeroBanner,
+  ScopeDecision,
+  AdviceCost,
 };
 
 export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete }: CourseTextLessonProps) {

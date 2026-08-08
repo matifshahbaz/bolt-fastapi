@@ -12,6 +12,9 @@ type ArticlesBrowserProps = {
 
 export function ArticlesBrowser({ articles, categories }: ArticlesBrowserProps) {
   const [activeCategory, setActiveCategory] = useState<string>('all');
+  const availableCategories = categories.filter((category) =>
+    articles.some((article) => article.category === category.name),
+  );
 
   const filtered =
     activeCategory === 'all'
@@ -33,7 +36,7 @@ export function ArticlesBrowser({ articles, categories }: ArticlesBrowserProps) 
             >
               سب
             </button>
-            {categories.map((category) => (
+            {availableCategories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.name)}

@@ -1,5 +1,5 @@
 import {
-  articles as fallbackArticles,
+  publishedArticles as fallbackArticles,
   categories as fallbackCategories,
   featuredCourse as fallbackFeaturedCourse,
   type Article,
@@ -185,21 +185,7 @@ export async function getCategories(): Promise<Category[]> {
 }
 
 export async function getArticles(): Promise<Article[]> {
-  const publicBundledArticles = fallbackArticles.filter((article) => !article.id.endsWith('-notes'));
-
-  try {
-    const remoteArticles = (await fetchContent<ApiArticle[]>('/api/v1/articles')).map(mapArticle);
-    const bundledArticleIds = new Set(fallbackArticles.map((article) => article.id));
-
-    return [
-      ...publicBundledArticles,
-      ...remoteArticles.filter(
-        (article) => !bundledArticleIds.has(article.id) && !article.id.endsWith('-notes'),
-      ),
-    ];
-  } catch {
-    return publicBundledArticles;
-  }
+  return fallbackArticles;
 }
 
 export async function getArticleById(articleId: string): Promise<Article | null> {
@@ -208,10 +194,5 @@ export async function getArticleById(articleId: string): Promise<Article | null>
     return bundledArticle;
   }
 
-  try {
-    const article = await fetchContent<ApiArticle>(`/api/v1/articles/${articleId}`);
-    return mapArticle(article);
-  } catch {
-    return null;
-  }
+  return null;
 }

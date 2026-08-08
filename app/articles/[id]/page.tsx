@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, User, Calendar, ArrowLeft, CheckCircle2, FlaskConical, Lightbulb, BellOff, Target, BarChart3, CircleHelp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -82,6 +81,11 @@ import {
   PitchingChecklist,
   TheFundingLadder,
 } from '@/components/startup-finance';
+import {
+  AdviceCost,
+  ScopeDecision,
+  ShamaArticleHeroBanner,
+} from '@/components/career-after-matric';
 import { getArticleById, getArticles } from '@/lib/content-api';
 
 const siteUrl = 'https://shama.pk';
@@ -218,6 +222,9 @@ const articleComponents = {
   FraudAlert,
   FundingSourcesComparison,
   PitchingChecklist,
+  ShamaArticleHeroBanner,
+  ScopeDecision,
+  AdviceCost,
 };
 
 function isSubHeading(text: string) {
@@ -328,7 +335,8 @@ export default async function ArticleDetailPage({
       </section>
 
       {/* Cover Image */}
-      <section className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 -mt-4">
+      {article.id !== 'career-decision-after-matric' && (
+        <section className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 -mt-4">
         {article.id === 'm2-l2-notes' ? (
           <HeroBanner />
         ) : (
@@ -341,7 +349,8 @@ export default async function ArticleDetailPage({
             />
           </div>
         )}
-      </section>
+        </section>
+      )}
 
       {/* Article Body */}
       <section className="bg-slate-100 py-16">
@@ -629,20 +638,30 @@ export default async function ArticleDetailPage({
 
               {/* Author box */}
               <div className="mt-16 rounded-3xl border bg-secondary/30 p-8 flex items-center gap-5">
-                <div className="relative h-16 w-16 rounded-full overflow-hidden shrink-0">
-                  <Image
-                    src="https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=2"
-                    alt={article.author}
-                    fill
-                    className="object-cover"
-                  />
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <User className="h-7 w-7" aria-hidden="true" />
                 </div>
                 <div>
                   <p className="text-2xl text-black">{article.author}</p>
                   <p className="text-xl text-black/70">
-                    کیریئر کوچ
+                    بانی شمع.pk
                   </p>
                 </div>
+              </div>
+
+              <div className="mt-8 rounded-3xl border border-primary/15 bg-primary/5 p-6 text-center sm:p-8">
+                <h2 className="text-2xl font-nastaliq leading-relaxed text-foreground sm:text-3xl">
+                  اپنے کیریئر کے اگلے قدم کے لیے تیار ہیں؟
+                </h2>
+                <p className="mt-2 text-lg leading-relaxed text-muted-foreground">
+                  نوجوانوں کے لیے مکمل کیریئر رہنمائی کورس اردو میں دیکھیں۔
+                </p>
+                <Button asChild size="lg" className="mt-6 text-lg">
+                  <Link href="/course">
+                    کورس دیکھیں
+                    <ArrowLeft className="mr-2 h-5 w-5" />
+                  </Link>
+                </Button>
               </div>
 
               <div className="mt-10 lg:hidden">
