@@ -40,7 +40,10 @@ export function ArticleToc({ items, className }: ArticleTocProps) {
           </button>
 
           {isOpen ? (
-            <nav className="border-t border-slate-200 px-5 py-4" aria-label="Table of contents">
+            <nav
+              className="max-h-[65vh] overflow-y-auto overscroll-contain border-t border-slate-200 px-5 py-4"
+              aria-label="Table of contents"
+            >
               <ul className="space-y-3">
                 {items.map((item) => (
                   <li key={item.id}>
