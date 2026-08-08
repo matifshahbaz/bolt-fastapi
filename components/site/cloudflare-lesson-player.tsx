@@ -18,6 +18,11 @@ export function CloudflareLessonPlayer({
 }: CloudflareLessonPlayerProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const reportedRef = useRef(false);
+  const onThresholdReachedRef = useRef(onThresholdReached);
+
+  useEffect(() => {
+    onThresholdReachedRef.current = onThresholdReached;
+  }, [onThresholdReached]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -45,7 +50,7 @@ export function CloudflareLessonPlayer({
       const watchedPercent = (video.currentTime / video.duration) * 100;
       if (watchedPercent >= thresholdPercent) {
         reportedRef.current = true;
-        onThresholdReached(Math.min(100, watchedPercent));
+        onThresholdReachedRef.current(Math.min(100, watchedPercent));
       }
     };
 
@@ -60,7 +65,7 @@ export function CloudflareLessonPlayer({
       video.removeAttribute('src');
       video.load();
     };
-  }, [hlsUrl, onThresholdReached, thresholdPercent]);
+  }, [hlsUrl, thresholdPercent]);
 
   return (
     <div className="overflow-hidden rounded-2xl border bg-black shadow-lg">
