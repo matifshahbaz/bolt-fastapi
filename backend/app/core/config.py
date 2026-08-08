@@ -1,7 +1,9 @@
 from functools import cached_property
 import json
+import os
 from pathlib import Path
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -35,6 +37,21 @@ DEFAULT_STREAM_LESSON_VIDEO_MAP = {
 }
 
 
+def _read_smtp_password_file() -> str:
+    path = Path(
+        os.environ.get(
+            "SHAMA_SMTP_PASSWORD_FILE",
+            Path.home() / ".config" / "shama" / "smtp_password",
+        )
+    )
+    try:
+        if path.stat().st_mode & 0o077:
+            return ""
+        return path.read_text(encoding="utf-8").rstrip("\r\n")
+    except OSError:
+        return ""
+
+
 class Settings(BaseSettings):
     app_name: str = "Shama.pk API"
     app_version: str = "0.1.0"
@@ -47,12 +64,12 @@ class Settings(BaseSettings):
     expose_password_reset_token: bool = False
     frontend_base_url: str = "https://shama.pk"
 
-    smtp_host: str = ""
-    smtp_port: int = 587
-    smtp_username: str = ""
-    smtp_password: str = ""
-    smtp_use_tls: bool = True
-    smtp_use_ssl: bool = False
+    smtp_host: str = "smtp.hostinger.com"
+    smtp_port: int = 465
+    smtp_username: str = "contact@shama.pk"
+    smtp_password: str = Field(default_factory=_read_smtp_password_file)
+    smtp_use_tls: bool = False
+    smtp_use_ssl: bool = True
     email_from: str = "contact@shama.pk"
     email_from_name: str = "Shama.pk"
     admin_notification_email: str = "contact@shama.pk"

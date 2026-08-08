@@ -80,6 +80,14 @@ Configure these groups in the backend hosting environment:
 
 Keep the SMTP password only in the hosting environment. When SMTP is unavailable, account and payment operations still succeed and the backend logs the email delivery failure.
 
+On the Shama.pk VPS, Hostinger SMTP defaults to `smtp.hostinger.com:465` with SSL and the `contact@shama.pk` mailbox. Configure its password interactively as the backend service user:
+
+```bash
+python3 backend/scripts/configure_hostinger_smtp.py
+```
+
+The helper authenticates and sends a test message before storing the password at `~/.config/shama/smtp_password` with mode `600`. `SHAMA_SMTP_PASSWORD` can still override this file when supplied by the hosting environment.
+
 ## Student enrollment administration
 
 Allowlisted administrators see an **Admin** link after login and can manage registered accounts at:
