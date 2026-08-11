@@ -16,6 +16,8 @@ import { module4Lecture1NotesArticle } from '@/lib/articles/module4-lecture1-not
 import { module4Lecture2NotesArticle } from '@/lib/articles/module4-lecture2-notes';
 import { module4Lecture3NotesArticle } from '@/lib/articles/module4-lecture3-notes';
 import { careerDecisionAfterMatricArticle } from '@/lib/articles/career-decision-after-matric';
+import { freeWebsiteWithoutItExperienceArticle } from '@/lib/articles/free-website-without-it-experience';
+import { softwareHouseAccountingIssuesArticle } from '@/lib/articles/software-house-accounting-issues';
 
 export type Category = {
   id: string;
@@ -86,7 +88,7 @@ export type Article = {
 };
 
 export type ArticleSection = {
-  type: 'heading' | 'paragraph' | 'quote' | 'image' | 'callout' | 'checklist' | 'table' | 'component';
+  type: 'heading' | 'subheading' | 'paragraph' | 'quote' | 'image' | 'callout' | 'checklist' | 'table' | 'component';
   text?: string;
   src?: string;
   alt?: string;
@@ -349,6 +351,13 @@ export const categories: Category[] = [
     icon: 'Sparkles',
     color: 'text-purple-600',
   },
+  {
+    id: '5',
+    name: 'کاروبار',
+    slug: 'business',
+    icon: 'Building2',
+    color: 'text-emerald-600',
+  },
 ];
 
 export const featuredCourse: Course = {
@@ -547,6 +556,8 @@ export const featuredCourse: Course = {
 };
 
 export const articles: Article[] = [
+  softwareHouseAccountingIssuesArticle,
+  freeWebsiteWithoutItExperienceArticle,
   careerDecisionAfterMatricArticle,
   kahliArticle,
   module2Lecture2NotesArticle,
@@ -833,7 +844,11 @@ export const articles: Article[] = [
   },
 ];
 
-export const publishedArticles: Article[] = [careerDecisionAfterMatricArticle];
+export const publishedArticles: Article[] = [
+  softwareHouseAccountingIssuesArticle,
+  freeWebsiteWithoutItExperienceArticle,
+  careerDecisionAfterMatricArticle,
+];
 
 export const navLinks = [
   { label: 'کورس', href: '/course' },

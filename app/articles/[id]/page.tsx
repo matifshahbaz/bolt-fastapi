@@ -326,8 +326,7 @@ export default async function ArticleDetailPage({
       </section>
 
       {/* Cover Image */}
-      {article.id !== 'career-decision-after-matric' && (
-        <section className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 -mt-4">
+      <section className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 -mt-4">
         {article.id === 'm2-l2-notes' ? (
           <HeroBanner />
         ) : (
@@ -340,8 +339,7 @@ export default async function ArticleDetailPage({
             />
           </div>
         )}
-        </section>
-      )}
+      </section>
 
       {/* Article Body */}
       <section className="bg-slate-100 py-16">
@@ -364,6 +362,16 @@ export default async function ArticleDetailPage({
                   >
                     {section.text}
                   </h2>
+                );
+              }
+              if (section.type === 'subheading') {
+                return (
+                  <h3
+                    key={idx}
+                    className="mt-10 mb-4 text-2xl font-nastaliq leading-[1.7] text-black md:text-3xl"
+                  >
+                    {section.text}
+                  </h3>
                 );
               }
               if (section.type === 'paragraph') {
@@ -582,8 +590,8 @@ export default async function ArticleDetailPage({
               }
               if (section.type === 'table') {
                 return (
-                  <div key={idx} className="my-10 overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
-                    <table className="min-w-[640px] w-full border-collapse bg-white text-right">
+                  <div key={idx} dir="rtl" className="my-10 overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+                    <table dir="rtl" className="min-w-[640px] w-full border-collapse bg-white text-right">
                       {section.headers?.length ? (
                         <thead className="bg-[#2F5496] text-white">
                           <tr>

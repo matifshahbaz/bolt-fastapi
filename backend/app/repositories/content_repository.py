@@ -394,6 +394,13 @@ class ContentRepository:
                 icon="Sparkles",
                 color="text-purple-600",
             ),
+            Category(
+                id="5",
+                name="کاروبار",
+                slug="business",
+                icon="Building2",
+                color="text-emerald-600",
+            ),
         ]
 
         self._featured_course = Course(

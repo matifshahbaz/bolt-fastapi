@@ -5,13 +5,12 @@ export const careerDecisionAfterMatricArticle: Article = {
   title: 'میٹرک کے بعد کیا کریں؟ تعلیم اور کیریئر کا فیصلہ معلومات کی بنیاد پر کریں',
   excerpt:
     'میٹرک کے بعد تعلیم، ہنر یا کام میں سے درست راستہ کیسے چنا جائے؟ مختلف آپشنز، اسکوپ، متبادل منصوبے اور باخبر کیریئر فیصلے کی عملی رہنمائی۔',
-  coverImage: '/articles/career-decision-after-matric-cover.png',
+  coverImage: '/articles/after-matric-decision-hero.jpg',
   category: 'کیریئر رہنمائی',
   author: 'عاطف شہباز',
   publishedAt: '8 اگست 2026',
   readingTime: '8 منٹ',
   content: [
-    { type: 'component', componentKey: 'ShamaArticleHeroBanner' },
     {
       type: 'paragraph',
       text: 'میٹرک کا رزلٹ آپ کو یہ تو بتا دیتا ہے کہ آپ کے نمبر کتنے آئے ہیں، لیکن بدقسمتی سے رزلٹ کارڈ کے نیچے یہ نہیں لکھا ہوتا کہ اب آپ کو آگے کون سا راستہ اختیار کرنا چاہیے۔',
