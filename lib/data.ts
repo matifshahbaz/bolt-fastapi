@@ -18,6 +18,7 @@ import { module4Lecture3NotesArticle } from '@/lib/articles/module4-lecture3-not
 import { careerDecisionAfterMatricArticle } from '@/lib/articles/career-decision-after-matric';
 import { freeWebsiteWithoutItExperienceArticle } from '@/lib/articles/free-website-without-it-experience';
 import { softwareHouseAccountingIssuesArticle } from '@/lib/articles/software-house-accounting-issues';
+import { cvMistakesArticle } from '@/lib/articles/cv-mistakes';
 
 export type Category = {
   id: string;
@@ -162,7 +163,10 @@ export type ArticleSection = {
     | 'SalesShameReasons'
     | 'SalesOpenDoor'
     | 'SalesFastGrowth'
-    | 'SalesClosing';
+    | 'SalesClosing'
+    | 'CvVisualQuote'
+    | 'LizRyanQuote'
+    | 'Mistake5Infographic';
 };
 
 const courseLessonImages = [
@@ -845,6 +849,7 @@ export const articles: Article[] = [
 ];
 
 export const publishedArticles: Article[] = [
+  cvMistakesArticle,
   softwareHouseAccountingIssuesArticle,
   freeWebsiteWithoutItExperienceArticle,
   careerDecisionAfterMatricArticle,

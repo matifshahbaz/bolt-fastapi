@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Jameel Noori Nastaleeq';
+  src: url('/fonts/JameelNooriNastaleeq.woff') format('woff');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -64,14 +72,14 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Urdu Typesetting', 'Nafees Nastaleeq', 'Nafees Nastaliq', var(--font-noto-nastaliq-urdu), serif;
+    font-family: 'Jameel Noori Nastaleeq', 'Urdu Typesetting', 'Nafees Nastaleeq', 'Nafees Nastaliq', var(--font-noto-nastaliq-urdu), serif;
     line-height: 2.2;
   }
 }
 
 @layer utilities {
   .font-nastaliq {
-    font-family: 'Urdu Typesetting', 'Nafees Nastaleeq', 'Nafees Nastaliq', var(--font-noto-nastaliq-urdu), serif;
+    font-family: 'Jameel Noori Nastaleeq', 'Urdu Typesetting', 'Nafees Nastaleeq', 'Nafees Nastaliq', var(--font-noto-nastaliq-urdu), serif;
   }
   .line-height-urdu {
     line-height: 2.4;

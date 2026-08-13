@@ -23,6 +23,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         nastaliq: [
+          'Jameel Noori Nastaleeq',
           'Urdu Typesetting',
           'Nafees Nastaleeq',
           'Nafees Nastaliq',

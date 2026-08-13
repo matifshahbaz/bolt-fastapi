@@ -95,6 +95,9 @@ import {
   SalesShameReasons,
 } from '@/components/sales-function';
 import { getArticleById, getArticles } from '@/lib/content-api';
+import CvVisualQuote from '@/components/cv-mistakes/CvVisualQuote';
+import LizRyanQuote from '@/components/cv-mistakes/LizRyanQuote';
+import Mistake5Infographic from '@/components/cv-mistakes/Mistake5Infographic';
 
 const siteUrl = 'https://shama.pk';
 const protectedArticleIds = new Set(['m3-l2-notes']);
@@ -144,7 +147,7 @@ export async function generateMetadata({
   }
 
   const canonicalUrl = `${siteUrl}/articles/${article.id}`;
-  const imageUrl = getAbsoluteUrl(article.coverImage);
+  const imageUrl = article.coverImage ? getAbsoluteUrl(article.coverImage) : undefined;
   const publishedTime = getIsoPublishedDate(article.publishedAt);
 
   return {
@@ -163,13 +166,13 @@ export async function generateMetadata({
       publishedTime,
       authors: [article.author],
       section: article.category,
-      images: [{ url: imageUrl, alt: article.title }],
+      ...(imageUrl ? { images: [{ url: imageUrl, alt: article.title }] } : {}),
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.excerpt,
-      images: [imageUrl],
+      ...(imageUrl ? { images: [imageUrl] } : {}),
     },
   };
 }
@@ -238,6 +241,9 @@ const articleComponents = {
   SalesOpenDoor,
   SalesFastGrowth,
   SalesClosing,
+  CvVisualQuote,
+  LizRyanQuote,
+  Mistake5Infographic,
 };
 
 export default async function ArticleDetailPage({
@@ -265,7 +271,7 @@ export default async function ArticleDetailPage({
     '@type': 'BlogPosting',
     headline: article.title,
     description: article.excerpt,
-    image: [getAbsoluteUrl(article.coverImage)],
+    ...(article.coverImage ? { image: [getAbsoluteUrl(article.coverImage)] } : {}),
     ...(publishedDate ? { datePublished: publishedDate } : {}),
     author: {
       '@type': article.author === 'شمع.pk' ? 'Organization' : 'Person',
@@ -329,7 +335,7 @@ export default async function ArticleDetailPage({
       <section className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 -mt-4">
         {article.id === 'm2-l2-notes' ? (
           <HeroBanner />
-        ) : (
+        ) : article.coverImage ? (
           <div className="overflow-hidden rounded-2xl border bg-slate-50 shadow-lg">
             <img
               src={article.coverImage}
@@ -338,7 +344,7 @@ export default async function ArticleDetailPage({
               loading="eager"
             />
           </div>
-        )}
+        ) : null}
       </section>
 
       {/* Article Body */}
@@ -363,6 +369,10 @@ export default async function ArticleDetailPage({
                     {section.text}
                   </h2>
                 );
+              }
+              if (section.type === 'component' && section.componentKey) {
+                const Component = articleComponents[section.componentKey as keyof typeof articleComponents];
+                return Component ? <Component key={idx} /> : null;
               }
               if (section.type === 'subheading') {
                 return (

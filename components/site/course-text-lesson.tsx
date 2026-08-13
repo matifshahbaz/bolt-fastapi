@@ -91,6 +91,9 @@ import {
   SalesOpenDoor,
   SalesShameReasons,
 } from '@/components/sales-function';
+import CvVisualQuote from '@/components/cv-mistakes/CvVisualQuote';
+import LizRyanQuote from '@/components/cv-mistakes/LizRyanQuote';
+import Mistake5Infographic from '@/components/cv-mistakes/Mistake5Infographic';
 
 type CourseTextLessonProps = {
   lesson: CourseLesson;
@@ -163,6 +166,9 @@ const lessonComponents = {
   SalesOpenDoor,
   SalesFastGrowth,
   SalesClosing,
+  CvVisualQuote,
+  LizRyanQuote,
+  Mistake5Infographic,
 };
 
 export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete }: CourseTextLessonProps) {
