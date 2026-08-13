@@ -89,7 +89,7 @@ export type Article = {
 };
 
 export type ArticleSection = {
-  type: 'heading' | 'subheading' | 'paragraph' | 'quote' | 'image' | 'callout' | 'checklist' | 'table' | 'component';
+  type: 'heading' | 'subheading' | 'paragraph' | 'list' | 'quote' | 'image' | 'callout' | 'checklist' | 'table' | 'component';
   text?: string;
   src?: string;
   alt?: string;

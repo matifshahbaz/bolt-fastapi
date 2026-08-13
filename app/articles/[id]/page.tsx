@@ -394,6 +394,21 @@ export default async function ArticleDetailPage({
                   </p>
                 );
               }
+              if (section.type === 'list') {
+                return (
+                  <ul
+                    key={idx}
+                    dir="rtl"
+                    className="my-8 list-disc space-y-4 pr-10 text-right text-2xl leading-[2.15] text-black marker:text-black"
+                  >
+                    {(section.items ?? []).map((item) => (
+                      <li key={item} className="pr-2">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                );
+              }
               if (section.type === 'quote') {
                 return (
                   <blockquote
