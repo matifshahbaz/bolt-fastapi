@@ -49,7 +49,7 @@ export function middleware(request: NextRequest) {
     return redirectTo(request, `/article/${pathname.slice('articles/'.length)}`);
   }
 
-  if (pathname && !pathname.includes('/') && !validTopLevelPaths.has(pathname)) {
+  if (pathname && !pathname.includes('/') && pathname !== 'ads.txt' && !validTopLevelPaths.has(pathname)) {
     return redirectTo(request, '/');
   }
 

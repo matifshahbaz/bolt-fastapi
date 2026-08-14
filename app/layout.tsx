@@ -91,6 +91,12 @@ export default function RootLayout({
   return (
     <html lang="ur" dir="rtl">
       <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9480459896184387"
+          crossOrigin="anonymous"
+          strategy="beforeInteractive"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteStructuredData).replace(/</g, '\\u003c') }}
