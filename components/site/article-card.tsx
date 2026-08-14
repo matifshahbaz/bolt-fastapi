@@ -6,7 +6,7 @@ import type { Article } from '@/lib/data';
 
 export function ArticleCard({ article }: { article: Article }) {
   return (
-    <Link href={`/articles/${article.id}`} className="block group">
+    <Link href={`/article/${article.id}`} className="block group">
       <div className="card-hover overflow-hidden rounded-2xl border bg-card shadow-sm h-full">
         {/* Cover */}
         <div className="relative aspect-video overflow-hidden">

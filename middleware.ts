@@ -24,6 +24,10 @@ const validTopLevelPaths = new Set([
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname.replace(/^\/+|\/+$/g, '');
 
+  if (/\.(?:png|jpe?g|webp|gif|svg|ico|woff2?|ttf|css|js)$/i.test(pathname)) {
+    return NextResponse.next();
+  }
+
   if (pathname === 'article') {
     return NextResponse.redirect(new URL('/articles', request.url), 308);
   }
