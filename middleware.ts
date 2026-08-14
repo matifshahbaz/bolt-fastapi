@@ -32,6 +32,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/articles', request.url), 308);
   }
 
+  if (pathname === 'article/cv-mistakes') {
+    return NextResponse.redirect(new URL('/article/five-important-cv-mistakes', request.url), 308);
+  }
+
   if (pathname === 'course') {
     return NextResponse.redirect(new URL('/courses', request.url), 308);
   }

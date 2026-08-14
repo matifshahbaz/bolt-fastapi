@@ -1,7 +1,7 @@
 import type { Article } from '@/lib/data';
 
 export const cvMistakesArticle: Article = {
-  id: 'cv-mistakes',
+  id: 'five-important-cv-mistakes',
   title: 'کیا آپ کیCV میں بھی یہ 5 غلطیاں ہیں ؟',
   excerpt: 'ایک کمزور CV آپ کو انٹرویو تک پہنچنے سے روک سکتی ہے۔ اس مضمون میں جانیں وہ پانچ عام غلطیاں جو امیدوار بار بار کرتے ہیں، اور عملی مثالوں کے ساتھ اپنی CV کو زیادہ واضح، مؤثر اور پروفیشنل بنانے کا طریقہ۔',
   coverImage: '/articles/cv-mistakes-hero.png',
