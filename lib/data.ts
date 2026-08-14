@@ -856,7 +856,7 @@ export const publishedArticles: Article[] = [
 ];
 
 export const navLinks = [
-  { label: 'کورس', href: '/course' },
+  { label: 'کورسز', href: '/courses' },
   { label: 'مضامین', href: '/articles' },
   { label: 'ہمارے بارے میں', href: '/about' },
   { label: 'رابطہ', href: '/contact' },

@@ -6,7 +6,7 @@ import type { Course } from '@/lib/data';
 
 export function CourseCard({ course }: { course: Course }) {
   return (
-    <Link href="/course" className="block group">
+    <Link href="/course/youth-career-guidance" className="block group">
       <div className="card-hover overflow-hidden rounded-2xl border bg-card shadow-sm">
         {/* Cover */}
         <div className="relative aspect-[3/2] overflow-hidden bg-white">
