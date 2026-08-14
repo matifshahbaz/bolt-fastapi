@@ -19,7 +19,7 @@ export default function SampleInvoicePage() {
         <div className="mb-6 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
             <Link
-              href="/course"
+              href="/course/youth-career-guidance"
               className="mb-4 inline-flex items-center gap-2 font-sans text-sm font-medium text-[#175b8c] hover:underline"
             >
               <ArrowLeft className="h-4 w-4" />

@@ -184,13 +184,13 @@ export default function Home() {
                 </span>
               </div>
               <div className="flex gap-3">
-                <Link href="/course">
+                <Link href="/course/youth-career-guidance">
                   <Button size="lg" className="text-lg">
                     ابھی شروع کریں
                     <ArrowLeft className="mr-2 h-5 w-5" />
                   </Button>
                 </Link>
-                <Link href="/course">
+                <Link href="/course/youth-career-guidance">
                   <Button size="lg" variant="outline" className="text-lg">
                     تفصیل دیکھیں
                   </Button>

@@ -6,7 +6,8 @@ const siteUrl = 'https://shama.pk';
 const publicRoutes = [
   '',
   '/articles',
-  '/course',
+  '/courses',
+  '/course/youth-career-guidance',
   '/about',
   '/contact',
   '/privacy-policy',
@@ -21,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const articlePages = publishedArticles.map((article) => ({
-    url: `${siteUrl}/articles/${article.id}`,
+    url: `${siteUrl}/article/${article.id}`,
   }));
 
   return [...pages, ...articlePages];

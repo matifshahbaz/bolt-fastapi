@@ -183,7 +183,7 @@ export function DashboardShell() {
                 })()}
 
                 {course.enrollment.status === 'active' ? (
-                  <Link href="/course">
+                  <Link href="/course/youth-career-guidance">
                     <Button className="text-lg">کورس جاری رکھیں</Button>
                   </Link>
                 ) : (
@@ -203,7 +203,7 @@ export function DashboardShell() {
             <p className="text-lg text-muted-foreground">
               آپ نے ابھی تک کوئی کورس نہیں خریدا۔
             </p>
-            <Link href="/course">
+            <Link href="/course/youth-career-guidance">
               <Button className="text-lg">ابھی کورس خریدیں</Button>
             </Link>
           </CardContent>

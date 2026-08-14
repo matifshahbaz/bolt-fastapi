@@ -681,7 +681,7 @@ export default async function ArticleDetailPage({
                   نوجوانوں کے لیے مکمل کیریئر رہنمائی کورس اردو میں دیکھیں۔
                 </p>
                 <Button asChild size="lg" className="mt-6 text-lg">
-                  <Link href="/course">
+                  <Link href="/course/youth-career-guidance">
                     کورس دیکھیں
                     <ArrowLeft className="mr-2 h-5 w-5" />
                   </Link>

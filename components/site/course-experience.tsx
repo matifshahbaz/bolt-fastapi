@@ -467,7 +467,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
           <div className="rounded-3xl bg-gradient-to-l from-primary to-primary/80 p-10 text-white">
             <h2 className="mb-4 text-3xl font-nastaliq">آج ہی اپنا مستقبل بنائیں</h2>
             <p className="mb-8 text-lg text-white/80">شمع.pk ایک نیا آغاز ہے۔ پہلے کورس کے ساتھ اپنا سیکھنے کا سفر شروع کریں اور اپنی حقیقی رائے سے اسے بہتر بنانے میں مدد دیں۔</p>
-            <Link href={hasPurchased ? '/dashboard' : isAuthenticated ? '/course' : '/signup'}>
+            <Link href={hasPurchased ? '/dashboard' : isAuthenticated ? '/course/youth-career-guidance' : '/signup'}>
               <Button size="lg" className="bg-accent text-lg text-accent-foreground hover:bg-accent/90">
                 {hasPurchased ? 'اپنا ڈیش بورڈ کھولیں' : 'ابھی شامل ہوں'}
                 <ArrowLeft className="mr-2 h-5 w-5" />

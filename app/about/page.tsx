@@ -102,7 +102,7 @@ export default function AboutPage() {
           <p className="text-lg text-muted-foreground mb-8">
             شمع.pk کے پہلے کورس سے اپنا کیریئر سفر شروع کریں۔
           </p>
-          <Link href="/course">
+          <Link href="/course/youth-career-guidance">
             <Button size="lg" className="text-lg">
               کورس دیکھیں
               <ArrowLeft className="mr-2 h-5 w-5" />

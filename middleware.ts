@@ -21,6 +21,11 @@ const validTopLevelPaths = new Set([
   'terms-and-conditions',
 ]);
 
+function redirectTo(request: NextRequest, pathname: string) {
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://shama.pk' : request.url;
+  return NextResponse.redirect(new URL(pathname, baseUrl), 308);
+}
+
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname.replace(/^\/+|\/+$/g, '');
 
@@ -29,23 +34,23 @@ export function middleware(request: NextRequest) {
   }
 
   if (pathname === 'article') {
-    return NextResponse.redirect(new URL('/articles', request.url), 308);
+    return redirectTo(request, '/articles');
   }
 
   if (pathname === 'article/cv-mistakes') {
-    return NextResponse.redirect(new URL('/article/five-important-cv-mistakes', request.url), 308);
+    return redirectTo(request, '/article/five-important-cv-mistakes');
   }
 
   if (pathname === 'course') {
-    return NextResponse.redirect(new URL('/courses', request.url), 308);
+    return redirectTo(request, '/course/youth-career-guidance');
   }
 
   if (pathname.startsWith('articles/')) {
-    return NextResponse.redirect(new URL(`/article/${pathname.slice('articles/'.length)}`, request.url), 308);
+    return redirectTo(request, `/article/${pathname.slice('articles/'.length)}`);
   }
 
   if (pathname && !pathname.includes('/') && !validTopLevelPaths.has(pathname)) {
-    return NextResponse.redirect(new URL('/', request.url), 308);
+    return redirectTo(request, '/');
   }
 
   return NextResponse.next();
