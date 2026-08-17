@@ -51,7 +51,7 @@ export default function Home() {
               <Badge className="mb-6 bg-primary/10 text-primary hover:bg-primary/10 border-primary/20">
                 ایک نیا آغاز — اردو میں عملی کیریئر رہنمائی
               </Badge>
-              <h1 className="mb-6 text-4xl font-nastaliq !leading-[1.85] text-foreground md:text-5xl lg:text-5xl xl:text-6xl">
+              <h1 className="mb-6 text-4xl font-nastaliq !leading-[1.85] text-primary md:text-5xl lg:text-5xl xl:text-6xl">
                 اپنے کیریئر کی سمت میں واضح رہنمائی حاصل کریں
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed mb-8 max-w-xl">
@@ -137,7 +137,7 @@ export default function Home() {
             <Badge className="mb-4 bg-accent/10 text-accent hover:bg-accent/10">
               نمایاں کورس
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-nastaliq text-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-nastaliq text-primary mb-4">
               ہمارا لانچ کورس
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -167,7 +167,7 @@ export default function Home() {
                   {featuredCourse.language}
                 </Badge>
               </div>
-              <h3 className="text-2xl md:text-3xl font-nastaliq text-foreground leading-relaxed">
+              <h3 className="text-2xl md:text-3xl font-nastaliq text-primary leading-relaxed">
                 {featuredCourse.title}
               </h3>
               <p className="text-lg text-muted-foreground leading-relaxed">
@@ -204,7 +204,7 @@ export default function Home() {
       {/* Outcomes Strip */}
       <section className="py-16 bg-white">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-nastaliq text-foreground text-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-nastaliq text-primary text-center mb-10">
             آپ کیا سیکھیں گے؟
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -221,7 +221,7 @@ export default function Home() {
                 <div className="flex h-14 w-14 mx-auto items-center justify-center rounded-2xl bg-primary/10 mb-4">
                   <item.icon className="h-7 w-7 text-primary" />
                 </div>
-                <h3 className="text-xl font-nastaliq text-foreground mb-2">
+                <h3 className="text-xl font-nastaliq text-primary mb-2">
                   {item.title}
                 </h3>
                 <p className="text-base text-muted-foreground leading-relaxed">
@@ -238,7 +238,7 @@ export default function Home() {
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <h2 className="text-2xl md:text-3xl font-nastaliq text-foreground mb-2">
+              <h2 className="text-2xl md:text-3xl font-nastaliq text-primary mb-2">
                 تازہ مضامین
               </h2>
               <p className="text-lg text-muted-foreground">
@@ -266,14 +266,14 @@ export default function Home() {
           <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/10">
             ہمارا مشن
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-nastaliq text-foreground mb-6 leading-relaxed">
+          <h2 className="text-3xl md:text-4xl font-nastaliq text-primary mb-6 leading-relaxed">
             پاکستان کے نوجوانوں کو اردو میں معیاری رہنمائی فراہم کرنا
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed mb-8">
             ہمارا ماننا ہے کہ ہر نوجوان کے پاس اپنے مستقبل کے بارے میں واضح رہنمائی کا حق ہے۔ شمع.pk پاکستان کے نوجوانوں کے لیے، اردو میں، معیاری کیریئر رہنمائی فراہم کرتا ہے۔ ہمارا مقصد ہر نوجوان کو اپنی صلاحیتوں کو پہچان کر، صحیح کیریئر کا انتخاب کرنے میں مدد کرنا ہے۔
           </p>
           <div className="mt-12 rounded-2xl border border-primary/15 bg-primary/5 px-6 py-8">
-            <h3 className="mb-3 text-2xl font-nastaliq text-foreground">یہ صرف آغاز ہے</h3>
+            <h3 className="mb-3 text-2xl font-nastaliq text-primary">یہ صرف آغاز ہے</h3>
             <p className="text-lg leading-relaxed text-muted-foreground">
               شمع.pk ابھی اپنے ابتدائی مرحلے میں ہے۔ ہم حقیقی طلبہ کے تجربات، درست اعداد و شمار اور آپ کی رائے کے ساتھ اسے دیانت داری سے بہتر بنائیں گے۔
             </p>
@@ -286,7 +286,7 @@ export default function Home() {
         <div className="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-3xl bg-gradient-to-l from-primary to-primary/80 p-10 text-center text-white">
             <Mail className="h-12 w-12 mx-auto mb-4 text-white/80" />
-            <h2 className="text-3xl font-nastaliq mb-4">
+            <h2 className="text-3xl font-nastaliq text-primary mb-4">
               اردو میں کیریئر ٹپس حاصل کریں
             </h2>
             <p className="text-lg text-white/80 mb-8 max-w-xl mx-auto">

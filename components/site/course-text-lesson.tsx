@@ -94,6 +94,7 @@ import {
 import CvVisualQuote from '@/components/cv-mistakes/CvVisualQuote';
 import LizRyanQuote from '@/components/cv-mistakes/LizRyanQuote';
 import Mistake5Infographic from '@/components/cv-mistakes/Mistake5Infographic';
+import OnlineClothingBusinessArticle from '@/components/site/online-clothing-business-article';
 
 type CourseTextLessonProps = {
   lesson: CourseLesson;
@@ -169,6 +170,7 @@ const lessonComponents = {
   CvVisualQuote,
   LizRyanQuote,
   Mistake5Infographic,
+  OnlineClothingBusinessArticle,
 };
 
 export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete }: CourseTextLessonProps) {

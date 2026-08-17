@@ -19,6 +19,7 @@ import { careerDecisionAfterMatricArticle } from '@/lib/articles/career-decision
 import { freeWebsiteWithoutItExperienceArticle } from '@/lib/articles/free-website-without-it-experience';
 import { softwareHouseAccountingIssuesArticle } from '@/lib/articles/software-house-accounting-issues';
 import { cvMistakesArticle } from '@/lib/articles/cv-mistakes';
+import { onlineClothingBusinessArticle } from '@/lib/articles/online-clothing-business';
 
 export type Category = {
   id: string;
@@ -166,7 +167,8 @@ export type ArticleSection = {
     | 'SalesClosing'
     | 'CvVisualQuote'
     | 'LizRyanQuote'
-    | 'Mistake5Infographic';
+    | 'Mistake5Infographic'
+    | 'OnlineClothingBusinessArticle';
 };
 
 const courseLessonImages = [
@@ -849,6 +851,7 @@ export const articles: Article[] = [
 ];
 
 export const publishedArticles: Article[] = [
+  onlineClothingBusinessArticle,
   cvMistakesArticle,
   softwareHouseAccountingIssuesArticle,
   freeWebsiteWithoutItExperienceArticle,

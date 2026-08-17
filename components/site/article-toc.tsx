@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Minus, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -15,51 +15,57 @@ type ArticleTocProps = {
 };
 
 export function ArticleToc({ items, className }: ArticleTocProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    setIsOpen(!window.matchMedia('(max-width: 639px)').matches);
+  }, []);
 
   if (items.length === 0) {
     return null;
   }
 
   return (
-    <aside className={cn('w-full', className)}>
-      <div className="flex items-end gap-0">
-        <div className="w-full rounded-2xl border border-slate-200 bg-white shadow-sm xl:w-[250px]">
-          <button
-            type="button"
-            onClick={() => setIsOpen((prev) => !prev)}
-            aria-expanded={isOpen}
-            className="flex w-full items-center justify-between px-5 py-4 text-right"
-          >
-            <span className="text-sm font-semibold tracking-wide text-emerald-700">اس صفحے پر</span>
-            {isOpen ? (
-              <Minus className="h-4 w-4 text-slate-600" />
-            ) : (
-              <Plus className="h-4 w-4 text-slate-600" />
-            )}
-          </button>
-
+    <aside className={cn('fixed bottom-4 left-4 right-4 z-40 w-auto max-w-none sm:bottom-8 sm:left-6 sm:right-auto sm:w-[286px] sm:max-w-[calc(100vw-2rem)]', className)}>
+      <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <button
+          type="button"
+          onClick={() => setIsOpen((previous) => !previous)}
+          aria-expanded={isOpen}
+          aria-controls="article-toc-links"
+          className="flex w-full items-center justify-between border-b border-slate-200 px-5 py-4 text-right"
+        >
+          <span className="text-base font-semibold tracking-wide text-emerald-700">اس صفحے پر</span>
           {isOpen ? (
-            <nav
-              className="max-h-[65vh] overflow-y-auto overscroll-contain border-t border-slate-200 px-5 py-4"
-              aria-label="Table of contents"
-            >
-              <ul className="space-y-3">
-                {items.map((item) => (
-                  <li key={item.id}>
-                    <a
-                      href={`#${item.id}`}
-                      className="block text-base leading-relaxed text-black transition-colors hover:text-emerald-700"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ) : null}
-        </div>
-        <span className="hidden h-px w-12 bg-slate-300 xl:block" aria-hidden="true" />
+            <Minus className="h-4 w-4 text-slate-600" aria-hidden="true" />
+          ) : (
+            <Plus className="h-4 w-4 text-slate-600" aria-hidden="true" />
+          )}
+        </button>
+
+        {isOpen ? (
+          <nav
+            id="article-toc-links"
+            className="max-h-[45vh] overflow-y-auto overscroll-contain px-5 py-4 sm:max-h-[65vh]"
+            aria-label="Table of contents"
+          >
+            <ol className="space-y-3">
+              {items.map((item, index) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    className="flex items-start gap-3 text-right text-base leading-relaxed text-black transition-colors hover:text-emerald-700"
+                  >
+                    <span className="mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-emerald-50 font-sans text-xs font-bold text-emerald-700">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span>{item.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        ) : null}
       </div>
     </aside>
   );

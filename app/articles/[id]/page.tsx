@@ -98,6 +98,8 @@ import { getArticleById, getArticles } from '@/lib/content-api';
 import CvVisualQuote from '@/components/cv-mistakes/CvVisualQuote';
 import LizRyanQuote from '@/components/cv-mistakes/LizRyanQuote';
 import Mistake5Infographic from '@/components/cv-mistakes/Mistake5Infographic';
+import OnlineClothingBusinessArticle from '@/components/site/online-clothing-business-article';
+import { articleSections as onlineClothingBusinessSections } from '@/components/site/online-clothing-business-artefacts/articleContent';
 
 const siteUrl = 'https://shama.pk';
 const protectedArticleIds = new Set(['m3-l2-notes']);
@@ -244,6 +246,7 @@ const articleComponents = {
   CvVisualQuote,
   LizRyanQuote,
   Mistake5Infographic,
+  OnlineClothingBusinessArticle,
 };
 
 export default async function ArticleDetailPage({
@@ -293,6 +296,10 @@ export default async function ArticleDetailPage({
 
   const { headingIdByIndex, items: headingItems } = getArticleHeadings(article.content);
 
+  const finalHeadingItems = article.id === 'online-clothing-business-journey'
+    ? onlineClothingBusinessSections.map((section) => ({ id: section.id, label: section.title }))
+    : headingItems;
+
   const content = (
     <div className="flex flex-col">
       <script
@@ -311,7 +318,7 @@ export default async function ArticleDetailPage({
           <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/10">
             {article.category}
           </Badge>
-          <h1 className="mb-6 text-3xl font-nastaliq leading-[1.6] text-black md:text-4xl lg:text-5xl">
+          <h1 className="mb-6 text-3xl font-nastaliq leading-[1.6] text-primary md:text-4xl lg:text-5xl">
             {article.title}
           </h1>
           <div className="flex flex-wrap items-center gap-6 text-base text-black/80">
@@ -352,8 +359,7 @@ export default async function ArticleDetailPage({
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="relative mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white px-5 py-10 shadow-[0_24px_70px_-45px_rgba(15,23,42,0.55)] sm:px-9 lg:px-12">
             <ArticleToc
-              items={headingItems}
-              className="hidden lg:fixed lg:bottom-8 lg:left-6 lg:z-40 lg:block lg:w-[286px]"
+              items={finalHeadingItems}
             />
             <div>
               <article className="space-y-10">
@@ -364,7 +370,7 @@ export default async function ArticleDetailPage({
                   <h2
                     key={idx}
                     id={headingId}
-                    className={`mt-12 mb-5 scroll-mt-28 text-3xl font-nastaliq leading-[1.7] md:text-4xl ${headingId ? 'text-[#2F5496]' : 'text-black'}`}
+                    className="mt-12 mb-5 scroll-mt-28 text-3xl font-nastaliq leading-[1.7] text-primary md:text-4xl"
                   >
                     {section.text}
                   </h2>

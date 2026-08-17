@@ -25,7 +25,7 @@ export function ArticleCard({ article }: { article: Article }) {
 
         {/* Content */}
         <div className="p-5">
-          <h3 className="text-xl font-nastaliq text-foreground mb-2 line-clamp-2 leading-relaxed group-hover:text-primary transition-colors">
+          <h3 className="text-xl font-nastaliq text-primary mb-2 line-clamp-2 leading-relaxed group-hover:text-primary transition-colors">
             {article.title}
           </h3>
           <p className="text-base text-muted-foreground line-clamp-3 mb-4 leading-relaxed">
