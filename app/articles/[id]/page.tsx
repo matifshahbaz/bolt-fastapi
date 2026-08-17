@@ -134,6 +134,29 @@ function getIsoPublishedDate(date: string) {
   return month ? `${year}-${month}-${day.padStart(2, '0')}T00:00:00+05:00` : undefined;
 }
 
+const articleSeo: Record<string, { englishTitle: string; englishDescription: string }> = {
+  'online-clothing-business-journey': {
+    englishTitle: 'Online Clothing Business in Pakistan',
+    englishDescription: 'A practical Urdu guide to starting an online clothing business in Pakistan without keeping stock.',
+  },
+  'five-important-cv-mistakes': {
+    englishTitle: '5 Common CV Mistakes',
+    englishDescription: 'Practical Urdu career guidance for writing a clearer, stronger CV and improving your job search in Pakistan.',
+  },
+  'software-house-accounting-issues': {
+    englishTitle: 'Software House Accounting Problems',
+    englishDescription: 'An Urdu finance and business guide to finding billing, collections, KPI and profit problems in Pakistani software houses.',
+  },
+  'free-website-without-it-experience': {
+    englishTitle: 'Build a Website Without IT Experience',
+    englishDescription: 'A practical Urdu guide to building and launching your first website without coding experience or upfront cost.',
+  },
+  'career-decision-after-matric': {
+    englishTitle: 'What to Do After Matric in Pakistan',
+    englishDescription: 'An Urdu career decision guide for Pakistani students comparing education, skills, work and future options after matric.',
+  },
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -148,13 +171,18 @@ export async function generateMetadata({
     };
   }
 
-  const canonicalUrl = `${siteUrl}/articles/${article.id}`;
+  const canonicalUrl = `${siteUrl}/article/${article.id}`;
   const imageUrl = article.coverImage ? getAbsoluteUrl(article.coverImage) : undefined;
   const publishedTime = getIsoPublishedDate(article.publishedAt);
+  const seo = articleSeo[article.id];
+  const metadataTitle = seo ? `${seo.englishTitle} | ${article.title}` : article.title;
+  const metadataDescription = seo
+    ? `${article.excerpt} ${seo.englishDescription}`
+    : article.excerpt;
 
   return {
-    title: article.title,
-    description: article.excerpt,
+    title: metadataTitle,
+    description: metadataDescription,
     alternates: {
       canonical: canonicalUrl,
     },
@@ -163,8 +191,8 @@ export async function generateMetadata({
       locale: 'ur_PK',
       url: canonicalUrl,
       siteName: 'شمع.pk',
-      title: article.title,
-      description: article.excerpt,
+      title: metadataTitle,
+      description: metadataDescription,
       publishedTime,
       authors: [article.author],
       section: article.category,
@@ -172,8 +200,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: article.title,
-      description: article.excerpt,
+      title: metadataTitle,
+      description: metadataDescription,
       ...(imageUrl ? { images: [imageUrl] } : {}),
     },
   };
