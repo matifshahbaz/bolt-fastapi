@@ -1,0 +1,457 @@
+.dashboard {
+  --surface: #07131f;
+  --panel: #0d1c2b;
+  --panel-raised: #112337;
+  --line: rgba(216, 181, 106, 0.18);
+  --ink: #f7f1e7;
+  --muted: #aebbc2;
+  --gold: #d8b56a;
+  --silver: #9fb0ba;
+  --bronze: #cf7e5e;
+  --aqua: #36b5a5;
+
+  position: relative;
+  isolation: isolate;
+  width: min(100% - 24px, 1180px);
+  margin: 24px auto;
+  padding: clamp(18px, 3vw, 38px);
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.025), transparent 38%),
+    var(--surface);
+  border: 1px solid rgba(216, 181, 106, 0.22);
+  border-radius: 28px;
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.34);
+  font-family: "Jameel Noori Nastaleeq", serif;
+}
+
+.ambientOne,
+.ambientTwo {
+  position: absolute;
+  z-index: -1;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.16;
+}
+
+.ambientOne {
+  inset: -190px auto auto -130px;
+  background: var(--gold);
+}
+
+.ambientTwo {
+  inset: auto -160px -240px auto;
+  background: var(--aqua);
+}
+
+.dashboardHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 32px;
+  align-items: end;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--gold);
+  font-family: system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+}
+
+.dashboardHeader h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 5.8vw, 5.3rem);
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.intro {
+  max-width: 760px;
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: clamp(1.25rem, 2.1vw, 1.8rem);
+  line-height: 1.8;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(88px, 1fr));
+  gap: 10px;
+  direction: ltr;
+}
+
+.summary div {
+  min-width: 92px;
+  padding: 14px 12px 10px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.summary strong,
+.summary span {
+  display: block;
+}
+
+.summary strong {
+  color: var(--gold);
+  font-family: system-ui, sans-serif;
+  font-size: 1.3rem;
+}
+
+.summary span {
+  margin-top: 4px;
+  color: var(--muted);
+  direction: rtl;
+  font-size: 1.05rem;
+}
+
+.partTabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+}
+
+.partTabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 64px;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  cursor: pointer;
+  transition: 180ms ease;
+}
+
+.partTabs button[data-selected="true"] {
+  color: var(--ink);
+  background: linear-gradient(135deg, rgba(216, 181, 106, 0.16), rgba(216, 181, 106, 0.06));
+  border-color: rgba(216, 181, 106, 0.35);
+}
+
+.partTabs span {
+  font-size: 1.55rem;
+}
+
+.partTabs small {
+  color: var(--gold);
+  font-family: system-ui, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.universitySelector {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.universityButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 70px;
+  padding: 10px 12px;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.universityButton:hover {
+  transform: translateY(-2px);
+  color: var(--ink);
+  border-color: rgba(216, 181, 106, 0.28);
+}
+
+.universityButton[data-selected="true"] {
+  color: var(--ink);
+  background: var(--panel-raised);
+  border-color: var(--gold);
+  box-shadow: inset 0 -3px 0 rgba(216, 181, 106, 0.65);
+}
+
+.universityButton > span:last-child {
+  font-size: 1.18rem;
+  white-space: nowrap;
+}
+
+.selectorRank {
+  color: var(--gold);
+  font-family: system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 760;
+}
+
+.detailPanel {
+  margin-top: 18px;
+  padding: clamp(20px, 3vw, 34px);
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.035), transparent 48%),
+    var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 24px;
+  animation: panelIn 260ms ease both;
+}
+
+.universityIdentity {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.universityIdentity p {
+  margin: 0;
+  color: var(--gold);
+  font-size: 1.08rem;
+}
+
+.universityIdentity h2 {
+  margin: -4px 0 0;
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.rankBadge {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 116px;
+  aspect-ratio: 1;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 8px var(--panel), inset 0 0 0 9px rgba(216, 181, 106, 0.22);
+}
+
+.rankBadge small,
+.rankBadge strong {
+  display: block;
+  font-family: system-ui, sans-serif;
+  line-height: 1;
+}
+
+.rankBadge small {
+  align-self: end;
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.rankBadge strong {
+  align-self: start;
+  color: var(--gold);
+  font-size: 1.75rem;
+}
+
+.priorityLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.secondaryPriorities {
+  display: grid;
+  gap: 16px;
+}
+
+.priorityCard {
+  position: relative;
+  padding: 20px 22px 18px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.026);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 19px;
+}
+
+.priorityCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--level-color);
+}
+
+.priorityCard[data-level="1"] { --level-color: var(--gold); }
+.priorityCard[data-level="2"] { --level-color: var(--silver); }
+.priorityCard[data-level="3"] { --level-color: var(--bronze); }
+
+.featuredPriority {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(145deg, rgba(216, 181, 106, 0.12), rgba(255, 255, 255, 0.025));
+  border-color: rgba(216, 181, 106, 0.28);
+}
+
+.priorityTopline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.priorityNumber {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  aspect-ratio: 1;
+  color: var(--level-color);
+  border: 1px solid var(--level-color);
+  border-radius: 50%;
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.priorityLabel {
+  color: var(--level-color);
+  font-size: 1.13rem;
+}
+
+.priorityCard h3 {
+  margin: 8px 0 2px;
+  font-size: clamp(1.6rem, 3vw, 2.7rem);
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.priorityCard p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1.08rem, 1.8vw, 1.4rem);
+  line-height: 1.8;
+}
+
+.dashboardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 20px;
+  padding-top: 18px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  font-size: 1.05rem;
+}
+
+.brand {
+  direction: ltr;
+  color: var(--ink);
+  font-family: system-ui, sans-serif;
+  font-size: 1.03rem;
+  font-weight: 800;
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .dashboardHeader {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    width: 100%;
+  }
+
+  .universitySelector {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scroll-snap-type: x proximity;
+  }
+
+  .universityButton {
+    flex: 0 0 150px;
+    scroll-snap-align: start;
+  }
+
+  .priorityLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  .dashboard {
+    width: min(100% - 12px, 1180px);
+    margin: 6px auto;
+    padding: 15px;
+    border-radius: 20px;
+  }
+
+  .eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+  }
+
+  .summary div {
+    min-width: 0;
+    padding-inline: 6px;
+  }
+
+  .partTabs button {
+    min-height: 58px;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .universityIdentity {
+    align-items: flex-start;
+  }
+
+  .rankBadge {
+    width: 88px;
+  }
+
+  .rankBadge strong {
+    font-size: 1.35rem;
+  }
+
+  .detailPanel {
+    padding: 16px;
+  }
+
+  .priorityCard {
+    padding: 17px;
+  }
+
+  .dashboardFooter {
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detailPanel,
+  .universityButton,
+  .partTabs button {
+    animation: none;
+    transition: none;
+  }
+}

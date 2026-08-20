@@ -20,6 +20,7 @@ import { freeWebsiteWithoutItExperienceArticle } from '@/lib/articles/free-websi
 import { softwareHouseAccountingIssuesArticle } from '@/lib/articles/software-house-accounting-issues';
 import { cvMistakesArticle } from '@/lib/articles/cv-mistakes';
 import { onlineClothingBusinessArticle } from '@/lib/articles/online-clothing-business';
+import { top10PakistaniUniversitiesArticle } from '@/lib/articles/top-10-pakistani-universities';
 
 export type Category = {
   id: string;
@@ -168,7 +169,13 @@ export type ArticleSection = {
     | 'CvVisualQuote'
     | 'LizRyanQuote'
     | 'Mistake5Infographic'
-    | 'OnlineClothingBusinessArticle';
+    | 'OnlineClothingBusinessArticle'
+    | 'UniversityFieldMatrix'
+    | 'CampusPersonalityTiles'
+    | 'UniversityStrengthDashboard'
+    | 'IndustrySectorGrid'
+    | 'AdmissionsTimelineInfographic'
+    | 'UniversityClassSizeSpectrum';
 };
 
 const courseLessonImages = [
@@ -851,6 +858,7 @@ export const articles: Article[] = [
 ];
 
 export const publishedArticles: Article[] = [
+  top10PakistaniUniversitiesArticle,
   onlineClothingBusinessArticle,
   cvMistakesArticle,
   softwareHouseAccountingIssuesArticle,

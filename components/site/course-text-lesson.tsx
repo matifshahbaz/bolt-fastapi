@@ -348,7 +348,7 @@ function LessonArticleBody({
           );
         }
         if (section.type === 'component' && section.componentKey) {
-          const Component = lessonComponents[section.componentKey];
+          const Component = lessonComponents[section.componentKey as keyof typeof lessonComponents];
           if (!Component) {
             return null;
           }

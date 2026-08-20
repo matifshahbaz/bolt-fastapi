@@ -100,6 +100,12 @@ import LizRyanQuote from '@/components/cv-mistakes/LizRyanQuote';
 import Mistake5Infographic from '@/components/cv-mistakes/Mistake5Infographic';
 import OnlineClothingBusinessArticle from '@/components/site/online-clothing-business-article';
 import { articleSections as onlineClothingBusinessSections } from '@/components/site/online-clothing-business-artefacts/articleContent';
+import UniversityFieldMatrix from '@/components/site/top-universities-artefacts/UniversityFieldMatrix';
+import CampusPersonalityTiles from '@/components/site/top-universities-artefacts/CampusPersonalityTiles';
+import UniversityStrengthDashboard from '@/components/site/top-universities-artefacts/strength-dashboard/UniversityStrengthDashboard';
+import IndustrySectorGrid from '@/components/site/top-universities-artefacts/IndustrySectorGrid';
+import AdmissionsTimelineInfographic from '@/components/site/top-universities-artefacts/AdmissionsTimelineInfographic';
+import UniversityClassSizeSpectrum from '@/components/site/top-universities-artefacts/class-size-spectrum/UniversityClassSizeSpectrum';
 
 const siteUrl = 'https://shama.pk';
 const protectedArticleIds = new Set(['m3-l2-notes']);
@@ -135,6 +141,10 @@ function getIsoPublishedDate(date: string) {
 }
 
 const articleSeo: Record<string, { englishTitle: string; englishDescription: string }> = {
+  'top-10-pakistani-universities': {
+    englishTitle: 'Top 10 Universities of Pakistan Compared',
+    englishDescription: 'A practical Urdu comparison of Pakistan top universities by campus, fields, fees, admissions, scholarships, research and job opportunities.',
+  },
   'online-clothing-business-journey': {
     englishTitle: 'Online Clothing Business in Pakistan',
     englishDescription: 'A practical Urdu guide to starting an online clothing business in Pakistan without keeping stock.',
@@ -275,6 +285,12 @@ const articleComponents = {
   LizRyanQuote,
   Mistake5Infographic,
   OnlineClothingBusinessArticle,
+  UniversityFieldMatrix,
+  CampusPersonalityTiles,
+  UniversityStrengthDashboard,
+  IndustrySectorGrid,
+  AdmissionsTimelineInfographic,
+  UniversityClassSizeSpectrum,
 };
 
 export default async function ArticleDetailPage({
@@ -325,8 +341,17 @@ export default async function ArticleDetailPage({
   const { headingIdByIndex, items: headingItems } = getArticleHeadings(article.content);
 
   const finalHeadingItems = article.id === 'online-clothing-business-journey'
-    ? onlineClothingBusinessSections.map((section) => ({ id: section.id, label: section.title }))
-    : headingItems;
+    ? onlineClothingBusinessSections.map((section) => ({
+      id: section.id,
+      label: section.title,
+      numberLabel: String(section.number).padStart(2, '0'),
+    }))
+    : article.id === 'five-important-cv-mistakes'
+      ? headingItems.map((item, index) => ({
+        ...item,
+        numberLabel: index > 0 ? String(index).padStart(2, '0') : undefined,
+      }))
+      : headingItems;
 
   const content = (
     <div className="flex flex-col">
@@ -346,7 +371,7 @@ export default async function ArticleDetailPage({
           <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/10">
             {article.category}
           </Badge>
-          <h1 className="mb-6 text-3xl font-nastaliq leading-[1.6] text-primary md:text-4xl lg:text-5xl">
+          <h1 className="mb-6 text-3xl font-bold font-nastaliq leading-[1.6] text-primary md:text-4xl lg:text-5xl">
             {article.title}
           </h1>
           <div className="flex flex-wrap items-center gap-6 text-base text-black/80">
@@ -398,7 +423,7 @@ export default async function ArticleDetailPage({
                   <h2
                     key={idx}
                     id={headingId}
-                    className="mt-12 mb-5 scroll-mt-28 text-3xl font-nastaliq leading-[1.7] text-primary md:text-4xl"
+                    className="mt-12 mb-5 scroll-mt-28 text-3xl font-bold font-nastaliq leading-[1.7] text-primary md:text-4xl"
                   >
                     {section.text}
                   </h2>
@@ -412,7 +437,7 @@ export default async function ArticleDetailPage({
                 return (
                   <h3
                     key={idx}
-                    className="mt-10 mb-4 text-2xl font-nastaliq leading-[1.7] text-black md:text-3xl"
+                    className="mt-10 mb-4 text-2xl font-bold font-nastaliq leading-[1.7] text-accent md:text-3xl"
                   >
                     {section.text}
                   </h3>

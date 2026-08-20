@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 type TocItem = {
   id: string;
   label: string;
+  numberLabel?: string;
 };
 
 type ArticleTocProps = {
@@ -20,6 +21,45 @@ export function ArticleToc({ items, className }: ArticleTocProps) {
   useEffect(() => {
     setIsOpen(!window.matchMedia('(max-width: 639px)').matches);
   }, []);
+
+  const handleTocClick = (event: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    const target = document.getElementById(targetId);
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const headerOffset = 112;
+    const startY = window.scrollY;
+    const targetY = Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerOffset);
+    const distance = targetY - startY;
+
+    window.history.pushState(null, '', `#${targetId}`);
+
+    if (reducedMotion || Math.abs(distance) < 12) {
+      window.scrollTo(0, targetY);
+      return;
+    }
+
+    const duration = Math.min(420, Math.max(220, Math.abs(distance) * 0.18));
+    const startedAt = performance.now();
+
+    const animateScroll = (currentTime: number) => {
+      const elapsed = currentTime - startedAt;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+      window.scrollTo(0, startY + distance * easedProgress);
+
+      if (progress < 1) {
+        window.requestAnimationFrame(animateScroll);
+      }
+    };
+
+    window.requestAnimationFrame(animateScroll);
+  };
 
   if (items.length === 0) {
     return null;
@@ -54,11 +94,14 @@ export function ArticleToc({ items, className }: ArticleTocProps) {
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
+                    onClick={(event) => handleTocClick(event, item.id)}
                     className="flex items-start gap-3 text-right text-base leading-relaxed text-black transition-colors hover:text-emerald-700"
                   >
-                    <span className="mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-emerald-50 font-sans text-xs font-bold text-emerald-700">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
+                    {item.numberLabel ? (
+                      <span className="mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-emerald-50 font-sans text-xs font-bold text-emerald-700">
+                        {item.numberLabel}
+                      </span>
+                    ) : null}
                     <span>{item.label}</span>
                   </a>
                 </li>

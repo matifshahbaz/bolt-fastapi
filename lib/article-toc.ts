@@ -1,8 +1,17 @@
 import type { ArticleSection } from '@/lib/data';
 
+function getHeadingNumber(label: string) {
+  const match = label.match(/^([0-9۰-۹]+(?:[.۔][0-9۰-۹]+)*)/);
+  return match?.[1];
+}
+
+function stripHeadingNumber(label: string) {
+  return label.replace(/^[0-9۰-۹]+(?:[.۔][0-9۰-۹]+)*[.۔]?\s*/, '');
+}
+
 export function getArticleHeadings(sections: ArticleSection[]) {
   const headingIdByIndex = new Map<number, string>();
-  const items = sections.reduce<{ id: string; label: string }[]>((headings, section, index) => {
+  const items = sections.reduce<{ id: string; label: string; numberLabel?: string }[]>((headings, section, index) => {
     if (section.type !== 'heading') {
       return headings;
     }
@@ -13,8 +22,9 @@ export function getArticleHeadings(sections: ArticleSection[]) {
     }
 
     const id = `section-${headings.length + 1}`;
+    const numberLabel = getHeadingNumber(label);
     headingIdByIndex.set(index, id);
-    headings.push({ id, label });
+    headings.push({ id, label: numberLabel ? stripHeadingNumber(label) : label, numberLabel });
     return headings;
   }, []);
 
