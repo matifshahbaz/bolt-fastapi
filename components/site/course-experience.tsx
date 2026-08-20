@@ -38,6 +38,18 @@ type CourseExperienceProps = {
   course: Course;
 };
 
+type VisibleLesson = {
+  lesson: CourseLesson;
+  lessonIndex: number;
+};
+
+type CurriculumRow = {
+  key: string;
+  title: string;
+  videoLessons: VisibleLesson[];
+  textLesson?: VisibleLesson;
+};
+
 const courseAudience = [
   'میٹرک یا او لیول کے بعد مضامین کا انتخاب کررہے ہیں',
   'انٹرمیڈیٹ یا اے لیول کے بعد اگلا راستہ تلاش کررہے ہیں',
@@ -50,6 +62,46 @@ const courseAudience = [
   'اپنی شخصیت، دلچسپی اور حالات کے مطابق کیریئر منتخب کرنا چاہتے ہیں',
   'تعلیم کے بعد عملی کیریئر کے آغاز میں الجھن محسوس کررہے ہیں',
 ];
+
+function getCurriculumKey(moduleId: string, lesson: CourseLesson) {
+  const match = lesson.id.match(new RegExp(`^${moduleId}-[vt](\\d+)(?:-\\d+)?$`));
+  return match ? `${moduleId}-${match[1]}` : lesson.id;
+}
+
+function getCurriculumTitle(lesson: CourseLesson) {
+  return lesson.title
+    .replace(/\s+—\s+نوٹس$/, '')
+    .replace(/\s+—\s+حصہ\s+[^:]+:.+$/, '')
+    .replace(/\s+—\s+حصہ\s+.+$/, '');
+}
+
+function groupCurriculumRows(moduleId: string, lessons: VisibleLesson[]): CurriculumRow[] {
+  const rows: CurriculumRow[] = [];
+  const rowByKey = new Map<string, CurriculumRow>();
+
+  lessons.forEach((visibleLesson) => {
+    const key = getCurriculumKey(moduleId, visibleLesson.lesson);
+    const existingRow = rowByKey.get(key);
+    const row = existingRow ?? {
+      key,
+      title: getCurriculumTitle(visibleLesson.lesson),
+      videoLessons: [],
+    };
+
+    if (visibleLesson.lesson.kind === 'video') {
+      row.videoLessons.push(visibleLesson);
+    } else {
+      row.textLesson = visibleLesson;
+    }
+
+    if (!existingRow) {
+      rows.push(row);
+      rowByKey.set(key, row);
+    }
+  });
+
+  return rows;
+}
 
 export function CourseExperience({ course }: CourseExperienceProps) {
   const { isAuthenticated, token, user } = useAuth();
@@ -109,6 +161,34 @@ export function CourseExperience({ course }: CourseExperienceProps) {
     }
   };
 
+  const toggleCurriculumRow = async (moduleId: string, row: CurriculumRow, completed: boolean) => {
+    if (!token) {
+      return;
+    }
+
+    const rowLessons = [...row.videoLessons, row.textLesson]
+      .filter((item): item is VisibleLesson => Boolean(item))
+      .filter((item) => !item.lesson.comingSoon);
+
+    if (rowLessons.length === 0) {
+      return;
+    }
+
+    setActionStatus('loading');
+    try {
+      let latestProgress: CourseProgress | null = null;
+      for (const item of rowLessons) {
+        latestProgress = await updateLessonProgress(token, course.id, moduleId, item.lessonIndex, completed);
+      }
+      setProgress(latestProgress);
+      setFeedback('آپ کی پیش رفت محفوظ کر دی گئی ہے۔');
+    } catch (error) {
+      setFeedback(error instanceof Error ? error.message : 'پیش رفت محفوظ نہیں ہو سکی۔');
+    } finally {
+      setActionStatus('idle');
+    }
+  };
+
   const hasPurchased = Boolean(progress);
   const visibleModules = course.modules
     .filter((module) => !module.hidden)
@@ -118,7 +198,11 @@ export function CourseExperience({ course }: CourseExperienceProps) {
         .map((lesson, lessonIndex) => ({ lesson, lessonIndex }))
         .filter(({ lesson }) => !lesson.hidden),
     }));
-  const visibleLessonCount = visibleModules.reduce((total, module) => total + module.lessons.length, 0);
+  const curriculumModules = visibleModules.map((module) => ({
+    ...module,
+    curriculumRows: groupCurriculumRows(module.id, module.lessons),
+  }));
+  const visibleLessonCount = curriculumModules.reduce((total, module) => total + module.curriculumRows.length, 0);
 
   const openLesson = async (moduleId: string, lessonIndex: number, lesson: CourseLesson) => {
     if (!isAuthenticated) {
@@ -210,6 +294,22 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                 <span className="flex items-center gap-1"><BookOpen className="h-5 w-5" />{visibleModules.length} ماڈیولز</span>
                 <span className="flex items-center gap-1"><Globe className="h-5 w-5" />زبان: {course.language}</span>
                 <span className="flex items-center gap-1"><BarChart3 className="h-5 w-5" />{course.level}</span>
+              </div>
+
+              <div className="mt-8 overflow-hidden rounded-2xl border bg-black shadow-xl">
+                <div className="flex items-center gap-2 border-b border-white/10 bg-slate-950 px-5 py-3 text-right text-white" dir="rtl">
+                  <Play className="h-5 w-5 text-accent" />
+                  <span className="text-lg font-nastaliq">کورس کا تعارفی ویڈیو</span>
+                </div>
+                <video
+                  controls
+                  preload="metadata"
+                  className="aspect-video w-full bg-black"
+                  aria-label="شمع فیوچر ریڈینس پروگرام کا تعارفی ویڈیو"
+                >
+                  <source src="/videos/shama-course-intro-v1.mp4" type="video/mp4" />
+                  آپ کا براؤزر ویڈیو چلانے کی سہولت نہیں رکھتا۔
+                </video>
               </div>
 
               <div className="mt-8 border-r-4 border-primary bg-white/75 px-5 py-6 text-right shadow-sm sm:px-6" dir="rtl">
@@ -319,7 +419,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
       <section className="py-16 bg-secondary/30">
         <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-2 text-2xl md:text-3xl font-nastaliq text-foreground">نصاب</h2>
-          <p className="mb-8 text-lg text-muted-foreground">{visibleModules.length} ماڈیول، {visibleLessonCount} اسباق</p>
+          <p className="mb-8 text-lg text-muted-foreground">{visibleModules.length} ماڈیول، {visibleLessonCount} لیکچرز</p>
 
           {hasPurchased && activeLesson ? (
             <div className="mb-8 space-y-3 rounded-2xl border bg-card p-5 shadow-sm">
@@ -361,33 +461,37 @@ export function CourseExperience({ course }: CourseExperienceProps) {
             </div>
           ) : null}
 
-          <Accordion type="single" collapsible defaultValue="m1">
-            {visibleModules.map((module, moduleIndex) => (
+          <Accordion type="multiple" defaultValue={['m1']}>
+            {curriculumModules.map((module, moduleIndex) => (
               <AccordionItem key={module.id} value={module.id} className="mb-3 overflow-hidden rounded-xl border bg-card px-6">
                 <AccordionTrigger className="text-xl font-nastaliq text-foreground hover:no-underline">
                   <div className="flex items-center gap-3 text-right">
                     <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-base font-bold text-primary">{moduleIndex + 1}</span>
                     {module.title}
-                    <span className="text-sm font-normal text-muted-foreground">({module.lessons.length} اسباق)</span>
+                    <span className="text-sm font-normal text-muted-foreground">({module.curriculumRows.length} لیکچرز)</span>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="pt-2">
                   <div className="space-y-2 pb-2">
-                    {module.lessons.map(({ lesson, lessonIndex }) => {
-                      const lessonKey = `${module.id}:${lessonIndex}`;
-                      const completed = completedLookup.has(lessonKey);
+                    {module.curriculumRows.map((row) => {
+                      const rowLessons = [...row.videoLessons, row.textLesson]
+                        .filter((item): item is VisibleLesson => Boolean(item));
+                      const availableRowLessons = rowLessons.filter(({ lesson }) => !lesson.comingSoon);
+                      const rowComingSoon = rowLessons.length > 0 && rowLessons.every(({ lesson }) => lesson.comingSoon);
+                      const completed = availableRowLessons.length > 0
+                        && availableRowLessons.every(({ lessonIndex }) => completedLookup.has(`${module.id}:${lessonIndex}`));
                       return (
-                        <div key={lessonKey} className="flex flex-col gap-3 rounded-lg bg-secondary/50 px-4 py-3 md:flex-row md:items-center md:justify-between">
+                        <div key={row.key} className="flex flex-col gap-3 rounded-lg bg-secondary/50 px-4 py-3 md:flex-row md:items-center md:justify-between">
                           <div className="flex items-center gap-3">
                             {hasPurchased ? (
-                              lesson.comingSoon ? (
+                              rowComingSoon ? (
                                 <div className="flex h-8 w-8 items-center justify-center rounded-full border border-amber-300 bg-amber-50 text-amber-700">
                                   <Clock className="h-4 w-4" />
                                 </div>
                               ) : (
                                 <button
                                   type="button"
-                                  onClick={() => toggleLesson(module.id, lessonIndex, !completed)}
+                                  onClick={() => toggleCurriculumRow(module.id, row, !completed)}
                                   className={`flex h-8 w-8 items-center justify-center rounded-full border ${
                                     completed
                                       ? 'border-primary bg-primary text-primary-foreground'
@@ -406,34 +510,54 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                             )}
                             <div>
                               <div className="flex flex-wrap items-center gap-2">
-                                <span className="text-base text-foreground">{lesson.title}</span>
-                                <Badge
-                                  variant="outline"
-                                  className={lesson.comingSoon ? 'border-amber-300 bg-amber-50 text-amber-800' : 'border-slate-300 text-slate-700'}
-                                >
-                                  {lesson.comingSoon ? 'جلد دستیاب' : lesson.kind === 'video' ? 'ویڈیو' : 'متن'}
-                                </Badge>
+                                <span className="text-base text-foreground">{row.title}</span>
+                                {row.videoLessons.length > 0 ? (
+                                  <Badge variant="outline" className="border-primary/30 bg-primary/10 text-primary">ویڈیو</Badge>
+                                ) : null}
+                                {row.textLesson ? (
+                                  <Badge variant="outline" className={row.textLesson.lesson.comingSoon ? 'border-amber-300 bg-amber-50 text-amber-800' : 'border-accent/40 bg-accent/10 text-accent'}>
+                                    {row.textLesson.lesson.comingSoon ? 'نوٹس جلد دستیاب' : 'نوٹس'}
+                                  </Badge>
+                                ) : null}
                               </div>
-                              {lesson.comingSoon ? (
+                              {rowComingSoon ? (
                                 <p className="text-sm text-muted-foreground">یہ مواد جلد دستیاب ہوگا۔</p>
                               ) : completed ? (
-                                <p className="text-sm text-primary">یہ سبق مکمل ہو چکا ہے</p>
+                                <p className="text-sm text-primary">یہ لیکچر مکمل ہو چکا ہے</p>
                               ) : null}
                             </div>
                           </div>
                           <div className="flex items-center gap-3">
-                            {hasPurchased && !lesson.comingSoon ? (
+                            {hasPurchased ? row.videoLessons.map(({ lesson, lessonIndex }, videoIndex) => (
+                              !lesson.comingSoon ? (
+                                <Button
+                                  key={lesson.id}
+                                  type="button"
+                                  size="sm"
+                                  className="border border-primary/30 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground"
+                                  onClick={() => openLesson(module.id, lessonIndex, lesson)}
+                                  disabled={actionStatus === 'loading'}
+                                >
+                                  {row.videoLessons.length > 1 ? `ویڈیو ${videoIndex + 1}` : 'ویڈیو'}
+                                </Button>
+                              ) : null
+                            )) : null}
+                            {hasPurchased && row.textLesson && !row.textLesson.lesson.comingSoon ? (
                               <Button
                                 type="button"
-                                variant="outline"
                                 size="sm"
-                                onClick={() => openLesson(module.id, lessonIndex, lesson)}
+                                className="border border-accent/40 bg-accent/10 text-accent hover:bg-accent hover:text-accent-foreground"
+                                onClick={() => openLesson(module.id, row.textLesson!.lessonIndex, row.textLesson!.lesson)}
                                 disabled={actionStatus === 'loading'}
                               >
-                                {lesson.kind === 'video' ? 'دیکھیں' : 'پڑھیں'}
+                                نوٹس
                               </Button>
                             ) : null}
-                            <span className="text-sm text-muted-foreground">{lesson.duration}</span>
+                            <span className="text-sm text-muted-foreground">
+                              {row.videoLessons.length > 0 ? row.videoLessons.map(({ lesson }) => lesson.duration).join('، ') : null}
+                              {row.videoLessons.length > 0 && row.textLesson ? ' / ' : null}
+                              {row.textLesson ? row.textLesson.lesson.duration : null}
+                            </span>
                           </div>
                         </div>
                       );
