@@ -141,6 +141,10 @@ function getIsoPublishedDate(date: string) {
 }
 
 const articleSeo: Record<string, { englishTitle: string; englishDescription: string }> = {
+  'fix-ai-generated-poster-text': {
+    englishTitle: 'How to Fix Text in AI-Generated Posters',
+    englishDescription: 'A practical Urdu guide to correcting text errors in AI-generated posters with ChatGPT and Microsoft PowerPoint.',
+  },
   'top-10-pakistani-universities': {
     englishTitle: 'Top 10 Universities of Pakistan Compared',
     englishDescription: 'A practical Urdu comparison of Pakistan top universities by campus, fields, fees, admissions, scholarships, research and job opportunities.',

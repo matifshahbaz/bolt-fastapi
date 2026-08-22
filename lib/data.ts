@@ -21,6 +21,7 @@ import { softwareHouseAccountingIssuesArticle } from '@/lib/articles/software-ho
 import { cvMistakesArticle } from '@/lib/articles/cv-mistakes';
 import { onlineClothingBusinessArticle } from '@/lib/articles/online-clothing-business';
 import { top10PakistaniUniversitiesArticle } from '@/lib/articles/top-10-pakistani-universities';
+import { fixAiGeneratedPosterTextArticle } from '@/lib/articles/fix-ai-generated-poster-text';
 
 export type Category = {
   id: string;
@@ -857,6 +858,7 @@ export const articles: Article[] = [
 ];
 
 export const publishedArticles: Article[] = [
+  fixAiGeneratedPosterTextArticle,
   top10PakistaniUniversitiesArticle,
   onlineClothingBusinessArticle,
   cvMistakesArticle,

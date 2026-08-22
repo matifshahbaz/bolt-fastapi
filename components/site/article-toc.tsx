@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Minus, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -16,11 +16,7 @@ type ArticleTocProps = {
 };
 
 export function ArticleToc({ items, className }: ArticleTocProps) {
-  const [isOpen, setIsOpen] = useState(true);
-
-  useEffect(() => {
-    setIsOpen(!window.matchMedia('(max-width: 639px)').matches);
-  }, []);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleTocClick = (event: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     const target = document.getElementById(targetId);

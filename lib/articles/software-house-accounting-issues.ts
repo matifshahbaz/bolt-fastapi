@@ -5,7 +5,7 @@ export const softwareHouseAccountingIssuesArticle: Article = {
   title: 'سافٹ ویئر ہاؤس کے 5 بڑے اکاؤنٹنگ مسائل جو خاموشی سے آپ کا منافع کھا رہے ہیں',
   excerpt:
     'پاکستانی سافٹ ویئر ہاؤسز میں کے پی آئی ڈیش بورڈ، نامکمل بلنگ، تاخیر سے وصولی، غیر ضروری سبسکرپشنز اور ذاتی و کاروباری کھاتوں کے ملاپ کے عملی حل۔',
-  coverImage: '/articles/software-house-accounting-cover.jpg',
+  coverImage: '/articles/software-house-accounting-problems-hero.jpeg',
   category: 'کاروبار',
   author: 'عاطف شہباز',
   publishedAt: '11 اگست 2026',
@@ -387,6 +387,11 @@ export const softwareHouseAccountingIssuesArticle: Article = {
       title: 'فنانس کنسلٹینسی کے لیے رابطہ کریں',
       tone: 'research',
       text: 'اگر آپ اپنے سافٹ ویئر ہاؤس کے فنانس ڈیپارٹمنٹ کے لیے کنسلٹینسی حاصل کرنا چاہتے ہیں تو atif@shama.pk پر رابطہ کریں۔',
+    },
+    {
+      type: 'image',
+      src: '/articles/software-house-accounting-problems-footer.jpeg',
+      alt: 'سافٹ ویئر ہاؤس کے پانچ اکاؤنٹنگ مسائل حل کرنے کی تکمیل — شمع.pk',
     },
   ],
 };
