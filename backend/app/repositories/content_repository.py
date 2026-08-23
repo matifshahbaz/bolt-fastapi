@@ -370,35 +370,34 @@ def _web_development_modules() -> list[CourseModule]:
             "web-m1",
             "بنیاد — ویب کیا ہے؟",
             [
-                "انٹرنیٹ کیسے کام کرتا ہے؟ — ڈاک خانے کی مثال",
-                "اپنا سسٹم تیار کرنا — براؤزر، VS Code اور فولڈر",
+                "سبق 1.1: انٹرنیٹ کیا ہے؟ اور Hello Pakistan والی پہلی ویب سائٹ",
+                "سبق 1.2: اپنا ورکشاپ VS Code پر تیار کرو اور موبائل سیٹ اپ",
             ],
         ),
         (
             "web-m2",
             "HTML — ویب سائٹ کی اینٹیں",
             [
-                "HTML کا تعارف اور پہلا ویب صفحہ",
-                "لاہور فوڈ سٹریٹ کا مینو بناتے ہیں",
-                "تصویری گیلری اور عید دعوت کا فارم",
+                "سبق 2.1: بریانی شاپ کا مینو بناتے ہیں — HTML کی لسٹیں",
+                "سبق 2.2: تصویر اور لنک لگانا — دکان کو اصلی بناؤ",
+                "سبق 2.3: آرڈر فارم بنانا — گاہک سے ڈیٹا لینا",
             ],
         ),
         (
             "web-m3",
             "CSS — ڈیزائن اور خوبصورتی",
             [
-                "رنگ، فونٹ، فاصلے اور Box Model",
-                "ٹرک آرٹ سے متاثر Responsive ڈیزائن",
-                "پراجیکٹ: عید مبارک کارڈ ویب سائٹ",
+                "سبق 3.1: ویب سائٹ کو رنگین بنانا — CSS کا جادو",
+                "سبق 3.2: Box Model اور Layout — دکان کو ترتیب دینا",
+                "سبق 3.3: موبائل فرینڈلی ویب سائٹ — Responsive ڈیزائن",
             ],
         ),
         (
             "web-m4",
-            "JavaScript — ویب سائٹ میں جان ڈالنا",
+            "ویب سائٹ لائیو کریں اور پہلا کلائنٹ حاصل کریں",
             [
-                "JavaScript کی بنیاد: Variables، Functions اور Events",
-                "بٹن پر کلک سے نام ظاہر کرنا",
-                "پراجیکٹ: PSL کا چھوٹا سکور بورڈ",
+                "سبق 4.1: ویب سائٹ کو انٹرنیٹ پر لائیو کرنا — ڈومین اور ہوسٹنگ",
+                "سبق 4.2: پہلا کلائنٹ کیسے لیں؟ — Fiverr اور لوکل مارکیٹنگ",
             ],
         ),
         (
@@ -434,7 +433,7 @@ def _web_development_modules() -> list[CourseModule]:
         ),
     ]
 
-    return [
+    modules = [
         CourseModule(
             id=module_id,
             title=module_title,
@@ -445,6 +444,83 @@ def _web_development_modules() -> list[CourseModule]:
         )
         for module_id, module_title, lesson_titles in module_specs
     ]
+
+    module1 = next(module for module in modules if module.id == "web-m1")
+    module1.lessons = [
+        Lesson(
+            id="web-m1-t1",
+            kind="text",
+            title="سبق 1.1: انٹرنیٹ کیا ہے؟ اور Hello Pakistan والی پہلی ویب سائٹ",
+            duration="7 منٹ پڑھائی",
+        ),
+        Lesson(
+            id="web-m1-t2",
+            kind="text",
+            title="سبق 1.2: اپنا ورکشاپ VS Code پر تیار کرو اور موبائل سیٹ اپ",
+            duration="6 منٹ پڑھائی",
+        ),
+    ]
+
+    module2 = next(module for module in modules if module.id == "web-m2")
+    module2.lessons = [
+        Lesson(
+            id="web-m2-t1",
+            kind="text",
+            title="سبق 2.1: بریانی شاپ کا مینو بناتے ہیں — HTML کی لسٹیں",
+            duration="7 منٹ پڑھائی",
+        ),
+        Lesson(
+            id="web-m2-t2",
+            kind="text",
+            title="سبق 2.2: تصویر اور لنک لگانا — دکان کو اصلی بناؤ",
+            duration="6 منٹ پڑھائی",
+        ),
+        Lesson(
+            id="web-m2-t3",
+            kind="text",
+            title="سبق 2.3: آرڈر فارم بنانا — گاہک سے ڈیٹا لینا",
+            duration="7 منٹ پڑھائی",
+        ),
+    ]
+
+    module3 = next(module for module in modules if module.id == "web-m3")
+    module3.lessons = [
+        Lesson(
+            id="web-m3-t1",
+            kind="text",
+            title="سبق 3.1: ویب سائٹ کو رنگین بنانا — CSS کا جادو",
+            duration="9 منٹ پڑھائی",
+        ),
+        Lesson(
+            id="web-m3-t2",
+            kind="text",
+            title="سبق 3.2: Box Model اور Layout — دکان کو ترتیب دینا",
+            duration="9 منٹ پڑھائی",
+        ),
+        Lesson(
+            id="web-m3-t3",
+            kind="text",
+            title="سبق 3.3: موبائل فرینڈلی ویب سائٹ — Responsive ڈیزائن",
+            duration="9 منٹ پڑھائی",
+        ),
+    ]
+
+    module4 = next(module for module in modules if module.id == "web-m4")
+    module4.lessons = [
+        Lesson(
+            id="web-m4-t1",
+            kind="text",
+            title="سبق 4.1: ویب سائٹ کو انٹرنیٹ پر لائیو کرنا — ڈومین اور ہوسٹنگ",
+            duration="8 منٹ پڑھائی",
+        ),
+        Lesson(
+            id="web-m4-t2",
+            kind="text",
+            title="سبق 4.2: پہلا کلائنٹ کیسے لیں؟ — Fiverr اور لوکل مارکیٹنگ",
+            duration="9 منٹ پڑھائی",
+        ),
+    ]
+    return modules
 
 
 def _excel_dashboard_modules() -> list[CourseModule]:
@@ -655,7 +731,7 @@ class ContentRepository:
             ),
             cover_image="/courses/web-development-learn-and-earn-cover.png",
             duration="تقریباً 4 گھنٹے",
-            lessons=24,
+            lessons=23,
             level="Zero to Hero — کوئی سابقہ تجربہ ضروری نہیں",
             language="آسان اردو",
             price=COURSE_PRICE,

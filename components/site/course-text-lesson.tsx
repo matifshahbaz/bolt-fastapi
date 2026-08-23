@@ -216,7 +216,7 @@ export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete 
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t pt-6">
           <p className="text-sm text-muted-foreground">
-            یہ مواد صرف enrolled students کے لیے ہے اور بعد میں اصل article میں replace کیا جا سکتا ہے۔
+            یہ مواد صرف داخلہ لینے والے طلبہ کے لیے دستیاب ہے۔
           </p>
           <Button onClick={onMarkComplete} disabled={isLoading || completed}>
             <CheckCircle2 className="mr-2 h-4 w-4" />
@@ -255,6 +255,15 @@ function LessonArticleBody({
             <p key={index} className="text-right text-2xl leading-[2.15] text-black">
               {section.text}
             </p>
+          );
+        }
+        if (section.type === 'list') {
+          return (
+            <ul key={index} className="list-disc space-y-4 pr-10 text-right text-2xl leading-[2.15] text-black marker:text-primary">
+              {(section.items ?? []).map((item) => (
+                <li key={item} className="pr-2">{item}</li>
+              ))}
+            </ul>
           );
         }
         if (section.type === 'quote') {

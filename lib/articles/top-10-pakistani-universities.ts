@@ -6,7 +6,7 @@ export const top10PakistaniUniversitiesArticle: Article = {
   excerpt:
     'پاکستان کی ٹاپ یونیورسٹیوں کا لوکیشن، کیمپس، پروگرامز، فیس، داخلہ، اسکالرشپ، انڈسٹری لنکس اور ریسرچ کے لحاظ سے تفصیلی موازنہ۔',
   coverImage: '/articles/pakistan-top-10-universities-hero-cobalt-aqua.png',
-  category: 'تعلیم',
+  category: 'کیریئر رہنمائی',
   author: 'عاطف شہباز',
   publishedAt: '20 اگست 2026',
   readingTime: '10 منٹ',

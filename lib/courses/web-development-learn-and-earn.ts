@@ -1,5 +1,15 @@
 import type { Course, CourseLesson } from '@/lib/data';
 import { COURSE_PRICE } from '@/lib/course-policy';
+import { webDevelopmentModule1Lesson1Notes } from '@/lib/articles/web-development-module1-lesson1-notes';
+import { webDevelopmentModule1Lesson2Notes } from '@/lib/articles/web-development-module1-lesson2-notes';
+import { webDevelopmentModule2Lesson1Notes } from '@/lib/articles/web-development-module2-lesson1-notes';
+import { webDevelopmentModule2Lesson2Notes } from '@/lib/articles/web-development-module2-lesson2-notes';
+import { webDevelopmentModule2Lesson3Notes } from '@/lib/articles/web-development-module2-lesson3-notes';
+import { webDevelopmentModule3Lesson1Notes } from '@/lib/articles/web-development-module3-lesson1-notes';
+import { webDevelopmentModule3Lesson2Notes } from '@/lib/articles/web-development-module3-lesson2-notes';
+import { webDevelopmentModule3Lesson3Notes } from '@/lib/articles/web-development-module3-lesson3-notes';
+import { webDevelopmentModule4Lesson1Notes } from '@/lib/articles/web-development-module4-lesson1-notes';
+import { webDevelopmentModule4Lesson2Notes } from '@/lib/articles/web-development-module4-lesson2-notes';
 
 function comingSoonLesson(moduleId: string, lessonNumber: number, title: string, duration = '20 منٹ'): CourseLesson {
   return {
@@ -21,7 +31,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
     'یہ کوئی بورنگ کتاب والا کورس نہیں۔ ہم پاکستانی مثالوں سے بالکل صفر سے سیکھیں گے کہ کوڈ سے ویب سائٹ کیسے بنتی ہے۔ آخر میں آپ کے پاس اپنی ذاتی لائیو ویب سائٹ ہوگی جس کا لنک آپ اپنے WhatsApp Status، CV اور فری لانسنگ پروفائل پر لگا سکیں گے۔',
   coverImage: '/courses/web-development-learn-and-earn-cover.png',
   duration: 'تقریباً 4 گھنٹے',
-  lessons: 24,
+  lessons: 23,
   level: 'Zero to Hero — کوئی سابقہ تجربہ ضروری نہیں',
   language: 'آسان اردو',
   price: COURSE_PRICE,
@@ -95,35 +105,94 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
       id: 'web-m1',
       title: 'بنیاد — ویب کیا ہے؟',
       lessons: [
-        comingSoonLesson('web-m1', 1, 'انٹرنیٹ کیسے کام کرتا ہے؟ — ڈاک خانے کی مثال'),
-        comingSoonLesson('web-m1', 2, 'اپنا سسٹم تیار کرنا — براؤزر، VS Code اور فولڈر'),
+        {
+          id: 'web-m1-t1',
+          kind: 'text',
+          title: 'سبق 1.1: انٹرنیٹ کیا ہے؟ اور Hello Pakistan والی پہلی ویب سائٹ',
+          duration: '7 منٹ پڑھائی',
+          article: webDevelopmentModule1Lesson1Notes,
+        },
+        {
+          id: 'web-m1-t2',
+          kind: 'text',
+          title: 'سبق 1.2: اپنا ورکشاپ VS Code پر تیار کرو اور موبائل سیٹ اپ',
+          duration: '6 منٹ پڑھائی',
+          article: webDevelopmentModule1Lesson2Notes,
+        },
       ],
     },
     {
       id: 'web-m2',
       title: 'HTML — ویب سائٹ کی اینٹیں',
       lessons: [
-        comingSoonLesson('web-m2', 1, 'HTML کا تعارف اور پہلا ویب صفحہ'),
-        comingSoonLesson('web-m2', 2, 'لاہور فوڈ سٹریٹ کا مینو بناتے ہیں'),
-        comingSoonLesson('web-m2', 3, 'تصویری گیلری اور عید دعوت کا فارم'),
+        {
+          id: 'web-m2-t1',
+          kind: 'text',
+          title: 'سبق 2.1: بریانی شاپ کا مینو بناتے ہیں — HTML کی لسٹیں',
+          duration: '7 منٹ پڑھائی',
+          article: webDevelopmentModule2Lesson1Notes,
+        },
+        {
+          id: 'web-m2-t2',
+          kind: 'text',
+          title: 'سبق 2.2: تصویر اور لنک لگانا — دکان کو اصلی بناؤ',
+          duration: '6 منٹ پڑھائی',
+          article: webDevelopmentModule2Lesson2Notes,
+        },
+        {
+          id: 'web-m2-t3',
+          kind: 'text',
+          title: 'سبق 2.3: آرڈر فارم بنانا — گاہک سے ڈیٹا لینا',
+          duration: '7 منٹ پڑھائی',
+          article: webDevelopmentModule2Lesson3Notes,
+        },
       ],
     },
     {
       id: 'web-m3',
       title: 'CSS — ڈیزائن اور خوبصورتی',
       lessons: [
-        comingSoonLesson('web-m3', 1, 'رنگ، فونٹ، فاصلے اور Box Model'),
-        comingSoonLesson('web-m3', 2, 'ٹرک آرٹ سے متاثر Responsive ڈیزائن'),
-        comingSoonLesson('web-m3', 3, 'پراجیکٹ: عید مبارک کارڈ ویب سائٹ'),
+        {
+          id: 'web-m3-t1',
+          kind: 'text',
+          title: 'سبق 3.1: ویب سائٹ کو رنگین بنانا — CSS کا جادو',
+          duration: '9 منٹ پڑھائی',
+          article: webDevelopmentModule3Lesson1Notes,
+        },
+        {
+          id: 'web-m3-t2',
+          kind: 'text',
+          title: 'سبق 3.2: Box Model اور Layout — دکان کو ترتیب دینا',
+          duration: '9 منٹ پڑھائی',
+          article: webDevelopmentModule3Lesson2Notes,
+        },
+        {
+          id: 'web-m3-t3',
+          kind: 'text',
+          title: 'سبق 3.3: موبائل فرینڈلی ویب سائٹ — Responsive ڈیزائن',
+          duration: '9 منٹ پڑھائی',
+          article: webDevelopmentModule3Lesson3Notes,
+        },
       ],
     },
     {
       id: 'web-m4',
-      title: 'JavaScript — ویب سائٹ میں جان ڈالنا',
+      title: 'ویب سائٹ لائیو کریں اور پہلا کلائنٹ حاصل کریں',
       lessons: [
-        comingSoonLesson('web-m4', 1, 'JavaScript کی بنیاد: Variables، Functions اور Events'),
-        comingSoonLesson('web-m4', 2, 'بٹن پر کلک سے نام ظاہر کرنا'),
-        comingSoonLesson('web-m4', 3, 'پراجیکٹ: PSL کا چھوٹا سکور بورڈ'),
+        {
+          id: 'web-m4-t1',
+          kind: 'text',
+          title: 'سبق 4.1: ویب سائٹ کو انٹرنیٹ پر لائیو کرنا — ڈومین اور ہوسٹنگ',
+          duration: '8 منٹ پڑھائی',
+          article: webDevelopmentModule4Lesson1Notes,
+        },
+        {
+          id: 'web-m4-t2',
+          kind: 'text',
+          title: 'سبق 4.2: پہلا کلائنٹ کیسے لیں؟ — Fiverr اور لوکل مارکیٹنگ',
+          duration: '9 منٹ پڑھائی',
+          article: webDevelopmentModule4Lesson2Notes,
+        },
       ],
     },
     {

@@ -14,11 +14,26 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const name = form.name.trim();
+    const message = form.message.trim();
+
+    if (name.length < 2) {
+      setStatus('error');
+      setFeedback('براہ کرم کم از کم 2 حروف پر مشتمل نام درج کریں۔');
+      return;
+    }
+
+    if (message.length < 10) {
+      setStatus('error');
+      setFeedback('براہ کرم کم از کم 10 حروف پر مشتمل پیغام لکھیں۔');
+      return;
+    }
+
     setStatus('submitting');
     setFeedback('');
 
     try {
-      const response = await submitContactForm(form);
+      const response = await submitContactForm({ ...form, name, message });
       setStatus('success');
       setFeedback(response.message);
       setForm({ name: '', email: '', message: '' });
@@ -118,6 +133,7 @@ export default function ContactPage() {
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="اپنا نام درج کریں"
                     required
+                    maxLength={120}
                     className="w-full rounded-xl border-2 border-border bg-white px-4 py-3 text-lg text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors"
                   />
                 </div>
@@ -144,6 +160,7 @@ export default function ContactPage() {
                     placeholder="اپنا پیغام لکھیں"
                     rows={5}
                     required
+                    maxLength={5000}
                     className="w-full rounded-xl border-2 border-border bg-white px-4 py-3 text-lg text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none transition-colors resize-none"
                   />
                 </div>

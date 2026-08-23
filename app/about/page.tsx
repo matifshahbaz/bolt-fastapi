@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 
 export const metadata: Metadata = {
   title: 'ہمارے بارے میں',
-  description: 'شمع.pk کے مقصد، وژن اور پاکستانی نوجوانوں کے لیے اردو کیریئر رہنمائی کے عزم کے بارے میں جانیں۔',
+  description: 'شمع.pk کے مقصد، وژن اور پاکستانی نوجوانوں کے لیے اردو کیریئر رہنمائی اور عملی مہارتوں کے کورسز کے بارے میں جانیں۔',
   alternates: {
     canonical: 'https://shama.pk/about',
   },
@@ -22,10 +22,10 @@ export default function AboutPage() {
             ہمارے بارے میں
           </Badge>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-nastaliq text-foreground mb-6 leading-[1.6]">
-            شمع.pk — پاکستان کے نوجوانوں کے لیے کیریئر رہنمائی
+            شمع.pk — کیریئر رہنمائی اور عملی مہارتیں
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            ہم پاکستان کے نوجوانوں کو اردو میں معیاری کیریئر رہنمائی فراہم کرنے کا عزم رکھتے ہیں۔
+            ہم پاکستان کے نوجوانوں کو اردو میں معیاری کیریئر رہنمائی، عملی کورسز اور قابلِ عمل تعلیمی مواد فراہم کرتے ہیں۔
           </p>
         </div>
       </section>
@@ -44,7 +44,7 @@ export default function AboutPage() {
               ہمارا ماننا ہے کہ زبان کو رکاوٹ نہیں بننا چاہیے۔ ہر نوجوان، چاہے وہ کسی بھی پس منظر سے ہو، اپنے مستقبل کے بارے میں واضح رہنمائی کا مستحق ہے۔ شمع.pk اسی خواب کو حقیقت میں بدلنے کی کوشش ہے۔
             </p>
             <p className="text-lg text-muted-foreground leading-[2.2] text-justify">
-              آج شمع.pk ایک کورس کے ساتھ شروعات کر رہا ہے۔ ہم حقیقی طلبہ کی ضروریات اور رائے کے مطابق مزید کورسز اور مضامین شامل کریں گے — سب اردو میں، سب پاکستانی نوجوانوں کے لیے۔
+              آج شمع.pk پر کیریئر رہنمائی، ویب ڈیولپمنٹ اور ایکسل ڈیش بورڈز سمیت متعدد کورسز موجود ہیں۔ ہم حقیقی طلبہ کی ضروریات اور رائے کے مطابق نئے کورسز اور مضامین شامل کرتے رہیں گے — سب اردو میں، سب پاکستانی نوجوانوں کے لیے۔
             </p>
           </div>
         </div>
@@ -100,11 +100,11 @@ export default function AboutPage() {
             ہمارے ساتھ اپنا مستقبل بنائیں
           </h2>
           <p className="text-lg text-muted-foreground mb-8">
-            شمع.pk کے پہلے کورس سے اپنا کیریئر سفر شروع کریں۔
+            اپنی ضرورت کے مطابق کورس منتخب کریں اور سیکھنے کا اگلا قدم اٹھائیں۔
           </p>
-          <Link href="/course/youth-career-guidance">
+          <Link href="/courses">
             <Button size="lg" className="text-lg">
-              کورس دیکھیں
+              تمام کورسز دیکھیں
               <ArrowLeft className="mr-2 h-5 w-5" />
             </Button>
           </Link>

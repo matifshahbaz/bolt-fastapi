@@ -673,6 +673,7 @@ export default async function ArticleDetailPage({
                 );
               }
               if (section.type === 'image') {
+                const caption = section.title ?? section.alt;
                 return (
                   <div
                     key={idx}
@@ -686,9 +687,9 @@ export default async function ArticleDetailPage({
                         loading="lazy"
                       />
                     </div>
-                    {section.alt ? (
+                    {caption ? (
                       <div className="border-t bg-white px-6 py-4">
-                        <p className="text-xl leading-relaxed text-black/85">{section.alt}</p>
+                        <p className="text-xl leading-relaxed text-black/85">{caption}</p>
                       </div>
                     ) : null}
                   </div>
