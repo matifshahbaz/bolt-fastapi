@@ -35,7 +35,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
   level: 'Zero to Hero — کوئی سابقہ تجربہ ضروری نہیں',
   language: 'آسان اردو',
   price: COURSE_PRICE,
-  availability: 'coming-soon',
+  availability: 'available',
   instructor: {
     name: 'عاطف شہباز',
     title: 'بانی، شمع.pk',

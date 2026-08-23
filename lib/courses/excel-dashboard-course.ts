@@ -52,7 +52,7 @@ export const excelDashboardCourse: Course = {
   level: 'درمیانی',
   language: 'اردو',
   price: COURSE_PRICE,
-  availability: 'coming-soon',
+  availability: 'available',
   instructor: {
     name: 'عاطف شہباز',
     title: 'چارٹرڈ اکاؤنٹنٹ · CFO · بانی، شمع.pk',

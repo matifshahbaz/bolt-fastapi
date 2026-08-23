@@ -275,7 +275,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                 <Badge className="bg-primary/10 text-primary hover:bg-primary/10">{course.level}</Badge>
                 <Badge className="bg-accent/10 text-accent hover:bg-accent/10">{course.language}</Badge>
                 <Badge className={enrollmentOpen ? 'bg-green-100 text-green-700 hover:bg-green-100' : 'bg-amber-100 text-amber-800 hover:bg-amber-100'}>
-                  {enrollmentOpen ? 'نمایاں کورس' : 'جلد دستیاب'}
+                  {enrollmentOpen ? 'داخلہ جاری ہے' : 'جلد دستیاب'}
                 </Badge>
               </div>
               <h1 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-nastaliq text-accent leading-[1.6]">
