@@ -82,7 +82,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/articles" className="text-base text-background/70 hover:text-white transition-colors">
-                  کاروباری
+                  کاروبار
                 </Link>
               </li>
               <li>

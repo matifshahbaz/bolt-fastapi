@@ -141,6 +141,10 @@ function getIsoPublishedDate(date: string) {
 }
 
 const articleSeo: Record<string, { englishTitle: string; englishDescription: string }> = {
+  'systems-limited-50-year-journey': {
+    englishTitle: 'Systems Limited: A 50-Year Technology Journey from Pakistan',
+    englishDescription: 'An Urdu account of how Pakistan’s first software company adapted across five decades, expanded globally and built lessons for young professionals.',
+  },
   'excel-files-to-useful-dashboards': {
     englishTitle: 'How to Turn Ordinary Excel Files into Useful Dashboards',
     englishDescription: 'A practical Urdu guide to transforming finance, sales, operations, procurement and HR Excel reports into decision-ready dashboards.',
@@ -319,7 +323,7 @@ export default async function ArticleDetailPage({
     .filter((a) => a.id !== article.id && a.category === article.category)
     .slice(0, 3);
 
-  const canonicalUrl = `${siteUrl}/articles/${article.id}`;
+  const canonicalUrl = `${siteUrl}/article/${article.id}`;
   const publishedDate = getIsoPublishedDate(article.publishedAt);
   const structuredData = {
     '@context': 'https://schema.org',

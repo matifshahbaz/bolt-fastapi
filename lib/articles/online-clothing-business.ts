@@ -6,7 +6,7 @@ export const onlineClothingBusinessArticle: Article = {
   excerpt:
     'صرف موبائل، بغیر اسٹاک اور ایک نئے پاکستانی سیلر کے پہلے 6 ماہ کا سفر — اصل کاروباری تجربہ، غلط فہمیاں اور عملی فیصلے۔',
   coverImage: '/articles/online-clothing-business-hero.jpg',
-  category: 'کاروباری',
+  category: 'کاروبار',
   author: 'عاطف شہباز',
   publishedAt: '17 اگست 2026',
   readingTime: '12 منٹ',

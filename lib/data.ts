@@ -23,6 +23,7 @@ import { onlineClothingBusinessArticle } from '@/lib/articles/online-clothing-bu
 import { top10PakistaniUniversitiesArticle } from '@/lib/articles/top-10-pakistani-universities';
 import { fixAiGeneratedPosterTextArticle } from '@/lib/articles/fix-ai-generated-poster-text';
 import { excelFilesToUsefulDashboardsArticle } from '@/lib/articles/excel-files-to-useful-dashboards';
+import { systemsLimited50YearJourneyArticle } from '@/lib/articles/systems-limited-50-year-journey';
 import { excelDashboardCourse } from '@/lib/courses/excel-dashboard-course';
 import { webDevelopmentLearnAndEarnCourse } from '@/lib/courses/web-development-learn-and-earn';
 import { COURSE_PRICE } from '@/lib/course-policy';
@@ -394,7 +395,7 @@ export const categories: Category[] = [
   },
   {
     id: '2',
-    name: 'کاروباری',
+    name: 'کاروبار',
     slug: 'entrepreneurship',
     icon: 'Rocket',
     color: 'text-orange-500',
@@ -412,13 +413,6 @@ export const categories: Category[] = [
     slug: 'skills',
     icon: 'Sparkles',
     color: 'text-purple-600',
-  },
-  {
-    id: '5',
-    name: 'کاروبار',
-    slug: 'business',
-    icon: 'Building2',
-    color: 'text-emerald-600',
   },
 ];
 
@@ -731,7 +725,7 @@ export const articles: Article[] = [
       'جن خاندانوں میں اولاد کی پرورش کے ساتھ ساتھ تعلیم پر بھی توجہ دی جاتی ہے، وہاں بچے زیادہ قابل بن کر ابھرتے ہیں۔ اسی طرح کاروبار شروع کرنے کے لیے...',
     coverImage:
       'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'کاروباری',
+    category: 'کاروبار',
     author: 'عاطف شہباز',
     publishedAt: '10 جنوری 2025',
     readingTime: '10 منٹ',
@@ -855,7 +849,7 @@ export const articles: Article[] = [
       'جن خاندانوں میں اولاد کی پرورش کے ساتھ ساتھ تعلیم پر بھی توجہ دی جاتی ہے، وہاں بچے زیادہ قابل بن کر ابھرتے ہیں۔ فری لانسنگ کے ذریعے...',
     coverImage:
       'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    category: 'کاروباری',
+    category: 'کاروبار',
     author: 'عاطف شہباز',
     publishedAt: '28 دسمبر 2024',
     readingTime: '9 منٹ',
@@ -915,6 +909,7 @@ export const articles: Article[] = [
 ];
 
 export const publishedArticles: Article[] = [
+  systemsLimited50YearJourneyArticle,
   excelFilesToUsefulDashboardsArticle,
   fixAiGeneratedPosterTextArticle,
   top10PakistaniUniversitiesArticle,
