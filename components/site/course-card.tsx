@@ -9,12 +9,12 @@ export function CourseCard({ course }: { course: Course }) {
     <Link href={`/course/${course.slug}`} className="group block h-full">
       <div className="card-hover flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-sm">
         {/* Cover */}
-        <div className={`relative overflow-hidden bg-white ${course.coverAspect === 'wide' ? 'aspect-[11/6]' : 'aspect-[3/2]'}`}>
+        <div className="relative aspect-[3/2] overflow-hidden bg-white">
           <Image
             src={course.coverImage}
             alt={course.title}
             fill
-            className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+            className={`${course.coverAspect === 'wide' ? 'object-cover' : 'object-contain'} transition-transform duration-500 group-hover:scale-[1.02]`}
           />
           <div className="absolute top-3 right-3">
             <Badge className={course.availability === 'coming-soon' ? 'bg-amber-100 text-amber-900 hover:bg-amber-100' : 'bg-accent text-accent-foreground'}>
@@ -25,7 +25,7 @@ export function CourseCard({ course }: { course: Course }) {
 
         {/* Content */}
         <div className="flex flex-1 flex-col p-5">
-          <h3 className="text-xl font-nastaliq text-foreground mb-2 line-clamp-2 leading-relaxed">
+          <h3 className="text-xl font-nastaliq text-accent mb-2 line-clamp-2 leading-relaxed">
             {course.title}
           </h3>
           <p className="text-base text-muted-foreground line-clamp-2 mb-4 leading-relaxed">

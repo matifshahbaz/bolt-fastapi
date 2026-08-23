@@ -654,7 +654,7 @@ class ContentRepository:
                 "لوکل کلائنٹس اور فری لانسنگ کی تیاری پر مبنی چھ ہفتوں کا کورس۔"
             ),
             cover_image="/courses/web-development-learn-and-earn-cover.png",
-            duration="6 ہفتے",
+            duration="تقریباً 4 گھنٹے",
             lessons=24,
             level="Zero to Hero — کوئی سابقہ تجربہ ضروری نہیں",
             language="آسان اردو",

@@ -278,7 +278,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                   {enrollmentOpen ? 'نمایاں کورس' : 'جلد دستیاب'}
                 </Badge>
               </div>
-              <h1 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-nastaliq text-foreground leading-[1.6]">
+              <h1 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-nastaliq text-accent leading-[1.6]">
                 {course.title}
               </h1>
               <p className="mb-6 text-xl text-muted-foreground leading-relaxed">{course.subtitle}</p>
@@ -333,7 +333,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
               ) : null}
 
               <div className="mt-8 border-r-4 border-primary bg-white/75 px-5 py-6 text-right shadow-sm sm:px-6" dir="rtl">
-                <h2 className="text-2xl font-nastaliq leading-relaxed text-foreground">یہ کورس کن لوگوں کے لیے ہے؟</h2>
+                <h2 className="text-2xl font-nastaliq leading-relaxed text-accent">یہ کورس کن لوگوں کے لیے ہے؟</h2>
                 <p className="mt-2 text-base text-muted-foreground">{audienceIntro}</p>
                 <ul className="mt-4 grid list-disc grid-cols-1 gap-x-8 gap-y-2 pr-5 text-base leading-relaxed text-foreground md:grid-cols-2">
                   {audience.map((item) => (
@@ -424,13 +424,13 @@ export function CourseExperience({ course }: CourseExperienceProps) {
 
       <section className="py-16 bg-white">
         <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-6 text-2xl md:text-3xl font-nastaliq text-foreground">کورس کا جائزہ</h2>
+          <h2 className="mb-6 text-2xl md:text-3xl font-nastaliq text-accent">کورس کا جائزہ</h2>
           <div className="mb-8 space-y-4 text-lg leading-relaxed text-muted-foreground">
             {(course.descriptionParagraphs ?? [course.description]).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
 
           <div className="rounded-2xl border-2 border-primary/10 bg-primary/5 p-8">
-            <h3 className="mb-6 text-2xl font-nastaliq text-foreground">آپ کیا سیکھیں گے</h3>
+            <h3 className="mb-6 text-2xl font-nastaliq text-accent">آپ کیا سیکھیں گے</h3>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {course.outcomes.map((outcome, index) => (
                 <div key={index} className="flex items-start gap-3">
@@ -443,11 +443,11 @@ export function CourseExperience({ course }: CourseExperienceProps) {
 
           {course.benefits?.length ? (
             <div className="mt-10">
-              <h3 className="text-2xl font-nastaliq text-foreground">یہ مہارت آپ کے کام میں کیا بدلے گی؟</h3>
+              <h3 className="text-2xl font-nastaliq text-accent">یہ مہارت آپ کے کام میں کیا بدلے گی؟</h3>
               <div className="mt-5 divide-y border-y">
                 {course.benefits.map((benefit) => (
                   <div key={benefit.title} className="grid gap-2 py-5 md:grid-cols-[minmax(220px,0.8fr)_minmax(0,1.7fr)] md:gap-8">
-                    <h4 className="text-lg font-semibold text-foreground">{benefit.title}</h4>
+                    <h4 className="text-lg font-semibold text-accent">{benefit.title}</h4>
                     <p className="text-base leading-relaxed text-muted-foreground">{benefit.description}</p>
                   </div>
                 ))}
@@ -457,7 +457,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
 
           {course.bonuses?.length ? (
             <div className="mt-8 border-r-4 border-accent bg-accent/5 p-6">
-              <h3 className="text-2xl font-nastaliq text-foreground">کورس بونس</h3>
+              <h3 className="text-2xl font-nastaliq text-accent">کورس بونس</h3>
               <ul className="mt-4 grid gap-3 md:grid-cols-3">
                 {course.bonuses.map((bonus) => (
                   <li key={bonus} className="flex items-start gap-2 text-base leading-relaxed text-foreground">
@@ -473,7 +473,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
             <div className="mt-10 grid gap-10 border-y py-8 md:grid-cols-2">
               {course.requirements?.length ? (
                 <div>
-                  <h3 className="text-2xl font-nastaliq text-foreground">ضروری شرائط</h3>
+                  <h3 className="text-2xl font-nastaliq text-accent">ضروری شرائط</h3>
                   <ul className="mt-4 space-y-3">
                     {course.requirements.map((requirement) => (
                       <li key={requirement} className="flex items-start gap-2 text-base leading-relaxed text-foreground">
@@ -485,7 +485,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
               ) : null}
               {course.notFor?.length ? (
                 <div>
-                  <h3 className="text-2xl font-nastaliq text-foreground">یہ کورس کن کے لیے نہیں ہے؟</h3>
+                  <h3 className="text-2xl font-nastaliq text-accent">یہ کورس کن کے لیے نہیں ہے؟</h3>
                   <ul className="mt-4 list-disc space-y-3 pr-5 text-base leading-relaxed text-muted-foreground">
                     {course.notFor.map((item) => <li key={item}>{item}</li>)}
                   </ul>
@@ -496,7 +496,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
 
           {course.included?.length ? (
             <div className="mt-10 border-r-4 border-primary bg-primary/5 p-6">
-              <h3 className="text-2xl font-nastaliq text-foreground">کورس کے ساتھ کیا ملتا ہے؟</h3>
+              <h3 className="text-2xl font-nastaliq text-accent">کورس کے ساتھ کیا ملتا ہے؟</h3>
               <ul className="mt-5 grid gap-3 md:grid-cols-2">
                 {course.included.map((item) => (
                   <li key={item} className="flex items-start gap-2 text-base leading-relaxed text-foreground">
@@ -539,7 +539,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
 
       <section className="py-16 bg-secondary/30">
         <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-2 text-2xl md:text-3xl font-nastaliq text-foreground">نصاب</h2>
+          <h2 className="mb-2 text-2xl md:text-3xl font-nastaliq text-accent">نصاب</h2>
           <p className="mb-8 text-lg text-muted-foreground">{visibleModules.length} ماڈیول، {visibleLessonCount} لیکچرز</p>
           {course.curriculumIntro ? <p className="-mt-5 mb-8 border-r-4 border-accent pr-4 text-base leading-relaxed text-muted-foreground">{course.curriculumIntro}</p> : null}
 
@@ -549,7 +549,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                 lessonPlayback ? (
                   <>
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <h3 className="text-xl font-nastaliq text-foreground">اب چل رہا ہے: {activeLesson.lesson.title}</h3>
+                      <h3 className="text-xl font-nastaliq text-accent">اب چل رہا ہے: {activeLesson.lesson.title}</h3>
                       <span className="text-sm text-muted-foreground">
                         {lessonPlayback.completion_threshold_percent}% دیکھنے پر سبق مکمل ہوگا
                       </span>
@@ -563,7 +563,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                   </>
                 ) : (
                   <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center">
-                    <h3 className="text-xl font-nastaliq text-[#2F5496]">{activeLesson.lesson.title}</h3>
+                    <h3 className="text-xl font-nastaliq text-accent">{activeLesson.lesson.title}</h3>
                     <p className="mt-3 text-lg text-black">
                       {playbackFeedback || 'یہ ویڈیو بعد میں Cloudflare Stream سے replace کی جائے گی۔'}
                     </p>
@@ -586,7 +586,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
           <Accordion type="multiple" defaultValue={curriculumModules[0] ? [curriculumModules[0].id] : []}>
             {curriculumModules.map((module, moduleIndex) => (
               <AccordionItem key={module.id} value={module.id} className="mb-3 overflow-hidden rounded-xl border bg-card px-6">
-                <AccordionTrigger className="text-xl font-nastaliq text-foreground hover:no-underline">
+                <AccordionTrigger className="text-xl font-nastaliq text-accent hover:no-underline">
                   <div className="flex items-center gap-3 text-right">
                     <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-base font-bold text-primary">{moduleIndex + 1}</span>
                     <span>
@@ -696,7 +696,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
           {course.fastTrack ? (
             <div className="mt-10 border border-[#2F5496]/25 bg-white p-6 shadow-sm sm:p-8">
               <Badge className="bg-[#2F5496] text-white hover:bg-[#2F5496]">فاسٹ ٹریک</Badge>
-              <h3 className="mt-4 text-2xl font-nastaliq text-foreground">{course.fastTrack.title}</h3>
+              <h3 className="mt-4 text-2xl font-nastaliq text-accent">{course.fastTrack.title}</h3>
               <p className="mt-3 text-base leading-relaxed text-muted-foreground">{course.fastTrack.description}</p>
               <ol className="mt-6 grid gap-2 sm:grid-cols-2">
                 {course.fastTrack.lessons.map((lesson, index) => (
@@ -717,13 +717,13 @@ export function CourseExperience({ course }: CourseExperienceProps) {
           <div className="container mx-auto grid max-w-5xl gap-10 px-4 sm:px-6 md:grid-cols-2 lg:px-8">
             {course.parentMessage ? (
               <div className="border-r-4 border-primary pr-6">
-                <h2 className="text-2xl font-nastaliq text-foreground">والدین کے لیے پیغام</h2>
+                <h2 className="text-2xl font-nastaliq text-accent">والدین کے لیے پیغام</h2>
                 <p className="mt-4 text-lg leading-[2] text-muted-foreground">{course.parentMessage}</p>
               </div>
             ) : null}
             {course.certificate ? (
               <div className="border-r-4 border-accent pr-6">
-                <h2 className="text-2xl font-nastaliq text-foreground">سرٹیفکیٹ اور اگلا قدم</h2>
+                <h2 className="text-2xl font-nastaliq text-accent">سرٹیفکیٹ اور اگلا قدم</h2>
                 <p className="mt-4 text-lg leading-[2] text-muted-foreground">{course.certificate}</p>
               </div>
             ) : null}
@@ -733,13 +733,13 @@ export function CourseExperience({ course }: CourseExperienceProps) {
 
       <section className="py-16 bg-white">
         <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-8 text-2xl md:text-3xl font-nastaliq text-foreground">استاد</h2>
+          <h2 className="mb-8 text-2xl md:text-3xl font-nastaliq text-accent">استاد</h2>
           <div className="flex flex-col items-start gap-8 md:flex-row">
             <div className="flex h-32 w-32 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
               <UserRound className="h-14 w-14" />
             </div>
             <div>
-              <h3 className="mb-1 text-2xl font-nastaliq text-foreground">{course.instructor.name}</h3>
+              <h3 className="mb-1 text-2xl font-nastaliq text-accent">{course.instructor.name}</h3>
               <p className="mb-4 text-lg text-primary">{course.instructor.title}</p>
               <p className="text-lg text-muted-foreground leading-relaxed">{course.instructor.bio}</p>
             </div>

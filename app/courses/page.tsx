@@ -15,7 +15,7 @@ export default async function CoursesPage() {
     <div className="flex flex-col">
       <section className="bg-gradient-to-b from-primary/5 to-background py-16">
         <div className="container mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <h1 className="mb-4 text-3xl font-nastaliq leading-[1.6] text-foreground md:text-4xl lg:text-5xl">
+          <h1 className="mb-4 text-3xl font-nastaliq leading-[1.6] text-accent md:text-4xl lg:text-5xl">
             کورسز
           </h1>
           <p className="mx-auto max-w-2xl text-xl text-muted-foreground">

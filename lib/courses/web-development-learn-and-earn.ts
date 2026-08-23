@@ -20,7 +20,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
   description:
     'یہ کوئی بورنگ کتاب والا کورس نہیں۔ ہم پاکستانی مثالوں سے بالکل صفر سے سیکھیں گے کہ کوڈ سے ویب سائٹ کیسے بنتی ہے۔ آخر میں آپ کے پاس اپنی ذاتی لائیو ویب سائٹ ہوگی جس کا لنک آپ اپنے WhatsApp Status، CV اور فری لانسنگ پروفائل پر لگا سکیں گے۔',
   coverImage: '/courses/web-development-learn-and-earn-cover.png',
-  duration: '6 ہفتے',
+  duration: 'تقریباً 4 گھنٹے',
   lessons: 24,
   level: 'Zero to Hero — کوئی سابقہ تجربہ ضروری نہیں',
   language: 'آسان اردو',
