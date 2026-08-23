@@ -23,6 +23,7 @@ const siteStructuredData = {
       name: 'شمع.pk',
       url: 'https://shama.pk',
       email: 'contact@shama.pk',
+      sameAs: ['https://www.facebook.com/shamadotpk'],
     },
     {
       '@type': 'WebSite',

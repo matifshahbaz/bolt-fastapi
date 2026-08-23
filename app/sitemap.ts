@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { publishedArticles } from '@/lib/data';
+import { courses, publishedArticles } from '@/lib/data';
 
 const siteUrl = 'https://shama.pk';
 
@@ -7,7 +7,6 @@ const publicRoutes = [
   '',
   '/articles',
   '/courses',
-  '/course/youth-career-guidance',
   '/about',
   '/contact',
   '/privacy-policy',
@@ -25,5 +24,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${siteUrl}/article/${article.id}`,
   }));
 
-  return [...pages, ...articlePages];
+  const coursePages = courses.map((course) => ({
+    url: `${siteUrl}/course/${course.slug}`,
+  }));
+
+  return [...pages, ...coursePages, ...articlePages];
 }

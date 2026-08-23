@@ -22,6 +22,10 @@ import { cvMistakesArticle } from '@/lib/articles/cv-mistakes';
 import { onlineClothingBusinessArticle } from '@/lib/articles/online-clothing-business';
 import { top10PakistaniUniversitiesArticle } from '@/lib/articles/top-10-pakistani-universities';
 import { fixAiGeneratedPosterTextArticle } from '@/lib/articles/fix-ai-generated-poster-text';
+import { excelFilesToUsefulDashboardsArticle } from '@/lib/articles/excel-files-to-useful-dashboards';
+import { excelDashboardCourse } from '@/lib/courses/excel-dashboard-course';
+import { webDevelopmentLearnAndEarnCourse } from '@/lib/courses/web-development-learn-and-earn';
+import { COURSE_PRICE } from '@/lib/course-policy';
 
 export type Category = {
   id: string;
@@ -33,18 +37,62 @@ export type Category = {
 
 export type Course = {
   id: string;
+  slug: string;
+  code?: string;
   title: string;
   subtitle: string;
   description: string;
+  seoTitle?: string;
+  metaDescription?: string;
+  openGraphDescription?: string;
   coverImage: string;
+  coverAspect?: 'standard' | 'wide';
   duration: string;
   lessons: number;
   level: string;
   language: string;
   price: string;
+  stages?: number;
   instructor: Instructor;
   outcomes: string[];
   modules: CourseModule[];
+  availability?: 'available' | 'coming-soon';
+  introVideo?: string;
+  heroPoints?: string[];
+  descriptionParagraphs?: string[];
+  audience?: string[];
+  audienceIntro?: string;
+  audienceNote?: string;
+  bonuses?: string[];
+  benefits?: CourseBenefit[];
+  requirements?: string[];
+  notFor?: string[];
+  included?: string[];
+  curriculumIntro?: string;
+  fastTrack?: CourseFastTrack;
+  earningPaths?: CourseEarningPath[];
+  actionPlan?: string;
+  parentMessage?: string;
+  certificate?: string;
+  earningsDisclaimer?: string;
+};
+
+export type CourseBenefit = {
+  title: string;
+  description: string;
+};
+
+export type CourseFastTrack = {
+  title: string;
+  description: string;
+  lessons: string[];
+  footer?: string;
+};
+
+export type CourseEarningPath = {
+  title: string;
+  subtitle: string;
+  description: string;
 };
 
 export type Instructor = {
@@ -75,6 +123,7 @@ export type CourseLesson = {
 export type CourseModule = {
   id: string;
   title: string;
+  stage?: string;
   hidden?: boolean;
   lessons: CourseLesson[];
 };
@@ -375,6 +424,7 @@ export const categories: Category[] = [
 
 export const featuredCourse: Course = {
   id: 'career-guidance-for-pakistani-youth',
+  slug: 'youth-career-guidance',
   title: 'نوجوانوں کے لیے کیریئر رہنمائی کورس: مستقبل کی کامیابی',
   subtitle: 'اپنے کیریئر کی سمت میں واضح رہنمائی حاصل کریں',
   description:
@@ -384,7 +434,8 @@ export const featuredCourse: Course = {
   lessons: 31,
   level: 'ابتدائی سے متوسط',
   language: 'اردو',
-  price: 'Rs. 500',
+  price: COURSE_PRICE,
+  introVideo: '/videos/shama-course-intro-v1.mp4',
   instructor: {
     name: 'عاطف شہباز',
     title: 'بانی، شمع.pk',
@@ -567,6 +618,12 @@ export const featuredCourse: Course = {
     },
   ],
 };
+
+export const courses: Course[] = [
+  excelDashboardCourse,
+  webDevelopmentLearnAndEarnCourse,
+  featuredCourse,
+];
 
 export const articles: Article[] = [
   softwareHouseAccountingIssuesArticle,
@@ -858,6 +915,7 @@ export const articles: Article[] = [
 ];
 
 export const publishedArticles: Article[] = [
+  excelFilesToUsefulDashboardsArticle,
   fixAiGeneratedPosterTextArticle,
   top10PakistaniUniversitiesArticle,
   onlineClothingBusinessArticle,

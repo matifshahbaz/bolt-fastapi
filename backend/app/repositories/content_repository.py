@@ -10,6 +10,8 @@ from app.schemas.content import (
     LessonArticle,
 )
 
+COURSE_PRICE = "Rs. 500"
+
 
 def _lesson_article(module_title: str, lesson_title: str, focus: str, image_url: str) -> LessonArticle:
     return LessonArticle(
@@ -362,6 +364,212 @@ def _featured_course_modules() -> list[CourseModule]:
     return modules
 
 
+def _web_development_modules() -> list[CourseModule]:
+    module_specs = [
+        (
+            "web-m1",
+            "بنیاد — ویب کیا ہے؟",
+            [
+                "انٹرنیٹ کیسے کام کرتا ہے؟ — ڈاک خانے کی مثال",
+                "اپنا سسٹم تیار کرنا — براؤزر، VS Code اور فولڈر",
+            ],
+        ),
+        (
+            "web-m2",
+            "HTML — ویب سائٹ کی اینٹیں",
+            [
+                "HTML کا تعارف اور پہلا ویب صفحہ",
+                "لاہور فوڈ سٹریٹ کا مینو بناتے ہیں",
+                "تصویری گیلری اور عید دعوت کا فارم",
+            ],
+        ),
+        (
+            "web-m3",
+            "CSS — ڈیزائن اور خوبصورتی",
+            [
+                "رنگ، فونٹ، فاصلے اور Box Model",
+                "ٹرک آرٹ سے متاثر Responsive ڈیزائن",
+                "پراجیکٹ: عید مبارک کارڈ ویب سائٹ",
+            ],
+        ),
+        (
+            "web-m4",
+            "JavaScript — ویب سائٹ میں جان ڈالنا",
+            [
+                "JavaScript کی بنیاد: Variables، Functions اور Events",
+                "بٹن پر کلک سے نام ظاہر کرنا",
+                "پراجیکٹ: PSL کا چھوٹا سکور بورڈ",
+            ],
+        ),
+        (
+            "web-m5",
+            "فائنل پراجیکٹ — میرا پاکستان پورٹ فولیو",
+            [
+                "پورٹ فولیو کی منصوبہ بندی اور مواد",
+                "پورٹ فولیو بنانا: تعارف، مہارتیں اور پراجیکٹس",
+                "موبائل ٹیسٹنگ، اصلاح اور آخری جائزہ",
+            ],
+        ),
+        (
+            "web-m6",
+            "لائیو کرو اور لوکل کمائی شروع کرو — EARN MODULE 1",
+            [
+                "Domain اور Hosting کیا ہے؟ — پلاٹ اور گھر کی مثال",
+                "اپنی ویب سائٹ مفت میں لائیو کیسے کریں",
+                "پہلا لوکل کلائنٹ: Facebook گروپس اور WhatsApp",
+                "کلائنٹ کی ضرورت سمجھنا اور کام کی حد طے کرنا",
+                "کلائنٹ کو کتنا بل بھیجنا ہے؟ — قیمت کا فارمولا",
+            ],
+        ),
+        (
+            "web-m7",
+            "فری لانسنگ سے ڈالر کماؤ — EARN MODULE 2",
+            [
+                "Fiverr پروفائل جو اعتماد پیدا کرے",
+                "اپنا پہلا Web Development Gig بنائیں",
+                "پہلا میسج، سوالات اور پہلا آرڈر",
+                "JazzCash، Easypaisa اور Payoneer سے رقم وصول کرنا",
+                "بونس: کلائنٹ میسج کے 3 تیار شدہ ٹیمپلیٹ",
+            ],
+        ),
+    ]
+
+    return [
+        CourseModule(
+            id=module_id,
+            title=module_title,
+            lessons=[
+                _coming_soon_lesson(module_id, index, lesson_title)
+                for index, lesson_title in enumerate(lesson_titles, start=1)
+            ],
+        )
+        for module_id, module_title, lesson_titles in module_specs
+    ]
+
+
+def _excel_dashboard_modules() -> list[CourseModule]:
+    module_specs = [
+        (
+            "excel-m1",
+            "ماڈیول 1 — پہلا ڈیش بورڈ: ایک گھنٹے میں",
+            [
+                "1.1 ڈیش بورڈ کیا ہے — ایک ہی ڈیٹا، دو فائلیں",
+                "1.2 دو شیٹ کا اصول: ڈیٹا الگ، ڈیش بورڈ الگ",
+                "1.3 پہلا ڈیش بورڈ — تین ٹائل، ایک چارٹ، ایک جدول",
+                "1.4 وہ دو سیٹنگز جو شیٹ کو رپورٹ بنا دیتی ہیں",
+            ],
+        ),
+        (
+            "excel-m2",
+            "ماڈیول 2 — ڈیٹا کی تیاری",
+            [
+                "2.1 آپ کی فائل کیوں تیار نہیں — چھ نشانیاں",
+                "2.2 صفائی: merge، خالی سطریں، اضافی خالی جگہ",
+                "2.3 text والی تاریخیں اور نمبر — ایک سیکنڈ کا امتحان",
+                "2.4 Ctrl+T اور نام — تاکہ اگلے مہینے فائل خود بڑھے",
+            ],
+        ),
+        (
+            "excel-m3",
+            "ماڈیول 3 — نمبر اور KPI ٹائل",
+            [
+                "3.1 نمبر فارمیٹ — ہزار، ملین، منفی، فیصد",
+                "3.2 وہ فارمیٹ جو تیر خود بناتا ہے",
+                "3.3 KPI ٹائل بنانا — merge، سائز، اور ایک ہیرو ٹائل",
+                "3.4 ڈیش بورڈ کے پانچ فارمولے — SUM، SUMIF، INDEX، IFERROR، TEXT",
+            ],
+        ),
+        (
+            "excel-m4",
+            "ماڈیول 4 — کنڈیشنل فارمیٹنگ",
+            [
+                "4.1 ڈیٹا بار — خانے کے اندر بار",
+                "4.2 آئیکن سیٹ — تیر اور اشارے",
+                "4.3 رنگ کا اصول — کب لگائیں اور کب بالکل نہیں",
+                "4.4 REPT — بغیر چارٹ کے بار",
+            ],
+        ),
+        (
+            "excel-m5",
+            "ماڈیول 5 — چارٹ",
+            [
+                "5.1 کون سا چارٹ کب — انتخاب کا اصول",
+                "5.2 لائن چارٹ — رجحان اور ہدف",
+                "5.3 بار چارٹ — ترتیب سب کچھ بدل دیتی ہے",
+                "5.4 ڈونٹ، چارٹ کی صفائی، اور وہ چارٹ جو کبھی نہ بنائیں",
+            ],
+        ),
+        (
+            "excel-m6",
+            "ماڈیول 6 — PivotTable، فلٹر اور Slicer",
+            [
+                "6.1 PivotTable کی بنیاد",
+                "6.2 Pivot سے ڈیش بورڈ تک — نمبر نکالنا",
+                "6.3 فلٹر اور Slicer — ڈیش بورڈ کو انٹرایکٹو بنانا",
+                "6.4 Timeline — تاریخ کے حساب سے",
+                "6.5 ایک Slicer، کئی چارٹ — Report Connections",
+            ],
+        ),
+        (
+            "excel-m7",
+            "ماڈیول 7 — لے آؤٹ اور ڈیزائن",
+            [
+                "7.1 کینوس بنانا — باریک کالم کا جال",
+                "7.2 کارڈ اور سیکشن — ایک صفحے پر ترتیب",
+                "7.3 رنگ، فونٹ اور خالی جگہ — تین اصول",
+                "7.4 ہیڈر، ماخذ اور تاریخ — فائل کو دستاویز بنانا",
+            ],
+        ),
+        (
+            "excel-m8",
+            "ماڈیول 8 — پانچ شعبوں کے مکمل پروجیکٹ",
+            [
+                "8.1 فائنانس ڈیش بورڈ — مکمل",
+                "8.2 سیلز ڈیش بورڈ — مکمل",
+                "8.3 آپریشنز ڈیش بورڈ — مکمل",
+                "8.4 اسٹور اور خریداری کا ڈیش بورڈ — مکمل",
+                "8.5 ایچ آر ڈیش بورڈ — مکمل",
+            ],
+        ),
+        (
+            "excel-m9",
+            "ماڈیول 9 — ہر مہینے دس منٹ",
+            [
+                "9.1 ٹیمپلیٹ بنانا — اگلے مہینے صرف ڈیٹا بدلیں",
+                "9.2 پرنٹ اور PDF — بھیجنے کے قابل رپورٹ",
+                "9.3 فائل کی جانچ — دس عام غلطیاں",
+                "9.4 اپنے شعبے کا ڈیش بورڈ — آخری پروجیکٹ",
+            ],
+        ),
+        (
+            "excel-m10",
+            "ماڈیول 10 — یہ مہارت کہاں کام آتی ہے",
+            [
+                "10.1 نوکری اور فری لانسنگ میں — یہ کام کہاں ملتا ہے",
+                "10.2 آگے کیا — Power Query اور Power BI، اور کب اُن کی ضرورت پڑتی ہے",
+            ],
+        ),
+    ]
+
+    return [
+        CourseModule(
+            id=module_id,
+            title=module_title,
+            lessons=[
+                Lesson(
+                    id=f"{module_id}-v{index}",
+                    kind="video",
+                    title=lesson_title,
+                    duration="جلد دستیاب",
+                    coming_soon=True,
+                )
+                for index, lesson_title in enumerate(lesson_titles, start=1)
+            ],
+        )
+        for module_id, module_title, lesson_titles in module_specs
+    ]
+
+
 class ContentRepository:
     def __init__(self) -> None:
         self._categories = [
@@ -416,7 +624,7 @@ class ContentRepository:
             lessons=31,
             level="ابتدائی سے متوسط",
             language="اردو",
-            price="Rs. 500",
+            price=COURSE_PRICE,
             instructor=Instructor(
                 name="عاطف شہباز",
                 title="بانی، شمع.pk",
@@ -436,6 +644,76 @@ class ContentRepository:
             ],
             modules=_featured_course_modules(),
         )
+
+        self._web_development_course = Course(
+            id="web-development-learn-and-earn",
+            title="اپنی پہلی ویب سائٹ بناؤ اور کمانا شروع کرو",
+            subtitle="ایک ہنر جو آپ کو ڈگری سے پہلے کمانا سکھا دے",
+            description=(
+                "آسان اردو میں صفر سے ویب ڈویلپمنٹ، عملی پراجیکٹس، پورٹ فولیو، "
+                "لوکل کلائنٹس اور فری لانسنگ کی تیاری پر مبنی چھ ہفتوں کا کورس۔"
+            ),
+            cover_image="/courses/web-development-learn-and-earn-cover.png",
+            duration="6 ہفتے",
+            lessons=24,
+            level="Zero to Hero — کوئی سابقہ تجربہ ضروری نہیں",
+            language="آسان اردو",
+            price=COURSE_PRICE,
+            instructor=Instructor(
+                name="عاطف شہباز",
+                title="بانی، شمع.pk",
+                bio=(
+                    "عاطف شہباز شمع.pk پر پاکستانی نوجوانوں کے لیے اردو میں عملی "
+                    "کیریئر، کاروبار اور ڈیجیٹل مہارتوں کی رہنمائی فراہم کرتے ہیں۔"
+                ),
+            ),
+            outcomes=[
+                "HTML اور CSS سے پروفیشنل ویب سائٹ بنانا",
+                "موبائل اور کمپیوٹر کے لیے responsive ڈیزائن تیار کرنا",
+                "JavaScript سے بنیادی interactivity شامل کرنا",
+                "اپنی ویب سائٹ مفت میں لائیو کرنا",
+                "پورٹ فولیو بنا کر لوکل کلائنٹس کو کام دکھانا",
+                "فری لانسنگ پروفائل اور پہلا Gig تیار کرنا",
+            ],
+            modules=_web_development_modules(),
+        )
+        self._excel_dashboard_course = Course(
+            id="excel-dashboard-course",
+            title="ایکسل ڈیش بورڈ: عام فائل سے پروفیشنل رپورٹ تک",
+            subtitle="اردو میں، شروع سے آخر تک — اصلی طرز کی فائلوں کے ساتھ",
+            description=(
+                "اپنی ماہانہ ایکسل رپورٹ کو ایک واضح، قابلِ استعمال اور دوبارہ "
+                "استعمال ہونے والے پروفیشنل ڈیش بورڈ میں بدلنے کا عملی کورس۔"
+            ),
+            cover_image="/courses/excel-dashboard-course-cover.jpg",
+            duration="تقریباً 5 گھنٹے",
+            lessons=40,
+            level="درمیانی",
+            language="اردو",
+            price=COURSE_PRICE,
+            instructor=Instructor(
+                name="عاطف شہباز",
+                title="چارٹرڈ اکاؤنٹنٹ · CFO · بانی، شمع.pk",
+                bio=(
+                    "بیس سال سے دوسروں کی بنائی ہوئی ایکسل فائلیں پڑھنے اور اُن پر "
+                    "فیصلے کرنے کے عملی تجربے سے تیار کردہ کورس۔"
+                ),
+            ),
+            outcomes=[
+                "خام رپورٹ کو ایک صفحے کے ڈیش بورڈ میں بدلنا",
+                "دوبارہ استعمال ہونے والا ماہانہ رپورٹنگ ٹیمپلیٹ بنانا",
+                "KPI ٹائل اور درست نمبر فارمیٹ تیار کرنا",
+                "PivotTable، Slicer اور Timeline استعمال کرنا",
+                "فائنانس، سیلز، ایچ آر، آپریشنز اور اسٹور کے ڈیش بورڈ بنانا",
+                "میٹنگ سے پہلے رپورٹ کی عام غلطیاں پکڑنا",
+            ],
+            modules=_excel_dashboard_modules(),
+        )
+        self._courses = {
+            self._featured_course.id: self._featured_course,
+            self._web_development_course.id: self._web_development_course,
+            self._excel_dashboard_course.id: self._excel_dashboard_course,
+        }
 
         self._apply_custom_module1_notes()
 
@@ -665,9 +943,7 @@ class ContentRepository:
         return self._featured_course
 
     def get_course_by_id(self, course_id: str) -> Course | None:
-        if self._featured_course.id == course_id:
-            return self._featured_course
-        return None
+        return self._courses.get(course_id)
 
     def list_articles(self) -> list[ArticleSummary]:
         return [ArticleSummary(**article.model_dump(exclude={"content"})) for article in self._articles]

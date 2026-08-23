@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Facebook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { submitContactForm } from '@/lib/api';
@@ -89,21 +89,16 @@ export default function ContactPage() {
                 ہم سے جڑیں
               </h3>
               <div className="flex gap-3">
-                {[
-                  { icon: Facebook, label: 'Facebook' },
-                  { icon: Twitter, label: 'Twitter' },
-                  { icon: Instagram, label: 'Instagram' },
-                  { icon: Youtube, label: 'Youtube' },
-                ].map(({ icon: Icon, label }) => (
-                  <a
-                    key={label}
-                    href="#"
-                    aria-label={label}
-                    className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
-                  >
-                    <Icon className="h-5 w-5" />
-                  </a>
-                ))}
+                <a
+                  href="https://www.facebook.com/shamadotpk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="فیس بک پر شمع.pk کو فالو کریں"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-secondary px-4 transition-colors hover:bg-primary hover:text-primary-foreground"
+                >
+                  <Facebook className="h-5 w-5" />
+                  <span>فیس بک پر فالو کریں</span>
+                </a>
               </div>
             </div>
 

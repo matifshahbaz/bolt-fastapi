@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { CourseCard } from '@/components/site/course-card';
-import { getFeaturedCourse } from '@/lib/content-api';
+import { getCourses } from '@/lib/content-api';
 
 export const metadata: Metadata = {
   title: 'کورسز',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CoursesPage() {
-  const course = await getFeaturedCourse();
+  const courses = await getCourses();
 
   return (
     <div className="flex flex-col">
@@ -25,7 +25,9 @@ export default async function CoursesPage() {
       </section>
       <section className="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <CourseCard course={course} />
+          {courses.map((course) => (
+            <CourseCard key={course.id} course={course} />
+          ))}
         </div>
       </section>
     </div>

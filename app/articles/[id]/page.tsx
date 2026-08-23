@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Clock, User, Calendar, ArrowLeft, CheckCircle2, FlaskConical, Lightbulb, BellOff, Target, BarChart3, CircleHelp } from 'lucide-react';
+import { Clock, User, Calendar, ArrowLeft, CheckCircle2, FlaskConical, Lightbulb, BellOff, Target, BarChart3, CircleHelp, Facebook } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArticleCard } from '@/components/site/article-card';
@@ -141,6 +141,10 @@ function getIsoPublishedDate(date: string) {
 }
 
 const articleSeo: Record<string, { englishTitle: string; englishDescription: string }> = {
+  'excel-files-to-useful-dashboards': {
+    englishTitle: 'How to Turn Ordinary Excel Files into Useful Dashboards',
+    englishDescription: 'A practical Urdu guide to transforming finance, sales, operations, procurement and HR Excel reports into decision-ready dashboards.',
+  },
   'fix-ai-generated-poster-text': {
     englishTitle: 'How to Fix Text in AI-Generated Posters',
     englishDescription: 'A practical Urdu guide to correcting text errors in AI-generated posters with ChatGPT and Microsoft PowerPoint.',
@@ -391,6 +395,16 @@ export default async function ArticleDetailPage({
               <Clock className="h-4 w-4" />
               {article.readingTime}
             </span>
+            <a
+              href="https://www.facebook.com/shamadotpk"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="فیس بک پر شمع.pk کو فالو کریں"
+              className="inline-flex h-9 items-center gap-2 rounded-md bg-[#1877F2] px-3 text-sm font-medium text-white transition-colors hover:bg-[#166FE5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1877F2] focus-visible:ring-offset-2"
+            >
+              <Facebook className="h-4 w-4" aria-hidden="true" />
+              <span>فیس بک پر فالو کریں</span>
+            </a>
           </div>
         </div>
       </section>
@@ -751,9 +765,6 @@ export default async function ArticleDetailPage({
                 </Button>
               </div>
 
-              <div className="mt-10 lg:hidden">
-                <ArticleToc items={headingItems} />
-              </div>
             </div>
           </div>
         </div>

@@ -41,7 +41,7 @@ export default function TermsAndConditionsPage() {
             <ul className="list-disc space-y-2 pr-6 text-base text-muted-foreground leading-relaxed font-nastaliq">
               <li>صارف درست معلومات کے ساتھ اکاؤنٹ بنائے گا۔</li>
               <li>اکاؤنٹ کی سیکیورٹی اور پاس ورڈ کی حفاظت صارف کی ذمہ داری ہے۔</li>
-              <li>خریداری کے بعد کورس رسائی عام طور پر 30 دن کے لیے دستیاب ہوگی، جب تک کسی کورس کے لیے مختلف شرط نہ لکھی ہو۔</li>
+              <li>ہر کورس کی رسائی خریداری کے بعد 30 دن (ایک ماہ) کے لیے دستیاب ہوگی۔</li>
               <li>کورس مواد کا غیر مجاز شیئرنگ، ری-اپلوڈ یا فروخت ممنوع ہے۔</li>
             </ul>
           </div>

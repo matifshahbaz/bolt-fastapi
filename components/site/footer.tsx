@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { GraduationCap, Mail } from 'lucide-react';
+import { Facebook, GraduationCap, Mail } from 'lucide-react';
 import { navLinks } from '@/lib/data';
 
 export function Footer() {
@@ -108,6 +108,16 @@ export function Footer() {
             >
               <Mail className="h-5 w-5" />
               contact@shama.pk
+            </a>
+            <a
+              href="https://www.facebook.com/shamadotpk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 text-base text-background/70 transition-colors hover:text-white"
+              aria-label="فیس بک پر شمع.pk کو فالو کریں"
+            >
+              <Facebook className="h-5 w-5" />
+              <span>فیس بک پر فالو کریں</span>
             </a>
             <p className="text-base text-background/70 mt-4">
               shama.pk

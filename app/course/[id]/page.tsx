@@ -1,17 +1,46 @@
 import type { Metadata } from 'next';
-import CoursePage from '@/app/course/page';
+import { notFound } from 'next/navigation';
 
-export const metadata: Metadata = {
-	title: 'نوجوانوں کے لیے کیریئر رہنمائی کورس',
-	description: 'پاکستانی نوجوانوں کے لیے اردو میں کیریئر انتخاب، مہارتوں، نوکری اور کاروبار کا عملی کورس۔',
-	alternates: { canonical: 'https://shama.pk/course/youth-career-guidance' },
-	openGraph: {
-		title: 'نوجوانوں کے لیے کیریئر رہنمائی کورس | شمع.pk',
-		description: 'پاکستانی نوجوانوں کے لیے اردو میں کیریئر انتخاب، مہارتوں، نوکری اور کاروبار کا عملی کورس۔',
-		url: 'https://shama.pk/course/youth-career-guidance',
-		locale: 'ur_PK',
-		type: 'website',
-	},
+import { CourseExperience } from '@/components/site/course-experience';
+import { getCourseBySlug } from '@/lib/content-api';
+
+type CourseDetailPageProps = {
+	params: { id: string };
 };
 
-export default CoursePage;
+export async function generateMetadata({ params }: CourseDetailPageProps): Promise<Metadata> {
+	const course = await getCourseBySlug(params.id);
+
+	if (!course) {
+		return {
+			title: 'کورس نہیں ملا',
+			robots: { index: false, follow: false },
+		};
+	}
+
+	const canonicalUrl = `https://shama.pk/course/${course.slug}`;
+
+	return {
+		title: course.seoTitle ?? course.title,
+		description: course.metaDescription ?? course.description,
+		alternates: { canonical: canonicalUrl },
+		openGraph: {
+			title: `${course.title} | شمع.pk`,
+			description: course.openGraphDescription ?? course.metaDescription ?? course.description,
+			url: canonicalUrl,
+			locale: 'ur_PK',
+			type: 'website',
+			images: [{ url: course.coverImage, alt: course.title }],
+		},
+	};
+}
+
+export default async function CourseDetailPage({ params }: CourseDetailPageProps) {
+	const course = await getCourseBySlug(params.id);
+
+	if (!course) {
+		notFound();
+	}
+
+	return <CourseExperience course={course} />;
+}

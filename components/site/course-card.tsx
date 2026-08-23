@@ -6,10 +6,10 @@ import type { Course } from '@/lib/data';
 
 export function CourseCard({ course }: { course: Course }) {
   return (
-    <Link href="/course/youth-career-guidance" className="block group">
-      <div className="card-hover overflow-hidden rounded-2xl border bg-card shadow-sm">
+    <Link href={`/course/${course.slug}`} className="group block h-full">
+      <div className="card-hover flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-sm">
         {/* Cover */}
-        <div className="relative aspect-[3/2] overflow-hidden bg-white">
+        <div className={`relative overflow-hidden bg-white ${course.coverAspect === 'wide' ? 'aspect-[11/6]' : 'aspect-[3/2]'}`}>
           <Image
             src={course.coverImage}
             alt={course.title}
@@ -17,14 +17,14 @@ export function CourseCard({ course }: { course: Course }) {
             className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
           />
           <div className="absolute top-3 right-3">
-            <Badge className="bg-accent text-accent-foreground">
-              {course.level}
+            <Badge className={course.availability === 'coming-soon' ? 'bg-amber-100 text-amber-900 hover:bg-amber-100' : 'bg-accent text-accent-foreground'}>
+              {course.availability === 'coming-soon' ? 'جلد دستیاب' : course.level}
             </Badge>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-5">
+        <div className="flex flex-1 flex-col p-5">
           <h3 className="text-xl font-nastaliq text-foreground mb-2 line-clamp-2 leading-relaxed">
             {course.title}
           </h3>
@@ -43,7 +43,7 @@ export function CourseCard({ course }: { course: Course }) {
           </div>
 
           {/* Meta */}
-          <div className="flex items-center gap-4 text-base text-muted-foreground pt-4 border-t">
+          <div className="mt-auto flex items-center gap-4 border-t pt-4 text-base text-muted-foreground">
             <span className="flex items-center gap-1">
               <Clock className="h-4 w-4" />
               {course.duration}

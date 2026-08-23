@@ -1,6 +1,7 @@
 import {
   publishedArticles as fallbackArticles,
   categories as fallbackCategories,
+  courses as fallbackCourses,
   featuredCourse as fallbackFeaturedCourse,
   type Article,
   type ArticleSection,
@@ -51,6 +52,7 @@ type ApiInstructor = {
 
 type ApiCourse = {
   id: string;
+  slug?: string;
   title: string;
   subtitle: string;
   description: string;
@@ -148,6 +150,7 @@ function mapArticleSection(section: ApiArticleSection): ArticleSection {
 function mapCourse(course: ApiCourse): Course {
   return {
     id: course.id,
+    slug: course.slug ?? (course.id === 'career-guidance-for-pakistani-youth' ? 'youth-career-guidance' : course.id),
     title: course.title,
     subtitle: course.subtitle,
     description: course.description,
@@ -179,6 +182,14 @@ function mapArticle(article: ApiArticle): Article {
 
 export async function getFeaturedCourse(): Promise<Course> {
   return fallbackFeaturedCourse;
+}
+
+export async function getCourses(): Promise<Course[]> {
+  return fallbackCourses;
+}
+
+export async function getCourseBySlug(courseSlug: string): Promise<Course | null> {
+  return fallbackCourses.find((course) => course.slug === courseSlug || course.id === courseSlug) ?? null;
 }
 
 export async function getCategories(): Promise<Category[]> {
