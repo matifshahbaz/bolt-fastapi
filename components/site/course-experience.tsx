@@ -318,7 +318,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                 <div className="mt-8 overflow-hidden rounded-2xl border bg-black shadow-xl">
                   <div className="flex items-center gap-2 border-b border-white/10 bg-slate-950 px-5 py-3 text-right text-white" dir="rtl">
                     <Play className="h-5 w-5 text-accent" />
-                    <span className="text-lg font-nastaliq">کورس کا تعارفی ویڈیو</span>
+                    <span className="text-lg font-nastaliq">کورس کی تعارفی ویڈیو</span>
                   </div>
                   <video
                     controls
