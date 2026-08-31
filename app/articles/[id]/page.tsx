@@ -110,6 +110,35 @@ import UniversityClassSizeSpectrum from '@/components/site/top-universities-arte
 const siteUrl = 'https://shama.pk';
 const protectedArticleIds = new Set(['m3-l2-notes']);
 
+type ArticleCourseCta = {
+  courseSlug: string;
+  heading: string;
+  subtitle: string;
+};
+
+const defaultArticleCourseCta: ArticleCourseCta = {
+  courseSlug: 'youth-career-guidance',
+  heading: 'اپنے کیریئر کے اگلے قدم کے لیے تیار ہیں؟',
+  subtitle: 'نوجوانوں کے لیے مکمل کیریئر رہنمائی کورس اردو میں دیکھیں۔',
+};
+
+const articleCourseCta: Record<string, ArticleCourseCta> = {
+  'excel-files-to-useful-dashboards': {
+    courseSlug: 'excel-dashboard-course',
+    heading: 'اپنے فنانس ڈیش بورڈ کے اگلے قدم کے لیے تیار ہیں؟',
+    subtitle: 'ایکسل میں فنانس ڈیش بورڈ بنانے کا مکمل کورس اردو میں دیکھیں۔',
+  },
+  'free-website-without-it-experience': {
+    courseSlug: 'web-development-learn-and-earn',
+    heading: 'اپنی ویب سائٹ بنانے کے اگلے قدم کے لیے تیار ہیں؟',
+    subtitle: 'اپنی پہلی ویب سائٹ بنانے اور کمانا شروع کرنے کا مکمل کورس اردو میں دیکھیں۔',
+  },
+};
+
+function getArticleCourseCta(articleId: string): ArticleCourseCta {
+  return articleCourseCta[articleId] ?? defaultArticleCourseCta;
+}
+
 const urduMonths: Record<string, string> = {
   جنوری: '01',
   فروری: '02',
@@ -322,6 +351,8 @@ export default async function ArticleDetailPage({
   const related = allArticles
     .filter((a) => a.id !== article.id && a.category === article.category)
     .slice(0, 3);
+
+  const courseCta = getArticleCourseCta(article.id);
 
   const canonicalUrl = `${siteUrl}/article/${article.id}`;
   const publishedDate = getIsoPublishedDate(article.publishedAt);
@@ -757,13 +788,13 @@ export default async function ArticleDetailPage({
 
               <div className="mt-8 rounded-3xl border border-primary/15 bg-primary/5 p-6 text-center sm:p-8">
                 <h2 className="text-2xl font-nastaliq leading-relaxed text-foreground sm:text-3xl">
-                  اپنے کیریئر کے اگلے قدم کے لیے تیار ہیں؟
+                  {courseCta.heading}
                 </h2>
                 <p className="mt-2 text-lg leading-relaxed text-muted-foreground">
-                  نوجوانوں کے لیے مکمل کیریئر رہنمائی کورس اردو میں دیکھیں۔
+                  {courseCta.subtitle}
                 </p>
                 <Button asChild size="lg" className="mt-6 text-lg">
-                  <Link href="/course/youth-career-guidance">
+                  <Link href={`/course/${courseCta.courseSlug}`}>
                     کورس دیکھیں
                     <ArrowLeft className="mr-2 h-5 w-5" />
                   </Link>
