@@ -27,6 +27,16 @@ function redirectTo(request: NextRequest, pathname: string) {
 }
 
 export function middleware(request: NextRequest) {
+  // Canonical host is the apex domain. Nginx serves www.shama.pk without redirecting it,
+  // so both hosts were reachable and indexable — collapsing that here fixes Search Console's
+  // "Duplicate without user-selected canonical" reports on the www copies.
+  // Note: request.nextUrl.hostname does not reflect the incoming Host header in this setup, so
+  // read the header directly.
+  if (request.headers.get('host')?.toLowerCase() === 'www.shama.pk') {
+    const canonicalUrl = new URL(request.nextUrl.pathname + request.nextUrl.search, 'https://shama.pk');
+    return NextResponse.redirect(canonicalUrl, 308);
+  }
+
   const pathname = request.nextUrl.pathname.replace(/^\/+|\/+$/g, '');
 
   if (/\.(?:png|jpe?g|webp|gif|svg|ico|woff2?|ttf|css|js)$/i.test(pathname)) {

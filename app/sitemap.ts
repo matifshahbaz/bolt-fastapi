@@ -20,9 +20,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${siteUrl}${route}`,
   }));
 
-  const articlePages = publishedArticles.map((article) => ({
-    url: `${siteUrl}/article/${article.id}`,
-  }));
+  const articlePages = publishedArticles
+    .filter((article) => !article.noIndex)
+    .map((article) => ({
+      url: `${siteUrl}/article/${article.id}`,
+    }));
 
   const coursePages = courses.map((course) => ({
     url: `${siteUrl}/course/${course.slug}`,

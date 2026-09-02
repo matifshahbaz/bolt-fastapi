@@ -237,6 +237,7 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl,
     },
+    ...(article.noIndex ? { robots: { index: false, follow: false } } : {}),
     openGraph: {
       type: 'article',
       locale: 'ur_PK',

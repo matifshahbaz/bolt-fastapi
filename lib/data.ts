@@ -139,6 +139,8 @@ export type Article = {
   publishedAt: string;
   readingTime: string;
   content: ArticleSection[];
+  /** When true, the article stays fully visible to readers but is excluded from search engine indexing (robots noindex) and the sitemap. */
+  noIndex?: boolean;
 };
 
 export type ArticleSection = {
