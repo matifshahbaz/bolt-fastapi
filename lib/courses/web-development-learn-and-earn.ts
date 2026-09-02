@@ -21,6 +21,16 @@ function comingSoonLesson(moduleId: string, lessonNumber: number, title: string,
   };
 }
 
+function videoLesson(moduleId: string, lessonNumber: number, title: string, duration: string, videoUid: string): CourseLesson {
+  return {
+    id: `${moduleId}-v${lessonNumber}`,
+    kind: 'video',
+    title,
+    duration,
+    videoUid,
+  };
+}
+
 export const webDevelopmentLearnAndEarnCourse: Course = {
   id: 'web-development-learn-and-earn',
   slug: 'web-development-learn-and-earn',
@@ -30,8 +40,8 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
   description:
     'یہ کوئی بورنگ کتاب والا کورس نہیں۔ ہم پاکستانی مثالوں سے بالکل صفر سے سیکھیں گے کہ کوڈ سے ویب سائٹ کیسے بنتی ہے۔ آخر میں آپ کے پاس اپنی ذاتی لائیو ویب سائٹ ہوگی جس کا لنک آپ اپنے WhatsApp Status، CV اور فری لانسنگ پروفائل پر لگا سکیں گے۔',
   coverImage: '/courses/web-development-learn-and-earn-cover.png',
-  duration: 'تقریباً 4 گھنٹے',
-  lessons: 23,
+  duration: 'تقریباً 4 گھنٹے 25 منٹ',
+  lessons: 32,
   level: 'Zero to Hero — کوئی سابقہ تجربہ ضروری نہیں',
   language: 'آسان اردو',
   price: COURSE_PRICE,
@@ -108,6 +118,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
       id: 'web-m1',
       title: 'بنیاد — ویب کیا ہے؟',
       lessons: [
+        videoLesson('web-m1', 1, 'سبق 1.1: انٹرنیٹ کیا ہے؟ اور Hello Pakistan والی پہلی ویب سائٹ', '38 سیکنڈ', '0b00c32d618e1d06775ff2717f7e2ea3'),
         {
           id: 'web-m1-t1',
           kind: 'text',
@@ -115,6 +126,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
           duration: '7 منٹ پڑھائی',
           article: webDevelopmentModule1Lesson1Notes,
         },
+        videoLesson('web-m1', 2, 'سبق 1.2: اپنا ورکشاپ VS Code پر تیار کرو اور موبائل سیٹ اپ', '1 منٹ 33 سیکنڈ', 'a9ca7bfc2add3fbd5c737dba838b1a26'),
         {
           id: 'web-m1-t2',
           kind: 'text',
@@ -128,6 +140,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
       id: 'web-m2',
       title: 'HTML — ویب سائٹ کی اینٹیں',
       lessons: [
+        videoLesson('web-m2', 1, 'سبق 2.1: بریانی شاپ کا مینو بناتے ہیں — HTML کی لسٹیں', '1 منٹ 10 سیکنڈ', '3fade0897fe1e03317646f109e7f72c5'),
         {
           id: 'web-m2-t1',
           kind: 'text',
@@ -135,6 +148,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
           duration: '7 منٹ پڑھائی',
           article: webDevelopmentModule2Lesson1Notes,
         },
+        videoLesson('web-m2', 2, 'سبق 2.2: تصویر اور لنک لگانا — دکان کو اصلی بناؤ', '1 منٹ 41 سیکنڈ', '44f93a35e03cfdf845607c3ab1bda47e'),
         {
           id: 'web-m2-t2',
           kind: 'text',
@@ -142,6 +156,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
           duration: '6 منٹ پڑھائی',
           article: webDevelopmentModule2Lesson2Notes,
         },
+        videoLesson('web-m2', 3, 'سبق 2.3: آرڈر فارم بنانا — گاہک سے ڈیٹا لینا', '2 منٹ 47 سیکنڈ', 'c400fd0d1bcc802e5e74c41ae13231a2'),
         {
           id: 'web-m2-t3',
           kind: 'text',
@@ -155,6 +170,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
       id: 'web-m3',
       title: 'CSS — ڈیزائن اور خوبصورتی',
       lessons: [
+        videoLesson('web-m3', 1, 'سبق 3.1: ویب سائٹ کو رنگین بنانا — CSS کا جادو', '2 منٹ 53 سیکنڈ', 'de1e6755bcafee342d7755664f909426'),
         {
           id: 'web-m3-t1',
           kind: 'text',
@@ -162,6 +178,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
           duration: '9 منٹ پڑھائی',
           article: webDevelopmentModule3Lesson1Notes,
         },
+        videoLesson('web-m3', 2, 'سبق 3.2: Box Model اور Layout — دکان کو ترتیب دینا', '4 منٹ 29 سیکنڈ', '884b678f334ed266b884b025c096bed0'),
         {
           id: 'web-m3-t2',
           kind: 'text',
@@ -176,6 +193,14 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
           duration: '9 منٹ پڑھائی',
           article: webDevelopmentModule3Lesson3Notes,
         },
+      ],
+    },
+    {
+      id: 'web-js',
+      title: 'JavaScript — ویب سائٹ میں انٹرایکشن شامل کرنا',
+      lessons: [
+        videoLesson('web-js', 1, 'سبق 4.1: بریانی کیلکولیٹر بناتے ہیں — JavaScript کا تعارف (حصہ 1)', '3 منٹ 48 سیکنڈ', '44b4314b226d00b21ff0e5cec50a3408'),
+        videoLesson('web-js', 2, 'سبق 4.2: بریانی کیلکولیٹر مکمل کرتے ہیں — JavaScript فنکشنلٹی (حصہ 2)', '3 منٹ 44 سیکنڈ', '122564897bfbc034175aeb5fada92267'),
       ],
     },
     {

@@ -448,10 +448,24 @@ def _web_development_modules() -> list[CourseModule]:
     module1 = next(module for module in modules if module.id == "web-m1")
     module1.lessons = [
         Lesson(
+            id="web-m1-v1",
+            kind="video",
+            title="سبق 1.1: انٹرنیٹ کیا ہے؟ اور Hello Pakistan والی پہلی ویب سائٹ",
+            duration="38 سیکنڈ",
+            video_uid="0b00c32d618e1d06775ff2717f7e2ea3",
+        ),
+        Lesson(
             id="web-m1-t1",
             kind="text",
             title="سبق 1.1: انٹرنیٹ کیا ہے؟ اور Hello Pakistan والی پہلی ویب سائٹ",
             duration="7 منٹ پڑھائی",
+        ),
+        Lesson(
+            id="web-m1-v2",
+            kind="video",
+            title="سبق 1.2: اپنا ورکشاپ VS Code پر تیار کرو اور موبائل سیٹ اپ",
+            duration="1 منٹ 33 سیکنڈ",
+            video_uid="a9ca7bfc2add3fbd5c737dba838b1a26",
         ),
         Lesson(
             id="web-m1-t2",
@@ -464,16 +478,37 @@ def _web_development_modules() -> list[CourseModule]:
     module2 = next(module for module in modules if module.id == "web-m2")
     module2.lessons = [
         Lesson(
+            id="web-m2-v1",
+            kind="video",
+            title="سبق 2.1: بریانی شاپ کا مینو بناتے ہیں — HTML کی لسٹیں",
+            duration="1 منٹ 10 سیکنڈ",
+            video_uid="3fade0897fe1e03317646f109e7f72c5",
+        ),
+        Lesson(
             id="web-m2-t1",
             kind="text",
             title="سبق 2.1: بریانی شاپ کا مینو بناتے ہیں — HTML کی لسٹیں",
             duration="7 منٹ پڑھائی",
         ),
         Lesson(
+            id="web-m2-v2",
+            kind="video",
+            title="سبق 2.2: تصویر اور لنک لگانا — دکان کو اصلی بناؤ",
+            duration="1 منٹ 41 سیکنڈ",
+            video_uid="44f93a35e03cfdf845607c3ab1bda47e",
+        ),
+        Lesson(
             id="web-m2-t2",
             kind="text",
             title="سبق 2.2: تصویر اور لنک لگانا — دکان کو اصلی بناؤ",
             duration="6 منٹ پڑھائی",
+        ),
+        Lesson(
+            id="web-m2-v3",
+            kind="video",
+            title="سبق 2.3: آرڈر فارم بنانا — گاہک سے ڈیٹا لینا",
+            duration="2 منٹ 47 سیکنڈ",
+            video_uid="c400fd0d1bcc802e5e74c41ae13231a2",
         ),
         Lesson(
             id="web-m2-t3",
@@ -486,10 +521,24 @@ def _web_development_modules() -> list[CourseModule]:
     module3 = next(module for module in modules if module.id == "web-m3")
     module3.lessons = [
         Lesson(
+            id="web-m3-v1",
+            kind="video",
+            title="سبق 3.1: ویب سائٹ کو رنگین بنانا — CSS کا جادو",
+            duration="2 منٹ 53 سیکنڈ",
+            video_uid="de1e6755bcafee342d7755664f909426",
+        ),
+        Lesson(
             id="web-m3-t1",
             kind="text",
             title="سبق 3.1: ویب سائٹ کو رنگین بنانا — CSS کا جادو",
             duration="9 منٹ پڑھائی",
+        ),
+        Lesson(
+            id="web-m3-v2",
+            kind="video",
+            title="سبق 3.2: Box Model اور Layout — دکان کو ترتیب دینا",
+            duration="4 منٹ 29 سیکنڈ",
+            video_uid="884b678f334ed266b884b025c096bed0",
         ),
         Lesson(
             id="web-m3-t2",
@@ -504,6 +553,30 @@ def _web_development_modules() -> list[CourseModule]:
             duration="9 منٹ پڑھائی",
         ),
     ]
+
+    modules.insert(
+        modules.index(module3) + 1,
+        CourseModule(
+            id="web-js",
+            title="JavaScript — ویب سائٹ میں انٹرایکشن شامل کرنا",
+            lessons=[
+                Lesson(
+                    id="web-js-v1",
+                    kind="video",
+                    title="سبق 4.1: بریانی کیلکولیٹر بناتے ہیں — JavaScript کا تعارف (حصہ 1)",
+                    duration="3 منٹ 48 سیکنڈ",
+                    video_uid="44b4314b226d00b21ff0e5cec50a3408",
+                ),
+                Lesson(
+                    id="web-js-v2",
+                    kind="video",
+                    title="سبق 4.2: بریانی کیلکولیٹر مکمل کرتے ہیں — JavaScript فنکشنلٹی (حصہ 2)",
+                    duration="3 منٹ 44 سیکنڈ",
+                    video_uid="122564897bfbc034175aeb5fada92267",
+                ),
+            ],
+        ),
+    )
 
     module4 = next(module for module in modules if module.id == "web-m4")
     module4.lessons = [
@@ -675,8 +748,8 @@ class ContentRepository:
                 "لوکل کلائنٹس اور فری لانسنگ کی تیاری پر مبنی چھ ہفتوں کا کورس۔"
             ),
             cover_image="/courses/web-development-learn-and-earn-cover.png",
-            duration="تقریباً 4 گھنٹے",
-            lessons=23,
+            duration="تقریباً 4 گھنٹے 25 منٹ",
+            lessons=32,
             level="Zero to Hero — کوئی سابقہ تجربہ ضروری نہیں",
             language="آسان اردو",
             price=COURSE_PRICE,
