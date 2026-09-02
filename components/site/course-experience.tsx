@@ -440,102 +440,8 @@ export function CourseExperience({ course }: CourseExperienceProps) {
               ))}
             </div>
           </div>
-
-          {course.benefits?.length ? (
-            <div className="mt-10">
-              <h3 className="text-2xl font-nastaliq text-accent">یہ مہارت آپ کے کام میں کیا بدلے گی؟</h3>
-              <div className="mt-5 divide-y border-y">
-                {course.benefits.map((benefit) => (
-                  <div key={benefit.title} className="grid gap-2 py-5 md:grid-cols-[minmax(220px,0.8fr)_minmax(0,1.7fr)] md:gap-8">
-                    <h4 className="text-lg font-semibold text-accent">{benefit.title}</h4>
-                    <p className="text-base leading-relaxed text-muted-foreground">{benefit.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : null}
-
-          {course.bonuses?.length ? (
-            <div className="mt-8 border-r-4 border-accent bg-accent/5 p-6">
-              <h3 className="text-2xl font-nastaliq text-accent">کورس بونس</h3>
-              <ul className="mt-4 grid gap-3 md:grid-cols-3">
-                {course.bonuses.map((bonus) => (
-                  <li key={bonus} className="flex items-start gap-2 text-base leading-relaxed text-foreground">
-                    <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-accent" />
-                    {bonus}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
-          {course.requirements?.length || course.notFor?.length ? (
-            <div className="mt-10 grid gap-10 border-y py-8 md:grid-cols-2">
-              {course.requirements?.length ? (
-                <div>
-                  <h3 className="text-2xl font-nastaliq text-accent">ضروری شرائط</h3>
-                  <ul className="mt-4 space-y-3">
-                    {course.requirements.map((requirement) => (
-                      <li key={requirement} className="flex items-start gap-2 text-base leading-relaxed text-foreground">
-                        <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-primary" />{requirement}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-              {course.notFor?.length ? (
-                <div>
-                  <h3 className="text-2xl font-nastaliq text-accent">یہ کورس کن کے لیے نہیں ہے؟</h3>
-                  <ul className="mt-4 list-disc space-y-3 pr-5 text-base leading-relaxed text-muted-foreground">
-                    {course.notFor.map((item) => <li key={item}>{item}</li>)}
-                  </ul>
-                </div>
-              ) : null}
-            </div>
-          ) : null}
-
-          {course.included?.length ? (
-            <div className="mt-10 border-r-4 border-primary bg-primary/5 p-6">
-              <h3 className="text-2xl font-nastaliq text-accent">کورس کے ساتھ کیا ملتا ہے؟</h3>
-              <ul className="mt-5 grid gap-3 md:grid-cols-2">
-                {course.included.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-base leading-relaxed text-foreground">
-                    <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-primary" />{item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
         </div>
       </section>
-
-      {course.earningPaths?.length ? (
-        <section className="border-y bg-[#071A2B] py-16 text-white">
-          <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl">
-              <p className="font-sans text-sm font-semibold uppercase tracking-[0.18em] text-[#63D7B0]">Learn & Earn</p>
-              <h2 className="mt-2 text-3xl font-nastaliq leading-relaxed">ویب سائٹ بنا کر پیسے کیسے کمائیں گے؟</h2>
-              <p className="mt-3 text-lg leading-relaxed text-white/75">ہم صرف کوڈ نہیں، کمائی کا پورا نقشہ دیں گے۔</p>
-            </div>
-            <div className="mt-9 grid gap-px overflow-hidden border border-white/15 bg-white/15 md:grid-cols-2 lg:grid-cols-5">
-              {course.earningPaths.map((path) => (
-                <article key={path.title} className="bg-[#071A2B] p-5">
-                  <p className="font-sans text-xs font-bold uppercase tracking-[0.16em] text-[#63D7B0]">{path.title}</p>
-                  <h3 className="mt-3 text-xl font-nastaliq leading-relaxed text-white">{path.subtitle}</h3>
-                  <p className="mt-3 text-sm leading-7 text-white/70">{path.description}</p>
-                </article>
-              ))}
-            </div>
-            {course.actionPlan ? (
-              <div className="mt-8 border-r-4 border-[#F6C453] bg-white/5 px-6 py-5">
-                <p className="text-sm font-semibold text-[#F6C453]">30 دن میں پہلی کمائی کا پلان</p>
-                <p className="mt-2 text-lg leading-relaxed text-white">{course.actionPlan}</p>
-              </div>
-            ) : null}
-            {course.earningsDisclaimer ? <p className="mt-5 text-sm leading-relaxed text-white/55">{course.earningsDisclaimer}</p> : null}
-          </div>
-        </section>
-      ) : null}
 
       <section className="py-16 bg-secondary/30">
         <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -711,6 +617,104 @@ export function CourseExperience({ course }: CourseExperienceProps) {
           ) : null}
         </div>
       </section>
+
+      <section className="py-16 bg-white">
+        <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          {course.benefits?.length ? (
+            <div className="mt-10">
+              <h3 className="text-2xl font-nastaliq text-accent">یہ مہارت آپ کے کام میں کیا بدلے گی؟</h3>
+              <div className="mt-5 divide-y border-y">
+                {course.benefits.map((benefit) => (
+                  <div key={benefit.title} className="grid gap-2 py-5 md:grid-cols-[minmax(220px,0.8fr)_minmax(0,1.7fr)] md:gap-8">
+                    <h4 className="text-lg font-semibold text-accent">{benefit.title}</h4>
+                    <p className="text-base leading-relaxed text-muted-foreground">{benefit.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {course.bonuses?.length ? (
+            <div className="mt-8 border-r-4 border-accent bg-accent/5 p-6">
+              <h3 className="text-2xl font-nastaliq text-accent">کورس بونس</h3>
+              <ul className="mt-4 grid gap-3 md:grid-cols-3">
+                {course.bonuses.map((bonus) => (
+                  <li key={bonus} className="flex items-start gap-2 text-base leading-relaxed text-foreground">
+                    <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-accent" />
+                    {bonus}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {course.requirements?.length || course.notFor?.length ? (
+            <div className="mt-10 grid gap-10 border-y py-8 md:grid-cols-2">
+              {course.requirements?.length ? (
+                <div>
+                  <h3 className="text-2xl font-nastaliq text-accent">ضروری شرائط</h3>
+                  <ul className="mt-4 space-y-3">
+                    {course.requirements.map((requirement) => (
+                      <li key={requirement} className="flex items-start gap-2 text-base leading-relaxed text-foreground">
+                        <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-primary" />{requirement}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              {course.notFor?.length ? (
+                <div>
+                  <h3 className="text-2xl font-nastaliq text-accent">یہ کورس کن کے لیے نہیں ہے؟</h3>
+                  <ul className="mt-4 list-disc space-y-3 pr-5 text-base leading-relaxed text-muted-foreground">
+                    {course.notFor.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+
+          {course.included?.length ? (
+            <div className="mt-10 border-r-4 border-primary bg-primary/5 p-6">
+              <h3 className="text-2xl font-nastaliq text-accent">کورس کے ساتھ کیا ملتا ہے؟</h3>
+              <ul className="mt-5 grid gap-3 md:grid-cols-2">
+                {course.included.map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-base leading-relaxed text-foreground">
+                    <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-primary" />{item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      {course.earningPaths?.length ? (
+        <section className="border-y bg-[#071A2B] py-16 text-white">
+          <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl">
+              <p className="font-sans text-sm font-semibold uppercase tracking-[0.18em] text-[#63D7B0]">Learn & Earn</p>
+              <h2 className="mt-2 text-3xl font-nastaliq leading-relaxed">ویب سائٹ بنا کر پیسے کیسے کمائیں گے؟</h2>
+              <p className="mt-3 text-lg leading-relaxed text-white/75">ہم صرف کوڈ نہیں، کمائی کا پورا نقشہ دیں گے۔</p>
+            </div>
+            <div className="mt-9 grid gap-px overflow-hidden border border-white/15 bg-white/15 md:grid-cols-2 lg:grid-cols-5">
+              {course.earningPaths.map((path) => (
+                <article key={path.title} className="bg-[#071A2B] p-5">
+                  <p className="font-sans text-xs font-bold uppercase tracking-[0.16em] text-[#63D7B0]">{path.title}</p>
+                  <h3 className="mt-3 text-xl font-nastaliq leading-relaxed text-white">{path.subtitle}</h3>
+                  <p className="mt-3 text-sm leading-7 text-white/70">{path.description}</p>
+                </article>
+              ))}
+            </div>
+            {course.actionPlan ? (
+              <div className="mt-8 border-r-4 border-[#F6C453] bg-white/5 px-6 py-5">
+                <p className="text-sm font-semibold text-[#F6C453]">30 دن میں پہلی کمائی کا پلان</p>
+                <p className="mt-2 text-lg leading-relaxed text-white">{course.actionPlan}</p>
+              </div>
+            ) : null}
+            {course.earningsDisclaimer ? <p className="mt-5 text-sm leading-relaxed text-white/55">{course.earningsDisclaimer}</p> : null}
+          </div>
+        </section>
+      ) : null}
 
       {course.parentMessage || course.certificate ? (
         <section className="border-y bg-[#F4F7F9] py-16">
