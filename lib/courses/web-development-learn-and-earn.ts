@@ -40,8 +40,9 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
   description:
     'یہ کوئی بورنگ کتاب والا کورس نہیں۔ ہم پاکستانی مثالوں سے بالکل صفر سے سیکھیں گے کہ کوڈ سے ویب سائٹ کیسے بنتی ہے۔ آخر میں آپ کے پاس اپنی ذاتی لائیو ویب سائٹ ہوگی جس کا لنک آپ اپنے WhatsApp Status، CV اور فری لانسنگ پروفائل پر لگا سکیں گے۔',
   coverImage: '/courses/web-development-learn-and-earn-cover.png',
-  duration: 'تقریباً 4 گھنٹے 25 منٹ',
-  lessons: 32,
+  introVideo: '/videos/web-development-course-intro.mp4',
+  duration: 'تقریباً 1 گھنٹہ',
+  lessons: 17,
   level: 'Zero to Hero — کوئی سابقہ تجربہ ضروری نہیں',
   language: 'آسان اردو',
   price: COURSE_PRICE,
@@ -206,6 +207,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
     {
       id: 'web-m4',
       title: 'ویب سائٹ لائیو کریں اور پہلا کلائنٹ حاصل کریں',
+      hidden: true,
       lessons: [
         {
           id: 'web-m4-t1',
@@ -226,6 +228,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
     {
       id: 'web-m5',
       title: 'فائنل پراجیکٹ — میرا پاکستان پورٹ فولیو',
+      hidden: true,
       lessons: [
         comingSoonLesson('web-m5', 1, 'پورٹ فولیو کی منصوبہ بندی اور مواد'),
         comingSoonLesson('web-m5', 2, 'پورٹ فولیو بنانا: تعارف، مہارتیں اور پراجیکٹس'),
@@ -235,6 +238,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
     {
       id: 'web-m6',
       title: 'لائیو کرو اور لوکل کمائی شروع کرو — EARN MODULE 1',
+      hidden: true,
       lessons: [
         comingSoonLesson('web-m6', 1, 'Domain اور Hosting کیا ہے؟ — پلاٹ اور گھر کی مثال'),
         comingSoonLesson('web-m6', 2, 'اپنی ویب سائٹ مفت میں لائیو کیسے کریں'),
@@ -246,6 +250,7 @@ export const webDevelopmentLearnAndEarnCourse: Course = {
     {
       id: 'web-m7',
       title: 'فری لانسنگ سے ڈالر کماؤ — EARN MODULE 2',
+      hidden: true,
       lessons: [
         comingSoonLesson('web-m7', 1, 'Fiverr پروفائل جو اعتماد پیدا کرے'),
         comingSoonLesson('web-m7', 2, 'اپنا پہلا Web Development Gig بنائیں'),
