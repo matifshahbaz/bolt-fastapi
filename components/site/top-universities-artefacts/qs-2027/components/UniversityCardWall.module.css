@@ -1,0 +1,455 @@
+.page-shell {
+  --ink: #090526;
+  --cream: #fffaf0;
+  --yellow: #ffd447;
+  padding-block: clamp(1rem, 3vw, 2.5rem);
+  padding-inline: clamp(0.25rem, 1vw, 0.75rem);
+  color: var(--cream);
+  font-family: 'Jameel Noori Nastaleeq', 'Urdu Typesetting', 'Nafees Nastaleeq', 'Nafees Nastaliq', var(--font-noto-nastaliq-urdu), serif;
+}
+
+.page-shell button,
+.page-shell input {
+  font: inherit;
+}
+
+.poster {
+  isolation: isolate;
+  position: relative;
+  width: min(100%, 1380px);
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: clamp(1.5rem, 3vw, 3rem);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0 1px, transparent 1px 22px),
+    radial-gradient(circle at 50% -8%, rgba(109, 84, 255, 0.48), transparent 38%),
+    linear-gradient(145deg, #100936 0%, #080520 55%, #120b42 100%);
+  background-size: 22px 22px, auto, auto;
+  box-shadow: 0 42px 120px rgba(0, 0, 0, 0.48), inset 0 1px rgba(255, 255, 255, 0.08);
+  padding-block: clamp(1.25rem, 4vw, 3rem);
+  padding-inline: clamp(0.9rem, 2.5vw, 2rem);
+}
+
+.poster::before,
+.poster::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 16rem;
+  height: 16rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transform: rotate(45deg);
+}
+
+.poster::before { top: -10rem; left: -7rem; }
+.poster::after { right: -9rem; bottom: -9rem; }
+
+.light-orb {
+  position: absolute;
+  z-index: -1;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.17;
+}
+
+.orb-one { top: 18%; right: -8rem; background: #00ffe0; }
+.orb-two { bottom: 8%; left: -8rem; background: #ff4e91; }
+
+.poster-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.edition-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.09);
+  padding: 0.45rem 1.05rem 0.7rem;
+  color: var(--yellow);
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  line-height: 1.6;
+  backdrop-filter: blur(12px);
+}
+
+.poster-header h1 {
+  max-width: 1100px;
+  margin: 0.45rem 0 -0.1rem;
+  color: #fffdf8;
+  font-size: clamp(2.65rem, 6vw, 6.2rem);
+  font-weight: 700;
+  line-height: 1.45;
+  text-wrap: balance;
+  text-shadow: 0 7px 30px rgba(0, 0, 0, 0.35);
+}
+
+.title-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: min(25rem, 72%);
+  margin-block: -0.15rem 0.5rem;
+}
+
+.title-rule span {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, rgba(255, 212, 71, 0.8));
+}
+
+.title-rule span:last-child {
+  background: linear-gradient(90deg, rgba(255, 212, 71, 0.8), transparent);
+}
+
+.title-rule i {
+  width: 0.65rem;
+  height: 0.65rem;
+  transform: rotate(45deg);
+  border: 2px solid var(--yellow);
+}
+
+.poster-intro {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: clamp(1.1rem, 1.8vw, 1.55rem);
+  line-height: 1.9;
+}
+
+.card-wall {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.7rem, 1.4vw, 1.15rem);
+  margin-top: clamp(1.5rem, 3vw, 2.75rem);
+  perspective: 1400px;
+}
+
+.university-card {
+  position: relative;
+  min-width: 0;
+  height: clamp(16.75rem, 23vw, 20.5rem);
+  appearance: none;
+  border: 0;
+  border-radius: 1.55rem;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  text-align: inherit;
+  perspective: 1200px;
+}
+
+.university-card:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
+
+.card-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 620ms cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.is-flipped .card-inner { transform: rotateY(180deg); }
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 1.55rem;
+  backface-visibility: hidden;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.33);
+}
+
+.card-front {
+  --card-color: #6c63ff;
+  --card-color-2: #a18cff;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.12), transparent 45%),
+    linear-gradient(155deg, var(--card-color), var(--card-color-2));
+  padding: 1.15rem;
+}
+
+.card-front::before {
+  content: "";
+  position: absolute;
+  inset: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 1.12rem;
+  pointer-events: none;
+}
+
+.card-front::after {
+  content: "";
+  position: absolute;
+  top: -3rem;
+  left: -2.5rem;
+  width: 9rem;
+  height: 9rem;
+  border: 1.6rem solid rgba(255, 255, 255, 0.09);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.tone-sun .card-front { --card-color: #f0a400; --card-color-2: #ff6854; }
+.tone-aqua .card-front { --card-color: #00a8b5; --card-color-2: #18d29f; }
+.tone-violet .card-front { --card-color: #6349d8; --card-color-2: #a34fd9; }
+.tone-coral .card-front { --card-color: #f15f52; --card-color-2: #ff8a3d; }
+.tone-pink .card-front { --card-color: #d63f91; --card-color-2: #7356df; }
+.tone-green .card-front { --card-color: #178a5a; --card-color-2: #4dbd5a; }
+.tone-blue .card-front { --card-color: #1768d7; --card-color-2: #35a4dc; }
+.tone-purple .card-front { --card-color: #7a36c7; --card-color-2: #d24ba3; }
+.tone-orange .card-front { --card-color: #e9631f; --card-color-2: #f5b629; }
+.tone-teal .card-front { --card-color: #008e87; --card-color-2: #27b7aa; }
+.tone-lime .card-front { --card-color: #6c8f1d; --card-color-2: #aebd2b; }
+
+.top-three .card-face {
+  border-color: rgba(255, 244, 196, 0.68);
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.32), 0 0 30px rgba(255, 212, 71, 0.1), inset 0 1px rgba(255, 255, 255, 0.42);
+}
+
+.rank-disc {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  min-width: 3.65rem;
+  height: 3.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  border-radius: 50%;
+  background: rgba(12, 7, 45, 0.23);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  direction: ltr;
+  box-shadow: inset 0 0 0 0.35rem rgba(255, 255, 255, 0.1);
+}
+
+.rank-disc small { margin-right: 0.05rem; font-size: 0.65rem; }
+
+.short-name {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.15rem;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(0.83rem, 1.15vw, 1rem);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.university-name {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  min-height: 6.5rem;
+  margin-top: 0.5rem;
+  color: #fff;
+  font-size: clamp(1.45rem, 2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.65;
+  text-wrap: balance;
+}
+
+.city-chip {
+  position: relative;
+  z-index: 2;
+  align-self: flex-start;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 999px;
+  background: rgba(7, 4, 30, 0.18);
+  padding: 0.05rem 0.65rem 0.35rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.card-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.card-bottom > span:first-child { display: flex; flex-direction: column; }
+.card-bottom small { color: rgba(255, 255, 255, 0.68); font-size: 0.88rem; line-height: 1.4; }
+.card-bottom b { color: white; font-family: Arial, Helvetica, sans-serif; font-size: 1.28rem; line-height: 1.2; }
+.tap-hint { color: rgba(255, 255, 255, 0.62); font-size: 0.83rem; white-space: nowrap; }
+
+.card-back {
+  align-items: center;
+  justify-content: center;
+  transform: rotateY(180deg);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(139, 108, 255, 0.48), transparent 58%),
+    linear-gradient(145deg, #181050, #0b072a);
+  padding: 1.35rem;
+  text-align: center;
+}
+
+.back-rank { color: var(--yellow); font-family: Arial, Helvetica, sans-serif; font-size: 1rem; font-weight: 900; letter-spacing: 0.08em; }
+.field-label { margin-top: 0.65rem; color: rgba(255, 255, 255, 0.63); font-size: 1rem; }
+.card-back strong { color: white; font-size: clamp(1.45rem, 2vw, 1.85rem); line-height: 1.7; }
+
+.route-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+}
+
+.route-list i {
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.1rem 0.55rem 0.35rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.9rem;
+  font-style: normal;
+}
+
+.back-foot { margin-top: 0.85rem; color: rgba(255, 255, 255, 0.42); font-size: 0.78rem; }
+
+.guide-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: clamp(16.75rem, 23vw, 20.5rem);
+  overflow: hidden;
+  border: 1px dashed rgba(255, 212, 71, 0.66);
+  border-radius: 1.55rem;
+  background: linear-gradient(150deg, rgba(255, 212, 71, 0.18), rgba(255, 255, 255, 0.04));
+  padding: 1.55rem;
+}
+
+.guide-card::after {
+  content: "";
+  position: absolute;
+  width: 9rem;
+  height: 9rem;
+  left: -3rem;
+  bottom: -3rem;
+  border: 2rem solid rgba(255, 212, 71, 0.07);
+  border-radius: 50%;
+}
+
+.guide-number { color: var(--yellow); font-family: Arial, Helvetica, sans-serif; font-size: 4rem; font-weight: 900; line-height: 0.95; }
+.guide-card strong { margin-top: 0.35rem; color: white; font-size: 1.65rem; line-height: 1.6; }
+.guide-card p { margin: 0.25rem 0 0; color: rgba(255, 255, 255, 0.66); font-size: 1rem; line-height: 1.9; }
+.guide-card > span:last-child { align-self: flex-start; margin-top: auto; color: var(--yellow); font-size: 0.95rem; }
+
+.poster-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: clamp(1.35rem, 2.5vw, 2.2rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.13);
+  padding-top: 1.15rem;
+}
+
+.poster-footer p { margin: 0; color: rgba(255, 255, 255, 0.66); font-size: clamp(1rem, 1.5vw, 1.28rem); line-height: 1.8; }
+.poster-footer strong { color: var(--yellow); font-family: Arial, Helvetica, sans-serif; font-size: clamp(1.4rem, 2.4vw, 2rem); letter-spacing: -0.04em; }
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: min(100%, 1380px);
+  margin: 1rem auto 0;
+  padding-inline: 0.25rem;
+}
+
+.controls p { margin: 0; color: rgba(9, 5, 38, 0.62); font-size: 1rem; line-height: 1.8; }
+
+.controls button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid rgba(9, 5, 38, 0.18);
+  border-radius: 999px;
+  background: rgba(9, 5, 38, 0.06);
+  padding: 0.5rem 0.95rem 0.75rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.controls button:disabled { cursor: default; opacity: 0.36; }
+
+@media (hover: hover) {
+  .university-card:not(.is-flipped):hover .card-inner { transform: translateY(-0.4rem) rotateX(1.5deg); }
+}
+
+@media (max-width: 1040px) {
+  .university-card,
+  .guide-card { height: 18.5rem; min-height: 18.5rem; }
+}
+
+@media (max-width: 720px) {
+  .page-shell { padding: 0; }
+  .poster { border: 0; border-radius: 0; padding: 1.15rem 0.8rem 1.4rem; }
+  .poster-header h1 { margin-top: 0.2rem; font-size: clamp(2.35rem, 11vw, 4rem); line-height: 1.48; }
+  .poster-intro { max-width: 28rem; font-size: 1rem; }
+  .card-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.55rem; margin-top: 1.15rem; }
+  .university-card,
+  .guide-card { height: 15.25rem; min-height: 15.25rem; }
+  .card-face { border-radius: 1.15rem; }
+  .card-front { padding: 0.8rem; }
+  .card-front::before { inset: 0.36rem; border-radius: 0.85rem; }
+  .rank-disc { width: 2.85rem; min-width: 2.85rem; height: 2.85rem; font-size: 1.08rem; }
+  .short-name { top: 0.85rem; left: 0.75rem; max-width: 54%; overflow: hidden; font-size: 0.7rem; text-overflow: ellipsis; white-space: nowrap; }
+  .university-name { min-height: 5.8rem; margin-top: 0.25rem; font-size: clamp(1.05rem, 5.2vw, 1.42rem); line-height: 1.72; }
+  .city-chip { padding-inline: 0.48rem; font-size: 0.78rem; }
+  .card-bottom { gap: 0.25rem; }
+  .card-bottom small { font-size: 0.68rem; }
+  .card-bottom b { font-size: 0.92rem; }
+  .tap-hint { font-size: 0.64rem; }
+  .card-back { padding: 0.75rem; }
+  .card-back strong { font-size: 1.15rem; }
+  .route-list { gap: 0.25rem; }
+  .route-list i { font-size: 0.7rem; }
+  .guide-card { border-radius: 1.15rem; padding: 1rem; }
+  .guide-number { font-size: 3rem; }
+  .guide-card strong { font-size: 1.25rem; }
+  .guide-card p { font-size: 0.79rem; line-height: 1.75; }
+  .poster-footer { align-items: flex-end; }
+  .poster-footer p { max-width: 70%; font-size: 0.85rem; }
+  .controls { flex-direction: column; align-items: stretch; padding: 1rem; }
+  .controls button { justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-inner { transition: none; }
+}
+
+@media print {
+  .page-shell { padding: 0; }
+  .poster { border-radius: 0; }
+  .controls { display: none; }
+}

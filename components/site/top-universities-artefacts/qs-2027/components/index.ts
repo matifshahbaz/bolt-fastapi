@@ -1,0 +1,9 @@
+export { PakistanQsRankingGrid2027 } from "./PakistanQsRankingGrid2027";
+export { QsMethodologyWheel } from "./QsMethodologyWheel";
+export { DepartmentProspectsCardsA } from "./DepartmentProspectsCardsA";
+export { DepartmentProspectsCardsB } from "./DepartmentProspectsCardsB";
+export { DepartmentProspectsCardsC } from "./DepartmentProspectsCardsC";
+export { FeesAdmissionsComparison } from "./FeesAdmissionsComparison";
+export { AdmissionTimeline2027 } from "./AdmissionTimeline2027";
+export { UniversityFitDecisionTool } from "./UniversityFitDecisionTool";
+export { DreamTargetSafePlanner } from "./DreamTargetSafePlanner";

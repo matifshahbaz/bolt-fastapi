@@ -228,7 +228,17 @@ export type ArticleSection = {
     | 'UniversityStrengthDashboard'
     | 'IndustrySectorGrid'
     | 'AdmissionsTimelineInfographic'
-    | 'UniversityClassSizeSpectrum';
+    | 'UniversityClassSizeSpectrum'
+    | 'PakistanQsRankingGrid2027'
+    | 'QsMethodologyWheel'
+    | 'DepartmentProspectsCardsA'
+    | 'DepartmentProspectsCardsB'
+    | 'DepartmentProspectsCardsC'
+    | 'FeesAdmissionsComparison'
+    | 'AdmissionTimeline2027'
+    | 'UniversityFitDecisionTool'
+    | 'DreamTargetSafePlanner'
+    | 'UniversityCardWall';
 };
 
 const courseLessonImages = [

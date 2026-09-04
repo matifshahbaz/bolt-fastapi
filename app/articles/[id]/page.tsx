@@ -106,6 +106,18 @@ import UniversityStrengthDashboard from '@/components/site/top-universities-arte
 import IndustrySectorGrid from '@/components/site/top-universities-artefacts/IndustrySectorGrid';
 import AdmissionsTimelineInfographic from '@/components/site/top-universities-artefacts/AdmissionsTimelineInfographic';
 import UniversityClassSizeSpectrum from '@/components/site/top-universities-artefacts/class-size-spectrum/UniversityClassSizeSpectrum';
+import UniversityCardWall from '@/components/site/top-universities-artefacts/qs-2027/components/UniversityCardWall';
+import {
+  PakistanQsRankingGrid2027,
+  QsMethodologyWheel,
+  DepartmentProspectsCardsA,
+  DepartmentProspectsCardsB,
+  DepartmentProspectsCardsC,
+  FeesAdmissionsComparison,
+  AdmissionTimeline2027,
+  UniversityFitDecisionTool,
+  DreamTargetSafePlanner,
+} from '@/components/site/top-universities-artefacts/qs-2027/components';
 
 const siteUrl = 'https://shama.pk';
 const protectedArticleIds = new Set(['m3-l2-notes']);
@@ -183,8 +195,8 @@ const articleSeo: Record<string, { englishTitle: string; englishDescription: str
     englishDescription: 'A practical Urdu guide to correcting text errors in AI-generated posters with ChatGPT and Microsoft PowerPoint.',
   },
   'top-10-pakistani-universities': {
-    englishTitle: 'Top 10 Universities of Pakistan Compared',
-    englishDescription: 'A practical Urdu comparison of Pakistan top universities by campus, fields, fees, admissions, scholarships, research and job opportunities.',
+    englishTitle: 'Top 10 Universities of Pakistan — QS Rankings 2027',
+    englishDescription: 'A practical Urdu ranking of Pakistan top universities from QS World University Rankings 2027, with standout fields, fees, admission timelines and a personal fit tool.',
   },
   'online-clothing-business-journey': {
     englishTitle: 'Online Clothing Business in Pakistan',
@@ -333,6 +345,16 @@ const articleComponents = {
   IndustrySectorGrid,
   AdmissionsTimelineInfographic,
   UniversityClassSizeSpectrum,
+  PakistanQsRankingGrid2027,
+  QsMethodologyWheel,
+  DepartmentProspectsCardsA,
+  DepartmentProspectsCardsB,
+  DepartmentProspectsCardsC,
+  FeesAdmissionsComparison,
+  AdmissionTimeline2027,
+  UniversityFitDecisionTool,
+  DreamTargetSafePlanner,
+  UniversityCardWall,
 };
 
 export default async function ArticleDetailPage({
@@ -485,7 +507,11 @@ export default async function ArticleDetailPage({
               }
               if (section.type === 'component' && section.componentKey) {
                 const Component = articleComponents[section.componentKey as keyof typeof articleComponents];
-                return Component ? <Component key={idx} /> : null;
+                return Component ? (
+                  <div key={idx} className="-mx-5 sm:-mx-9 lg:-mx-12">
+                    <Component />
+                  </div>
+                ) : null;
               }
               if (section.type === 'subheading') {
                 return (
