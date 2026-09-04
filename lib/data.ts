@@ -155,6 +155,8 @@ export type ArticleSection = {
   rows?: string[][];
   tone?: 'research' | 'highlight' | 'tip';
   footer?: string;
+  /** For a 'paragraph' section: wraps the paragraph text in a link to this URL. */
+  href?: string;
   componentKey?:
     | 'CompetitionInfographic'
     | 'FourStagesTimeline'
@@ -238,7 +240,8 @@ export type ArticleSection = {
     | 'AdmissionTimeline2027'
     | 'UniversityFitDecisionTool'
     | 'DreamTargetSafePlanner'
-    | 'UniversityCardWall';
+    | 'UniversityCardWall'
+    | 'UniversityDecisionTool';
 };
 
 const courseLessonImages = [

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Clock, User, Calendar, ArrowLeft, CheckCircle2, FlaskConical, Lightbulb, BellOff, Target, BarChart3, CircleHelp, Facebook } from 'lucide-react';
+import { Clock, User, Calendar, ArrowLeft, CheckCircle2, FlaskConical, Lightbulb, BellOff, Target, BarChart3, CircleHelp, Facebook, ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArticleCard } from '@/components/site/article-card';
@@ -107,6 +107,7 @@ import IndustrySectorGrid from '@/components/site/top-universities-artefacts/Ind
 import AdmissionsTimelineInfographic from '@/components/site/top-universities-artefacts/AdmissionsTimelineInfographic';
 import UniversityClassSizeSpectrum from '@/components/site/top-universities-artefacts/class-size-spectrum/UniversityClassSizeSpectrum';
 import UniversityCardWall from '@/components/site/top-universities-artefacts/qs-2027/components/UniversityCardWall';
+import UniversityDecisionTool from '@/components/site/top-universities-artefacts/qs-2027/components/UniversityDecisionTool';
 import {
   PakistanQsRankingGrid2027,
   QsMethodologyWheel,
@@ -355,6 +356,7 @@ const articleComponents = {
   UniversityFitDecisionTool,
   DreamTargetSafePlanner,
   UniversityCardWall,
+  UniversityDecisionTool,
 };
 
 export default async function ArticleDetailPage({
@@ -425,6 +427,17 @@ export default async function ArticleDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }}
       />
+      {/* Persistent Facebook badge — desktop only, pinned to the open top-left space */}
+      <a
+        href="https://www.facebook.com/shamadotpk"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="فیس بک پر شمع.pk کو فالو کریں"
+        title="فیس بک پر فالو کریں"
+        className="fixed left-6 top-24 z-40 hidden h-11 w-11 items-center justify-center rounded-full bg-[#1877F2] text-white shadow-lg transition-colors hover:bg-[#166FE5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1877F2] focus-visible:ring-offset-2 xl:flex"
+      >
+        <Facebook className="h-5 w-5" aria-hidden="true" />
+      </a>
       {/* Hero */}
       <section className="bg-gradient-to-b from-primary/5 to-background py-12">
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -458,7 +471,7 @@ export default async function ArticleDetailPage({
               target="_blank"
               rel="noopener noreferrer"
               aria-label="فیس بک پر شمع.pk کو فالو کریں"
-              className="inline-flex h-9 items-center gap-2 rounded-md bg-[#1877F2] px-3 text-sm font-medium text-white transition-colors hover:bg-[#166FE5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1877F2] focus-visible:ring-offset-2"
+              className="inline-flex h-9 items-center gap-2 rounded-md bg-[#1877F2] px-3 text-sm font-medium text-white transition-colors hover:bg-[#166FE5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1877F2] focus-visible:ring-offset-2 xl:hidden"
             >
               <Facebook className="h-4 w-4" aria-hidden="true" />
               <span>فیس بک پر فالو کریں</span>
@@ -529,7 +542,19 @@ export default async function ArticleDetailPage({
                     key={idx}
                     className="text-right text-2xl leading-[2.15] text-black"
                   >
-                    {section.text}
+                    {section.href ? (
+                      <a
+                        href={section.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex flex-wrap items-center gap-1.5 text-primary underline decoration-primary/40 underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                      >
+                        {section.text}
+                        <ExternalLink className="h-5 w-5 shrink-0" aria-hidden="true" />
+                      </a>
+                    ) : (
+                      section.text
+                    )}
                   </p>
                 );
               }
