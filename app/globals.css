@@ -4,7 +4,9 @@
 
 @font-face {
   font-family: 'Jameel Noori Nastaleeq';
-  src: url('/fonts/JameelNooriNastaleeq.woff') format('woff');
+  src:
+    url('/fonts/JameelNooriNastaleeq.woff2') format('woff2'),
+    url('/fonts/JameelNooriNastaleeq.woff') format('woff');
   font-display: swap;
   font-style: normal;
   font-weight: 400;
