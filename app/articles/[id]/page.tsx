@@ -107,19 +107,14 @@ import UniversityStrengthDashboard from '@/components/site/top-universities-arte
 import IndustrySectorGrid from '@/components/site/top-universities-artefacts/IndustrySectorGrid';
 import AdmissionsTimelineInfographic from '@/components/site/top-universities-artefacts/AdmissionsTimelineInfographic';
 import UniversityClassSizeSpectrum from '@/components/site/top-universities-artefacts/class-size-spectrum/UniversityClassSizeSpectrum';
-import UniversityCardWall from '@/components/site/top-universities-artefacts/qs-2027/components/UniversityCardWall';
-import UniversityDecisionTool from '@/components/site/top-universities-artefacts/qs-2027/components/UniversityDecisionTool';
 import {
-  PakistanQsRankingGrid2027,
-  QsMethodologyWheel,
-  DepartmentProspectsCardsA,
-  DepartmentProspectsCardsB,
-  DepartmentProspectsCardsC,
-  FeesAdmissionsComparison,
   AdmissionTimeline2027,
-  UniversityFitDecisionTool,
-  DreamTargetSafePlanner,
-} from '@/components/site/top-universities-artefacts/qs-2027/components';
+  FeesAdmissionsComparison,
+  QsPerformanceExplorer2027,
+  SubjectRankingExplorer2026,
+  UniversityCardWall,
+  UniversityDecisionTool,
+} from '@/components/site/top-universities-artefacts/qs-2027-v2/components';
 
 const siteUrl = 'https://shama.pk';
 const protectedArticleIds = new Set(['m3-l2-notes']);
@@ -327,15 +322,10 @@ const articleComponents = {
   IndustrySectorGrid,
   AdmissionsTimelineInfographic,
   UniversityClassSizeSpectrum,
-  PakistanQsRankingGrid2027,
-  QsMethodologyWheel,
-  DepartmentProspectsCardsA,
-  DepartmentProspectsCardsB,
-  DepartmentProspectsCardsC,
+  QsPerformanceExplorer2027,
+  SubjectRankingExplorer2026,
   FeesAdmissionsComparison,
   AdmissionTimeline2027,
-  UniversityFitDecisionTool,
-  DreamTargetSafePlanner,
   UniversityCardWall,
   UniversityDecisionTool,
 };

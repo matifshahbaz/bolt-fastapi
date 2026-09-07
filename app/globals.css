@@ -39,6 +39,12 @@
     --chart-3: 142 71% 45%;
     --chart-4: 43 74% 66%;
     --chart-5: 280 65% 60%;
+
+    /* Font stacks referenced by the QS-2027-v2 university article artefacts
+       (components/site/top-universities-artefacts/qs-2027-v2) — kept as
+       variables so those components stay copy-paste compatible with source. */
+    --shama-urdu-font: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+    --shama-ui-font: Arial, Helvetica, sans-serif;
   }
   .dark {
     --background: 222 47% 11%;

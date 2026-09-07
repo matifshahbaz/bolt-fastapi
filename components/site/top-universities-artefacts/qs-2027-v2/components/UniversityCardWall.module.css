@@ -80,7 +80,7 @@
   backdrop-filter: blur(12px);
 }
 
-.poster-header h1 {
+.poster-header h2 {
   max-width: 1100px;
   margin: 0.45rem 0 -0.1rem;
   color: #fffdf8;
@@ -214,6 +214,7 @@
 .tone-purple .card-front { --card-color: #7a36c7; --card-color-2: #d24ba3; }
 .tone-orange .card-front { --card-color: #e9631f; --card-color-2: #f5b629; }
 .tone-teal .card-front { --card-color: #008e87; --card-color-2: #27b7aa; }
+.tone-indigo .card-front { --card-color: #4338ca; --card-color-2: #6d5ce8; }
 .tone-lime .card-front { --card-color: #6c8f1d; --card-color-2: #aebd2b; }
 
 .top-three .card-face {
@@ -334,35 +335,6 @@
 
 .back-foot { margin-top: 0.85rem; color: rgba(255, 255, 255, 0.42); font-size: 0.78rem; }
 
-.guide-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: clamp(16.75rem, 23vw, 20.5rem);
-  overflow: hidden;
-  border: 1px dashed rgba(255, 212, 71, 0.66);
-  border-radius: 1.55rem;
-  background: linear-gradient(150deg, rgba(255, 212, 71, 0.18), rgba(255, 255, 255, 0.04));
-  padding: 1.55rem;
-}
-
-.guide-card::after {
-  content: "";
-  position: absolute;
-  width: 9rem;
-  height: 9rem;
-  left: -3rem;
-  bottom: -3rem;
-  border: 2rem solid rgba(255, 212, 71, 0.07);
-  border-radius: 50%;
-}
-
-.guide-number { color: var(--yellow); font-family: Arial, Helvetica, sans-serif; font-size: 4rem; font-weight: 900; line-height: 0.95; }
-.guide-card strong { margin-top: 0.35rem; color: white; font-size: 1.65rem; line-height: 1.6; }
-.guide-card p { margin: 0.25rem 0 0; color: rgba(255, 255, 255, 0.66); font-size: 1rem; line-height: 1.9; }
-.guide-card > span:last-child { align-self: flex-start; margin-top: auto; color: var(--yellow); font-size: 0.95rem; }
-
 .poster-footer {
   display: flex;
   align-items: center;
@@ -407,18 +379,16 @@
 }
 
 @media (max-width: 1040px) {
-  .university-card,
-  .guide-card { height: 18.5rem; min-height: 18.5rem; }
+  .university-card { height: 18.5rem; min-height: 18.5rem; }
 }
 
 @media (max-width: 720px) {
   .page-shell { padding: 0; }
   .poster { border: 0; border-radius: 0; padding: 1.15rem 0.8rem 1.4rem; }
-  .poster-header h1 { margin-top: 0.2rem; font-size: clamp(2.35rem, 11vw, 4rem); line-height: 1.48; }
+  .poster-header h2 { margin-top: 0.2rem; font-size: clamp(2.35rem, 11vw, 4rem); line-height: 1.48; }
   .poster-intro { max-width: 28rem; font-size: 1rem; }
   .card-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.55rem; margin-top: 1.15rem; }
-  .university-card,
-  .guide-card { height: 15.25rem; min-height: 15.25rem; }
+  .university-card { height: 15.25rem; min-height: 15.25rem; }
   .card-face { border-radius: 1.15rem; }
   .card-front { padding: 0.8rem; }
   .card-front::before { inset: 0.36rem; border-radius: 0.85rem; }
@@ -434,10 +404,6 @@
   .card-back strong { font-size: 1.15rem; }
   .route-list { gap: 0.25rem; }
   .route-list i { font-size: 0.7rem; }
-  .guide-card { border-radius: 1.15rem; padding: 1rem; }
-  .guide-number { font-size: 3rem; }
-  .guide-card strong { font-size: 1.25rem; }
-  .guide-card p { font-size: 0.79rem; line-height: 1.75; }
   .poster-footer { align-items: flex-end; }
   .poster-footer p { max-width: 70%; font-size: 0.85rem; }
   .controls { flex-direction: column; align-items: stretch; padding: 1rem; }

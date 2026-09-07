@@ -231,15 +231,10 @@ export type ArticleSection = {
     | 'IndustrySectorGrid'
     | 'AdmissionsTimelineInfographic'
     | 'UniversityClassSizeSpectrum'
-    | 'PakistanQsRankingGrid2027'
-    | 'QsMethodologyWheel'
-    | 'DepartmentProspectsCardsA'
-    | 'DepartmentProspectsCardsB'
-    | 'DepartmentProspectsCardsC'
+    | 'QsPerformanceExplorer2027'
+    | 'SubjectRankingExplorer2026'
     | 'FeesAdmissionsComparison'
     | 'AdmissionTimeline2027'
-    | 'UniversityFitDecisionTool'
-    | 'DreamTargetSafePlanner'
     | 'UniversityCardWall'
     | 'UniversityDecisionTool';
 };

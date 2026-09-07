@@ -27,6 +27,7 @@ const universities: University[] = [
   { id: "gcuf", rank: "8", worldRank: "691", shortName: "GCUF", name: "گورنمنٹ کالج یونیورسٹی فیصل آباد", city: "فیصل آباد", field: "سائنس و کمپیوٹنگ", routes: ["قدرتی علوم", "کمپیوٹنگ", "کاروبار"], tone: "purple" },
   { id: "uet", rank: "9", worldRank: "791–800", shortName: "UET", name: "یونیورسٹی آف انجینئرنگ اینڈ ٹیکنالوجی لاہور", city: "لاہور", field: "انجینئرنگ و ٹیکنالوجی", routes: ["سول", "الیکٹریکل", "مکینیکل"], tone: "orange" },
   { id: "aku", rank: "10", worldRank: "951–1000", shortName: "AKU", name: "آغا خان یونیورسٹی", city: "کراچی", field: "طب، نرسنگ و صحت عامہ", routes: ["میڈیسن", "نرسنگ", "صحت عامہ"], tone: "teal" },
+  { id: "uol", rank: "10", worldRank: "951–1000", shortName: "UOL", name: "یونیورسٹی آف لاہور", city: "لاہور", field: "فارمیسی، بزنس و کمپیوٹنگ", routes: ["فارمیسی", "بزنس", "کمپیوٹر سائنس"], tone: "indigo" },
   { id: "uop", rank: "10", worldRank: "951–1000", shortName: "UoP", name: "یونیورسٹی آف پشاور", city: "پشاور", field: "سماجی و قدرتی علوم", routes: ["سماجی علوم", "قدرتی علوم", "انسانی علوم"], tone: "lime" },
 ];
 
@@ -53,7 +54,7 @@ export default function UniversityCardWall() {
             <Sparkles aria-hidden="true" size={18} />
             <span>QS ورلڈ یونیورسٹی رینکنگ 2027</span>
           </div>
-          <h1 id="poster-title">پاکستان کی ٹاپ 10 یونیورسٹیاں</h1>
+          <h2 id="poster-title">پاکستان کی ٹاپ 10 یونیورسٹیاں</h2>
           <div className={styles["title-rule"]} aria-hidden="true">
             <span />
             <i />
@@ -101,13 +102,6 @@ export default function UniversityCardWall() {
               </span>
             </button>
           ))}
-
-          <article className={styles["guide-card"]}>
-            <span className={styles["guide-number"]}>10</span>
-            <strong>درجہ بند مقامات</strong>
-            <p>مشترکہ 10ویں مقام کی وجہ سے فہرست میں 11 جامعات شامل ہیں۔</p>
-            <span>تفصیلی گائیڈ</span>
-          </article>
         </div>
 
         <footer className={styles["poster-footer"]}>
@@ -117,7 +111,7 @@ export default function UniversityCardWall() {
       </section>
 
       <div className={styles.controls} aria-label="کارڈ کنٹرولز">
-        <p>ہر کارڈ پر کلک کرکے نمایاں شعبے دیکھیں۔</p>
+        <p>ہر کارڈ پر کلک کرکے نمایاں شعبے دیکھیں۔ دسویں پوزیشن تین جامعات کی مشترکہ ہے۔</p>
         <button type="button" onClick={() => setFlipped(new Set())} disabled={flipped.size === 0}>
           <RotateCcw aria-hidden="true" size={18} />
           تمام کارڈ سامنے کریں
