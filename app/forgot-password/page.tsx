@@ -1,4 +1,11 @@
+import type { Metadata } from 'next';
 import { PasswordResetForm } from '@/components/site/password-reset-form';
+
+export const metadata: Metadata = {
+  title: 'پاسورڈ بھول گئے',
+  robots: { index: false, follow: false },
+  alternates: { canonical: 'https://shama.pk/forgot-password' },
+};
 
 export default function ForgotPasswordPage() {
   return (

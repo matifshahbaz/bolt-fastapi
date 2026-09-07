@@ -1,26 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const validTopLevelPaths = new Set([
-  '',
-  'about',
-  'articles',
-  'article',
-  'courses',
-  'course',
-  'contact',
-  'compliance',
-  'dashboard',
-  'forgot-password',
-  'invoices',
-  'login',
-  'privacy-policy',
-  'refund-policy',
-  'reset-password',
-  'signup',
-  'terms-and-conditions',
-]);
-
 function redirectTo(request: NextRequest, pathname: string) {
   const baseUrl = process.env.NODE_ENV === 'production' ? 'https://shama.pk' : request.url;
   return NextResponse.redirect(new URL(pathname, baseUrl), 308);
@@ -59,9 +39,10 @@ export function middleware(request: NextRequest) {
     return redirectTo(request, `/article/${pathname.slice('articles/'.length)}`);
   }
 
-  if (pathname && !pathname.includes('/') && pathname !== 'ads.txt' && !validTopLevelPaths.has(pathname)) {
-    return redirectTo(request, '/');
-  }
+  // Unknown paths intentionally fall through to Next's normal 404 handling here rather
+  // than redirecting to '/'. Redirecting unmatched URLs to the homepage is a known SEO
+  // anti-pattern (a "soft 404" that Google flags) — broken/removed URLs should return a
+  // real 404 status, not a 308 to home.
 
   return NextResponse.next();
 }

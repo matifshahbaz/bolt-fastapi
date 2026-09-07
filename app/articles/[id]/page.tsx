@@ -95,6 +95,7 @@ import {
   SalesShameReasons,
 } from '@/components/sales-function';
 import { getArticleById, getArticles } from '@/lib/content-api';
+import { getIsoPublishedDate } from '@/lib/publish-date';
 import CvVisualQuote from '@/components/cv-mistakes/CvVisualQuote';
 import LizRyanQuote from '@/components/cv-mistakes/LizRyanQuote';
 import Mistake5Infographic from '@/components/cv-mistakes/Mistake5Infographic';
@@ -152,34 +153,8 @@ function getArticleCourseCta(articleId: string): ArticleCourseCta {
   return articleCourseCta[articleId] ?? defaultArticleCourseCta;
 }
 
-const urduMonths: Record<string, string> = {
-  جنوری: '01',
-  فروری: '02',
-  مارچ: '03',
-  اپریل: '04',
-  مئی: '05',
-  جون: '06',
-  جولائی: '07',
-  اگست: '08',
-  ستمبر: '09',
-  اکتوبر: '10',
-  نومبر: '11',
-  دسمبر: '12',
-};
-
 function getAbsoluteUrl(url: string) {
   return url.startsWith('http') ? url : `${siteUrl}${url.startsWith('/') ? url : `/${url}`}`;
-}
-
-function getIsoPublishedDate(date: string) {
-  const match = date.trim().match(/^(\d{1,2})\s+([^\s]+)\s+(\d{4})$/);
-  if (!match) {
-    return undefined;
-  }
-
-  const [, day, monthName, year] = match;
-  const month = urduMonths[monthName];
-  return month ? `${year}-${month}-${day.padStart(2, '0')}T00:00:00+05:00` : undefined;
 }
 
 const articleSeo: Record<string, { englishTitle: string; englishDescription: string }> = {
