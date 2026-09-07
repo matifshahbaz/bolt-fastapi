@@ -14,6 +14,7 @@ export function ArticleCard({ article }: { article: Article }) {
             src={article.coverImage}
             alt={article.title}
             fill
+            sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 420px"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute top-3 right-3">

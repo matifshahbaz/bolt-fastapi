@@ -207,7 +207,13 @@ export function CourseTextLesson({ lesson, completed, isLoading, onMarkComplete 
         {article.coverImage ? (
           <div className="mb-8 overflow-hidden rounded-3xl border bg-card shadow-lg">
             <div className="relative aspect-video">
-              <Image src={article.coverImage} alt={lesson.title} fill className="object-cover" />
+              <Image
+                src={article.coverImage}
+                alt={lesson.title}
+                fill
+                sizes="(min-width: 1024px) 800px, 100vw"
+                className="object-cover"
+              />
             </div>
           </div>
         ) : null}

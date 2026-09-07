@@ -99,6 +99,7 @@ export default function Home() {
                   width={1536}
                   height={1024}
                   priority
+                  sizes="(min-width: 1024px) 448px, 100vw"
                   className="h-auto w-full"
                 />
               </div>
@@ -154,6 +155,7 @@ export default function Home() {
                   alt={featuredCourse.title}
                   width={1536}
                   height={1024}
+                  sizes="(min-width: 1024px) 768px, 100vw"
                   className="h-auto w-full"
                 />
               </div>

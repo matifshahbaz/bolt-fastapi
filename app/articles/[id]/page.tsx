@@ -196,6 +196,12 @@ const articleSeo: Record<string, { englishTitle: string; englishDescription: str
   },
 };
 
+// Note: generateStaticParams/dynamicParams intentionally live on the canonical
+// app/article/[id]/page.tsx route, not here. This plural path is always intercepted
+// and 308-redirected by middleware before Next's router resolves it (see
+// middleware.ts), so statically enumerating it too would just double build output
+// for pages that can never actually be served.
+
 export async function generateMetadata({
   params,
 }: {

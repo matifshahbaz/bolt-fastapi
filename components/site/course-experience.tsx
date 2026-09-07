@@ -353,7 +353,14 @@ export function CourseExperience({ course }: CourseExperienceProps) {
             <div className="lg:col-span-1">
               <div className="sticky top-20 overflow-hidden rounded-2xl border bg-card shadow-xl">
                 <div className={`relative bg-white ${course.coverAspect === 'wide' ? 'aspect-[11/6]' : 'aspect-[3/2]'}`}>
-                  <Image src={course.coverImage} alt={course.title} fill className="object-contain" priority />
+                  <Image
+                    src={course.coverImage}
+                    alt={course.title}
+                    fill
+                    sizes="(min-width: 1024px) 420px, 100vw"
+                    className="object-contain"
+                    priority
+                  />
                 </div>
                 <div className="p-6">
                   <div className="mb-6 space-y-3">

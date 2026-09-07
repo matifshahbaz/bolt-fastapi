@@ -14,6 +14,7 @@ export function CourseCard({ course }: { course: Course }) {
             src={course.coverImage}
             alt={course.title}
             fill
+            sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 420px"
             className={`${course.coverAspect === 'wide' ? 'object-cover' : 'object-contain'} transition-transform duration-500 group-hover:scale-[1.02]`}
           />
           <div className="absolute top-3 right-3">

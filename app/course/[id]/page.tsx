@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { CourseExperience } from '@/components/site/course-experience';
-import { getCourseBySlug } from '@/lib/content-api';
+import { getCourseBySlug, getCourses } from '@/lib/content-api';
 import type { Course } from '@/lib/data';
 
 const siteUrl = 'https://shama.pk';
@@ -18,6 +18,16 @@ function getAbsoluteUrl(url: string) {
 function getCanonicalUrl(course: Course) {
 	return `${siteUrl}/course/${course.slug}`;
 }
+
+export async function generateStaticParams() {
+	const courseList = await getCourses();
+	return courseList.map((course) => ({ id: course.slug }));
+}
+
+// Every valid slug is enumerated above from the bundled course registry, so any id
+// not in that list is genuinely invalid — render Next's real 404 for it instead of
+// an on-demand render that calls notFound() itself.
+export const dynamicParams = false;
 
 export async function generateMetadata({ params }: CourseDetailPageProps): Promise<Metadata> {
 	const course = await getCourseBySlug(params.id);
