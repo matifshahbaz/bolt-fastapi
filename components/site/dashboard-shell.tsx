@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { getDashboard, refundCourse, type DashboardResponse } from '@/lib/lms-api';
 
-const REFUND_WINDOW_DAYS = 7;
+const REFUND_WINDOW_DAYS = 30;
 
 export function DashboardShell() {
   const router = useRouter();
@@ -158,7 +158,7 @@ export function DashboardShell() {
                   return (
                     <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4">
                       <p className="text-base text-foreground">
-                        ریفنڈ پالیسی: خریداری کے 7 دن کے اندر بغیر کسی سوال کے مکمل ریفنڈ دستیاب ہے۔
+                        ریفنڈ پالیسی: خریداری کے 30 دن کے اندر بغیر کسی سوال کے مکمل ریفنڈ دستیاب ہے۔
                       </p>
                       <p className="mt-1 text-sm text-muted-foreground">
                         {course.enrollment.status === 'refunded'
@@ -167,7 +167,7 @@ export function DashboardShell() {
                             ? 'اس کورس کی ایک ماہ کی رسائی مدت مکمل ہو چکی ہے۔'
                           : refundable
                             ? `ریفنڈ کے لیے باقی دن: ${daysLeft}`
-                            : 'اس کورس کے لیے 7 دن کی ریفنڈ مدت مکمل ہو چکی ہے۔'}
+                            : 'اس کورس کے لیے 30 دن کی ریفنڈ مدت مکمل ہو چکی ہے۔'}
                       </p>
                       <div className="mt-3">
                         <Button

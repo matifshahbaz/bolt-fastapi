@@ -60,7 +60,7 @@ export function AuthForm({ mode }: AuthFormProps) {
     <Card className="w-full max-w-lg border-2 border-primary/10 shadow-xl">
       <CardHeader className="space-y-3 text-center">
         <CardTitle className="font-nastaliq text-3xl text-foreground">
-          {isLogin ? 'اپنے اکاؤنٹ میں داخل ہوں' : 'نیا اکاؤنٹ بنائیں'}
+          {isLogin ? 'اپنے اکاؤنٹ میں داخل ہوں' : 'فری اکاؤنٹ بنائیں'}
         </CardTitle>
         <CardDescription className="text-base leading-relaxed">
           {isLogin

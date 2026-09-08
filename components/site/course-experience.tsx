@@ -190,7 +190,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
     }
   };
 
-  const hasPurchased = Boolean(progress);
+  const hasPurchased = Boolean(progress?.is_enrolled);
   const visibleModules = course.modules
     .filter((module) => !module.hidden)
     .map((module) => ({
@@ -208,9 +208,22 @@ export function CourseExperience({ course }: CourseExperienceProps) {
   const audienceIntro = course.audienceIntro
     ?? (course.audience ? 'یہ کورس اُن لوگوں کے لیے ہے جو:' : 'یہ کورس بالخصوص ان نوجوانوں کے لیے مفید ہے جو:');
   const enrollmentOpen = course.availability !== 'coming-soon';
+  // The course's first module is free to any logged-in visitor — everything after it needs a purchase.
+  const freeModuleId = visibleModules[0]?.id;
+  const canAccessModule = (moduleId: string) => hasPurchased || (isAuthenticated && moduleId === freeModuleId);
+
+  const startFreeModule = () => {
+    const freeModule = curriculumModules.find((module) => module.id === freeModuleId);
+    const firstRow = freeModule?.curriculumRows[0];
+    const firstLesson = firstRow?.videoLessons[0] ?? firstRow?.textLesson;
+    if (freeModule && firstLesson) {
+      void openLesson(freeModule.id, firstLesson.lessonIndex, firstLesson.lesson);
+    }
+    document.getElementById('curriculum')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const openLesson = async (moduleId: string, lessonIndex: number, lesson: CourseLesson) => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated || !canAccessModule(moduleId)) {
       return;
     }
     setActiveLesson({ moduleId, lessonIndex, lesson });
@@ -405,19 +418,35 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                         <Button className="mb-3 w-full text-lg" size="lg">اپنا ڈیش بورڈ دیکھیں</Button>
                       </Link>
                     ) : (
-                      token ? <ManualPaymentForm token={token} courseId={course.id} onApproved={refreshApprovedCourse} /> : null
+                      <>
+                        <Button className="mb-3 w-full text-lg" size="lg" onClick={startFreeModule}>
+                          مفت شروع کریں
+                        </Button>
+                        <p className="mb-4 text-center text-sm text-muted-foreground">
+                          پہلا ماڈیول مفت ہے۔ باقی ماڈیولز کے لیے نیچے ادائیگی مکمل کریں۔
+                        </p>
+                        {token ? <ManualPaymentForm token={token} courseId={course.id} onApproved={refreshApprovedCourse} /> : null}
+                      </>
                     )
                   ) : (
-                    <Link href="/login">
-                      <Button className="mb-3 w-full text-lg" size="lg">لاگ اِن کر کے خریدیں</Button>
-                    </Link>
+                    <>
+                      <Link href="/signup">
+                        <Button className="mb-3 w-full text-lg" size="lg">مفت شروع کریں</Button>
+                      </Link>
+                      <p className="mb-4 text-center text-sm text-muted-foreground">
+                        پہلا ماڈیول رجسٹریشن کے بعد مفت دیکھیں۔{' '}
+                        <Link href="/login" className="text-primary underline underline-offset-4">
+                          پہلے سے اکاؤنٹ ہے؟ لاگ اِن کریں
+                        </Link>
+                      </p>
+                    </>
                   )}
 
                   {feedback ? <p className="mt-4 text-center text-sm text-muted-foreground">{feedback}</p> : null}
 
                   {!isAuthenticated ? (
                     <p className="mt-4 text-center text-sm text-muted-foreground">
-                      کورس خریدنے اور پیش رفت محفوظ رکھنے کے لیے پہلے اکاؤنٹ بنائیں۔
+                      رجسٹریشن کے بعد پہلا ماڈیول مفت اور بغیر ادائیگی کے دستیاب ہوگا۔
                     </p>
                   ) : user ? (
                     <p className="mt-4 text-center text-sm text-muted-foreground">یہ کورس {user.full_name} کے اکاؤنٹ سے منسلک ہوگا۔</p>
@@ -450,13 +479,30 @@ export function CourseExperience({ course }: CourseExperienceProps) {
         </div>
       </section>
 
-      <section className="py-16 bg-secondary/30">
+      <section id="curriculum" className="py-16 bg-secondary/30">
         <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-2 text-2xl md:text-3xl font-nastaliq text-accent">نصاب</h2>
           <p className="mb-8 text-lg text-muted-foreground">{visibleModules.length} ماڈیول، {visibleLessonCount} لیکچرز</p>
           {course.curriculumIntro ? <p className="-mt-5 mb-8 border-r-4 border-accent pr-4 text-base leading-relaxed text-muted-foreground">{course.curriculumIntro}</p> : null}
 
-          {hasPurchased && activeLesson ? (
+          {enrollmentOpen && !hasPurchased ? (
+            <div className="mb-8 flex flex-wrap items-center gap-3 rounded-2xl border border-primary/30 bg-primary/5 px-5 py-4">
+              {isAuthenticated ? (
+                <Button type="button" size="sm" className="text-base" onClick={startFreeModule}>
+                  مفت شروع کریں
+                </Button>
+              ) : (
+                <Link href="/signup">
+                  <Button type="button" size="sm" className="text-base">مفت شروع کریں</Button>
+                </Link>
+              )}
+              <p className="text-base text-foreground">
+                پہلا ماڈیول ہر رجسٹرڈ صارف کے لیے مفت ہے — نیچے کھلا ہوا ہے۔ باقی ماڈیولز رجسٹریشن اور ادائیگی کے بعد کھلیں گے۔
+              </p>
+            </div>
+          ) : null}
+
+          {activeLesson && canAccessModule(activeLesson.moduleId) ? (
             <div className="mb-8 space-y-3 rounded-2xl border bg-card p-5 shadow-sm">
               {activeLesson.lesson.kind === 'video' ? (
                 lessonPlayback ? (
@@ -496,7 +542,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
             </div>
           ) : null}
 
-          <Accordion type="multiple" defaultValue={curriculumModules[0] ? [curriculumModules[0].id] : []}>
+          <Accordion type="multiple" defaultValue={curriculumModules.map((module) => module.id)}>
             {curriculumModules.map((module, moduleIndex) => (
               <AccordionItem key={module.id} value={module.id} className="mb-3 overflow-hidden rounded-xl border bg-card px-6">
                 <AccordionTrigger className="text-xl font-nastaliq text-accent hover:no-underline">
@@ -521,7 +567,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                       return (
                         <div key={row.key} className="flex flex-col gap-3 rounded-lg bg-secondary/50 px-4 py-3 md:flex-row md:items-center md:justify-between">
                           <div className="flex items-center gap-3">
-                            {hasPurchased ? (
+                            {canAccessModule(module.id) ? (
                               rowComingSoon ? (
                                 <div className="flex h-8 w-8 items-center justify-center rounded-full border border-amber-300 bg-amber-50 text-amber-700">
                                   <Clock className="h-4 w-4" />
@@ -566,7 +612,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                             </div>
                           </div>
                           <div className="flex items-center gap-3">
-                            {hasPurchased ? row.videoLessons.map(({ lesson, lessonIndex }, videoIndex) => (
+                            {canAccessModule(module.id) ? row.videoLessons.map(({ lesson, lessonIndex }, videoIndex) => (
                               !lesson.comingSoon ? (
                                 <Button
                                   key={lesson.id}
@@ -580,7 +626,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                                 </Button>
                               ) : null
                             )) : null}
-                            {hasPurchased && row.textLesson && !row.textLesson.lesson.comingSoon ? (
+                            {canAccessModule(module.id) && row.textLesson && !row.textLesson.lesson.comingSoon ? (
                               <Button
                                 type="button"
                                 size="sm"

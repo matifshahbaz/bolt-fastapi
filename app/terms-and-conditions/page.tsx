@@ -51,7 +51,7 @@ export default function TermsAndConditionsPage() {
             <ul className="list-disc space-y-2 pr-6 text-base text-muted-foreground leading-relaxed font-nastaliq">
               <li>ادائیگی Rapidgateway جیسے محفوظ ادائیگی گیٹ وے کے ذریعے پراسیس کی جا سکتی ہے۔</li>
               <li>قیمت، فیس اور دستیابی صفحہ کورس پر درج معلومات کے مطابق ہوگی۔</li>
-              <li>ریفنڈ پالیسی کے مطابق 7 دن کے اندر مکمل ریفنڈ دستیاب ہے۔</li>
+              <li>ریفنڈ پالیسی کے مطابق 30 دن کے اندر مکمل ریفنڈ دستیاب ہے۔</li>
             </ul>
             <p className="mt-3 text-base text-muted-foreground leading-relaxed font-nastaliq">
               مکمل ریفنڈ تفصیل:

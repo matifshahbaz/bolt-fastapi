@@ -18,7 +18,7 @@ from app.services.cloudflare_service import cloudflare_service
 
 
 class LmsService:
-    REFUND_WINDOW_DAYS = 7
+    REFUND_WINDOW_DAYS = 30
     ACCESS_WINDOW_DAYS = 30
 
     def __init__(self, lms_repository: LmsRepository, content_repository: ContentRepository) -> None:
@@ -32,19 +32,24 @@ class LmsService:
         return self._lms_repository.create_or_activate_enrollment(user.id, course_id, course.price)
 
     def get_course_progress(self, user: UserProfile, course_id: str) -> CourseProgress:
-        enrollment = self._lms_repository.get_enrollment(user.id, course_id)
-        if enrollment is None:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course not purchased")
-        enrollment = self._enforce_access_window(user.id, enrollment)
-        if enrollment.status != "active":
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course access is inactive")
         course = self._content_repository.get_course_by_id(course_id)
         if course is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
 
-        self._lms_repository.touch_enrollment(user.id, course_id)
+        enrollment = self._active_enrollment(user.id, course_id)
+        is_enrolled = enrollment is not None
+
+        if is_enrolled:
+            self._lms_repository.touch_enrollment(user.id, course_id)
+            visible_lesson_keys = self._visible_lesson_keys(course.modules)
+        else:
+            # No active enrollment — every logged-in visitor still gets the first module free.
+            free_module_id = self._first_visible_module_id(course)
+            visible_lesson_keys = self._visible_lesson_keys(course.modules, only_module_id=free_module_id)
+            if not visible_lesson_keys:
+                raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course not purchased")
+
         items = self._lms_repository.list_progress(user.id, course_id)
-        visible_lesson_keys = self._visible_lesson_keys(course.modules)
         visible_items = [
             item for item in items if (item.module_id, item.lesson_index) in visible_lesson_keys
         ]
@@ -58,6 +63,7 @@ class LmsService:
             completed_lessons=completed_lessons,
             percent_complete=percent_complete,
             items=visible_items,
+            is_enrolled=is_enrolled,
         )
 
     def update_lesson_progress(
@@ -68,12 +74,6 @@ class LmsService:
         lesson_index: int,
         payload: LessonProgressUpdate,
     ) -> CourseProgress:
-        enrollment = self._lms_repository.get_enrollment(user.id, course_id)
-        if enrollment is None:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course not purchased")
-        enrollment = self._enforce_access_window(user.id, enrollment)
-        if enrollment.status != "active":
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course access is inactive")
         course = self._content_repository.get_course_by_id(course_id)
         if course is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
@@ -85,6 +85,10 @@ class LmsService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
         if module.lessons[lesson_index].hidden or module.lessons[lesson_index].coming_soon:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
+
+        is_free_lesson = module.id == self._first_visible_module_id(course)
+        if self._active_enrollment(user.id, course_id) is None and not is_free_lesson:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course not purchased")
 
         lesson_title = module.lessons[lesson_index].title
         self._lms_repository.upsert_progress(
@@ -134,7 +138,7 @@ class LmsService:
         if now - self._as_utc(enrollment.enrolled_at) > timedelta(days=self.REFUND_WINDOW_DAYS):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Refund window expired. Refunds are allowed within 7 days of purchase.",
+                detail="Refund window expired. Refunds are allowed within 30 days of purchase.",
             )
 
         refunded = self._lms_repository.mark_enrollment_refunded(user.id, course_id)
@@ -199,13 +203,7 @@ class LmsService:
         course_id: str,
         module_id: str,
         lesson_index: int,
-    ) -> tuple[Enrollment, str]:
-        enrollment = self._lms_repository.get_enrollment(user.id, course_id)
-        if enrollment is None:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course not purchased")
-        enrollment = self._enforce_access_window(user.id, enrollment)
-        if enrollment.status != "active":
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course access is inactive")
+    ) -> tuple[Enrollment | None, str]:
         course = self._content_repository.get_course_by_id(course_id)
         if course is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
@@ -218,7 +216,21 @@ class LmsService:
         if module.lessons[lesson_index].hidden or module.lessons[lesson_index].coming_soon:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
         lesson_title = module.lessons[lesson_index].title
+
+        is_free_lesson = module.id == self._first_visible_module_id(course)
+        enrollment = self._active_enrollment(user.id, course_id)
+        if enrollment is None and not is_free_lesson:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course not purchased")
+
         return enrollment, lesson_title
+
+    def _active_enrollment(self, user_id: int, course_id: str) -> Enrollment | None:
+        """The caller's enrollment if it exists and is currently active, else None (expiring it first)."""
+        enrollment = self._lms_repository.get_enrollment(user_id, course_id)
+        if enrollment is None:
+            return None
+        enrollment = self._enforce_access_window(user_id, enrollment)
+        return enrollment if enrollment.status == "active" else None
 
     def _enforce_access_window(self, user_id: int, enrollment: Enrollment) -> Enrollment:
         if enrollment.status != "active":
@@ -250,14 +262,19 @@ class LmsService:
         )
 
     @staticmethod
-    def _visible_lesson_keys(modules: list) -> set[tuple[str, int]]:
+    def _visible_lesson_keys(modules: list, only_module_id: str | None = None) -> set[tuple[str, int]]:
         return {
             (module.id, lesson_index)
             for module in modules
-            if not module.hidden
+            if not module.hidden and (only_module_id is None or module.id == only_module_id)
             for lesson_index, lesson in enumerate(module.lessons)
             if not lesson.hidden and not lesson.coming_soon
         }
+
+    @staticmethod
+    def _first_visible_module_id(course) -> str | None:
+        """The course's first non-hidden module id — its lessons are free to any logged-in user."""
+        return next((module.id for module in course.modules if not module.hidden), None)
 
     @staticmethod
     def _as_utc(value: datetime) -> datetime:

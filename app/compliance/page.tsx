@@ -73,10 +73,10 @@ export default function CompliancePage() {
           </div>
 
           <div className="rounded-2xl border bg-card p-6">
-            <h2 className="mb-4 text-2xl font-nastaliq text-foreground">ریفنڈ پالیسی (7 دن، بغیر سوال)</h2>
+            <h2 className="mb-4 text-2xl font-nastaliq text-foreground">ریفنڈ پالیسی (30 دن، بغیر سوال)</h2>
             <p className="mb-4 text-base leading-relaxed text-muted-foreground font-nastaliq">
-              صارف خریداری کی تاریخ سے 7 دن کے اندر بغیر کسی سوال کے مکمل ریفنڈ حاصل کر سکتا ہے۔
-              7 دن گزرنے کے بعد ریفنڈ دستیاب نہیں ہوگا۔
+              صارف خریداری کی تاریخ سے 30 دن کے اندر بغیر کسی سوال کے مکمل ریفنڈ حاصل کر سکتا ہے۔
+              30 دن گزرنے کے بعد ریفنڈ دستیاب نہیں ہوگا۔
             </p>
             <ul className="list-disc space-y-2 pr-6 text-base text-muted-foreground leading-relaxed font-nastaliq">
               <li>ریفنڈ کی درخواست صارف اپنے ڈیش بورڈ سے براہِ راست دے سکتا ہے۔</li>
