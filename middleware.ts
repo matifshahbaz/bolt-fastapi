@@ -32,7 +32,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (pathname === 'course') {
-    return redirectTo(request, '/course/youth-career-guidance');
+    return redirectTo(request, '/courses');
   }
 
   if (pathname.startsWith('articles/')) {

@@ -18,13 +18,10 @@ const staticRouteFiles: Record<string, string[]> = {
 };
 
 // Courses defined in their own dedicated file get a genuine per-course git date.
-// `youth-career-guidance` (featuredCourse) is still defined inline inside the
-// shared lib/data.ts alongside unrelated content (categories, other articles),
-// so that file's git history isn't a clean signal for this course specifically —
-// lastModified is omitted for it rather than overstating freshness from unrelated edits.
 const courseSourceFiles: Record<string, string> = {
   'excel-dashboard-course': 'lib/courses/excel-dashboard-course.ts',
   'web-development-learn-and-earn': 'lib/courses/web-development-learn-and-earn.ts',
+  'youth-career-guidance': 'lib/courses/youth-career-guidance.ts',
 };
 
 function withLastModified(url: string, lastModified: string | undefined) {
