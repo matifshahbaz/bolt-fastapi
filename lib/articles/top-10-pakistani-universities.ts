@@ -11,6 +11,7 @@ export const top10PakistaniUniversitiesArticle: Article = {
   publishedAt: "7 ستمبر 2026",
   readingTime: "15 منٹ",
   content: [
+    { type: 'heading', text: "پاکستان کی دس بہترین یونیورسٹیاں" },
     {
       type: 'paragraph',
       text: "پہلی بات یہ ہے کہ یہ رینکنگ میں نے نہیں بنائی۔ یہ ایک مشہور ویب سائٹ نے بڑی جانفشانی سے محنت کر کے بنائی ہے جس کا پتہ ٹاپ یونیورسٹیز ڈاٹ کام ہے۔ اس کی رینکنگ کو QS International رینکنگ کہتے ہیں۔ اور یہ درجہ بندی پوری دنیا میں کافی مانی جاتی ہے۔",
@@ -162,7 +163,7 @@ export const top10PakistaniUniversitiesArticle: Article = {
       type: 'paragraph',
       text: "تازہ ترین فیس اور اسکالرشپ کی معلومات کے لیے آپ متعلقہ یونیورسٹی کی ویب سائٹ سے رجوع کر سکتے ہیں۔",
     },
-    { type: 'heading', text: "داخلہ کی ٹائم لائن" },
+    { type: 'paragraph', text: "داخلہ کی ٹائم لائن" },
     {
       type: 'paragraph',
       text: "بہت سارے طالب علم سمجھتے ہیں کہ انٹرمیڈیٹ کا رزلٹ آئے گا تو پھر داخلے شروع ہوں گے۔ اس غلط فہمی کی وجہ سے کافی طالب علم اپنا قیمتی وقت ضائع کر بیٹھتے ہیں۔ انٹرمیڈیٹ کے امتحان سے فارغ ہوتے ہی آپ کو فوراً داخلے کے لیے متحرک ہو جانا چاہیے۔",
@@ -172,7 +173,7 @@ export const top10PakistaniUniversitiesArticle: Article = {
       text: "ذیل میں داخلے کی ٹائم لائن دی گئی ہے۔",
     },
     { type: 'component', componentKey: "AdmissionTimeline2027" },
-    { type: 'heading', text: "صحیح یونیورسٹی کا انتخاب کیسے کریں؟" },
+    { type: 'paragraph', text: "صحیح یونیورسٹی کا انتخاب کیسے کریں؟" },
     {
       type: 'paragraph',
       text: "ٹاپ یونیورسٹیوں کی فہرست دیکھنا آسان ہے۔ مشکل کام یہ فیصلہ کرنا ہے کہ ان میں سے آپ کے لیے درست یونیورسٹی کون سی ہے۔",

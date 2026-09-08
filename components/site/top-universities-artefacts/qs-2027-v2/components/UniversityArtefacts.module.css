@@ -49,7 +49,7 @@
 .rankingGrid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
 .rankCard { position: relative; display: grid; grid-template-columns: 48px 1fr; gap: 13px; min-height: 142px; overflow: hidden; border: 1px solid #e5e9f1; border-radius: 20px; background: #fff; padding: 17px; }
 .rankCard::before { content: ""; position: absolute; inset: 0 0 0 auto; width: 6px; background: var(--item-accent); }
-.position, .feePosition { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 15px; background: color-mix(in srgb, var(--item-accent) 14%, white); color: var(--item-accent); font: 900 19px/1 Arial, sans-serif; }
+.position { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 15px; background: color-mix(in srgb, var(--item-accent) 14%, white); color: var(--item-accent); font: 900 19px/1 Arial, sans-serif; }
 .rankCard small { color: var(--item-accent); font: 800 12px/1.4 var(--shama-ui-font, Arial, sans-serif); }
 .rankCard h3 { margin: 3px 0; font-size: 19px; line-height: 1.75; }
 .rankCard p { margin: 0; color: var(--muted); font-size: 14px; }
@@ -65,12 +65,12 @@
 .tiedGroup article h4 { margin: 4px 0 0; font-size: 18px; line-height: 1.7; }
 
 .dataFooter { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; margin-top: 22px; border-top: 1px solid #e8ebf0; padding-top: 16px; color: var(--muted); font-size: 13px; line-height: 1.8; }
-.dataFooter a, .feeCard > a { color: #1967d2; font: 800 13px/1.4 var(--shama-ui-font, Arial, sans-serif); text-decoration: none; }
-.dataFooter a:hover, .feeCard > a:hover { text-decoration: underline; }
+.dataFooter a { color: #1967d2; font: 800 13px/1.4 var(--shama-ui-font, Arial, sans-serif); text-decoration: none; }
+.dataFooter a:hover { text-decoration: underline; }
 
-.metricTabs, .subjectTabs, .timelineTabs, .filterBar { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 10px; scrollbar-width: thin; }
-.metricTabs button, .subjectTabs button, .timelineTabs button, .filterBar button { flex: 0 0 auto; min-height: 44px; border: 1px solid #dfe3eb; border-radius: 13px; background: #fff; color: #3c4043; padding: 9px 14px; cursor: pointer; font-size: 14px; font-weight: 800; }
-.metricTabs button:hover, .subjectTabs button:hover, .timelineTabs button:hover, .filterBar button:hover { background: #f8fafd; }
+.metricTabs, .subjectTabs, .timelineTabs { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 10px; scrollbar-width: thin; }
+.metricTabs button, .subjectTabs button, .timelineTabs button { flex: 0 0 auto; min-height: 44px; border: 1px solid #dfe3eb; border-radius: 13px; background: #fff; color: #3c4043; padding: 9px 14px; cursor: pointer; font-size: 14px; font-weight: 800; }
+.metricTabs button:hover, .subjectTabs button:hover, .timelineTabs button:hover { background: #f8fafd; }
 .metricTabs .activeMetric { border-color: var(--tab-accent); background: color-mix(in srgb, var(--tab-accent) 12%, white); color: #202124; box-shadow: inset 0 -3px 0 var(--tab-accent); }
 
 .metricSummary { display: grid; grid-template-columns: 1fr 210px; gap: 18px; align-items: stretch; margin: 10px 0 18px; border-radius: 22px; background: color-mix(in srgb, var(--metric-accent) 9%, white); padding: 22px; }
@@ -106,21 +106,6 @@
 .subjectResults h4 { margin: 0; font-size: 17px; line-height: 1.7; }
 .subjectResults p { margin: 1px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
 .topThree { align-self: start; border-radius: 999px; background: #202124; color: #fff; padding: 6px 8px; font: 900 10px/1 Arial, sans-serif; }
-
-.filterBar { justify-content: center; }
-.filterBar .activeFilter { border-color: #4285f4; background: #4285f4; color: #fff; }
-.feeGrid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; margin-top: 12px; }
-.feeCard { position: relative; overflow: hidden; border: 1px solid #e4e8ef; border-radius: 21px; background: #fff; padding: 18px; }
-.feeCard::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 6px; background: var(--item-accent); }
-.feeCard > header { display: grid; grid-template-columns: 46px 1fr; gap: 12px; align-items: start; }
-.feeCard header small { color: #5f6368; font-size: 12px; }
-.feeCard h3 { margin: 2px 0; font-size: 20px; line-height: 1.65; }
-.feeCard header p { margin: 0; color: var(--item-accent); font-size: 12px; font-weight: 800; }
-.feeAmount { margin: 14px 0 10px; border-radius: 16px; background: color-mix(in srgb, var(--item-accent) 9%, white); padding: 13px 15px; }
-.feeAmount small, .feeAmount span { display: block; color: #5f6368; font-size: 12px; line-height: 1.6; }
-.feeAmount strong { display: block; margin: 3px 0; color: #202124; font-size: 23px; line-height: 1.7; }
-.feeNote, .admissionNote { margin: 8px 0; color: #5f6368; font-size: 14px; line-height: 1.85; }
-.admissionNote { border-right: 4px solid var(--item-accent); padding-right: 10px; color: #3c4043; }
 
 .timelineTabs { justify-content: center; }
 .timelineTabs button { display: inline-flex; align-items: center; gap: 8px; }
@@ -162,6 +147,132 @@
 .shortlistPanel li > strong small { display: block; margin-top: 4px; font-size: 8px; }
 .decisionDisclaimer { margin: 0 13px 15px; border: 1px solid #5f6368; border-radius: 13px; padding: 10px 12px; color: #dadce0; font-size: 12px; line-height: 1.75; }
 
+/* Fee affordability explorer */
+.feeExplorer { display: grid; gap: 18px; }
+.feeToolbar { display: grid; grid-template-columns: 1fr minmax(250px, .58fr); gap: 12px; align-items: end; border: 1px solid #e1e7f0; border-radius: 20px; background: linear-gradient(135deg,#f8fbff,#fff); padding: 14px; }
+.feeSectorFilters { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: thin; }
+.feeSectorFilters button { flex: 0 0 auto; min-height: 48px; border: 1px solid #d9e0eb; border-radius: 14px; background: #fff; color: #3c4043; padding: 10px 18px; cursor: pointer; font-size: 15px; font-weight: 800; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.feeSectorFilters button:hover { border-color: #8ab4f8; transform: translateY(-1px); }
+.feeSectorFilters .activeFeeFilter { border-color: #4285f4; background: linear-gradient(135deg,#4285f4,#2f6ee9); color: #fff; box-shadow: 0 8px 20px rgba(66,133,244,.24); }
+.programmeSelect { display: grid; gap: 5px; }
+.programmeSelect > span { color: #5f6368; font-size: 12px; font-weight: 800; }
+.programmeSelect select { width: 100%; min-height: 48px; border: 1px solid #d9e0eb; border-radius: 14px; background: #fff; color: #202124; padding: 8px 13px; font-family: var(--shama-urdu-font, serif); font-size: 14px; font-weight: 800; }
+
+.affordabilityHero { display: grid; grid-template-columns: minmax(0,1.12fr) minmax(330px,.88fr); gap: 14px; }
+.budgetPanel, .budgetSummary { overflow: hidden; border: 1px solid #dfe6f0; border-radius: 24px; background: #fff; box-shadow: 0 10px 30px rgba(32,33,36,.07); }
+.budgetPanel { padding: 20px 22px 17px; }
+.budgetPanel > header { display: flex; align-items: center; gap: 12px; }
+.panelIcon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: #e8f0fe; color: #1967d2; font: 900 20px/1 Arial, sans-serif; }
+.budgetPanel h3, .feeChartSection h3, .featuredFeeChoice h3 { margin: 0; color: #172b4d; font-size: 22px; line-height: 1.7; }
+.budgetPanel header p { margin: 1px 0 0; color: #6f7785; font-size: 13px; line-height: 1.7; }
+.feeGauge { position: relative; width: min(100%, 420px); margin: 3px auto -2px; }
+.feeGauge svg { display: block; width: 100%; overflow: visible; }
+.feeGauge path { fill: none; stroke-width: 13; stroke-linecap: round; }
+.gaugeTrack { stroke: #e7ebf2; }
+.gaugeGreen { stroke: #34a853; stroke-dasharray: 23 77; stroke-dashoffset: 0; }
+.gaugeBlue { stroke: #4285f4; stroke-dasharray: 23 77; stroke-dashoffset: -25; }
+.gaugeYellow { stroke: #fbbc05; stroke-dasharray: 23 77; stroke-dashoffset: -50; }
+.gaugeRed { stroke: #ea4335; stroke-dasharray: 23 77; stroke-dashoffset: -75; }
+.gaugePointerHalo { fill: #fff; stroke: rgba(66,133,244,.22); stroke-width: 9; }
+.gaugePointer { fill: #4285f4; stroke: #fff; stroke-width: 2; transition: cx .25s ease, cy .25s ease; }
+.gaugeValue { position: absolute; inset: 47% 0 auto; display: grid; justify-items: center; line-height: 1; }
+.gaugeValue small { color: #687386; font-size: 12px; font-weight: 800; }
+.gaugeValue output { margin-top: 7px; color: #10213d; font: 900 clamp(34px,5vw,52px)/1 Arial, sans-serif; letter-spacing: -.03em; }
+.gaugeValue span { margin-top: 8px; color: #172b4d; font-size: 19px; font-weight: 900; }
+.rangeWrap { margin-top: -4px; }
+.rangeWrap input { --range-progress: 30%; direction: ltr; width: 100%; height: 7px; appearance: none; border-radius: 999px; outline: none; background: linear-gradient(90deg,#4285f4 0 var(--range-progress),#e2e7ef var(--range-progress) 100%); cursor: pointer; }
+.rangeWrap input::-webkit-slider-thumb { width: 24px; height: 24px; appearance: none; border: 4px solid #fff; border-radius: 50%; background: #4285f4; box-shadow: 0 0 0 2px #b7ceff,0 4px 12px rgba(32,33,36,.22); }
+.rangeWrap input::-moz-range-thumb { width: 18px; height: 18px; border: 4px solid #fff; border-radius: 50%; background: #4285f4; box-shadow: 0 0 0 2px #b7ceff,0 4px 12px rgba(32,33,36,.22); }
+.rangeWrap input:focus-visible { box-shadow: 0 0 0 4px rgba(66,133,244,.22); }
+.rangeWrap > div { display: flex; justify-content: space-between; margin-top: 7px; color: #6f7785; font-size: 11px; }
+
+.budgetSummary { display: grid; align-content: center; gap: 14px; background: radial-gradient(circle at 0 0,#dceaff 0,transparent 42%),linear-gradient(145deg,#f7faff,#eef5ff); padding: 22px; }
+.summaryLead { text-align: center; }
+.summaryLead > span { color: #4285f4; font: 900 13px/1 Arial, sans-serif; letter-spacing: -2px; }
+.summaryLead p { margin: 7px 0 0; color: #172b4d; font-size: 22px; font-weight: 900; }
+.summaryLead strong { display: block; color: #10213d; font-size: 34px; line-height: 1.6; }
+.summaryLead strong b { color: #4285f4; font: 900 58px/1 Arial, sans-serif; }
+.summaryLead small { color: #687386; font-size: 12px; }
+.statusGrid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+.statusGrid > div { display: grid; justify-items: center; gap: 4px; border-radius: 16px; padding: 13px 7px 11px; text-align: center; }
+.statusGrid > div[data-status="within"] { background: #e4f5e9; color: #188038; }
+.statusGrid > div[data-status="stretch"] { background: #fff5d8; color: #a56600; }
+.statusGrid > div[data-status="outside"] { background: #fce8e6; color: #c5221f; }
+.statusGrid b { font: 900 28px/1 Arial, sans-serif; }
+.statusGrid span { font-size: 12px; font-weight: 900; }
+.unavailableNotice { margin: 0; border-radius: 12px; background: rgba(255,255,255,.82); padding: 9px 11px; color: #5f6368; font-size: 12px; line-height: 1.7; text-align: center; }
+
+.feeChartSection { overflow: hidden; border: 1px solid #dfe6f0; border-radius: 24px; background: #fff; box-shadow: 0 10px 30px rgba(32,33,36,.06); }
+.feeChartSection > header { display: flex; align-items: end; justify-content: space-between; gap: 16px; padding: 17px 21px 8px; }
+.feeChartSection header small { color: #748096; font: 700 12px/1.5 var(--shama-ui-font,Arial,sans-serif); }
+.feeChartSection header p { margin: 0; color: #5f6368; font-size: 12px; }
+.feeChartSection header p span { display: inline-grid; place-items: center; width: 20px; height: 20px; margin-left: 5px; border-radius: 7px; background: #e8f0fe; color: #1967d2; font-family: Arial,sans-serif; }
+.feeChartViewport { overflow-x: auto; padding: 0 8px 10px; scrollbar-width: thin; }
+.feePlot { position: relative; min-width: max(740px,calc(var(--fee-columns) * 94px)); height: 340px; border-radius: 17px; background: repeating-linear-gradient(to top,transparent 0 54px,#edf1f6 55px 56px); }
+.feeThreshold { position: absolute; z-index: 2; right: 8px; left: 8px; border-top: 2px dashed #4285f4; pointer-events: none; transition: bottom .25s ease; }
+.feeThreshold span { position: absolute; top: -17px; right: 8px; border-radius: 8px; background: #4285f4; color: #fff; padding: 4px 8px; font: 800 10px/1.2 var(--shama-ui-font,Arial,sans-serif); box-shadow: 0 4px 10px rgba(66,133,244,.2); }
+.feeBars { position: absolute; z-index: 3; inset: 10px 18px 0; display: grid; grid-template-columns: repeat(var(--fee-columns),minmax(80px,1fr)); gap: 8px; align-items: end; direction: ltr; }
+.feeBars > button { display: grid; grid-template-rows: 30px 220px 25px 48px; align-items: end; min-width: 0; height: 326px; border: 0; border-radius: 14px; background: transparent; color: #202124; padding: 0 6px 5px; cursor: pointer; transition: background .2s ease,box-shadow .2s ease; }
+.feeBars > button:hover { background: rgba(66,133,244,.05); }
+.feeBars > button:focus-visible { outline: 3px solid rgba(66,133,244,.35); outline-offset: -2px; }
+.feeBars > .selectedFeeBar { background: #f7faff; box-shadow: inset 0 0 0 2px #8ab4f8; }
+.feeBarValue { direction: ltr; color: #172b4d; font: 900 14px/1 Arial,sans-serif; text-align: center; }
+.feeColumn { display: flex; align-items: flex-end; justify-content: center; height: 220px; }
+.feeColumn i { display: block; width: 68%; min-width: 34px; max-width: 68px; border-radius: 13px 13px 3px 3px; background: linear-gradient(180deg,color-mix(in srgb,var(--fee-status-colour) 82%,white),var(--fee-status-colour)); box-shadow: 0 10px 18px color-mix(in srgb,var(--fee-status-colour) 22%,transparent); transition: height .32s ease,background .25s ease; }
+.feeBars strong { direction: ltr; color: #172b4d; font: 900 14px/1 Arial,sans-serif; text-align: center; }
+.feeBars small { direction: rtl; overflow: hidden; color: #5f6368; font-family: var(--shama-urdu-font,serif); font-size: 11px; line-height: 1.65; text-align: center; }
+.emptyFeeState { margin: 14px 20px 20px; border: 1px dashed #f2c45d; border-radius: 16px; background: #fff8e1; padding: 18px; color: #684d00; font-size: 15px; line-height: 1.8; text-align: center; }
+
+.featuredFeeChoice { position: relative; display: grid; grid-template-columns: minmax(0,1fr) 145px minmax(210px,.65fr); gap: 16px; align-items: center; overflow: hidden; border: 1px solid #b7ceff; border-radius: 24px; background: linear-gradient(110deg,#fff 0 58%,#eef5ff); padding: 45px 22px 20px; box-shadow: 0 12px 30px rgba(66,133,244,.09); }
+.featuredFeeChoice::after { content: ""; position: absolute; inset: auto -70px -95px auto; width: 210px; height: 210px; border-radius: 50%; background: rgba(66,133,244,.07); }
+.featuredRibbon { position: absolute; top: 0; right: 0; border-radius: 0 0 0 18px; background: linear-gradient(105deg,#4285f4,#2563eb); color: #fff; padding: 9px 18px; font-size: 14px; font-weight: 900; }
+.featuredFeeChoice > div:nth-child(2) { border-left: 1px solid #dfe6f0; padding-left: 18px; }
+.featuredFeeChoice > div > small { color: #6f7785; font-size: 12px; }
+.featuredFeeChoice p { margin: 3px 0 0; color: #5f6368; font-size: 13px; line-height: 1.75; }
+.featuredRank { display: grid; justify-items: center; gap: 5px; }
+.featuredRank span { color: #6f7785; font-size: 12px; }
+.featuredRank b { color: #1967d2; font: 900 30px/1 Arial,sans-serif; }
+.featuredSaving { position: relative; z-index: 1; display: grid; gap: 3px; border-radius: 18px; background: #e5f4e9; padding: 15px; color: #137333; text-align: center; }
+.featuredSaving > span { font-size: 12px; font-weight: 800; }
+.featuredSaving strong { font-size: 20px; line-height: 1.6; }
+.featuredSaving strong b { font: 900 26px/1 Arial,sans-serif; }
+.featuredSaving small { color: #4d7358; font-size: 11px; }
+
+.feeDetails { border: 1px solid #dfe6f0; border-radius: 19px; background: #fff; }
+.feeDetails summary { cursor: pointer; padding: 15px 18px; color: #172b4d; font-size: 15px; font-weight: 900; }
+.feeDetails[open] summary { border-bottom: 1px solid #edf0f5; }
+.feeDetailList { display: grid; }
+.feeDetailList article { display: grid; grid-template-columns: minmax(190px,1fr) minmax(180px,.72fr) minmax(240px,1.2fr) auto; gap: 14px; align-items: center; padding: 13px 17px; }
+.feeDetailList article + article { border-top: 1px solid #edf0f5; }
+.feeDetailList article > div { display: grid; gap: 2px; }
+.feeDetailList strong { color: #202124; font-size: 15px; line-height: 1.6; }
+.feeDetailList small { color: #77808d; font-size: 11px; line-height: 1.6; }
+.feeDetailList article > div:nth-child(2) b { color: #172b4d; font: 900 15px/1.4 var(--shama-ui-font,Arial,sans-serif); }
+.feeDetailList p { margin: 0; color: #5f6368; font-size: 12px; line-height: 1.7; }
+.feeDetailList a { color: #1967d2; font: 800 12px/1.4 var(--shama-ui-font,Arial,sans-serif); text-decoration: none; white-space: nowrap; }
+
+.feeCompareTray { position: sticky; z-index: 8; bottom: 10px; overflow: hidden; border: 1px solid #c8d8f8; border-radius: 22px; background: rgba(255,255,255,.96); box-shadow: 0 16px 38px rgba(32,33,36,.16); backdrop-filter: blur(12px); }
+.feeCompareTray > header { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 13px 15px 10px; }
+.feeCompareTray > header > div { display: grid; gap: 2px; }
+.feeCompareTray header strong { color: #172b4d; font-size: 15px; }
+.feeCompareTray header small { color: #717887; font-size: 11px; }
+.feeCompareTray header > button { display: flex; align-items: center; gap: 10px; min-height: 44px; border: 0; border-radius: 14px; background: linear-gradient(135deg,#4285f4,#2469ee); color: #fff; padding: 10px 16px; cursor: pointer; font-size: 14px; font-weight: 900; box-shadow: 0 8px 18px rgba(66,133,244,.24); }
+.feeCompareTray header > button:disabled { cursor: not-allowed; opacity: .45; box-shadow: none; }
+.feeCompareTray header > button span { font: 900 18px/1 Arial,sans-serif; }
+.compareSlots { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; padding: 0 15px 14px; }
+.compareSlots > div { position: relative; display: grid; gap: 2px; min-height: 63px; border-radius: 14px; background: #f3f7ff; padding: 9px 12px; }
+.compareSlots > div:nth-child(2) { background: #e8f5ec; }
+.compareSlots > div:nth-child(3) { background: #fff5d8; }
+.compareSlots div > button { position: absolute; top: 6px; left: 6px; display: grid; place-items: center; width: 22px; height: 22px; border: 0; border-radius: 50%; background: rgba(255,255,255,.88); color: #5f6368; cursor: pointer; font: 900 15px/1 Arial,sans-serif; }
+.compareSlots strong { color: #172b4d; font: 900 14px/1.3 Arial,sans-serif; }
+.compareSlots span { color: #3c4043; font-size: 13px; }
+.compareSlots > .emptyCompareSlot { place-items: center; border: 1px dashed #cbd4e2; background: #fafbfc; color: #8a93a1; font-size: 12px; }
+.comparisonTableWrap { overflow-x: auto; border-top: 1px solid #e6eaf0; padding: 12px 15px 15px; }
+.comparisonTableWrap table { width: 100%; min-width: 620px; border-collapse: collapse; }
+.comparisonTableWrap th, .comparisonTableWrap td { border: 1px solid #e5eaf1; padding: 9px 10px; color: #3c4043; font-size: 12px; line-height: 1.6; text-align: right; }
+.comparisonTableWrap thead th { background: #e8f0fe; color: #174ea6; font-weight: 900; }
+.comparisonTableWrap tbody th { background: #fafbfc; color: #5f6368; }
+
 @media (max-width: 820px) {
   .shell { margin: 24px 0; border-radius: 22px; }
   .shellHeader { padding: 22px 20px 18px; }
@@ -172,7 +283,7 @@
   .rankingGrid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .tiedGroup > div, .timelineTrack { grid-template-columns: 1fr; }
   .timelineTrack::before { display: none; }
-  .subjectResults, .feeGrid { grid-template-columns: 1fr; }
+  .subjectResults { grid-template-columns: 1fr; }
   .shortlistPanel { position: static; }
 }
 
@@ -204,7 +315,6 @@
   .subjectHeading > span { font-size: 11px; }
   .subjectResults li { grid-template-columns: 46px 1fr; }
   .topThree { position: absolute; top: 8px; left: 8px; }
-  .feeCard { padding: 16px 14px; }
   .choiceGridThree { grid-template-columns: 1fr; }
   .shortlistPanel li { grid-template-columns: 34px 1fr; }
   .shortlistPanel li > strong { grid-column: 2; justify-self: start; }
@@ -212,5 +322,53 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scoreBar i { transition: none; }
+  .scoreBar i,
+  .feeSectorFilters button,
+  .gaugePointer,
+  .rangeWrap input,
+  .feeThreshold,
+  .feeColumn i { transition: none; }
+}
+
+@media (max-width: 900px) {
+  .feeToolbar { grid-template-columns: 1fr; }
+  .affordabilityHero { grid-template-columns: 1fr; }
+  .budgetSummary { grid-template-columns: minmax(190px,.8fr) minmax(320px,1.2fr); align-items: center; }
+  .unavailableNotice { grid-column: 1 / -1; }
+  .featuredFeeChoice { grid-template-columns: minmax(0,1fr) 120px; }
+  .featuredFeeChoice > div:nth-child(2) { border-left: 0; padding-left: 0; }
+  .featuredSaving { grid-column: 1 / -1; }
+  .feeDetailList article { grid-template-columns: 1fr 1fr; }
+  .feeDetailList article > p { grid-column: 1 / -1; }
+}
+
+@media (max-width: 620px) {
+  .feeExplorer { gap: 13px; }
+  .feeToolbar { padding: 11px; }
+  .feeSectorFilters button { min-height: 44px; padding: 8px 13px; font-size: 13px; }
+  .programmeSelect select { min-height: 44px; font-size: 13px; }
+  .budgetPanel { padding: 16px 14px 14px; }
+  .budgetPanel h3, .feeChartSection h3, .featuredFeeChoice h3 { font-size: 19px; }
+  .budgetPanel header p { font-size: 12px; }
+  .feeGauge { margin-top: 6px; }
+  .gaugeValue { inset: 45% 0 auto; }
+  .gaugeValue output { font-size: 37px; }
+  .budgetSummary { display: grid; grid-template-columns: 1fr; padding: 17px 14px; }
+  .summaryLead strong { font-size: 27px; }
+  .summaryLead strong b { font-size: 48px; }
+  .statusGrid span { font-size: 10px; }
+  .feeChartSection > header { align-items: start; padding: 14px 15px 5px; }
+  .feeChartSection header p { display: none; }
+  .feePlot { min-width: max(670px,calc(var(--fee-columns) * 88px)); }
+  .featuredFeeChoice { grid-template-columns: 1fr; padding: 48px 16px 16px; }
+  .featuredRank { justify-items: start; border-top: 1px solid #e4e9f1; padding-top: 12px; }
+  .featuredSaving { grid-column: auto; }
+  .feeDetailList article { position: relative; grid-template-columns: 1fr; padding: 13px 14px; }
+  .feeDetailList article > p { grid-column: auto; padding-left: 75px; }
+  .feeDetailList article > a { position: absolute; bottom: 14px; left: 14px; }
+  .feeCompareTray { bottom: 6px; border-radius: 18px; }
+  .feeCompareTray > header { display: grid; }
+  .feeCompareTray header > button { justify-content: center; }
+  .compareSlots { grid-template-columns: 1fr; }
+  .compareSlots > div { min-height: 54px; }
 }
