@@ -52,7 +52,7 @@ export type CourseProgress = {
   completed_lessons: number;
   percent_complete: number;
   items: LessonProgressItem[];
-  /** False when the viewer has no active enrollment and is only seeing the free first module. */
+  /** False when the viewer has no active enrollment and is only seeing the free first two modules. */
   is_enrolled: boolean;
 };
 

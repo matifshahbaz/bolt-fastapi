@@ -20,6 +20,7 @@ from app.services.cloudflare_service import cloudflare_service
 class LmsService:
     REFUND_WINDOW_DAYS = 30
     ACCESS_WINDOW_DAYS = 30
+    FREE_MODULE_COUNT = 2
 
     def __init__(self, lms_repository: LmsRepository, content_repository: ContentRepository) -> None:
         self._lms_repository = lms_repository
@@ -43,9 +44,9 @@ class LmsService:
             self._lms_repository.touch_enrollment(user.id, course_id)
             visible_lesson_keys = self._visible_lesson_keys(course.modules)
         else:
-            # No active enrollment — every logged-in visitor still gets the first module free.
-            free_module_id = self._first_visible_module_id(course)
-            visible_lesson_keys = self._visible_lesson_keys(course.modules, only_module_id=free_module_id)
+            # No active enrollment — every logged-in visitor still gets the first two modules free.
+            free_module_ids = self._free_module_ids(course)
+            visible_lesson_keys = self._visible_lesson_keys(course.modules, only_module_ids=free_module_ids)
             if not visible_lesson_keys:
                 raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course not purchased")
 
@@ -86,7 +87,7 @@ class LmsService:
         if module.lessons[lesson_index].hidden or module.lessons[lesson_index].coming_soon:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
 
-        is_free_lesson = module.id == self._first_visible_module_id(course)
+        is_free_lesson = module.id in self._free_module_ids(course)
         if self._active_enrollment(user.id, course_id) is None and not is_free_lesson:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course not purchased")
 
@@ -217,7 +218,7 @@ class LmsService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lesson not found")
         lesson_title = module.lessons[lesson_index].title
 
-        is_free_lesson = module.id == self._first_visible_module_id(course)
+        is_free_lesson = module.id in self._free_module_ids(course)
         enrollment = self._active_enrollment(user.id, course_id)
         if enrollment is None and not is_free_lesson:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Course not purchased")
@@ -262,19 +263,20 @@ class LmsService:
         )
 
     @staticmethod
-    def _visible_lesson_keys(modules: list, only_module_id: str | None = None) -> set[tuple[str, int]]:
+    def _visible_lesson_keys(modules: list, only_module_ids: set[str] | None = None) -> set[tuple[str, int]]:
         return {
             (module.id, lesson_index)
             for module in modules
-            if not module.hidden and (only_module_id is None or module.id == only_module_id)
+            if not module.hidden and (only_module_ids is None or module.id in only_module_ids)
             for lesson_index, lesson in enumerate(module.lessons)
             if not lesson.hidden and not lesson.coming_soon
         }
 
-    @staticmethod
-    def _first_visible_module_id(course) -> str | None:
-        """The course's first non-hidden module id — its lessons are free to any logged-in user."""
-        return next((module.id for module in course.modules if not module.hidden), None)
+    @classmethod
+    def _free_module_ids(cls, course) -> set[str]:
+        """The course's first two non-hidden module ids — their lessons are free to any logged-in user."""
+        visible_modules = [module for module in course.modules if not module.hidden]
+        return {module.id for module in visible_modules[: cls.FREE_MODULE_COUNT]}
 
     @staticmethod
     def _as_utc(value: datetime) -> datetime:

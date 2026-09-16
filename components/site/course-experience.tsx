@@ -208,12 +208,12 @@ export function CourseExperience({ course }: CourseExperienceProps) {
   const audienceIntro = course.audienceIntro
     ?? (course.audience ? 'یہ کورس اُن لوگوں کے لیے ہے جو:' : 'یہ کورس بالخصوص ان نوجوانوں کے لیے مفید ہے جو:');
   const enrollmentOpen = course.availability !== 'coming-soon';
-  // The course's first module is free to any logged-in visitor — everything after it needs a purchase.
-  const freeModuleId = visibleModules[0]?.id;
-  const canAccessModule = (moduleId: string) => hasPurchased || (isAuthenticated && moduleId === freeModuleId);
+  // The course's first two modules are free to any logged-in visitor — everything after them needs a purchase.
+  const freeModuleIds = new Set(visibleModules.slice(0, 2).map((module) => module.id));
+  const canAccessModule = (moduleId: string) => hasPurchased || (isAuthenticated && freeModuleIds.has(moduleId));
 
   const startFreeModule = () => {
-    const freeModule = curriculumModules.find((module) => module.id === freeModuleId);
+    const freeModule = curriculumModules.find((module) => freeModuleIds.has(module.id));
     const firstRow = freeModule?.curriculumRows[0];
     const firstLesson = firstRow?.videoLessons[0] ?? firstRow?.textLesson;
     if (freeModule && firstLesson) {
@@ -423,7 +423,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                           مفت شروع کریں
                         </Button>
                         <p className="mb-4 text-center text-sm text-muted-foreground">
-                          پہلا ماڈیول مفت ہے۔ باقی ماڈیولز کے لیے نیچے ادائیگی مکمل کریں۔
+                          پہلے دو ماڈیولز مفت ہیں۔ باقی ماڈیولز کے لیے نیچے ادائیگی مکمل کریں۔
                         </p>
                         {token ? <ManualPaymentForm token={token} courseId={course.id} onApproved={refreshApprovedCourse} /> : null}
                       </>
@@ -434,7 +434,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                         <Button className="mb-3 w-full text-lg" size="lg">مفت شروع کریں</Button>
                       </Link>
                       <p className="mb-4 text-center text-sm text-muted-foreground">
-                        پہلا ماڈیول رجسٹریشن کے بعد مفت دیکھیں۔{' '}
+                        پہلے دو ماڈیولز رجسٹریشن کے بعد مفت دیکھیں۔{' '}
                         <Link href="/login" className="text-primary underline underline-offset-4">
                           پہلے سے اکاؤنٹ ہے؟ لاگ اِن کریں
                         </Link>
@@ -446,7 +446,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
 
                   {!isAuthenticated ? (
                     <p className="mt-4 text-center text-sm text-muted-foreground">
-                      رجسٹریشن کے بعد پہلا ماڈیول مفت اور بغیر ادائیگی کے دستیاب ہوگا۔
+                      رجسٹریشن کے بعد پہلے دو ماڈیولز مفت اور بغیر ادائیگی کے دستیاب ہوں گے۔
                     </p>
                   ) : user ? (
                     <p className="mt-4 text-center text-sm text-muted-foreground">یہ کورس {user.full_name} کے اکاؤنٹ سے منسلک ہوگا۔</p>
@@ -497,7 +497,7 @@ export function CourseExperience({ course }: CourseExperienceProps) {
                 </Link>
               )}
               <p className="text-base text-foreground">
-                پہلا ماڈیول ہر رجسٹرڈ صارف کے لیے مفت ہے — نیچے کھلا ہوا ہے۔ باقی ماڈیولز رجسٹریشن اور ادائیگی کے بعد کھلیں گے۔
+                پہلے دو ماڈیولز ہر رجسٹرڈ صارف کے لیے مفت ہیں — نیچے کھلے ہوئے ہیں۔ باقی ماڈیولز رجسٹریشن اور ادائیگی کے بعد کھلیں گے۔
               </p>
             </div>
           ) : null}

@@ -92,7 +92,7 @@ class CourseProgress(BaseModel):
     completed_lessons: int
     percent_complete: float
     items: list[LessonProgressItem]
-    # False when the caller has no active enrollment and is only seeing the free first module.
+    # False when the caller has no active enrollment and is only seeing the free first two modules.
     is_enrolled: bool = True
 
 
