@@ -15,6 +15,10 @@ const staticRouteFiles: Record<string, string[]> = {
   '/terms-and-conditions': ['app/terms-and-conditions/page.tsx'],
   '/refund-policy': ['app/refund-policy/page.tsx'],
   '/compliance': ['app/compliance/page.tsx'],
+  '/tools': ['app/tools/page.tsx'],
+  '/tools/course-finder': ['app/tools/course-finder/page.tsx'],
+  '/tools/university-finder': ['app/tools/university-finder/page.tsx'],
+  '/tools/scholarship-finder': ['app/tools/scholarship-finder/page.tsx'],
 };
 
 // Courses defined in their own dedicated file get a genuine per-course git date.

@@ -1,6 +1,6 @@
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, LargeBinary, String, Text, UniqueConstraint
+from sqlalchemy import Boolean, Date, DateTime, ForeignKey, Integer, LargeBinary, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.db import Base
@@ -87,3 +87,49 @@ class LessonProgressModel(Base):
     lesson_title: Mapped[str] = mapped_column(String(255), nullable=False)
     completed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class CourseFinderListingModel(Base):
+    __tablename__ = "course_finder_listings"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    title: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    provider: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    subject: Mapped[str] = mapped_column(String(120), nullable=False, index=True)
+    level: Mapped[str] = mapped_column(String(60), nullable=False)
+    price_type: Mapped[str] = mapped_column(String(20), nullable=False, index=True)
+    price_label: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    duration_label: Mapped[str] = mapped_column(String(60), nullable=False)
+    duration_bucket: Mapped[str] = mapped_column(String(20), nullable=False, index=True)
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    external_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
+
+
+class UniversityModel(Base):
+    __tablename__ = "universities"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    city: Mapped[str] = mapped_column(String(120), nullable=False, index=True)
+    sector: Mapped[str] = mapped_column(String(20), nullable=False, index=True)
+    programs: Mapped[str] = mapped_column(Text, nullable=False)
+    website_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    established_year: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
+
+
+class ScholarshipModel(Base):
+    __tablename__ = "scholarships"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    country: Mapped[str] = mapped_column(String(120), nullable=False, index=True)
+    degree_level: Mapped[str] = mapped_column(String(60), nullable=False, index=True)
+    field_of_study: Mapped[str] = mapped_column(Text, nullable=False)
+    deadline_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    deadline_label: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    external_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
