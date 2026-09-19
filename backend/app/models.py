@@ -93,10 +93,11 @@ class CourseFinderListingModel(Base):
     __tablename__ = "course_finder_listings"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    title: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    title: Mapped[str] = mapped_column(String(255), nullable=False)
+    title_en: Mapped[str | None] = mapped_column(String(255), nullable=True)
     provider: Mapped[str | None] = mapped_column(String(255), nullable=True)
     subject: Mapped[str] = mapped_column(String(120), nullable=False, index=True)
-    level: Mapped[str] = mapped_column(String(60), nullable=False)
+    delivery_mode: Mapped[str | None] = mapped_column(String(120), nullable=True)
     price_type: Mapped[str] = mapped_column(String(20), nullable=False, index=True)
     price_label: Mapped[str | None] = mapped_column(String(60), nullable=True)
     duration_label: Mapped[str] = mapped_column(String(60), nullable=False)
@@ -106,17 +107,42 @@ class CourseFinderListingModel(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
 
 
-class UniversityModel(Base):
-    __tablename__ = "universities"
+class UniversityProgramModel(Base):
+    """One row = one program offered at one campus (see Public_Data_View import)."""
+
+    __tablename__ = "university_programs"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
-    city: Mapped[str] = mapped_column(String(120), nullable=False, index=True)
+    public_id: Mapped[str] = mapped_column(String(40), nullable=False, unique=True, index=True)
+    university_name: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     sector: Mapped[str] = mapped_column(String(20), nullable=False, index=True)
-    programs: Mapped[str] = mapped_column(Text, nullable=False)
-    website_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
-    description: Mapped[str | None] = mapped_column(Text, nullable=True)
-    established_year: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    campus_name: Mapped[str] = mapped_column(String(255), nullable=False)
+    city: Mapped[str] = mapped_column(String(120), nullable=False, index=True)
+    province: Mapped[str] = mapped_column(String(120), nullable=False, index=True)
+    degree_level: Mapped[str] = mapped_column(String(60), nullable=False, index=True)
+    program_name_en: Mapped[str] = mapped_column(String(255), nullable=False)
+    program_name_ur: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    field_group: Mapped[str] = mapped_column(String(120), nullable=False, index=True)
+    discipline: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    duration_years: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    semesters: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    shift: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    gender_restriction: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    admission_status: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    fee_amount_pkr: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    fee_basis_code: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    fee_basis_label_ur: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    fee_filter_amount_pkr: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    include_in_main_fee_filter: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    fee_display_ur: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    fee_warning_ur: Mapped[str | None] = mapped_column(Text, nullable=True)
+    program_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    admission_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    fee_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    source_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    last_verified: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    confidence: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    publish_status: Mapped[str | None] = mapped_column(String(120), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
 
 

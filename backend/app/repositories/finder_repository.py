@@ -1,8 +1,8 @@
 from sqlalchemy import select
 
 from app.core.db import get_db_session
-from app.models import CourseFinderListingModel, ScholarshipModel, UniversityModel
-from app.schemas.finder import CourseFinderListing, Scholarship, University
+from app.models import CourseFinderListingModel, ScholarshipModel, UniversityProgramModel
+from app.schemas.finder import CourseFinderListing, Scholarship, UniversityProgram
 
 
 class FinderRepository:
@@ -13,10 +13,12 @@ class FinderRepository:
             ).all()
         return [self._to_course_listing(row) for row in rows]
 
-    def list_universities(self) -> list[University]:
+    def list_university_programs(self) -> list[UniversityProgram]:
         with get_db_session() as session:
-            rows = session.scalars(select(UniversityModel).order_by(UniversityModel.id)).all()
-        return [self._to_university(row) for row in rows]
+            rows = session.scalars(
+                select(UniversityProgramModel).order_by(UniversityProgramModel.id)
+            ).all()
+        return [self._to_university_program(row) for row in rows]
 
     def list_scholarships(self) -> list[Scholarship]:
         with get_db_session() as session:
@@ -28,9 +30,10 @@ class FinderRepository:
         return CourseFinderListing(
             id=row.id,
             title=row.title,
+            title_en=row.title_en,
             provider=row.provider,
             subject=row.subject,
-            level=row.level,
+            delivery_mode=row.delivery_mode,
             price_type=row.price_type,
             price_label=row.price_label,
             duration_label=row.duration_label,
@@ -41,16 +44,39 @@ class FinderRepository:
         )
 
     @staticmethod
-    def _to_university(row: UniversityModel) -> University:
-        return University(
+    def _to_university_program(row: UniversityProgramModel) -> UniversityProgram:
+        return UniversityProgram(
             id=row.id,
-            name=row.name,
-            city=row.city,
+            public_id=row.public_id,
+            university_name=row.university_name,
             sector=row.sector,
-            programs=row.programs,
-            website_url=row.website_url,
-            description=row.description,
-            established_year=row.established_year,
+            campus_name=row.campus_name,
+            city=row.city,
+            province=row.province,
+            degree_level=row.degree_level,
+            program_name_en=row.program_name_en,
+            program_name_ur=row.program_name_ur,
+            field_group=row.field_group,
+            discipline=row.discipline,
+            duration_years=row.duration_years,
+            semesters=row.semesters,
+            shift=row.shift,
+            gender_restriction=row.gender_restriction,
+            admission_status=row.admission_status,
+            fee_amount_pkr=row.fee_amount_pkr,
+            fee_basis_code=row.fee_basis_code,
+            fee_basis_label_ur=row.fee_basis_label_ur,
+            fee_filter_amount_pkr=row.fee_filter_amount_pkr,
+            include_in_main_fee_filter=row.include_in_main_fee_filter,
+            fee_display_ur=row.fee_display_ur,
+            fee_warning_ur=row.fee_warning_ur,
+            program_url=row.program_url,
+            admission_url=row.admission_url,
+            fee_url=row.fee_url,
+            source_url=row.source_url,
+            last_verified=row.last_verified,
+            confidence=row.confidence,
+            publish_status=row.publish_status,
             created_at=row.created_at,
         )
 

@@ -4,7 +4,7 @@ import { getCourseFinderListings } from '@/lib/finder-api';
 
 export const metadata: Metadata = {
   title: 'کورس فائنڈر',
-  description: 'اپنی دلچسپی، سطح اور وقت کے مطابق موزوں آن لائن کورس تلاش کریں۔',
+  description: 'اپنی دلچسپی، قیمت اور وقت کے مطابق موزوں آن لائن کورس تلاش کریں۔',
   alternates: { canonical: 'https://shama.pk/tools/course-finder' },
 };
 
@@ -19,7 +19,7 @@ export default async function CourseFinderPage() {
             کورس فائنڈر
           </h1>
           <p className="mx-auto max-w-2xl text-xl text-muted-foreground">
-            مضمون، سطح، قیمت اور دورانیے کے مطابق اپنے لیے بہترین کورس چنیں
+            مضمون، قیمت اور دورانیے کے مطابق اپنے لیے بہترین کورس چنیں
           </p>
         </div>
       </section>

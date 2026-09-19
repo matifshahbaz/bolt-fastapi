@@ -16,16 +16,11 @@ const durationLabels: Record<string, string> = {
 export function CourseFinderExplorer({ listings }: { listings: CourseFinderListing[] }) {
   const [query, setQuery] = useState('');
   const [subject, setSubject] = useState('all');
-  const [level, setLevel] = useState('all');
   const [price, setPrice] = useState('all');
   const [duration, setDuration] = useState('all');
 
   const subjects = useMemo(
     () => Array.from(new Set(listings.map((listing) => listing.subject))).sort(),
-    [listings]
-  );
-  const levels = useMemo(
-    () => Array.from(new Set(listings.map((listing) => listing.level))).sort(),
     [listings]
   );
   const durations = useMemo(
@@ -38,16 +33,15 @@ export function CourseFinderExplorer({ listings }: { listings: CourseFinderListi
     return listings.filter((listing) => {
       if (trimmedQuery && !listing.title.includes(trimmedQuery)) return false;
       if (subject !== 'all' && listing.subject !== subject) return false;
-      if (level !== 'all' && listing.level !== level) return false;
       if (price !== 'all' && listing.priceType !== price) return false;
       if (duration !== 'all' && listing.durationBucket !== duration) return false;
       return true;
     });
-  }, [listings, query, subject, level, price, duration]);
+  }, [listings, query, subject, price, duration]);
 
   return (
     <div>
-      <div className="mb-8 grid gap-4 rounded-2xl border bg-card p-5 shadow-sm md:grid-cols-5">
+      <div className="mb-8 grid gap-4 rounded-2xl border bg-card p-5 shadow-sm md:grid-cols-4">
         <div className="relative md:col-span-1">
           <Search className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -61,15 +55,6 @@ export function CourseFinderExplorer({ listings }: { listings: CourseFinderListi
         <NativeSelect value={subject} onChange={(event) => setSubject(event.target.value)} className="w-full">
           <NativeSelectOption value="all">تمام مضامین</NativeSelectOption>
           {subjects.map((item) => (
-            <NativeSelectOption key={item} value={item}>
-              {item}
-            </NativeSelectOption>
-          ))}
-        </NativeSelect>
-
-        <NativeSelect value={level} onChange={(event) => setLevel(event.target.value)} className="w-full">
-          <NativeSelectOption value="all">تمام سطحیں</NativeSelectOption>
-          {levels.map((item) => (
             <NativeSelectOption key={item} value={item}>
               {item}
             </NativeSelectOption>

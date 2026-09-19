@@ -12,7 +12,7 @@ const tools = [
   {
     href: '/tools/course-finder',
     title: 'کورس فائنڈر',
-    description: 'مضمون، سطح، قیمت اور دورانیے کے مطابق موزوں کورس تلاش کریں۔',
+    description: 'مضمون، قیمت اور دورانیے کے مطابق موزوں کورس تلاش کریں۔',
     icon: GraduationCap,
   },
   {

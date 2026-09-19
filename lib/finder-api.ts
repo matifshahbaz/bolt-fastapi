@@ -3,9 +3,10 @@ import { apiBaseUrl } from '@/lib/api';
 export type CourseFinderListing = {
   id: number;
   title: string;
+  titleEn: string | null;
   provider: string | null;
   subject: string;
-  level: string;
+  deliveryMode: string | null;
   priceType: 'free' | 'paid';
   priceLabel: string | null;
   durationLabel: string;
@@ -14,15 +15,37 @@ export type CourseFinderListing = {
   externalUrl: string | null;
 };
 
-export type University = {
+export type UniversityProgram = {
   id: number;
-  name: string;
-  city: string;
+  publicId: string;
+  universityName: string;
   sector: 'public' | 'private';
-  programs: string[];
-  websiteUrl: string | null;
-  description: string | null;
-  establishedYear: number | null;
+  campusName: string;
+  city: string;
+  province: string;
+  degreeLevel: string;
+  programNameEn: string;
+  programNameUr: string | null;
+  fieldGroup: string;
+  discipline: string | null;
+  durationYears: number | null;
+  semesters: number | null;
+  shift: string | null;
+  genderRestriction: string | null;
+  admissionStatus: string | null;
+  feeAmountPkr: number | null;
+  feeBasisCode: string | null;
+  feeBasisLabelUr: string | null;
+  feeFilterAmountPkr: number | null;
+  includeInMainFeeFilter: boolean;
+  feeDisplayUr: string | null;
+  feeWarningUr: string | null;
+  programUrl: string | null;
+  admissionUrl: string | null;
+  feeUrl: string | null;
+  sourceUrl: string | null;
+  lastVerified: string | null;
+  confidence: string | null;
 };
 
 export type Scholarship = {
@@ -40,9 +63,10 @@ export type Scholarship = {
 type ApiCourseFinderListing = {
   id: number;
   title: string;
+  title_en: string | null;
   provider: string | null;
   subject: string;
-  level: string;
+  delivery_mode: string | null;
   price_type: 'free' | 'paid';
   price_label: string | null;
   duration_label: string;
@@ -51,15 +75,37 @@ type ApiCourseFinderListing = {
   external_url: string | null;
 };
 
-type ApiUniversity = {
+type ApiUniversityProgram = {
   id: number;
-  name: string;
+  public_id: string;
+  university_name: string;
+  sector: string;
+  campus_name: string;
   city: string;
-  sector: 'public' | 'private';
-  programs: string;
-  website_url: string | null;
-  description: string | null;
-  established_year: number | null;
+  province: string;
+  degree_level: string;
+  program_name_en: string;
+  program_name_ur: string | null;
+  field_group: string;
+  discipline: string | null;
+  duration_years: number | null;
+  semesters: number | null;
+  shift: string | null;
+  gender_restriction: string | null;
+  admission_status: string | null;
+  fee_amount_pkr: number | null;
+  fee_basis_code: string | null;
+  fee_basis_label_ur: string | null;
+  fee_filter_amount_pkr: number | null;
+  include_in_main_fee_filter: boolean;
+  fee_display_ur: string | null;
+  fee_warning_ur: string | null;
+  program_url: string | null;
+  admission_url: string | null;
+  fee_url: string | null;
+  source_url: string | null;
+  last_verified: string | null;
+  confidence: string | null;
 };
 
 type ApiScholarship = {
@@ -97,9 +143,10 @@ function mapCourseListing(listing: ApiCourseFinderListing): CourseFinderListing 
   return {
     id: listing.id,
     title: listing.title,
+    titleEn: listing.title_en,
     provider: listing.provider,
     subject: listing.subject,
-    level: listing.level,
+    deliveryMode: listing.delivery_mode,
     priceType: listing.price_type,
     priceLabel: listing.price_label,
     durationLabel: listing.duration_label,
@@ -109,16 +156,38 @@ function mapCourseListing(listing: ApiCourseFinderListing): CourseFinderListing 
   };
 }
 
-function mapUniversity(university: ApiUniversity): University {
+function mapUniversityProgram(program: ApiUniversityProgram): UniversityProgram {
   return {
-    id: university.id,
-    name: university.name,
-    city: university.city,
-    sector: university.sector,
-    programs: splitList(university.programs),
-    websiteUrl: university.website_url,
-    description: university.description,
-    establishedYear: university.established_year,
+    id: program.id,
+    publicId: program.public_id,
+    universityName: program.university_name,
+    sector: program.sector.toLowerCase() === 'private' ? 'private' : 'public',
+    campusName: program.campus_name,
+    city: program.city,
+    province: program.province,
+    degreeLevel: program.degree_level,
+    programNameEn: program.program_name_en,
+    programNameUr: program.program_name_ur,
+    fieldGroup: program.field_group,
+    discipline: program.discipline,
+    durationYears: program.duration_years,
+    semesters: program.semesters,
+    shift: program.shift,
+    genderRestriction: program.gender_restriction,
+    admissionStatus: program.admission_status,
+    feeAmountPkr: program.fee_amount_pkr,
+    feeBasisCode: program.fee_basis_code,
+    feeBasisLabelUr: program.fee_basis_label_ur,
+    feeFilterAmountPkr: program.fee_filter_amount_pkr,
+    includeInMainFeeFilter: program.include_in_main_fee_filter,
+    feeDisplayUr: program.fee_display_ur,
+    feeWarningUr: program.fee_warning_ur,
+    programUrl: program.program_url,
+    admissionUrl: program.admission_url,
+    feeUrl: program.fee_url,
+    sourceUrl: program.source_url,
+    lastVerified: program.last_verified,
+    confidence: program.confidence,
   };
 }
 
@@ -139,144 +208,282 @@ function mapScholarship(scholarship: ApiScholarship): Scholarship {
 const fallbackCourseListings: CourseFinderListing[] = [
   {
     id: -1,
-    title: 'ویب ڈویلپمنٹ کا تعارف',
-    provider: 'شمع اکیڈمی',
-    subject: 'کمپیوٹر سائنس',
-    level: 'ابتدائی',
+    title: 'فری لانسنگ',
+    titleEn: 'Freelancing Course',
+    provider: 'Innovista LearnEasy',
+    subject: 'Freelancing',
+    deliveryMode: 'Online recorded',
     priceType: 'free',
     priceLabel: 'مفت',
-    durationLabel: '4 ہفتے',
+    durationLabel: '3h 17m listed videos; self-paced',
     durationBucket: 'short',
-    description: 'ویب سائٹس بنانے کی بنیادی مہارتیں سیکھیں۔',
-    externalUrl: null,
+    description: 'فری لانس پروفائل، سروس کی پیشکش، پروپوزل اور کلائنٹ سے رابطے کی بنیادی مہارتیں۔',
+    externalUrl: 'https://learneasy.pk/course/freelancing-course/',
   },
   {
     id: -2,
     title: 'ڈیجیٹل مارکیٹنگ',
-    provider: null,
-    subject: 'مارکیٹنگ',
-    level: 'درمیانی',
-    priceType: 'paid',
-    priceLabel: '4,000 روپے',
-    durationLabel: '8 ہفتے',
-    durationBucket: 'medium',
-    description: 'سوشل میڈیا اور آن لائن اشتہارات کی حکمت عملی۔',
-    externalUrl: null,
+    titleEn: 'Digital Marketing',
+    provider: 'Bano Qabil Karachi',
+    subject: 'Digital marketing',
+    deliveryMode: 'Physical classroom',
+    priceType: 'free',
+    priceLabel: 'مفت',
+    durationLabel: '5 months; 4 classroom hours per week',
+    durationBucket: 'long',
+    description: 'سوشل میڈیا مہم، اشتہارات اور ایس ای او سیکھیں اور مارکیٹنگ پورٹ فولیو بنائیں۔',
+    externalUrl: 'https://banoqabil.pk/courses/digital-marketing--694fd45509bbc24151521d1b',
   },
   {
     id: -3,
-    title: 'انگریزی بول چال کی مہارت',
-    provider: 'شمع اکیڈمی',
-    subject: 'زبان کی مہارت',
-    level: 'ابتدائی',
-    priceType: 'free',
-    priceLabel: 'مفت',
-    durationLabel: '6 ہفتے',
+    title: 'مصنوعی ذہانت بوٹ کیمپ',
+    titleEn: 'Artificial Intelligence Bootcamp',
+    provider: 'atomcamp',
+    subject: 'AI and machine learning',
+    deliveryMode: 'Online live',
+    priceType: 'paid',
+    priceLabel: '75,000 روپے',
+    durationLabel: '3 months',
     durationBucket: 'medium',
-    description: 'اعتماد کے ساتھ انگریزی بولنے کی مشق۔',
-    externalUrl: null,
+    description: 'پائتھون، مشین لرننگ اور جنریٹو اے آئی کی ایپلی کیشن بنانا اور چلانا سیکھیں۔',
+    externalUrl: 'https://www.atomcamp.com/aibootcamp/',
   },
   {
     id: -4,
-    title: 'پروگرامنگ ود پائتھون',
-    provider: null,
-    subject: 'کمپیوٹر سائنس',
-    level: 'درمیانی',
+    title: 'ڈیٹا اینالیٹکس بوٹ کیمپ',
+    titleEn: 'Data Analytics Bootcamp',
+    provider: 'atomcamp',
+    subject: 'Data and Excel',
+    deliveryMode: 'Online live',
     priceType: 'paid',
-    priceLabel: '5,000 روپے',
-    durationLabel: '10 ہفتے',
-    durationBucket: 'long',
-    description: 'پائتھون زبان میں پروگرامنگ کی بنیادیں اور عملی مشقیں۔',
-    externalUrl: null,
+    priceLabel: '50,000 روپے',
+    durationLabel: '3 months',
+    durationBucket: 'medium',
+    description: 'ایکسل، ایس کیو ایل، پاور بی آئی اور پائتھن سے ڈیٹا کا تجزیہ اور رپورٹنگ سیکھیں۔',
+    externalUrl: 'https://www.atomcamp.com/data-analytics-bootcamp/',
   },
   {
     id: -5,
-    title: 'فری لانسنگ کا آغاز',
-    provider: 'شمع اکیڈمی',
-    subject: 'کیریئر مہارتیں',
-    level: 'ابتدائی',
-    priceType: 'free',
-    priceLabel: 'مفت',
-    durationLabel: '3 ہفتے',
+    title: 'ہر شخص کے لیے اے آئی',
+    titleEn: 'AI for Everyone',
+    provider: 'Enablers',
+    subject: 'AI productivity',
+    deliveryMode: 'Online or physical classroom',
+    priceType: 'paid',
+    priceLabel: 'قیمت درج نہیں',
+    durationLabel: '1 month on detail page; 6–8 weeks on catalogue',
     durationBucket: 'short',
-    description: 'آن لائن فری لانس پلیٹ فارمز پر کام شروع کرنے کا طریقہ۔',
-    externalUrl: null,
+    description: 'تکنیکی پس منظر کے بغیر لکھائی، تحقیق، منصوبہ بندی اور روزمرہ کاموں میں اے آئی استعمال کریں۔',
+    externalUrl: 'https://www.enablers.org/trainings/ai-for-everyone',
   },
   {
     id: -6,
-    title: 'یو آئی/یو ایکس ڈیزائن',
-    provider: null,
-    subject: 'ڈیزائن',
-    level: 'درمیانی',
+    title: 'کینوا سے ڈیزائن بنانا',
+    titleEn: 'Canva Bootcamp / Learn Designing with Canva',
+    provider: 'PNY Trainings',
+    subject: 'Design',
+    deliveryMode: 'Online; live/recorded mix unclear',
     priceType: 'paid',
-    priceLabel: '6,000 روپے',
-    durationLabel: '9 ہفتے',
-    durationBucket: 'medium',
-    description: 'صارف دوست ایپ اور ویب سائٹ ڈیزائن کی مہارتیں۔',
-    externalUrl: null,
+    priceLabel: '5,000 روپے',
+    durationLabel: '1 month',
+    durationBucket: 'short',
+    description: 'کینوا میں بزنس کارڈ اور سوشل میڈیا ڈیزائن بنائیں اور رنگ، فونٹ اور ترتیب کی بنیادیں سمجھیں۔',
+    externalUrl: 'https://www.pnytrainings.com/canva-bootcamp',
   },
 ];
 
-const fallbackUniversities: University[] = [
+const fallbackUniversityPrograms: UniversityProgram[] = [
   {
     id: -1,
-    name: 'قائداعظم یونیورسٹی',
-    city: 'اسلام آباد',
+    publicId: 'SHAMA-P0100',
+    universityName: 'COMSATS Institute of Information Technology / COMSATS University Islamabad',
     sector: 'public',
-    programs: ['کمپیوٹر سائنس', 'طبیعیات', 'بین الاقوامی تعلقات'],
-    websiteUrl: null,
-    description: null,
-    establishedYear: null,
+    campusName: 'COMSATS Lahore Campus',
+    city: 'Lahore',
+    province: 'Punjab',
+    degreeLevel: 'BS/Undergraduate',
+    programNameEn: 'BS Computer Science',
+    programNameUr: null,
+    fieldGroup: 'Computer Science & IT',
+    discipline: 'Computer Science',
+    durationYears: 4,
+    semesters: 8,
+    shift: null,
+    genderRestriction: null,
+    admissionStatus: null,
+    feeAmountPkr: 160500,
+    feeBasisCode: 'FIRST_SEMESTER_TOTAL',
+    feeBasisLabelUr: null,
+    feeFilterAmountPkr: null,
+    includeInMainFeeFilter: false,
+    feeDisplayUr: 'فیس ویب سائٹ پر واضح نہیں ملی',
+    feeWarningUr: 'اس پروگرام کی فیس ابھی واضح طور پر میپ نہیں ہوئی۔',
+    programUrl: 'https://lahore.comsats.edu.pk/undergraduate.aspx',
+    admissionUrl: 'https://admissions.comsats.edu.pk/',
+    feeUrl: 'https://lahore.comsats.edu.pk/fee-structure.aspx',
+    sourceUrl: 'https://lahore.comsats.edu.pk/undergraduate.aspx',
+    lastVerified: '2026-09-19',
+    confidence: 'High',
   },
   {
     id: -2,
-    name: 'نسٹ',
-    city: 'اسلام آباد',
+    publicId: 'SHAMA-P0124',
+    universityName: 'National University of Sciences and Technology, Islamabad',
     sector: 'public',
-    programs: ['انجینئرنگ', 'کمپیوٹر سائنس', 'بزنس ایڈمنسٹریشن'],
-    websiteUrl: null,
-    description: null,
-    establishedYear: null,
+    campusName: 'NUST Islamabad Main Campus',
+    city: 'Islamabad',
+    province: 'Islamabad Capital Territory',
+    degreeLevel: 'BS/Undergraduate',
+    programNameEn: 'BS Computer Science',
+    programNameUr: null,
+    fieldGroup: 'Computer Science & IT',
+    discipline: 'Computer Science',
+    durationYears: 4,
+    semesters: 8,
+    shift: null,
+    genderRestriction: null,
+    admissionStatus: null,
+    feeAmountPkr: 216750,
+    feeBasisCode: 'SEMESTER_TUITION_ONLY',
+    feeBasisLabelUr: null,
+    feeFilterAmountPkr: null,
+    includeInMainFeeFilter: false,
+    feeDisplayUr: 'فیس ویب سائٹ پر واضح نہیں ملی',
+    feeWarningUr: 'اس پروگرام کی فیس ابھی واضح طور پر میپ نہیں ہوئی۔',
+    programUrl: 'https://nust.edu.pk/admissions/undergraduates/list-of-ug-programmes-and-institutions',
+    admissionUrl: null,
+    feeUrl: null,
+    sourceUrl: 'https://nust.edu.pk/admissions/undergraduates/list-of-ug-programmes-and-institutions',
+    lastVerified: '2026-09-19',
+    confidence: 'High',
   },
   {
     id: -3,
-    name: 'لمز',
-    city: 'لاہور',
-    sector: 'private',
-    programs: ['بزنس ایڈمنسٹریشن', 'کمپیوٹر سائنس', 'معاشیات', 'سوشل سائنسز'],
-    websiteUrl: null,
-    description: null,
-    establishedYear: null,
+    publicId: 'SHAMA-P0169',
+    universityName: 'University of the Punjab, Lahore',
+    sector: 'public',
+    campusName: 'University of the Punjab Lahore Campus / FCIT',
+    city: 'Lahore',
+    province: 'Punjab',
+    degreeLevel: 'BS/Undergraduate',
+    programNameEn: 'BS Computer Science',
+    programNameUr: null,
+    fieldGroup: 'Computer Science & IT',
+    discipline: 'Computer Science',
+    durationYears: 4,
+    semesters: 8,
+    shift: null,
+    genderRestriction: null,
+    admissionStatus: null,
+    feeAmountPkr: null,
+    feeBasisCode: 'FEE_NOT_AVAILABLE',
+    feeBasisLabelUr: null,
+    feeFilterAmountPkr: null,
+    includeInMainFeeFilter: false,
+    feeDisplayUr: 'فیس ویب سائٹ پر واضح نہیں ملی',
+    feeWarningUr: 'اس پروگرام کی فیس ابھی واضح طور پر میپ نہیں ہوئی۔',
+    programUrl: 'https://pu.edu.pk/program/show/900097',
+    admissionUrl: null,
+    feeUrl: null,
+    sourceUrl: 'https://pu.edu.pk/program/show/900097',
+    lastVerified: '2026-09-19',
+    confidence: 'High',
   },
   {
     id: -4,
-    name: 'آغا خان یونیورسٹی',
-    city: 'کراچی',
+    publicId: 'SHAMA-P0341',
+    universityName: 'National University of Computer and Emerging Sciences, Islamabad',
     sector: 'private',
-    programs: ['میڈیسن', 'نرسنگ', 'تعلیم'],
-    websiteUrl: null,
-    description: null,
-    establishedYear: null,
+    campusName: 'FAST-NUCES Chiniot-Faisalabad Campus',
+    city: 'Chiniot / Faisalabad',
+    province: 'Punjab',
+    degreeLevel: 'BS/Undergraduate',
+    programNameEn: 'BS Computer Science',
+    programNameUr: null,
+    fieldGroup: 'Computer Science & IT',
+    discipline: 'Computer Science',
+    durationYears: 4,
+    semesters: 8,
+    shift: null,
+    genderRestriction: null,
+    admissionStatus: null,
+    feeAmountPkr: null,
+    feeBasisCode: null,
+    feeBasisLabelUr: null,
+    feeFilterAmountPkr: null,
+    includeInMainFeeFilter: false,
+    feeDisplayUr: 'فیس ویب سائٹ پر واضح نہیں ملی',
+    feeWarningUr: 'اس پروگرام کی فیس ابھی واضح طور پر میپ نہیں ہوئی۔',
+    programUrl: null,
+    admissionUrl: null,
+    feeUrl: null,
+    sourceUrl: 'https://cfd.nu.edu.pk/department-of-computer-science/',
+    lastVerified: '2026-09-19',
+    confidence: 'Medium',
   },
   {
     id: -5,
-    name: 'پنجاب یونیورسٹی',
-    city: 'لاہور',
+    publicId: 'SHAMA-P0217',
+    universityName: 'University of Agriculture, Faisalabad',
     sector: 'public',
-    programs: ['قانون', 'معاشیات', 'اردو ادب', 'کمپیوٹر سائنس'],
-    websiteUrl: null,
-    description: null,
-    establishedYear: null,
+    campusName: 'UAF Main Campus',
+    city: 'Faisalabad',
+    province: 'Punjab',
+    degreeLevel: 'BS/Undergraduate',
+    programNameEn: 'B.Sc. (Hons.) Agriculture',
+    programNameUr: null,
+    fieldGroup: 'Agriculture & Food Sciences',
+    discipline: 'Agriculture',
+    durationYears: 4,
+    semesters: 8,
+    shift: null,
+    genderRestriction: null,
+    admissionStatus: null,
+    feeAmountPkr: null,
+    feeBasisCode: 'FEE_NOT_AVAILABLE',
+    feeBasisLabelUr: null,
+    feeFilterAmountPkr: null,
+    includeInMainFeeFilter: false,
+    feeDisplayUr: 'فیس ویب سائٹ پر واضح نہیں ملی',
+    feeWarningUr: 'اس پروگرام کی فیس ابھی واضح طور پر میپ نہیں ہوئی۔',
+    programUrl: null,
+    admissionUrl: null,
+    feeUrl: null,
+    sourceUrl: 'https://web.uaf.edu.pk/Downloads/MeritListsView',
+    lastVerified: '2026-09-19',
+    confidence: 'Medium',
   },
   {
     id: -6,
-    name: 'آئی بی اے کراچی',
-    city: 'کراچی',
+    publicId: 'SHAMA-P0183',
+    universityName: 'Government College University, Faisalabad',
     sector: 'public',
-    programs: ['بزنس ایڈمنسٹریشن', 'اکاؤنٹنگ اینڈ فنانس', 'کمپیوٹر سائنس'],
-    websiteUrl: null,
-    description: null,
-    establishedYear: null,
+    campusName: 'GCUF Faisalabad Main Campus',
+    city: 'Faisalabad',
+    province: 'Punjab',
+    degreeLevel: 'BS/Undergraduate',
+    programNameEn: 'BS History',
+    programNameUr: null,
+    fieldGroup: 'Arts, Design & Humanities',
+    discipline: 'Arts & Humanities',
+    durationYears: 4,
+    semesters: 8,
+    shift: null,
+    genderRestriction: null,
+    admissionStatus: null,
+    feeAmountPkr: null,
+    feeBasisCode: 'FEE_NOT_AVAILABLE',
+    feeBasisLabelUr: null,
+    feeFilterAmountPkr: null,
+    includeInMainFeeFilter: false,
+    feeDisplayUr: 'فیس ویب سائٹ پر واضح نہیں ملی',
+    feeWarningUr: 'اس پروگرام کی فیس ابھی واضح طور پر میپ نہیں ہوئی۔',
+    programUrl: null,
+    admissionUrl: null,
+    feeUrl: null,
+    sourceUrl: 'https://gcuf.edu.pk/bs-degree-program-4-year/',
+    lastVerified: '2026-09-19',
+    confidence: 'Medium',
   },
 ];
 
@@ -358,12 +565,12 @@ export async function getCourseFinderListings(): Promise<CourseFinderListing[]> 
   }
 }
 
-export async function getUniversities(): Promise<University[]> {
+export async function getUniversityPrograms(): Promise<UniversityProgram[]> {
   try {
-    const universities = await fetchFinderContent<ApiUniversity[]>('/api/v1/university-finder');
-    return universities.map(mapUniversity);
+    const programs = await fetchFinderContent<ApiUniversityProgram[]>('/api/v1/university-finder');
+    return programs.map(mapUniversityProgram);
   } catch {
-    return fallbackUniversities;
+    return fallbackUniversityPrograms;
   }
 }
 

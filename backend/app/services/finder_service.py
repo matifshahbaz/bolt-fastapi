@@ -1,5 +1,5 @@
 from app.repositories.finder_repository import FinderRepository
-from app.schemas.finder import CourseFinderListing, Scholarship, University
+from app.schemas.finder import CourseFinderListing, Scholarship, UniversityProgram
 
 
 class FinderService:
@@ -9,8 +9,8 @@ class FinderService:
     def list_course_listings(self) -> list[CourseFinderListing]:
         return self._repository.list_course_listings()
 
-    def list_universities(self) -> list[University]:
-        return self._repository.list_universities()
+    def list_university_programs(self) -> list[UniversityProgram]:
+        return self._repository.list_university_programs()
 
     def list_scholarships(self) -> list[Scholarship]:
         return self._repository.list_scholarships()

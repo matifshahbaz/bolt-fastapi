@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { UniversityFinderExplorer } from '@/components/site/finder/university-finder-explorer';
-import { getUniversities } from '@/lib/finder-api';
+import { getUniversityPrograms } from '@/lib/finder-api';
 
 export const metadata: Metadata = {
   title: 'یونیورسٹی فائنڈر',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function UniversityFinderPage() {
-  const universities = await getUniversities();
+  const universityPrograms = await getUniversityPrograms();
 
   return (
     <div className="flex flex-col">
@@ -24,7 +24,7 @@ export default async function UniversityFinderPage() {
         </div>
       </section>
       <section className="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <UniversityFinderExplorer universities={universities} />
+        <UniversityFinderExplorer universityPrograms={universityPrograms} />
       </section>
     </div>
   );
