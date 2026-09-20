@@ -224,7 +224,10 @@ export type ArticleSection = {
     | 'FeesAdmissionsComparison'
     | 'AdmissionTimeline2027'
     | 'UniversityCardWall'
-    | 'UniversityDecisionTool';
+    | 'UniversityDecisionTool'
+    | 'CareerFieldExplorer'
+    | 'CareerPathExplorer'
+    | 'CareerRouteComparison';
 };
 
 export const categories: Category[] = [

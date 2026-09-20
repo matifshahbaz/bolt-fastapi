@@ -84,6 +84,9 @@ import {
 } from '@/components/startup-finance';
 import {
   AdviceCost,
+  CareerFieldExplorer,
+  CareerPathExplorer,
+  CareerRouteComparison,
   ScopeDecision,
   ShamaArticleHeroBanner,
 } from '@/components/career-after-matric';
@@ -307,6 +310,9 @@ const articleComponents = {
   ShamaArticleHeroBanner,
   ScopeDecision,
   AdviceCost,
+  CareerFieldExplorer,
+  CareerPathExplorer,
+  CareerRouteComparison,
   SalesHero,
   SalesShameReasons,
   SalesOpenDoor,
