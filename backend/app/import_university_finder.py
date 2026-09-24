@@ -4,9 +4,11 @@ Run with: python -m app.import_university_finder (from the backend/ directory, v
 Requires openpyxl (see requirements.txt).
 
 The source file lives outside this repository, alongside the rest of the
-editable content archive (see AGENTS.md):
+editable content archive (see AGENTS.md). It is the latest consolidated
+master workbook (currently the batch07 KPK/Balochistan/Sindh file); update
+DEFAULT_XLSX_PATH below whenever a newer consolidated batch file replaces it:
 
-    C:\\Users\\97156\\Desktop\\Personal\\Shama.pk\\Tools\\University finder\\shama_pk_university_finder_claude_handoff_fee_safe.xlsx
+    C:\\Users\\97156\\Desktop\\Personal\\Shama.pk\\Tools\\University finder\\shama_pk_university_finder_batch07_kpk_balochistan_sindh (1) 2.xlsx
 
 Only the "Public_Data_View" sheet is read (per that workbook's own
 Claude_Handoff sheet: it is the pre-normalized, fee-safe, one-row-per-campus-
@@ -25,6 +27,7 @@ Re-running this script fully replaces the university_programs table with a
 fresh import, so it is safe to re-run whenever the spreadsheet changes.
 """
 
+import sys
 from pathlib import Path
 
 import openpyxl
@@ -33,7 +36,7 @@ from app.core.db import get_db_session, init_db
 from app.models import UniversityProgramModel
 
 DEFAULT_XLSX_PATH = Path(
-    r"C:\Users\97156\Desktop\Personal\Shama.pk\Tools\University finder\shama_pk_university_finder_claude_handoff_fee_safe.xlsx"
+    r"C:\Users\97156\Desktop\Personal\Shama.pk\Tools\University finder\shama_pk_university_finder_batch07_kpk_balochistan_sindh (1) 2.xlsx"
 )
 SHEET_NAME = "Public_Data_View"
 
@@ -78,6 +81,22 @@ _STR_FIELDS = {
 }
 
 
+def _to_bool(value, *, context: str) -> bool:
+    """Normalize a checkbox-style cell to bool.
+
+    Some batches typed the literal text TRUE/FALSE into these cells instead
+    of using a real Excel boolean, which `is not True` / `bool(...)` would
+    silently misread (a "FALSE" string is truthy in Python). Handle both
+    forms explicitly and raise on anything else, so a future bad value gets
+    caught instead of being misinterpreted one way or the other.
+    """
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str) and value.strip().upper() in {"TRUE", "FALSE"}:
+        return value.strip().upper() == "TRUE"
+    raise ValueError(f"Unexpected boolean cell value for {context}: {value!r}")
+
+
 def _load_rows(xlsx_path: Path) -> list[dict]:
     workbook = openpyxl.load_workbook(xlsx_path, data_only=True)
     sheet = workbook[SHEET_NAME]
@@ -89,7 +108,8 @@ def _load_rows(xlsx_path: Path) -> list[dict]:
     for row in rows[1:]:
         if all(value is None for value in row):
             continue
-        if row[column_index["include_in_public_tool"]] is not True:
+        public_id = row[column_index["public_id"]]
+        if not _to_bool(row[column_index["include_in_public_tool"]], context=f"include_in_public_tool ({public_id})"):
             continue
         parsed.append({name: row[column_index[name]] for name in COLUMN_TO_FIELD})
     return parsed
@@ -104,7 +124,7 @@ def _to_model_kwargs(row: dict) -> dict:
         elif field in _STR_FIELDS:
             kwargs[field] = str(value) if value is not None else None
         else:
-            kwargs[field] = bool(value)
+            kwargs[field] = _to_bool(value, context=f"{field} ({row.get('public_id')})")
     return kwargs
 
 
@@ -118,9 +138,13 @@ def import_university_programs(xlsx_path: Path = DEFAULT_XLSX_PATH) -> int:
 
 
 def main() -> None:
+    # Optional CLI arg lets this run against an uploaded copy of the workbook
+    # on a host where DEFAULT_XLSX_PATH (a local Windows path) doesn't exist,
+    # e.g. `python -m app.import_university_finder /tmp/batch07.xlsx` on the VPS.
+    xlsx_path = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_XLSX_PATH
     init_db()
-    count = import_university_programs()
-    print(f"Imported {count} university program listing(s) from {DEFAULT_XLSX_PATH.name}.")
+    count = import_university_programs(xlsx_path)
+    print(f"Imported {count} university program listing(s) from {xlsx_path.name}.")
 
 
 if __name__ == "__main__":
