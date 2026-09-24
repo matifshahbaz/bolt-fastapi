@@ -6,6 +6,8 @@ export const fixAiGeneratedPosterTextArticle: Article = {
   excerpt:
     'ChatGPT سے بنے اردو پوسٹر میں غلط الفاظ، حروف اور نقطے درست کرنے اور PowerPoint کی مدد سے صاف، قابلِ اعتماد ڈیزائن تیار کرنے کی عملی رہنمائی۔',
   coverImage: '/articles/ai-poster-correction-hero.jpeg',
+  coverImageWidth: 1672,
+  coverImageHeight: 941,
   category: 'مہارتیں',
   author: 'عاطف شہباز',
   publishedAt: '22 اگست 2026',
@@ -40,6 +42,8 @@ export const fixAiGeneratedPosterTextArticle: Article = {
       type: 'image',
       src: '/articles/ai-poster-prompt.png',
       alt: 'ChatGPT میں کپڑوں پر 50 فیصد رعایت کا تصویری اشتہار بنانے کا پرومپٹ۔',
+      width: 1369,
+      height: 273,
     },
     {
       type: 'paragraph',
@@ -49,6 +53,8 @@ export const fixAiGeneratedPosterTextArticle: Article = {
       type: 'image',
       src: '/articles/ai-poster-original.png',
       alt: 'اے آئی سے تیار کیا گیا اصل پوسٹر — ڈیزائن اچھا ہے، مگر ایک لفظ کی شکل خراب ہوگئی۔',
+      width: 1024,
+      height: 1536,
     },
     {
       type: 'callout',
@@ -84,6 +90,8 @@ export const fixAiGeneratedPosterTextArticle: Article = {
       type: 'image',
       src: '/articles/ai-poster-no-text-prompt.png',
       alt: 'ChatGPT میں اسی پوسٹر کو تمام الفاظ کے بغیر بنانے کا پرومپٹ۔',
+      width: 1344,
+      height: 141,
     },
     {
       type: 'paragraph',
@@ -93,6 +101,8 @@ export const fixAiGeneratedPosterTextArticle: Article = {
       type: 'image',
       src: '/articles/ai-poster-without-text.png',
       alt: 'بغیر الفاظ والا ورژن — اب الفاظ اپنی مرضی، درست املا اور مناسب فونٹ کے ساتھ شامل کیے جاسکتے ہیں۔',
+      width: 1024,
+      height: 1536,
     },
     { type: 'heading', text: '4۔ پاور پوائنٹ استعمال کریں' },
     {
@@ -108,6 +118,8 @@ export const fixAiGeneratedPosterTextArticle: Article = {
       type: 'image',
       src: '/articles/ai-poster-powerpoint-layers.png',
       alt: 'PowerPoint میں دونوں versions شامل کرنے کے بعد خراب حصے کو صاف کیا جاسکتا ہے۔',
+      width: 1600,
+      height: 1091,
     },
     { type: 'subheading', text: 'خراب حصہ چھپانے کے دو طریقے' },
     {
@@ -135,6 +147,8 @@ export const fixAiGeneratedPosterTextArticle: Article = {
       type: 'image',
       src: '/articles/ai-poster-background-patch.png',
       alt: 'خراب لفظ کو crop کیے ہوئے صاف حصے یا کسی دوسری shape سے ڈھانپ دیں۔',
+      width: 1060,
+      height: 567,
     },
     { type: 'heading', text: '5۔ اب درست الفاظ شامل کریں' },
     {
@@ -150,6 +164,8 @@ export const fixAiGeneratedPosterTextArticle: Article = {
       type: 'image',
       src: '/articles/ai-poster-before-after.png',
       alt: 'پہلے اور بعد میں — درست متن پاور پوائنٹ کے editable Text Boxes سے شامل کیا گیا۔',
+      width: 955,
+      height: 372,
     },
     { type: 'heading', text: '6۔ پوسٹر محفوظ کرنے سے پہلے آخری جانچ' },
     {
@@ -186,6 +202,8 @@ export const fixAiGeneratedPosterTextArticle: Article = {
       type: 'image',
       src: '/articles/ai-poster-correction-footer.jpeg',
       alt: 'لفظ کی درستی اور معیار کی جانچ — شمع.pk',
+      width: 1672,
+      height: 941,
     },
   ],
 };

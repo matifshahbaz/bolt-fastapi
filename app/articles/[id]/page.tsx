@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, User, Calendar, ArrowLeft, CheckCircle2, FlaskConical, Lightbulb, BellOff, Target, BarChart3, CircleHelp, Facebook, ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -463,12 +464,24 @@ export default async function ArticleDetailPage({
           <HeroBanner />
         ) : article.coverImage ? (
           <div className="overflow-hidden rounded-2xl border bg-slate-50 shadow-lg">
-            <img
-              src={article.coverImage}
-              alt={article.title}
-              className="h-auto w-full"
-              loading="eager"
-            />
+            {article.coverImageWidth && article.coverImageHeight ? (
+              <Image
+                src={article.coverImage}
+                alt={article.title}
+                width={article.coverImageWidth}
+                height={article.coverImageHeight}
+                sizes="(min-width: 1024px) 832px, 100vw"
+                className="h-auto w-full"
+                priority
+              />
+            ) : (
+              <img
+                src={article.coverImage}
+                alt={article.title}
+                className="h-auto w-full"
+                loading="eager"
+              />
+            )}
           </div>
         ) : null}
       </section>
@@ -740,12 +753,23 @@ export default async function ArticleDetailPage({
                     className="my-10 overflow-hidden rounded-3xl border bg-card shadow-lg"
                   >
                     <div className="bg-slate-50">
-                      <img
-                        src={section.src ?? ''}
-                        alt={section.alt ?? ''}
-                        className="h-auto w-full"
-                        loading="lazy"
-                      />
+                      {section.width && section.height ? (
+                        <Image
+                          src={section.src ?? ''}
+                          alt={section.alt ?? ''}
+                          width={section.width}
+                          height={section.height}
+                          sizes="(min-width: 1024px) 800px, 100vw"
+                          className="h-auto w-full"
+                        />
+                      ) : (
+                        <img
+                          src={section.src ?? ''}
+                          alt={section.alt ?? ''}
+                          className="h-auto w-full"
+                          loading="lazy"
+                        />
+                      )}
                     </div>
                     {caption ? (
                       <div className="border-t bg-white px-6 py-4">

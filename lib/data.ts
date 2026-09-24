@@ -122,6 +122,9 @@ export type Article = {
   title: string;
   excerpt: string;
   coverImage: string;
+  /** Intrinsic pixel dimensions of coverImage, used to render it via next/image and reserve layout space (prevents CLS). */
+  coverImageWidth?: number;
+  coverImageHeight?: number;
   category: string;
   author: string;
   publishedAt: string;
@@ -136,6 +139,9 @@ export type ArticleSection = {
   text?: string;
   src?: string;
   alt?: string;
+  /** For an 'image' section: intrinsic pixel dimensions of src, used to render it via next/image and reserve layout space (prevents CLS). */
+  width?: number;
+  height?: number;
   title?: string;
   subtitle?: string;
   items?: string[];

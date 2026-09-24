@@ -7,7 +7,12 @@
   src:
     url('/fonts/JameelNooriNastaleeq.woff2') format('woff2'),
     url('/fonts/JameelNooriNastaleeq.woff') format('woff');
-  font-display: swap;
+  /* This face is a ~7MB decorative Nastaliq font. `optional` lets the browser
+     render immediately with the (already self-hosted, near-instant) Noto
+     Nastaliq Urdu fallback and only use this face if it's already cached —
+     it never blocks first paint and never swaps in late, which is what was
+     causing both the layout shift and the multi-MB payload delay. */
+  font-display: optional;
   font-style: normal;
   font-weight: 400;
 }
