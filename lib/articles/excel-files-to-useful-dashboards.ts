@@ -6,6 +6,8 @@ export const excelFilesToUsefulDashboardsArticle: Article = {
   excerpt:
     'فائنانس، سیلز، آپریشنز، پروکیورمنٹ اور ہیومن ریسورس کی عام ایکسل رپورٹس کو واضح، خوب صورت اور فیصلہ سازی میں مددگار ڈیش بورڈز میں بدلنے کی عملی مثالیں۔',
   coverImage: '/articles/excel-dashboard-hero.jpeg',
+  coverImageWidth: 1672,
+  coverImageHeight: 941,
   category: 'مہارتیں',
   author: 'عاطف شہباز',
   publishedAt: '23 اگست 2026',
@@ -25,6 +27,8 @@ export const excelFilesToUsefulDashboardsArticle: Article = {
       type: 'image',
       src: '/articles/excel-dashboard-finance-report.png',
       alt: 'فائنانس ڈیپارٹمنٹ کی عام ایکسل رپورٹ جس میں ماہانہ کارکردگی، برانچ، کیٹیگری اور وصولیوں کے ٹیبل ہیں۔',
+      width: 1089,
+      height: 1068,
     },
     {
       type: 'paragraph',
@@ -45,6 +49,8 @@ export const excelFilesToUsefulDashboardsArticle: Article = {
       type: 'image',
       src: '/articles/excel-dashboard-finance-dashboard.png',
       alt: 'فائنانس رپورٹ کا ماہانہ بزنس ریویو ڈیش بورڈ جس میں اہم نمبرز، رجحانات اور تقابلی گراف نمایاں ہیں۔',
+      width: 1425,
+      height: 1323,
     },
     {
       type: 'paragraph',
@@ -69,6 +75,8 @@ export const excelFilesToUsefulDashboardsArticle: Article = {
       type: 'image',
       src: '/articles/excel-dashboard-sales-report.png',
       alt: 'سیلز ڈیپارٹمنٹ کی عام ایکسل رپورٹ جس میں سیلز پرسن، برانچ، ماہ، پراڈکٹ اور بنیادی کے پی آئی ڈیٹا ہے۔',
+      width: 1585,
+      height: 1192,
     },
     { type: 'paragraph', text: 'یہی چیز بہتر طور پر ایکسل میں ہی ایسے بھی پیش کی جا سکتی ہے۔' },
     {
@@ -79,6 +87,8 @@ export const excelFilesToUsefulDashboardsArticle: Article = {
       type: 'image',
       src: '/articles/excel-dashboard-sales-dashboard.png',
       alt: 'سیلز کارکردگی کا ڈیش بورڈ جس میں اہم نمبرز، ماہانہ رجحان، برانچ، پراڈکٹ اور سیلز پرسن کے گراف ہیں۔',
+      width: 1410,
+      height: 1323,
     },
     {
       type: 'paragraph',
@@ -109,6 +119,8 @@ export const excelFilesToUsefulDashboardsArticle: Article = {
       type: 'image',
       src: '/articles/excel-dashboard-operations-dashboard.png',
       alt: 'ڈسپیچ اور ڈیلیوری آپریشنز کا ڈیش بورڈ جس میں ہفتہ وار تاخیر، برانچ اور گاڑیوں کے استعمال کا تجزیہ ہے۔',
+      width: 1425,
+      height: 1323,
     },
     {
       type: 'paragraph',
@@ -122,6 +134,8 @@ export const excelFilesToUsefulDashboardsArticle: Article = {
       type: 'image',
       src: '/articles/excel-dashboard-operations-report.png',
       alt: 'آپریشنز کی عام ایکسل رپورٹ جس میں ہفتہ وار ڈسپیچ، تاخیر، گاڑیوں، برانچ، کے پی آئی اور ریٹرنز کے ٹیبل ہیں۔',
+      width: 1124,
+      height: 897,
     },
     { type: 'paragraph', text: 'بات صرف خوبصورتی کی نہیں ہے۔' },
     {
@@ -141,6 +155,8 @@ export const excelFilesToUsefulDashboardsArticle: Article = {
       type: 'image',
       src: '/articles/excel-dashboard-procurement-report.png',
       alt: 'پروکیورمنٹ کی عام ایکسل انوینٹری رپورٹ جس میں اسٹاک موومنٹ، کیٹیگری، کور اور بنیادی کے پی آئی ہیں۔',
+      width: 1414,
+      height: 662,
     },
     {
       type: 'paragraph',
@@ -154,6 +170,8 @@ export const excelFilesToUsefulDashboardsArticle: Article = {
       type: 'image',
       src: '/articles/excel-dashboard-procurement-dashboard.png',
       alt: 'اسٹاک اور پروکیورمنٹ ڈیش بورڈ جس میں کیٹیگری، موومنٹ، کور اور آؤٹ آف اسٹاک اشیا واضح ہیں۔',
+      width: 1410,
+      height: 1323,
     },
     { type: 'paragraph', text: 'بلکہ جو زیادہ فروخت ہونے والا مال ہے وہ بہت تھوڑا رہ گیا ہے ہمارے پاس۔' },
     {
@@ -170,6 +188,8 @@ export const excelFilesToUsefulDashboardsArticle: Article = {
       type: 'image',
       src: '/articles/excel-dashboard-hr-report.png',
       alt: 'ہیومن ریسورس کی عام ایکسل رپورٹ جس میں ملازمین، تنخواہ، ملازمت چھوڑنے والوں اور ہیڈ کاؤنٹ کے ٹیبل ہیں۔',
+      width: 1275,
+      height: 1113,
     },
     { type: 'paragraph', text: 'مگر اسی فائل کو بہتر طریقے سے بنایا جا سکتا ہے۔' },
     { type: 'paragraph', text: 'جس کو دیکھ کر باس کے لیے اہم معلومات حاصل کرنا آسان ہو جائے۔' },
@@ -185,6 +205,8 @@ export const excelFilesToUsefulDashboardsArticle: Article = {
       type: 'image',
       src: '/articles/excel-dashboard-hr-dashboard.png',
       alt: 'ہیومن ریسورس کا پیپل ڈیش بورڈ جس میں ہیڈ کاؤنٹ، تنخواہ، ملازمت چھوڑنے والوں اور محکموں کا تجزیہ ہے۔',
+      width: 1425,
+      height: 1323,
     },
     { type: 'heading', text: 'ڈیش بورڈ بنانا سیکھیں' },
     {
@@ -199,6 +221,8 @@ export const excelFilesToUsefulDashboardsArticle: Article = {
       type: 'image',
       src: '/articles/excel-dashboard-footer.jpeg',
       alt: 'ڈیٹا وہی، فیصلہ بہتر — عام رپورٹ کو کارآمد ڈیش بورڈ میں بدلنے کا اختتامی پیغام۔',
+      width: 1672,
+      height: 941,
     },
     {
       type: 'callout',

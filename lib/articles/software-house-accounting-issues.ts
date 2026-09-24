@@ -6,6 +6,8 @@ export const softwareHouseAccountingIssuesArticle: Article = {
   excerpt:
     'پاکستانی سافٹ ویئر ہاؤسز میں کے پی آئی ڈیش بورڈ، نامکمل بلنگ، تاخیر سے وصولی، غیر ضروری سبسکرپشنز اور ذاتی و کاروباری کھاتوں کے ملاپ کے عملی حل۔',
   coverImage: '/articles/software-house-accounting-problems-hero.jpeg',
+  coverImageWidth: 1672,
+  coverImageHeight: 941,
   category: 'کاروبار',
   author: 'عاطف شہباز',
   publishedAt: '11 اگست 2026',
@@ -45,6 +47,8 @@ export const softwareHouseAccountingIssuesArticle: Article = {
       type: 'image',
       src: '/articles/software-house-accounting-data.png',
       alt: 'بینک ایپ، ایکسل، رجسٹر، واٹس ایپ اور کریڈٹ کارڈ میں بکھرے مالیاتی ڈیٹا کی تصویر۔',
+      width: 1429,
+      height: 1079,
     },
     {
       type: 'paragraph',
@@ -75,6 +79,8 @@ export const softwareHouseAccountingIssuesArticle: Article = {
       type: 'image',
       src: '/articles/software-house-accounting-dashboard.png',
       alt: 'آئی ٹی مانیٹرنگ ڈیش بورڈ اور کمپنی کے مالیاتی ڈیش بورڈ کا تقابلی خاکہ۔',
+      width: 1536,
+      height: 1024,
     },
     {
       type: 'paragraph',
@@ -100,6 +106,8 @@ export const softwareHouseAccountingIssuesArticle: Article = {
       type: 'image',
       src: '/articles/software-house-accounting-kpis.png',
       alt: 'سافٹ ویئر ہاؤس کا ایک صفحے پر مشتمل ماہانہ مالیاتی کے پی آئی ڈیش بورڈ۔',
+      width: 1408,
+      height: 768,
     },
     {
       type: 'callout',
@@ -123,6 +131,8 @@ export const softwareHouseAccountingIssuesArticle: Article = {
       type: 'image',
       src: '/articles/software-house-accounting-kpi-summary.webp',
       alt: 'ریونیو، گراس مارجن، فی ملازم ریونیو، ڈی ایس او اور کیش رن وے کے پانچ بنیادی نمبر۔',
+      width: 1920,
+      height: 1280,
     },
     { type: 'heading', text: 'مسئلہ نمبر 2: مالی رساؤ — کام پورا ہوا، بلنگ ادھوری رہی' },
     {
@@ -187,6 +197,8 @@ export const softwareHouseAccountingIssuesArticle: Article = {
       type: 'image',
       src: '/articles/software-house-accounting-time-tracking.png',
       alt: 'پروجیکٹس کے بل ایبل اور نان بل ایبل گھنٹوں کی ہفتہ وار ٹائم رپورٹ۔',
+      width: 1432,
+      height: 955,
     },
     {
       type: 'callout',
@@ -216,6 +228,8 @@ export const softwareHouseAccountingIssuesArticle: Article = {
       type: 'image',
       src: '/articles/software-house-accounting-invoice-timeline.webp',
       alt: 'دس ہزار ڈالر کی انوائس وصول ہونے میں 75 دن کی تاخیر کی ٹائم لائن۔',
+      width: 1920,
+      height: 1280,
     },
     {
       type: 'paragraph',
@@ -251,6 +265,8 @@ export const softwareHouseAccountingIssuesArticle: Article = {
       type: 'image',
       src: '/articles/software-house-accounting-receivables.webp',
       alt: 'خودکار فالو اپ کے ذریعے انوائس وصولی 75 دن سے 25 دن تک لانے کا خاکہ۔',
+      width: 1920,
+      height: 1280,
     },
     { type: 'heading', text: 'مسئلہ نمبر 4: زومبی اخراجات — سبسکرپشنز جو کام نہیں کرتیں مگر تنخواہ لیتی ہیں' },
     {
@@ -324,6 +340,8 @@ export const softwareHouseAccountingIssuesArticle: Article = {
       type: 'image',
       src: '/articles/software-house-accounting-separate-accounts.png',
       alt: 'کمپنی اور ذاتی بینک اکاؤنٹس کو الگ رکھنے اور مالک کی تنخواہ منتقل کرنے کا خاکہ۔',
+      width: 1003,
+      height: 1568,
     },
     {
       type: 'checklist',
@@ -345,6 +363,8 @@ export const softwareHouseAccountingIssuesArticle: Article = {
       type: 'image',
       src: '/articles/software-house-accounting-summary.webp',
       alt: 'دو الگ اکاؤنٹس اور مالک کی طے شدہ تنخواہ کے ذریعے کاروباری اور ذاتی خرچے الگ رکھنے کا حل۔',
+      width: 1920,
+      height: 1280,
     },
     { type: 'heading', text: 'پانچوں مسائل اور ہر ایک کا پہلا قدم' },
     { type: 'paragraph', text: 'پورا آرٹیکل ایک نظر میں:' },
@@ -392,6 +412,8 @@ export const softwareHouseAccountingIssuesArticle: Article = {
       type: 'image',
       src: '/articles/software-house-accounting-problems-footer.jpeg',
       alt: 'سافٹ ویئر ہاؤس کے پانچ اکاؤنٹنگ مسائل حل کرنے کی تکمیل — شمع.pk',
+      width: 1774,
+      height: 887,
     },
   ],
 };

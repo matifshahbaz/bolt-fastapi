@@ -6,6 +6,8 @@ export const careerDecisionAfterMatricArticle: Article = {
   excerpt:
     'ایک ہی کلاس سے نکلنے والوں کی زندگیاں اتنی مختلف کیوں ہوجاتی ہیں؟ میٹرک کے بعد کیریئر منتخب کرنے کا عملی طریقہ — دنیا کے کاموں کو دریافت کریں، اپنی تعلیم سے آگے یا پسندیدہ پیشے سے پیچھے کا راستہ دیکھیں، اپنے حالات ایمانداری سے پرکھیں اور باخبر فیصلہ کریں۔',
   coverImage: '/articles/after-matric-decision-hero.jpg',
+  coverImageWidth: 1280,
+  coverImageHeight: 720,
   category: 'کیریئر رہنمائی',
   author: 'عاطف شہباز',
   publishedAt: '20 ستمبر 2026',

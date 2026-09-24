@@ -6,6 +6,8 @@ export const systemsLimited50YearJourneyArticle: Article = {
   excerpt:
     'پاکستان کی پہلی سافٹ ویئر کمپنی نے بدلتی ٹیکنالوجی کے ساتھ خود کو کیسے بدلا اور دنیا تک کیسے پہنچی؟',
   coverImage: '/articles/systems-limited-docx-image-01.png',
+  coverImageWidth: 1500,
+  coverImageHeight: 883,
   category: 'کاروبار',
   author: 'عاطف شہباز',
   publishedAt: '23 اگست 2026',
@@ -28,6 +30,8 @@ export const systemsLimited50YearJourneyArticle: Article = {
       src: '/articles/systems-limited-docx-image-02.jpeg',
       alt: 'آئی بی ایم سسٹم 360 مین فریم کمپیوٹر',
       title: 'مین فریم کمپیوٹر کی تصویر، آئی بی ایم',
+      width: 1600,
+      height: 1200,
     },
     {
       type: 'paragraph',
@@ -64,6 +68,8 @@ export const systemsLimited50YearJourneyArticle: Article = {
       src: '/articles/systems-limited-docx-image-03.png',
       alt: 'فورٹران پروگرامنگ کے لیے استعمال ہونے والا پنچ کارڈ',
       title: '',
+      width: 600,
+      height: 268,
     },
     {
       type: 'paragraph',
@@ -103,6 +109,8 @@ export const systemsLimited50YearJourneyArticle: Article = {
       src: '/articles/systems-limited-docx-image-04.jpeg',
       alt: 'روشن اشاروں والے جدید سرورز کی قطاریں',
       title: '',
+      width: 1600,
+      height: 933,
     },
     {
       type: 'paragraph',
@@ -154,6 +162,8 @@ export const systemsLimited50YearJourneyArticle: Article = {
       src: '/articles/systems-limited-docx-image-05.png',
       alt: 'سسٹمز لمیٹڈ کے جدید دفتر کا اندرونی منظر',
       title: '',
+      width: 768,
+      height: 512,
     },
     {
       type: 'paragraph',
@@ -181,6 +191,8 @@ export const systemsLimited50YearJourneyArticle: Article = {
       src: '/articles/systems-limited-docx-image-06.jpeg',
       alt: 'کمپیوٹر سکرین پر مالی منڈی کے اعداد و شمار اور گراف',
       title: '',
+      width: 1620,
+      height: 1080,
     },
     {
       type: 'paragraph',
@@ -208,6 +220,8 @@ export const systemsLimited50YearJourneyArticle: Article = {
       src: '/articles/systems-limited-docx-image-07.jpeg',
       alt: 'سیڑھیوں کے اوپر روشن آسمان کا منظر',
       title: '',
+      width: 1600,
+      height: 1067,
     },
     { type: 'subheading', text: 'سبق 1: رجحان عام ہونے سے پہلے مسئلہ دیکھنا سیکھیں' },
     {
@@ -273,6 +287,8 @@ export const systemsLimited50YearJourneyArticle: Article = {
       src: '/articles/systems-limited-docx-image-08.jpeg',
       alt: 'درختوں کے درمیان آگے بڑھتا روشن راستہ',
       title: '',
+      width: 1600,
+      height: 2133,
     },
   ],
 };

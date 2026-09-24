@@ -6,6 +6,8 @@ export const freeWebsiteWithoutItExperienceArticle: Article = {
   excerpt:
     'Bolt.new کی مدد سے بغیر کوڈنگ اور بغیر کسی ابتدائی خرچے کے اپنی پہلی ویب سائٹ بنانے، اس میں تبدیلی کرنے اور انٹرنیٹ پر لائیو کرنے کی مکمل عملی رہنمائی۔',
   coverImage: '/articles/free-website-cover.webp',
+  coverImageWidth: 2048,
+  coverImageHeight: 1152,
   category: 'مہارتیں',
   author: 'عاطف شہباز',
   publishedAt: '11 اگست 2026',
@@ -40,6 +42,8 @@ export const freeWebsiteWithoutItExperienceArticle: Article = {
       type: 'image',
       src: '/articles/free-website-bolt-home.png',
       alt: 'Bolt.new کا ہوم پیج، جہاں نئی ویب سائٹ بنانے کے لیے پرامپٹ لکھا جاتا ہے۔',
+      width: 1920,
+      height: 1280,
     },
     {
       type: 'paragraph',
@@ -66,6 +70,8 @@ export const freeWebsiteWithoutItExperienceArticle: Article = {
       type: 'image',
       src: '/articles/free-website-prompt.png',
       alt: 'Bolt.new کے پرامپٹ باکس میں اکیڈمی کی ویب سائٹ کی مکمل تفصیل لکھی گئی ہے۔',
+      width: 2352,
+      height: 1040,
     },
     {
       type: 'paragraph',
@@ -90,6 +96,8 @@ export const freeWebsiteWithoutItExperienceArticle: Article = {
       type: 'image',
       src: '/articles/free-website-generating.png',
       alt: 'Bolt.new اکیڈمی کی ویب سائٹ کا کوڈ اور لائیو پری ویو تیار کر رہا ہے۔',
+      width: 1600,
+      height: 1067,
     },
     {
       type: 'callout',
@@ -110,6 +118,8 @@ export const freeWebsiteWithoutItExperienceArticle: Article = {
       type: 'image',
       src: '/articles/free-website-preview.png',
       alt: 'Bolt.new میں تیار ہونے والی اقراء اکیڈمی فیصل آباد کی مکمل ویب سائٹ کا پری ویو۔',
+      width: 1600,
+      height: 1067,
     },
     { type: 'heading', text: 'پانچواں قدم: باتوں باتوں میں تبدیلی کریں' },
     {
@@ -139,6 +149,8 @@ export const freeWebsiteWithoutItExperienceArticle: Article = {
       type: 'image',
       src: '/articles/free-website-deploy.png',
       alt: 'Bolt.new کا Deploy بٹن، جس کے ذریعے تیار ویب سائٹ انٹرنیٹ پر شائع کی جاتی ہے۔',
+      width: 1600,
+      height: 1067,
     },
     {
       type: 'paragraph',
@@ -185,6 +197,8 @@ export const freeWebsiteWithoutItExperienceArticle: Article = {
       type: 'image',
       src: '/articles/free-website-alternatives.png',
       alt: 'Lovable، v0 اور Replit سمیت ویب سائٹ بنانے والے متبادل اے آئی ٹولز۔',
+      width: 1600,
+      height: 1067,
     },
     { type: 'subheading', text: 'بونس ٹرک: اپنا کام ڈاؤن لوڈ کرکے محفوظ رکھیں' },
     {
@@ -195,6 +209,8 @@ export const freeWebsiteWithoutItExperienceArticle: Article = {
       type: 'image',
       src: '/articles/free-website-download.png',
       alt: 'Bolt.new سے مکمل ویب سائٹ کی فائلیں ZIP کی صورت میں ڈاؤن لوڈ کرنے کا آپشن۔',
+      width: 1600,
+      height: 1067,
     },
     {
       type: 'paragraph',
@@ -225,6 +241,8 @@ export const freeWebsiteWithoutItExperienceArticle: Article = {
       type: 'image',
       src: '/articles/free-website-footer.webp',
       alt: 'آج ہی اپنی مفت ویب سائٹ بنائیں: مفت، آسان، تیز اور پیشہ ورانہ۔',
+      width: 2048,
+      height: 1152,
     },
   ],
 };

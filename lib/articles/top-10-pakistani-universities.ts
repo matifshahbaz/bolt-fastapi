@@ -6,6 +6,8 @@ export const top10PakistaniUniversitiesArticle: Article = {
   excerpt:
     "QS World University Rankings 2027 کے مطابق پاکستان کی دس بہترین یونیورسٹیاں، ہر ایک کے نمبر پر آنے کی اصل وجہ، چھ اہم مضامین میں الگ درجہ بندی، فیس کا حقیقت پسندانہ موازنہ، داخلے کی ٹائم لائن اور آپ کے لیے صحیح یونیورسٹی چننے کا مختصر ٹول۔",
   coverImage: '/articles/pakistan-top-10-universities-hero-cobalt-aqua.png',
+  coverImageWidth: 1600,
+  coverImageHeight: 900,
   category: "کیریئر رہنمائی",
   author: "عاطف شہباز",
   publishedAt: "7 ستمبر 2026",
@@ -195,6 +197,8 @@ export const top10PakistaniUniversitiesArticle: Article = {
       type: 'image',
       src: '/articles/footer-top-10-universities-pakistan.jpeg',
       alt: "درست یونیورسٹی، مضبوط مستقبل - مزید تعلیمی اور کیریئر رہنمائی کے لیے شمع.pk۔",
+      width: 1672,
+      height: 650,
     },
   ],
 };
