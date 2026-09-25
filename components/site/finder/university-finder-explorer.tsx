@@ -1,24 +1,28 @@
 'use client';
 
 import { useMemo, useState, type ReactNode } from 'react';
-import { ArrowDownWideNarrow, Check, ChevronsUpDown, Search, SlidersHorizontal, X } from 'lucide-react';
+import { ArrowDownWideNarrow, Search, SlidersHorizontal, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { NativeSelect, NativeSelectOption } from '@/components/ui/native-select';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
-import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+import { ComboboxFilter, type ComboboxOption } from '@/components/site/finder/combobox-filter';
 import { UniversityFinderCard } from '@/components/site/finder/university-finder-card';
+import { useInfiniteReveal } from '@/hooks/use-infinite-reveal';
 import type { UniversityProgram } from '@/lib/finder-api';
 import {
   cityLabelsUr,
   degreeLevelLabelsUr,
   fieldGroupLabelsUr,
   labelFor,
+  sectorLabelsUr,
   universityNameLabelsUr,
+  universityShortNameEn,
 } from '@/lib/university-finder-labels';
-import { cn } from '@/lib/utils';
+
+// Rendering all matching cards at once (this dataset runs past 1000 rows) is a significant
+// main-thread cost with no user benefit up front, so results are revealed a page at a time.
+const RESULTS_PAGE_SIZE = 20;
 
 const selectFieldClassName =
   'w-full rounded-xl border-border/60 bg-secondary/30 transition-colors hover:bg-secondary/50 focus-visible:bg-background';
@@ -43,65 +47,31 @@ const sortOptions: { value: SortOption; label: string }[] = [
   { value: 'fee-desc', label: 'فیس: زیادہ سے کم' },
 ];
 
-function ProgramNameFilter({
-  value,
-  onChange,
-  options,
-}: {
-  value: string;
-  onChange: (value: string) => void;
-  options: string[];
-}) {
-  const [open, setOpen] = useState(false);
+// The six categorical filters participate in faceting: each one's available options are
+// computed from programs matching every OTHER active filter, so picking a value in one
+// narrows what's offered in the rest ("cascading" filters).
+type FilterKey = 'city' | 'fieldGroup' | 'sector' | 'university' | 'degreeLevel' | 'programName';
+type FilterState = Record<FilterKey, string>;
 
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="h-9 w-full justify-between rounded-xl border-border/60 bg-secondary/30 px-3 font-normal transition-colors hover:bg-secondary/50"
-        >
-          <span className="truncate">{value === 'all' ? 'تمام پروگرام' : value}</span>
-          <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-72 p-0" align="start">
-        <Command>
-          <CommandInput placeholder="پروگرام تلاش کریں" />
-          <CommandList>
-            <CommandEmpty>کوئی پروگرام نہیں ملا۔</CommandEmpty>
-            <CommandGroup>
-              <CommandItem
-                value="all"
-                onSelect={() => {
-                  onChange('all');
-                  setOpen(false);
-                }}
-              >
-                <Check className={cn('ml-2 h-4 w-4', value === 'all' ? 'opacity-100' : 'opacity-0')} />
-                تمام پروگرام
-              </CommandItem>
-              {options.map((option) => (
-                <CommandItem
-                  key={option}
-                  value={option}
-                  onSelect={() => {
-                    onChange(option);
-                    setOpen(false);
-                  }}
-                >
-                  <Check className={cn('ml-2 h-4 w-4', value === option ? 'opacity-100' : 'opacity-0')} />
-                  {option}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  );
+const FILTER_FIELD: Record<FilterKey, keyof UniversityProgram> = {
+  city: 'city',
+  fieldGroup: 'fieldGroup',
+  sector: 'sector',
+  university: 'universityName',
+  degreeLevel: 'degreeLevel',
+  programName: 'programNameEn',
+};
+
+function matchesFilters(program: UniversityProgram, filters: FilterState, excludeKey?: FilterKey): boolean {
+  return (Object.keys(FILTER_FIELD) as FilterKey[]).every((key) => {
+    if (key === excludeKey) return true;
+    const value = filters[key];
+    return value === 'all' || program[FILTER_FIELD[key]] === value;
+  });
+}
+
+function distinctSorted(programs: UniversityProgram[], key: keyof UniversityProgram): string[] {
+  return Array.from(new Set(programs.map((program) => String(program[key])))).sort();
 }
 
 function formatFeePkr(amount: number): string {
@@ -119,25 +89,121 @@ export function UniversityFinderExplorer({ universityPrograms }: { universityPro
   const [includeFeeUnknown, setIncludeFeeUnknown] = useState(true);
   const [sortBy, setSortBy] = useState<SortOption>('default');
 
-  const cities = useMemo(
-    () => Array.from(new Set(universityPrograms.map((program) => program.city))).sort(),
-    [universityPrograms]
+  const rawFilters: FilterState = { city, fieldGroup, sector, university, degreeLevel, programName };
+
+  const cityOptions = useMemo(
+    () => distinctSorted(universityPrograms.filter((p) => matchesFilters(p, rawFilters, 'city')), 'city'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [universityPrograms, fieldGroup, sector, university, degreeLevel, programName]
   );
-  const fieldGroups = useMemo(
-    () => Array.from(new Set(universityPrograms.map((program) => program.fieldGroup))).sort(),
-    [universityPrograms]
+  const fieldGroupOptions = useMemo(
+    () => distinctSorted(universityPrograms.filter((p) => matchesFilters(p, rawFilters, 'fieldGroup')), 'fieldGroup'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [universityPrograms, city, sector, university, degreeLevel, programName]
   );
-  const universities = useMemo(
-    () => Array.from(new Set(universityPrograms.map((program) => program.universityName))).sort(),
-    [universityPrograms]
+  const sectorOptions = useMemo(
+    () => distinctSorted(universityPrograms.filter((p) => matchesFilters(p, rawFilters, 'sector')), 'sector'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [universityPrograms, city, fieldGroup, university, degreeLevel, programName]
   );
-  const degreeLevels = useMemo(
-    () => Array.from(new Set(universityPrograms.map((program) => program.degreeLevel))).sort(),
-    [universityPrograms]
+  const universityOptions = useMemo(
+    () => distinctSorted(universityPrograms.filter((p) => matchesFilters(p, rawFilters, 'university')), 'universityName'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [universityPrograms, city, fieldGroup, sector, degreeLevel, programName]
   );
-  const programNames = useMemo(
-    () => Array.from(new Set(universityPrograms.map((program) => program.programNameEn))).sort(),
-    [universityPrograms]
+  const degreeLevelOptions = useMemo(
+    () => distinctSorted(universityPrograms.filter((p) => matchesFilters(p, rawFilters, 'degreeLevel')), 'degreeLevel'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [universityPrograms, city, fieldGroup, sector, university, programName]
+  );
+  const programNameOptions = useMemo(
+    () => distinctSorted(universityPrograms.filter((p) => matchesFilters(p, rawFilters, 'programName')), 'programNameEn'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [universityPrograms, city, fieldGroup, sector, university, degreeLevel]
+  );
+
+  // Derived ("soft reset") values: if a selection is no longer offered given the other active
+  // filters, treat it as 'all' for filtering/display purposes without clearing the underlying
+  // state — so it reappears automatically if the user relaxes the other filters again.
+  const effectiveCity = cityOptions.includes(city) ? city : 'all';
+  const effectiveFieldGroup = fieldGroupOptions.includes(fieldGroup) ? fieldGroup : 'all';
+  const effectiveSector = sectorOptions.includes(sector) ? sector : 'all';
+  const effectiveUniversity = universityOptions.includes(university) ? university : 'all';
+  const effectiveDegreeLevel = degreeLevelOptions.includes(degreeLevel) ? degreeLevel : 'all';
+  const effectiveProgramName = programNameOptions.includes(programName) ? programName : 'all';
+
+  const cityComboOptions: ComboboxOption[] = useMemo(
+    () =>
+      cityOptions.map((item) => ({
+        value: item,
+        label: labelFor(cityLabelsUr, item),
+        itemLabel: (
+          <span className="flex flex-col">
+            <span>{labelFor(cityLabelsUr, item)}</span>
+            <span className="text-xs text-muted-foreground">{item}</span>
+          </span>
+        ),
+        keywords: [item, labelFor(cityLabelsUr, item)],
+      })),
+    [cityOptions]
+  );
+
+  const universityComboOptions: ComboboxOption[] = useMemo(
+    () =>
+      universityOptions.map((item) => ({
+        value: item,
+        label: labelFor(universityNameLabelsUr, item),
+        itemLabel: (
+          <span className="flex flex-col">
+            <span>{labelFor(universityNameLabelsUr, item)}</span>
+            <span className="text-xs text-muted-foreground">{labelFor(universityShortNameEn, item)}</span>
+          </span>
+        ),
+        keywords: [item, labelFor(universityNameLabelsUr, item), labelFor(universityShortNameEn, item)],
+      })),
+    [universityOptions]
+  );
+
+  const fieldGroupComboOptions: ComboboxOption[] = useMemo(
+    () =>
+      fieldGroupOptions.map((item) => ({
+        value: item,
+        label: labelFor(fieldGroupLabelsUr, item),
+        itemLabel: (
+          <span className="flex flex-col">
+            <span>{labelFor(fieldGroupLabelsUr, item)}</span>
+            <span className="text-xs text-muted-foreground">{item}</span>
+          </span>
+        ),
+        keywords: [item, labelFor(fieldGroupLabelsUr, item)],
+      })),
+    [fieldGroupOptions]
+  );
+
+  const degreeLevelComboOptions: ComboboxOption[] = useMemo(
+    () =>
+      degreeLevelOptions.map((item) => ({
+        value: item,
+        label: labelFor(degreeLevelLabelsUr, item),
+        itemLabel: (
+          <span className="flex flex-col">
+            <span>{labelFor(degreeLevelLabelsUr, item)}</span>
+            <span className="text-xs text-muted-foreground">{item}</span>
+          </span>
+        ),
+        keywords: [item, labelFor(degreeLevelLabelsUr, item)],
+      })),
+    [degreeLevelOptions]
+  );
+
+  const programNameComboOptions: ComboboxOption[] = useMemo(
+    () =>
+      programNameOptions.map((item) => ({
+        value: item,
+        label: item,
+        keywords: [item],
+      })),
+    [programNameOptions]
   );
 
   const feeBounds = useMemo(() => {
@@ -161,12 +227,12 @@ export function UniversityFinderExplorer({ universityPrograms }: { universityPro
       ) {
         return false;
       }
-      if (city !== 'all' && program.city !== city) return false;
-      if (fieldGroup !== 'all' && program.fieldGroup !== fieldGroup) return false;
-      if (sector !== 'all' && program.sector !== sector) return false;
-      if (university !== 'all' && program.universityName !== university) return false;
-      if (degreeLevel !== 'all' && program.degreeLevel !== degreeLevel) return false;
-      if (programName !== 'all' && program.programNameEn !== programName) return false;
+      if (effectiveCity !== 'all' && program.city !== effectiveCity) return false;
+      if (effectiveFieldGroup !== 'all' && program.fieldGroup !== effectiveFieldGroup) return false;
+      if (effectiveSector !== 'all' && program.sector !== effectiveSector) return false;
+      if (effectiveUniversity !== 'all' && program.universityName !== effectiveUniversity) return false;
+      if (effectiveDegreeLevel !== 'all' && program.degreeLevel !== effectiveDegreeLevel) return false;
+      if (effectiveProgramName !== 'all' && program.programNameEn !== effectiveProgramName) return false;
       if (feeBounds) {
         if (program.includeInMainFeeFilter && program.feeFilterAmountPkr != null) {
           if (program.feeFilterAmountPkr > maxFee) return false;
@@ -179,16 +245,18 @@ export function UniversityFinderExplorer({ universityPrograms }: { universityPro
   }, [
     universityPrograms,
     query,
-    city,
-    fieldGroup,
-    sector,
-    university,
-    degreeLevel,
-    programName,
+    effectiveCity,
+    effectiveFieldGroup,
+    effectiveSector,
+    effectiveUniversity,
+    effectiveDegreeLevel,
+    effectiveProgramName,
     feeBounds,
     maxFee,
     includeFeeUnknown,
   ]);
+
+  const universityCount = useMemo(() => new Set(filtered.map((program) => program.universityName)).size, [filtered]);
 
   const sorted = useMemo(() => {
     if (sortBy === 'default') return filtered;
@@ -231,14 +299,29 @@ export function UniversityFinderExplorer({ universityPrograms }: { universityPro
     return list;
   }, [filtered, sortBy]);
 
+  const resultsSignature = [
+    query,
+    effectiveCity,
+    effectiveFieldGroup,
+    effectiveSector,
+    effectiveUniversity,
+    effectiveDegreeLevel,
+    effectiveProgramName,
+    sortBy,
+    maxFee,
+    includeFeeUnknown,
+  ].join('|');
+
+  const { visibleCount, sentinelRef } = useInfiniteReveal(sorted.length, RESULTS_PAGE_SIZE, resultsSignature);
+
   const hasActiveFilters =
     query.trim() !== '' ||
-    city !== 'all' ||
-    fieldGroup !== 'all' ||
-    sector !== 'all' ||
-    university !== 'all' ||
-    degreeLevel !== 'all' ||
-    programName !== 'all' ||
+    effectiveCity !== 'all' ||
+    effectiveFieldGroup !== 'all' ||
+    effectiveSector !== 'all' ||
+    effectiveUniversity !== 'all' ||
+    effectiveDegreeLevel !== 'all' ||
+    effectiveProgramName !== 'all' ||
     !includeFeeUnknown ||
     (feeBounds ? maxFee !== feeBounds.max : false);
 
@@ -276,70 +359,72 @@ export function UniversityFinderExplorer({ universityPrograms }: { universityPro
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <FilterField label="جامعہ">
-            <NativeSelect
-              value={university}
-              onChange={(event) => setUniversity(event.target.value)}
-              className={selectFieldClassName}
-            >
-              <NativeSelectOption value="all">تمام جامعات</NativeSelectOption>
-              {universities.map((item) => (
-                <NativeSelectOption key={item} value={item}>
-                  {labelFor(universityNameLabelsUr, item)}
-                </NativeSelectOption>
-              ))}
-            </NativeSelect>
+            <ComboboxFilter
+              value={effectiveUniversity}
+              onChange={setUniversity}
+              options={universityComboOptions}
+              allLabel="تمام جامعات"
+              placeholder="جامعہ تلاش کریں"
+              emptyText="کوئی جامعہ نہیں ملی۔"
+            />
           </FilterField>
 
           <FilterField label="شہر">
-            <NativeSelect value={city} onChange={(event) => setCity(event.target.value)} className={selectFieldClassName}>
-              <NativeSelectOption value="all">تمام شہر</NativeSelectOption>
-              {cities.map((item) => (
-                <NativeSelectOption key={item} value={item}>
-                  {labelFor(cityLabelsUr, item)}
-                </NativeSelectOption>
-              ))}
-            </NativeSelect>
+            <ComboboxFilter
+              value={effectiveCity}
+              onChange={setCity}
+              options={cityComboOptions}
+              allLabel="تمام شہر"
+              placeholder="شہر تلاش کریں"
+              emptyText="کوئی شہر نہیں ملا۔"
+            />
           </FilterField>
 
           <FilterField label="شعبہ">
-            <NativeSelect
-              value={fieldGroup}
-              onChange={(event) => setFieldGroup(event.target.value)}
-              className={selectFieldClassName}
-            >
-              <NativeSelectOption value="all">تمام شعبہ جات</NativeSelectOption>
-              {fieldGroups.map((item) => (
-                <NativeSelectOption key={item} value={item}>
-                  {labelFor(fieldGroupLabelsUr, item)}
-                </NativeSelectOption>
-              ))}
-            </NativeSelect>
+            <ComboboxFilter
+              value={effectiveFieldGroup}
+              onChange={setFieldGroup}
+              options={fieldGroupComboOptions}
+              allLabel="تمام شعبہ جات"
+              placeholder="شعبہ تلاش کریں"
+              emptyText="کوئی شعبہ نہیں ملا۔"
+            />
           </FilterField>
 
           <FilterField label="پروگرام">
-            <ProgramNameFilter value={programName} onChange={setProgramName} options={programNames} />
+            <ComboboxFilter
+              value={effectiveProgramName}
+              onChange={setProgramName}
+              options={programNameComboOptions}
+              allLabel="تمام پروگرام"
+              placeholder="پروگرام تلاش کریں"
+              emptyText="کوئی پروگرام نہیں ملا۔"
+            />
           </FilterField>
 
           <FilterField label="پروگرام کی سطح">
-            <NativeSelect
-              value={degreeLevel}
-              onChange={(event) => setDegreeLevel(event.target.value)}
-              className={selectFieldClassName}
-            >
-              <NativeSelectOption value="all">تمام سطحیں</NativeSelectOption>
-              {degreeLevels.map((item) => (
-                <NativeSelectOption key={item} value={item}>
-                  {labelFor(degreeLevelLabelsUr, item)}
-                </NativeSelectOption>
-              ))}
-            </NativeSelect>
+            <ComboboxFilter
+              value={effectiveDegreeLevel}
+              onChange={setDegreeLevel}
+              options={degreeLevelComboOptions}
+              allLabel="تمام سطحیں"
+              placeholder="سطح تلاش کریں"
+              emptyText="کوئی سطح نہیں ملی۔"
+            />
           </FilterField>
 
           <FilterField label="شعبہ (سرکاری/نجی)">
-            <NativeSelect value={sector} onChange={(event) => setSector(event.target.value)} className={selectFieldClassName}>
+            <NativeSelect
+              value={effectiveSector}
+              onChange={(event) => setSector(event.target.value)}
+              className={selectFieldClassName}
+            >
               <NativeSelectOption value="all">سرکاری اور نجی دونوں</NativeSelectOption>
-              <NativeSelectOption value="public">صرف سرکاری</NativeSelectOption>
-              <NativeSelectOption value="private">صرف نجی</NativeSelectOption>
+              {sectorOptions.map((item) => (
+                <NativeSelectOption key={item} value={item}>
+                  {labelFor(sectorLabelsUr, item)}
+                </NativeSelectOption>
+              ))}
             </NativeSelect>
           </FilterField>
         </div>
@@ -376,6 +461,7 @@ export function UniversityFinderExplorer({ universityPrograms }: { universityPro
 
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <span className="text-sm text-muted-foreground">
+          <span className="font-semibold text-foreground">{universityCount}</span> جامعات میں{' '}
           <span className="font-semibold text-foreground">{filtered.length}</span> پروگرام ملے
         </span>
 
@@ -417,11 +503,21 @@ export function UniversityFinderExplorer({ universityPrograms }: { universityPro
           ) : null}
         </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2">
-          {sorted.map((program) => (
-            <UniversityFinderCard key={program.id} program={program} />
-          ))}
-        </div>
+        <>
+          <div className="grid gap-6 md:grid-cols-2">
+            {sorted.slice(0, visibleCount).map((program, index) => (
+              <div key={program.id} className={index % 2 === 1 ? 'dark' : undefined}>
+                <UniversityFinderCard program={program} />
+              </div>
+            ))}
+          </div>
+
+          {visibleCount < sorted.length ? (
+            <div ref={sentinelRef} className="flex justify-center py-10">
+              <span className="text-sm text-muted-foreground">مزید نتائج لوڈ ہو رہے ہیں…</span>
+            </div>
+          ) : null}
+        </>
       )}
     </div>
   );

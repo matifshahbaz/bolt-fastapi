@@ -17,6 +17,8 @@ import {
   Building,
   Pill,
   Landmark,
+  Syringe,
+  Tractor,
   type LucideIcon,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -26,6 +28,7 @@ import {
   degreeLevelLabelsUr,
   fieldGroupLabelsUr,
   labelFor,
+  sectorLabelsUr,
   universityNameLabelsUr,
   universityShortNameEn,
 } from '@/lib/university-finder-labels';
@@ -123,6 +126,21 @@ const fieldGroupStyles: Record<string, FieldStyle> = {
     iconBg: 'bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-lg shadow-indigo-500/30',
     bar: 'bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-600',
   },
+  Nursing: {
+    icon: Syringe,
+    iconBg: 'bg-gradient-to-br from-cyan-500 to-cyan-600 text-white shadow-lg shadow-cyan-500/30',
+    bar: 'bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600',
+  },
+  Pharmacy: {
+    icon: Pill,
+    iconBg: 'bg-gradient-to-br from-pink-500 to-pink-600 text-white shadow-lg shadow-pink-500/30',
+    bar: 'bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600',
+  },
+  'Agriculture / Veterinary': {
+    icon: Tractor,
+    iconBg: 'bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg shadow-green-500/30',
+    bar: 'bg-gradient-to-r from-green-400 via-green-500 to-green-600',
+  },
 };
 
 const defaultFieldStyle: FieldStyle = {
@@ -154,12 +172,10 @@ export function UniversityFinderCard({ program }: { program: UniversityProgram }
               <FieldIcon className="h-5 w-5" strokeWidth={1.75} />
             </div>
             <div>
-              <h3 className="text-xl font-nastaliq text-accent leading-relaxed">
-                {labelFor(universityNameLabelsUr, program.universityName)}
-              </h3>
-              <p className="text-sm tracking-wide text-muted-foreground">
-                {labelFor(universityShortNameEn, program.universityName)}
-              </p>
+              <h3 className="text-2xl font-bold leading-snug text-foreground">{program.programNameEn}</h3>
+              {program.programNameUr ? (
+                <p className="mt-0.5 text-base text-muted-foreground">{program.programNameUr}</p>
+              ) : null}
             </div>
           </div>
           <Badge
@@ -169,45 +185,48 @@ export function UniversityFinderCard({ program }: { program: UniversityProgram }
                 : 'border-transparent bg-accent text-accent-foreground shadow-sm shadow-accent/20'
             }
           >
-            {program.sector === 'public' ? 'سرکاری' : 'نجی'}
+            {labelFor(sectorLabelsUr, program.sector)}
           </Badge>
         </div>
 
         <p className="mb-4 flex items-center gap-1.5 text-base text-muted-foreground">
           <MapPin className="h-4 w-4 shrink-0" />
-          {program.campusName} — {labelFor(cityLabelsUr, program.city)}, {program.province}
+          {program.campusName} — {labelFor(cityLabelsUr, program.city)} ({program.city}), {program.province}
         </p>
 
         <div className="mb-4 rounded-2xl border border-border/50 bg-gradient-to-b from-secondary/60 to-secondary/30 p-4">
-          <p className="font-medium leading-relaxed text-foreground">
-            {program.programNameEn}
-            {program.programNameUr ? <span className="text-muted-foreground"> — {program.programNameUr}</span> : null}
+          <p className="font-nastaliq text-lg leading-relaxed text-accent">
+            {labelFor(universityNameLabelsUr, program.universityName)}
+            <span className="text-sm font-sans text-muted-foreground"> — {labelFor(universityShortNameEn, program.universityName)}</span>
           </p>
-          <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm text-muted-foreground">
-            <span className="flex items-center gap-1">
-              <GraduationCap className="h-3.5 w-3.5" />
+          <div className="mt-3 flex flex-wrap items-center gap-1.5">
+            <span className="inline-flex items-center gap-1 rounded-full bg-background/80 px-2.5 py-1 text-xs font-medium text-foreground/80">
+              <GraduationCap className="h-3 w-3" />
               {labelFor(degreeLevelLabelsUr, program.degreeLevel)}
             </span>
-            {program.durationYears ? <span>{program.durationYears} سال</span> : null}
-            <span>{labelFor(fieldGroupLabelsUr, program.fieldGroup)}</span>
-          </p>
+            {program.durationYears ? (
+              <span className="inline-flex items-center rounded-full bg-background/80 px-2.5 py-1 text-xs font-medium text-foreground/80">
+                {program.durationYears} سال
+              </span>
+            ) : null}
+            <span className="inline-flex items-center rounded-full bg-background/80 px-2.5 py-1 text-xs font-medium text-foreground/80">
+              {labelFor(fieldGroupLabelsUr, program.fieldGroup)}
+            </span>
+          </div>
         </div>
 
-        <div className="mb-5">
+        <div className="mb-4">
           {program.includeInMainFeeFilter && program.feeFilterAmountPkr ? (
             <div className="flex items-start gap-2.5 rounded-2xl border border-primary/15 bg-gradient-to-br from-primary/10 to-primary/[0.03] p-4">
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
                 <Banknote className="h-4 w-4" />
               </div>
-              <div>
-                <p className="font-semibold text-foreground">
-                  {formatFeePkr(program.feeFilterAmountPkr)}
-                  {program.feeBasisLabelUr ? (
-                    <span className="text-sm font-normal text-muted-foreground"> — {program.feeBasisLabelUr}</span>
-                  ) : null}
-                </p>
-                {program.feeWarningUr ? <p className="text-sm text-muted-foreground">{program.feeWarningUr}</p> : null}
-              </div>
+              <p className="font-semibold text-foreground">
+                {formatFeePkr(program.feeFilterAmountPkr)}
+                {program.feeBasisLabelUr ? (
+                  <span className="text-sm font-normal text-muted-foreground"> — {program.feeBasisLabelUr}</span>
+                ) : null}
+              </p>
             </div>
           ) : (
             <div className="flex items-start gap-2 px-1">
@@ -222,11 +241,10 @@ export function UniversityFinderCard({ program }: { program: UniversityProgram }
             href={program.programUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group/cta relative mt-auto flex items-center justify-center gap-1.5 overflow-hidden rounded-xl bg-primary py-3 text-base font-medium text-primary-foreground shadow-md shadow-primary/25 transition-shadow hover:shadow-lg hover:shadow-primary/35"
+            className="group/cta mt-auto flex items-center justify-end gap-1 border-t border-border/50 pt-3 text-sm font-medium text-primary transition-colors hover:text-primary/80"
           >
-            <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/25 to-transparent" />
-            <span className="relative">پروگرام کی تفصیل</span>
-            <ArrowLeft className="relative h-4 w-4 transition-transform group-hover/cta:-translate-x-0.5" />
+            پروگرام کی تفصیل دیکھیں
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover/cta:-translate-x-0.5" />
           </a>
         ) : null}
       </div>

@@ -5,10 +5,11 @@ Requires openpyxl (see requirements.txt).
 
 The source file lives outside this repository, alongside the rest of the
 editable content archive (see AGENTS.md). It is the latest consolidated
-master workbook (currently the batch07 KPK/Balochistan/Sindh file); update
-DEFAULT_XLSX_PATH below whenever a newer consolidated batch file replaces it:
+master workbook (currently the batch08 "more universities / fee audit"
+file); update DEFAULT_XLSX_PATH below whenever a newer consolidated batch
+file replaces it:
 
-    C:\\Users\\97156\\Desktop\\Personal\\Shama.pk\\Tools\\University finder\\shama_pk_university_finder_batch07_kpk_balochistan_sindh (1) 2.xlsx
+    C:\\Users\\97156\\Desktop\\Personal\\Shama.pk\\Tools\\University finder\\shama_pk_university_finder_batch08_more_universities_fee_audit.xlsx
 
 Only the "Public_Data_View" sheet is read (per that workbook's own
 Claude_Handoff sheet: it is the pre-normalized, fee-safe, one-row-per-campus-
@@ -36,7 +37,7 @@ from app.core.db import get_db_session, init_db
 from app.models import UniversityProgramModel
 
 DEFAULT_XLSX_PATH = Path(
-    r"C:\Users\97156\Desktop\Personal\Shama.pk\Tools\University finder\shama_pk_university_finder_batch07_kpk_balochistan_sindh (1) 2.xlsx"
+    r"C:\Users\97156\Desktop\Personal\Shama.pk\Tools\University finder\shama_pk_university_finder_batch08_more_universities_fee_audit.xlsx"
 )
 SHEET_NAME = "Public_Data_View"
 

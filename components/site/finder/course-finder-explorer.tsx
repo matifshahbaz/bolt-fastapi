@@ -5,6 +5,7 @@ import { Search, SlidersHorizontal, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { NativeSelect, NativeSelectOption } from '@/components/ui/native-select';
 import { CourseFinderCard } from '@/components/site/finder/course-finder-card';
+import { useInfiniteReveal } from '@/hooks/use-infinite-reveal';
 import type { CourseFinderListing } from '@/lib/finder-api';
 
 const durationLabels: Record<string, string> = {
@@ -12,6 +13,8 @@ const durationLabels: Record<string, string> = {
   medium: 'درمیانی (تقریباً 2-3 ماہ)',
   long: 'طویل (3 ماہ سے زیادہ)',
 };
+
+const RESULTS_PAGE_SIZE = 20;
 
 export function CourseFinderExplorer({ listings }: { listings: CourseFinderListing[] }) {
   const [query, setQuery] = useState('');
@@ -40,6 +43,9 @@ export function CourseFinderExplorer({ listings }: { listings: CourseFinderListi
   }, [listings, query, subject, price, duration]);
 
   const hasActiveFilters = query.trim() !== '' || subject !== 'all' || price !== 'all' || duration !== 'all';
+
+  const resultsSignature = [query, subject, price, duration].join('|');
+  const { visibleCount, sentinelRef } = useInfiniteReveal(filtered.length, RESULTS_PAGE_SIZE, resultsSignature);
 
   const clearFilters = () => {
     setQuery('');
@@ -111,11 +117,21 @@ export function CourseFinderExplorer({ listings }: { listings: CourseFinderListi
           ) : null}
         </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((listing) => (
-            <CourseFinderCard key={listing.id} listing={listing} />
-          ))}
-        </div>
+        <>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {filtered.slice(0, visibleCount).map((listing, index) => (
+              <div key={listing.id} className={index % 2 === 1 ? 'dark' : undefined}>
+                <CourseFinderCard listing={listing} />
+              </div>
+            ))}
+          </div>
+
+          {visibleCount < filtered.length ? (
+            <div ref={sentinelRef} className="flex justify-center py-10">
+              <span className="text-sm text-muted-foreground">مزید نتائج لوڈ ہو رہے ہیں…</span>
+            </div>
+          ) : null}
+        </>
       )}
     </div>
   );

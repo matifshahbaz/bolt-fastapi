@@ -1,4 +1,5 @@
 import { apiBaseUrl } from '@/lib/api';
+import { normalizeFieldGroup } from '@/lib/university-finder-labels';
 
 export type CourseFinderListing = {
   id: number;
@@ -121,8 +122,11 @@ type ApiScholarship = {
 };
 
 async function fetchFinderContent<T>(path: string): Promise<T> {
+  // This data only changes when an administrator re-runs an import script (course/university/
+  // scholarship finder), not from live user activity, so a short revalidation window avoids a
+  // live backend round trip (and its DB query) on every single page load.
   const response = await fetch(`${apiBaseUrl}${path}`, {
-    cache: 'no-store',
+    next: { revalidate: 3600 },
   });
 
   if (!response.ok) {
@@ -168,7 +172,7 @@ function mapUniversityProgram(program: ApiUniversityProgram): UniversityProgram 
     degreeLevel: program.degree_level,
     programNameEn: program.program_name_en,
     programNameUr: program.program_name_ur,
-    fieldGroup: program.field_group,
+    fieldGroup: normalizeFieldGroup(program.field_group),
     discipline: program.discipline,
     durationYears: program.duration_years,
     semesters: program.semesters,

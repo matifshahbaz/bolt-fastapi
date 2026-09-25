@@ -23,11 +23,15 @@ const config: Config = {
     extend: {
       fontFamily: {
         nastaliq: [
+          // Noto Nastaliq Urdu first: self-hosted via next/font (subset, always loads fast and
+          // reliably), so it's what actually renders. Jameel Noori Nastaleeq is a ~7MB decorative
+          // face kept as a lower-priority fallback — with Noto resolving successfully first, the
+          // browser never needs to fetch it, avoiding the multi-MB background download site-wide.
+          'var(--font-noto-nastaliq-urdu)',
           'Jameel Noori Nastaleeq',
           'Urdu Typesetting',
           'Nafees Nastaleeq',
           'Nafees Nastaliq',
-          'var(--font-noto-nastaliq-urdu)',
           'serif',
         ],
       },
